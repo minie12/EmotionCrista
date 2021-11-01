@@ -2,6 +2,9 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Proto
+    - Proto45
+    - Proto66
+    - SelectScene
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
@@ -26,12 +29,128 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.Dropdown
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.Mask
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
   sceneClasses:
-    Assets/Scenes/SampleScene.unity:
+    Assets/Scenes/Gem45.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1512}
+    - Class: 114
+      Script: {instanceID: 2204}
+    - Class: 114
+      Script: {instanceID: 2390}
+    - Class: 114
+      Script: {instanceID: 2620}
+    - Class: 114
+      Script: {instanceID: 2780}
+    - Class: 114
+      Script: {instanceID: 2996}
+    - Class: 114
+      Script: {instanceID: 3240}
+    - Class: 114
+      Script: {instanceID: 3352}
+    - Class: 114
+      Script: {instanceID: 123788}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Gem66.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1512}
+    - Class: 114
+      Script: {instanceID: 2204}
+    - Class: 114
+      Script: {instanceID: 2390}
+    - Class: 114
+      Script: {instanceID: 2620}
+    - Class: 114
+      Script: {instanceID: 2780}
+    - Class: 114
+      Script: {instanceID: 2996}
+    - Class: 114
+      Script: {instanceID: 3240}
+    - Class: 114
+      Script: {instanceID: 3352}
+    - Class: 114
+      Script: {instanceID: 4792}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Gem90.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -57,13 +176,78 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2204}
     - Class: 114
-      Script: {instanceID: 2618}
+      Script: {instanceID: 2390}
     - Class: 114
-      Script: {instanceID: 2778}
+      Script: {instanceID: 2620}
     - Class: 114
-      Script: {instanceID: 2994}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 3238}
+      Script: {instanceID: 2996}
+    - Class: 114
+      Script: {instanceID: 3240}
+    - Class: 114
+      Script: {instanceID: 3352}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Main.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1512}
+    - Class: 114
+      Script: {instanceID: 1630}
+    - Class: 114
+      Script: {instanceID: 2204}
+    - Class: 114
+      Script: {instanceID: 2390}
+    - Class: 114
+      Script: {instanceID: 2620}
+    - Class: 114
+      Script: {instanceID: 2780}
+    - Class: 114
+      Script: {instanceID: 2996}
+    - Class: 114
+      Script: {instanceID: 3240}
+    - Class: 114
+      Script: {instanceID: 3250}
+    - Class: 114
+      Script: {instanceID: 3352}
+    - Class: 114
+      Script: {instanceID: 4148}
+    - Class: 114
+      Script: {instanceID: 4354}
+    - Class: 114
+      Script: {instanceID: 4550}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -181,7 +365,7 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
-      Hash: 6f53293005f705fc7de20accd989d414
+      Hash: 778cc06dfbfa7faa89ad2b48eccc2f31
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Proto
@@ -215,6 +399,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: RawImage
+  - hash:
+      serializedVersion: 2
+      Hash: d7cca3b66854127334db797d16797edb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SelectScene
   - hash:
       serializedVersion: 2
       Hash: cfdd0010efd7b54c2b7512656dbc9119
@@ -553,6 +743,12 @@ ScriptsOnlyBuild:
     className: SpriteSkinEntity
   - hash:
       serializedVersion: 2
+      Hash: 778cc06dfbfa7faa89ad2b48eccc2f31
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Proto66
+  - hash:
+      serializedVersion: 2
       Hash: 28cfb4bd305dd11c6326cc3ee7c14138
     assemblyName: Unity.2D.Animation.Runtime.dll
     namespaceName: UnityEngine.Experimental.U2D.Animation
@@ -617,7 +813,16 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: FabrikSolver2D
+  - hash:
+      serializedVersion: 2
+      Hash: 778cc06dfbfa7faa89ad2b48eccc2f31
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Proto45
   platform: 19
   scenePathNames:
-  - Assets/Scenes/SampleScene.unity
-  playerPath: D:/_EJ/Unity/Emotion/Output/1.0/Crista.exe
+  - Assets/Scenes/Main.unity
+  - Assets/Scenes/Gem90.unity
+  - Assets/Scenes/Gem66.unity
+  - Assets/Scenes/Gem45.unity
+  playerPath: D:/_EJ/Unity/Emotion/Output/Crista 1.1/Crista.exe

@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Gem
+  - GemEffect
   layers:
   - Default
   - TransparentFX
@@ -12,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Effect
-  - Jewel
+  - Gem
   - 
   - 
   - 
@@ -47,6 +49,6 @@ TagManager:
   - name: Effect
     uniqueID: 4171188993
     locked: 0
-  - name: Jewel
+  - name: Gem
     uniqueID: 1949779047
     locked: 0
