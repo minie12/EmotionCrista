@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefd29202c5d24545b7c53cb4662042b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jewels_obj:
+  gems_obj:
   - {fileID: 1043381377}
   - {fileID: 1036312700}
   - {fileID: 68744481}
@@ -2646,18 +2646,24 @@ MonoBehaviour:
   - {fileID: 1437761290}
   - {fileID: 944024763}
   - {fileID: 0}
-  jewel_clicked: {fileID: 1751179797}
+  gem_clicked: {fileID: 1751179797}
   score:
   - {fileID: 1396175137}
   - {fileID: 1804645040}
   - {fileID: 236948693}
   - {fileID: 433475654}
   - {fileID: 970316228}
-  goalSprite: {fileID: 1380393246}
+  goal_sprite: {fileID: 1380393246}
   goalSprites:
-  - {fileID: 21300000, guid: 9707d509baf7e684e9d512f982dba164, type: 3}
-  - {fileID: 21300000, guid: c188e51b1bbc0094681697c69b132c27, type: 3}
-  - {fileID: 21300000, guid: 82e1f5a0995e25749ad599731b310f08, type: 3}
+  - {fileID: 21300000, guid: a2e13a72d4121af4182b7cd25d519469, type: 3}
+  - {fileID: 21300000, guid: 8e1493daaffefc24d978684585a5ab61, type: 3}
+  - {fileID: 21300000, guid: b4560274fab884244b532109b20a3bff, type: 3}
+  - {fileID: 21300000, guid: 4ff15124e075e5d468cc9bd8d5444225, type: 3}
+  - {fileID: 21300000, guid: 5385b54927f58b74083187afc3879829, type: 3}
+  - {fileID: 21300000, guid: 2fe4da189d342e745b382a068d1fac25, type: 3}
+  - {fileID: 21300000, guid: 9ce05dea8bcd7154aa9b9313aaa7dc49, type: 3}
+  - {fileID: 21300000, guid: a0ea39e27f3dada4fb6efd2426402c94, type: 3}
+  - {fileID: 21300000, guid: 4cccf26dc4e8ffa4cabbb3da33f089dc, type: 3}
 --- !u!4 &374927287
 Transform:
   m_ObjectHideFlags: 0
@@ -7462,7 +7468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1242541510}
   m_Layer: 7
-  m_Name: jewels
+  m_Name: gems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7995,12 +8001,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c188e51b1bbc0094681697c69b132c27, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2e13a72d4121af4182b7cd25d519469, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.76, y: 1.52}
+  m_Size: {x: 2.29, y: 1.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9340,7 +9346,7 @@ GameObject:
   - component: {fileID: 1751179800}
   - component: {fileID: 1751179799}
   m_Layer: 6
-  m_Name: jewel_click
+  m_Name: gem_click
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,8 +1,6 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - Proto
-    - Proto45
     - Proto66
     - SelectScene
     Unity.2D.Animation.Editor.dll:
@@ -40,61 +38,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
   sceneClasses:
-    Assets/Scenes/Gem45.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 58
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 1512}
-    - Class: 114
-      Script: {instanceID: 2204}
-    - Class: 114
-      Script: {instanceID: 2390}
-    - Class: 114
-      Script: {instanceID: 2620}
-    - Class: 114
-      Script: {instanceID: 2780}
-    - Class: 114
-      Script: {instanceID: 2996}
-    - Class: 114
-      Script: {instanceID: 3240}
-    - Class: 114
-      Script: {instanceID: 3352}
-    - Class: 114
-      Script: {instanceID: 123788}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 196
-      Script: {instanceID: 0}
-    - Class: 212
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
     Assets/Scenes/Gem66.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -131,62 +74,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3352}
     - Class: 114
-      Script: {instanceID: 4792}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 196
-      Script: {instanceID: 0}
-    - Class: 212
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
-    Assets/Scenes/Gem90.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 58
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 1512}
-    - Class: 114
-      Script: {instanceID: 2194}
-    - Class: 114
-      Script: {instanceID: 2204}
-    - Class: 114
-      Script: {instanceID: 2390}
-    - Class: 114
-      Script: {instanceID: 2620}
-    - Class: 114
-      Script: {instanceID: 2780}
-    - Class: 114
-      Script: {instanceID: 2996}
-    - Class: 114
-      Script: {instanceID: 3240}
-    - Class: 114
-      Script: {instanceID: 3352}
+      Script: {instanceID: 4794}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -247,7 +135,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4354}
     - Class: 114
-      Script: {instanceID: 4550}
+      Script: {instanceID: 4552}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -695,6 +583,12 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
+      Hash: 778cc06dfbfa7faa89ad2b48eccc2f31
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Proto45
+  - hash:
+      serializedVersion: 2
       Hash: 3165968ba45c74472d279ba04455fccb
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -743,7 +637,7 @@ ScriptsOnlyBuild:
     className: SpriteSkinEntity
   - hash:
       serializedVersion: 2
-      Hash: 778cc06dfbfa7faa89ad2b48eccc2f31
+      Hash: f6e7048ebda810b6f95e867e4ec29be2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Proto66
@@ -813,16 +707,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: FabrikSolver2D
-  - hash:
-      serializedVersion: 2
-      Hash: 778cc06dfbfa7faa89ad2b48eccc2f31
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Proto45
   platform: 19
   scenePathNames:
   - Assets/Scenes/Main.unity
-  - Assets/Scenes/Gem90.unity
   - Assets/Scenes/Gem66.unity
-  - Assets/Scenes/Gem45.unity
-  playerPath: D:/_EJ/Unity/Emotion/Output/Crista 1.1/Crista.exe
+  playerPath: D:/_EJ/Unity/Emotion/Output/Crista 1.2/Crista.exe
