@@ -26,7 +26,7 @@ public class Proto66 : MonoBehaviour
     private int[,,] goal_shape;
 
     private bool clicked = false;
-    private bool mutexPop = false;
+    private bool mutex_pop = false;
     private int gem_num = -1;
 
     // goal gem related
@@ -36,6 +36,8 @@ public class Proto66 : MonoBehaviour
 
     private int timer = 1;
     private int goal_choice = 0;
+    private int fever_count = 0;
+    private bool fever = false;
 
 
     // Start is called before the first frame update
@@ -55,6 +57,7 @@ public class Proto66 : MonoBehaviour
                 break;
         }
          
+        // set goal_shape
         goal_choice = Random.Range(0, 3);
         goal_sprite.GetComponent<SpriteRenderer>().sprite = goalSprites[3*goal_num+goal_choice];
 
@@ -95,7 +98,13 @@ public class Proto66 : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
             if (hit.collider != null)  // if mouse clicks on object
             {
-                if(hit.collider.gameObject.tag == "Gem" && !mutexPop){
+                if(fever){
+                    if(hit.collider.gameObject.tag == "Gem"){
+                        gem_num = int.Parse(hit.collider.gameObject.name);
+                        StartCoroutine(pop_gems(gem_num));
+                    }
+                }
+                else if(hit.collider.gameObject.tag == "Gem" && !mutex_pop){
                     gem_num = int.Parse(hit.collider.gameObject.name);
                     int row_n = (gem_num / 6) % 2;
                     //Debug.Log("hit: " + gem_num);
@@ -115,8 +124,15 @@ public class Proto66 : MonoBehaviour
                         }
                     }
                     if (all_same){
+                        if(gems[gem_num] != RED) fever_count++;
+
                         score[gems[gem_num]].text = (int.Parse(score[gems[gem_num]].text)+3+goal_num).ToString();
                         StartCoroutine(pop_gems(gem_num));
+
+                        if(fever_count == 5){
+                            fever = true;
+                            fever_on();
+                        }
                     }
                     else if(no_turn.Contains(gem_num)){
                         gem_clicked.SetActive(false);
@@ -129,7 +145,7 @@ public class Proto66 : MonoBehaviour
                         clicked = true;
                     }
                 }
-                else if(hit.collider.gameObject.tag == "GemEffect" && !mutexPop){
+                else if(hit.collider.gameObject.tag == "GemEffect" && !mutex_pop){
                     // check if same as goal shape
                     int row_n = (gem_num / 6) % 2;
                     bool all_same = true;
@@ -145,9 +161,17 @@ public class Proto66 : MonoBehaviour
                             break;
                         }
                     }
+                    // pop gems as it is equal to goal shape
                     if (all_same){
+                        if(gems[gem_num] != RED) fever_count++;
+
                         score[gems[gem_num]].text = (int.Parse(score[gems[gem_num]].text)+1).ToString();
                         StartCoroutine(pop_gems(gem_num));
+
+                        if(fever_count == 5){
+                            fever = true;
+                            fever_on();
+                        }
                     }
                 }
             }
@@ -165,9 +189,23 @@ public class Proto66 : MonoBehaviour
         }
     }
 
+    void fever_on(){
+        // change gem colors to RED
+        for(int i = 0; i < 11; i++)
+        {
+            for(int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0) break;
+
+                gems[i*6 + j] = RED;
+                gems_obj[i * 6 + j].GetComponent<SpriteRenderer>().color = gem_color[RED];
+            }
+        }
+    }
+
     IEnumerator pop_gems(int n)
     {
-        mutexPop = true;
+        mutex_pop = true;
         clicked = false;
         gem_clicked.SetActive(false);
 
@@ -208,7 +246,7 @@ public class Proto66 : MonoBehaviour
             }
         }
 
-        mutexPop = false;
+        mutex_pop = false;
     }
 
     void turn_gems(char keycode, int n)
