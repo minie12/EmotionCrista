@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class GemInfo : MonoBehaviour
 {
-    private MiniMain main;
+    private BoardManager board;
     public int column, row;
     public int color;
 
     void Start(){
-        main = GameObject.Find("MainManager").GetComponent<MiniMain>();
+        board = GameObject.Find("Board").GetComponent<BoardManager>();
+    }
+
+    public void PrintInfo(){
+        Debug.Log(column+ " " + row + " " + color);
     }
 
     // Start is called before the first frame update
     void OnMouseUp(){
-        if(main.gem_movable){
-            main.GemClick(column, row, this.transform);
+        if(board.gem_movable && !board.fever_on){
+            board.GemClick(column, row);
+        }
+        else if(board.fever_on){
+            board.FeverClick(column,row);
         }
     }
 
@@ -31,11 +38,10 @@ public class GemInfo : MonoBehaviour
 
         StartCoroutine(MoveGemC(time));
     }
-    private IEnumerator MoveGemC(float time){    
-        main.gem_movable = false;
-
+    IEnumerator MoveGemC(float time){    
         Vector3 start_pos = transform.position;
-        Vector3 end_pos = main.board_tiles[column, row].transform.position;
+        yield return new WaitForSeconds(0.05f); // used to prevent many accesses to GetPosition() at the same time
+        Vector3 end_pos = board.GetPosition(column, row);
 
         for(float t = 0; t <= 1 * time; t += Time.deltaTime){
             transform.position = Vector3.Lerp(start_pos, end_pos, t / time);
@@ -43,8 +49,5 @@ public class GemInfo : MonoBehaviour
         }
 
         transform.position = end_pos;
-
-        yield return new WaitForSeconds(0.2f); // need to check on this (to prevent user from clicking while moving the GEM)
-        main.gem_movable = true;
     }
 }

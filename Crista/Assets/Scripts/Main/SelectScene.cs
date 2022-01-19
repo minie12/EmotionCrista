@@ -12,7 +12,7 @@ public class SelectScene : MonoBehaviour
 
     public void SceneTransferMain(){
         goalNum = goalOption.value;
-        Debug.Log(goalOption.value+3);
+        Debug.Log(goalOption.value+2);
 
         PlayerPrefs.SetInt("goalNum", goalNum);
 
