@@ -5,6 +5,7 @@ using UnityEngine;
 public class GemInfo : MonoBehaviour
 {
     private BoardManager board;
+    public GameObject outline;
     public int column, row;
     public int color;
 
@@ -39,6 +40,7 @@ public class GemInfo : MonoBehaviour
         StartCoroutine(MoveGemC(time));
     }
     IEnumerator MoveGemC(float time){    
+        // board.gem_movable = false;
         Vector3 start_pos = transform.position;
         yield return new WaitForSeconds(0.05f); // used to prevent many accesses to GetPosition() at the same time
         Vector3 end_pos = board.GetPosition(column, row);
@@ -49,5 +51,6 @@ public class GemInfo : MonoBehaviour
         }
 
         transform.position = end_pos;
+        // board.gem_movable = true;
     }
 }

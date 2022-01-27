@@ -10,6 +10,7 @@ TagManager:
   - BlueGem
   - YellowGem
   - PurpleGem
+  - Gem
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 297710347
+    locked: 0
+  - name: Board
+    uniqueID: 2711993867
     locked: 0
   - name: Effect
     uniqueID: 4171188993
