@@ -1,0 +1,912 @@
+fileFormatVersion: 2
+guid: 427baac4f78a5614c9b2f9b4c808a52d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2696904812385676797
+    second: goal3_0
+  - first:
+      213: -2177068560360716653
+    second: goal3_1
+  - first:
+      213: 7858373217982878438
+    second: goal3_2
+  - first:
+      213: 8191608809030926529
+    second: goal3_3
+  - first:
+      213: 9037360758074105147
+    second: goal3_4
+  - first:
+      213: -595831132141500466
+    second: goal3_5
+  - first:
+      213: -6211450546270705264
+    second: goal3_6
+  - first:
+      213: -2587902318474284031
+    second: goal3_7
+  - first:
+      213: -3693147536342008517
+    second: goal3_8
+  - first:
+      213: -1521645673169872153
+    second: goal3_9
+  - first:
+      213: 7612576172611069821
+    second: goal3_10
+  - first:
+      213: 5529713916595990852
+    second: goal3_11
+  - first:
+      213: 6312358759614231070
+    second: goal3_12
+  - first:
+      213: 3122033414810473124
+    second: goal3_13
+  - first:
+      213: -4845951632212199489
+    second: goal3_14
+  - first:
+      213: -875182515649416846
+    second: goal3_15
+  - first:
+      213: 1371727212962178206
+    second: goal3_16
+  - first:
+      213: -3177580529883088925
+    second: goal3_17
+  - first:
+      213: -4698538777063253551
+    second: goal3_18
+  - first:
+      213: -1519822720396770109
+    second: goal3_19
+  - first:
+      213: 6291621598696843672
+    second: goal3_20
+  - first:
+      213: 2384626302577829085
+    second: goal3_21
+  - first:
+      213: 2839693577356503073
+    second: goal3_22
+  - first:
+      213: -7670179237913588278
+    second: goal3_23
+  - first:
+      213: -1438976342129317672
+    second: goal3_24
+  - first:
+      213: 305737739248390821
+    second: goal3_25
+  - first:
+      213: 9220979940094034390
+    second: goal3_26
+  - first:
+      213: -7149780691158003451
+    second: goal3_27
+  - first:
+      213: -225751593451501856
+    second: goal3_28
+  - first:
+      213: -4067234813677330670
+    second: goal3_29
+  - first:
+      213: 1208136658404099759
+    second: goal3_30
+  - first:
+      213: -2557423385574454175
+    second: goal3_31
+  - first:
+      213: -7659278666650640404
+    second: goal3_32
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: goal3_0
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 4033
+        width: 201
+        height: 223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd2a4753a45d6520800000000000000
+      internalID: 2696904812385676797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_1
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 4022
+        width: 222
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3964700ddaf79c1e0800000000000000
+      internalID: -2177068560360716653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_2
+      rect:
+        serializedVersion: 2
+        x: 1145
+        y: 4026
+        width: 208
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e2105a6ecc8e0d60800000000000000
+      internalID: 7858373217982878438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_3
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 3758
+        width: 316
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c0cf319fc07ea170800000000000000
+      internalID: 8191608809030926529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_4
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 3747
+        width: 299
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ddf0c3ab72b6d70800000000000000
+      internalID: 9037360758074105147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_5
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 3750
+        width: 298
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec7469efdbe2bb7f0800000000000000
+      internalID: -595831132141500466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_6
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 3415
+        width: 310
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 099e0a943ae7cc9a0800000000000000
+      internalID: -6211450546270705264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_7
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 3402
+        width: 306
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1043ee97d8ce51cd0800000000000000
+      internalID: -2587902318474284031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_8
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 3402
+        width: 287
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3db93102ed4fbcc0800000000000000
+      internalID: -3693147536342008517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_9
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 3053
+        width: 207
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ea13b0825702eae0800000000000000
+      internalID: -1521645673169872153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_10
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 3044
+        width: 205
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77e51222bd45a960800000000000000
+      internalID: 7612576172611069821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_11
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 3041
+        width: 218
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 441fc3c628d7dbc40800000000000000
+      internalID: 5529713916595990852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_12
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 2639
+        width: 215
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e12b1a9f8d00a9750800000000000000
+      internalID: 6312358759614231070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_13
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 2630
+        width: 216
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a29daa79d0b35b20800000000000000
+      internalID: 3122033414810473124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_14
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 2634
+        width: 206
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb7744b5aa8bfbcb0800000000000000
+      internalID: -4845951632212199489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_15
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 2281
+        width: 310
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2717511932abad3f0800000000000000
+      internalID: -875182515649416846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_16
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 2272
+        width: 317
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e94e859e1aa590310800000000000000
+      internalID: 1371727212962178206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_17
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 2270
+        width: 292
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e7fe17f757f6e3d0800000000000000
+      internalID: -3177580529883088925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_18
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 1798
+        width: 245
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d91fbd40ef6bceb0800000000000000
+      internalID: -4698538777063253551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_19
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 1787
+        width: 233
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c4ce25c94188eae0800000000000000
+      internalID: -1519822720396770109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_20
+      rect:
+        serializedVersion: 2
+        x: 1118
+        y: 1786
+        width: 220
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89920837284505750800000000000000
+      internalID: 6291621598696843672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_21
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 1313
+        width: 315
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd46437ecf4e71120800000000000000
+      internalID: 2384626302577829085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_22
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 1309
+        width: 303
+        height: 209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 128ea45634e986720800000000000000
+      internalID: 2839693577356503073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_23
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 1306
+        width: 322
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd85981f9c0e8590800000000000000
+      internalID: -7670179237913588278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_24
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 951
+        width: 217
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d8e03f04aab70ce0800000000000000
+      internalID: -1438976342129317672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_25
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 954
+        width: 228
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a2d45e9ad23e3400800000000000000
+      internalID: 305737739248390821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_26
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 957
+        width: 234
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d1ce42966087ff70800000000000000
+      internalID: 9220979940094034390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_27
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 634
+        width: 231
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5019491b750e6cc90800000000000000
+      internalID: -7149780691158003451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_28
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 637
+        width: 205
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e648d03f18fddcf0800000000000000
+      internalID: -225751593451501856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_29
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 635
+        width: 231
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21f19a07c774e87c0800000000000000
+      internalID: -4067234813677330670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_30
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 221
+        width: 142
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6cd4cc3e924c010800000000000000
+      internalID: 1208136658404099759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_31
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 214
+        width: 145
+        height: 303
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16cce8a0bf4328cd0800000000000000
+      internalID: -2557423385574454175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal3_32
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 213
+        width: 157
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cef9f8e12a6c4b590800000000000000
+      internalID: -7659278666650640404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

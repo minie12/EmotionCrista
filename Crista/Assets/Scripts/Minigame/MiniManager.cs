@@ -7,12 +7,10 @@ using UnityEngine.EventSystems;
 
 public class MiniManager : MonoBehaviour
 {
-
-
     // UI
     public Image timer_fill;
     public Image fever_fill;
-    public Image fever_bg;
+    // public Image fever_bg;
     public Image score_fill;
     public Text score_txt;
 
@@ -22,15 +20,20 @@ public class MiniManager : MonoBehaviour
 
     // board related
     private BoardManager board;
-    private int goal_num = 0;
+    private int goal_unit = 2;
 
     // score
-    public int full_score;
+    public float full_score;
     private int score;
     public int full_fever;
     private int fever;
     public GameObject fever_btn;
     private bool fever_on = false;
+
+
+    // public Texture2D cursor;
+    // Vector2 mc = new Vector2(0, 0.1f); 
+
 
     void Start(){
         time = 30; score = 0; fever = 0;
@@ -42,18 +45,24 @@ public class MiniManager : MonoBehaviour
         timer_fill.fillAmount = 0;
         fever_fill.fillAmount = 0;
 
-        if(PlayerPrefs.HasKey("goalNum")) goal_num = PlayerPrefs.GetInt("goalNum");
+        if(PlayerPrefs.HasKey("goalUnit")) goal_unit = PlayerPrefs.GetInt("goalUnit");
+        board.SetGoal(goal_unit);
     }
 
     void Update(){
         // timer_fill.fillAmount = Mathf.InverseLerp(0, full_time, time);
         timer_fill.fillAmount = time/full_time;
         time -= Time.deltaTime;
+
+        // mc = new Vector2(0, mc.y + 10*Time.deltaTime); 
+        // Cursor.SetCursor(cursor, mc, CursorMode.Auto);
     }
 
     public void AddScore(int n){
         score += n;
-        score_txt.text = (score/full_score).ToString() + " %";
+        int score_pt = (int)((score/full_score)*100);
+        if(score_pt > 100) score_pt = 100;
+        score_txt.text = (score_pt).ToString() + " %";
         score_fill.fillAmount = Mathf.InverseLerp(0, full_score, score);
 
         if(!fever_on) AddFever(n);

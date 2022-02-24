@@ -5,9 +5,11 @@ using UnityEngine;
 public class GemInfo : MonoBehaviour
 {
     private BoardManager board;
-    public GameObject outline;
     public int column, row;
     public int color;
+    // 0: red, 1: yellow, 2: green, 3: blue, 4: purple
+
+    public Animator anim; 
 
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
@@ -28,22 +30,27 @@ public class GemInfo : MonoBehaviour
     }
 
     public void DestroyGem(){
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        StartCoroutine("DestroyGemC");
+    }
+
+    IEnumerator DestroyGemC(){
+        anim.Play("gem_sparkle", 0, 0.0f);
+        yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
     }
 
-    public void MoveGem(float time){
-        StartCoroutine(MoveGemC(time));
-    }
     public void MoveGem(int column_, int row_, float time){
         row = row_; column = column_;
 
         StartCoroutine(MoveGemC(time));
     }
     IEnumerator MoveGemC(float time){    
-        // board.gem_movable = false;
+        gameObject.GetComponent<Collider2D>().enabled = false;
+
         Vector3 start_pos = transform.position;
-        yield return new WaitForSeconds(0.05f); // used to prevent many accesses to GetPosition() at the same time
-        Vector3 end_pos = board.GetPosition(column, row);
+        yield return new WaitForSeconds(0.01f); // used to prevent many accesses to GetGemPosition() at the same time
+        Vector3 end_pos = board.GetGemPosition(column, row);
 
         for(float t = 0; t <= 1 * time; t += Time.deltaTime){
             transform.position = Vector3.Lerp(start_pos, end_pos, t / time);
@@ -51,6 +58,7 @@ public class GemInfo : MonoBehaviour
         }
 
         transform.position = end_pos;
-        // board.gem_movable = true;
+        
+        gameObject.GetComponent<Collider2D>().enabled = true;
     }
 }
