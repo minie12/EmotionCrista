@@ -9,26 +9,36 @@ public class MiniManager : MonoBehaviour
 {
     // UI
     public Image timer_fill;
-    public Image fever_fill;
-    // public Image fever_bg;
     public Image score_fill;
     public Text score_txt;
 
     // timer
     public int full_time;
+    public float full_fever_time = 10f;
+    private float fever_time; // 10f
     private float time;
 
     // board related
     private BoardManager board;
+    public SpriteRenderer board_img;
+    public Sprite[] puzzle_board_sp;
     private int goal_unit = 2;
 
     // score
     public float full_score;
     private int score;
+
+
+    // fever
     public int full_fever;
     private int fever;
-    public GameObject fever_btn;
-    private bool fever_on = false;
+    public Image fever_fill_img;
+    public Image fever_img;
+    public Button fever_btn;
+    public bool fever_on = false;
+    public Sprite[] fever_sp;
+    public Sprite[] fever_fill_sp;
+
 
 
     // public Texture2D cursor;
@@ -43,7 +53,7 @@ public class MiniManager : MonoBehaviour
         // ui
         score_fill.fillAmount = 0;
         timer_fill.fillAmount = 0;
-        fever_fill.fillAmount = 0;
+        fever_fill_img.fillAmount = 0;
 
         if(PlayerPrefs.HasKey("goalUnit")) goal_unit = PlayerPrefs.GetInt("goalUnit");
         board.SetGoal(goal_unit);
@@ -54,8 +64,14 @@ public class MiniManager : MonoBehaviour
         timer_fill.fillAmount = time/full_time;
         time -= Time.deltaTime;
 
-        // mc = new Vector2(0, mc.y + 10*Time.deltaTime); 
+        // used to manipulate mouse cursor shown on screen (not the actual HW)
+        // mc = new Vector2(0, mc.y + 20*Time.deltaTime); 
         // Cursor.SetCursor(cursor, mc, CursorMode.Auto);
+        if(fever_on){
+            fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever_time, fever_time);
+            fever_time -= Time.deltaTime;
+            if(fever_time <= 0) EndFever();
+        }
     }
 
     public void AddScore(int n){
@@ -70,23 +86,36 @@ public class MiniManager : MonoBehaviour
 
     public void AddFever(int n){
         fever += n;
-        fever_fill.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
+        fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
 
-        if(fever > full_fever && !fever_on) fever_btn.SetActive(true);
+        if(fever > full_fever && !fever_on) {
+            fever_fill_img.sprite = fever_fill_sp[1];
+            fever_img.sprite = fever_sp[1];
+            fever_btn.enabled = true;
+        }
     }
 
     public void StartFever(){
-        //reset fever gauge
-        fever = 0;
-        fever_fill.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
-
+        // reset
         fever_on = true;
+        fever_time = full_fever_time;
+        fever = 0;
+        board_img.sprite = puzzle_board_sp[1];
+
+
+        //reset fever gauge
+        // fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
+
         board.StartFever();
-        fever_btn.SetActive(false);
+        fever_btn.enabled = false;
     }
 
     public void EndFever(){
+        board_img.sprite = puzzle_board_sp[0];
+        fever_fill_img.sprite = fever_fill_sp[0];
+        fever_img.sprite = fever_sp[0];
         fever_on = false;
+        board.EndFever();
     }
 
     // used to move to another scene

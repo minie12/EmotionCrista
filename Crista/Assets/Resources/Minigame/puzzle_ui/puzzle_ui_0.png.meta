@@ -1,22 +1,28 @@
 fileFormatVersion: 2
-guid: fc4b5a07882c76546b1813112a17fa00
+guid: ddcc7f93e300ce441862d2122b81d9f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -16793423984005362
-    second: gems_0
+      213: 2196042844500573714
+    second: puzzle_ui_0_0
   - first:
-      213: -4672790576089934573
-    second: gems_1
+      213: 1979577283244626514
+    second: puzzle_ui_0_1
   - first:
-      213: 3598714856469743548
-    second: gems_2
+      213: 4792211594560712116
+    second: puzzle_ui_0_2
   - first:
-      213: -2511356291957038328
-    second: gems_3
+      213: 6311160647302628991
+    second: puzzle_ui_0_4
   - first:
-      213: -7335531085601356040
-    second: gems_4
+      213: -5271839737703828615
+    second: puzzle_ui_0_3
+  - first:
+      213: 1478129708452000011
+    second: puzzle_ui_0_5
+  - first:
+      213: 6618307938053449748
+    second: puzzle_ui_0_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,13 +124,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gems_0
+      name: puzzle_ui_0_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 100
-        width: 54
-        height: 65
+        x: 9
+        y: 15
+        width: 83
+        height: 676
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +138,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0feed8487654cff0800000000000000
-      internalID: -16793423984005362
+      spriteID: 21ebef9f459e97e10800000000000000
+      internalID: 2196042844500573714
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gems_1
+      name: puzzle_ui_0_1
       rect:
         serializedVersion: 2
-        x: 56
-        y: 137
-        width: 63
-        height: 62
+        x: 108
+        y: 92
+        width: 40
+        height: 587
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +159,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 315dd528ab9e62fb0800000000000000
-      internalID: -4672790576089934573
+      spriteID: 2529a350d0fd87b10800000000000000
+      internalID: 1979577283244626514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gems_2
+      name: puzzle_ui_0_2
       rect:
         serializedVersion: 2
-        x: 4
-        y: 35
-        width: 46
-        height: 60
+        x: 239
+        y: 602
+        width: 404
+        height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +180,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb7cccb581431f130800000000000000
-      internalID: 3598714856469743548
+      spriteID: 4bdac461e0b518240800000000000000
+      internalID: 4792211594560712116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gems_3
+      name: puzzle_ui_0_4
       rect:
         serializedVersion: 2
-        x: 60
-        y: 72
-        width: 57
-        height: 57
+        x: 252
+        y: 475
+        width: 360
+        height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +201,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 803657912ced52dd0800000000000000
-      internalID: -2511356291957038328
+      spriteID: f76c5e6bb2fb59750800000000000000
+      internalID: 6311160647302628991
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gems_4
+      name: puzzle_ui_0_3
       rect:
         serializedVersion: 2
-        x: 62
-        y: 4
-        width: 51
-        height: 58
+        x: 252
+        y: 540
+        width: 360
+        height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +222,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f645ebc755f23a90800000000000000
-      internalID: -7335531085601356040
+      spriteID: 973ff51a0b9a6d6b0800000000000000
+      internalID: -5271839737703828615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle_ui_0_5
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 34
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b01bb3c632f538410800000000000000
+      internalID: 1478129708452000011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle_ui_0_6
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 25
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418e2dd1104f8db50800000000000000
+      internalID: 6618307938053449748
       vertices: []
       indices: 
       edges: []

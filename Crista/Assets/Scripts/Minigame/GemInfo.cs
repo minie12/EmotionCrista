@@ -2,17 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum Color{ Yellow = 0, Blue = 1, Red = 2, Green = 3, Purple = 4}
+
 public class GemInfo : MonoBehaviour
 {
     private BoardManager board;
-    public int column, row;
-    public int color;
-    // 0: red, 1: yellow, 2: green, 3: blue, 4: purple
+    private int column, row;
+    Color color;
 
-    public Animator anim; 
+    public Sprite[] gem_sprites;
+    public Animator ANsparkle; 
+    public Animator ANgem; 
 
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
+    }
+
+    public void InitGem(int column_, int row_, int color_){
+        column = column_; row = row_; 
+        if(color_ == (int)Color.Yellow) color = Color.Yellow;
+        else if(color_ == (int)Color.Blue) color = Color.Blue;
+        else if(color_ == (int)Color.Red) color = Color.Red;
+        else if(color_ == (int)Color.Green) color = Color.Green;
+        else color = Color.Purple;
+        gameObject.GetComponent<SpriteRenderer>().sprite = gem_sprites[(int)color];
     }
 
     public void PrintInfo(){
@@ -21,12 +34,16 @@ public class GemInfo : MonoBehaviour
 
     // Start is called before the first frame update
     void OnMouseUp(){
-        if(board.gem_movable && !board.fever_on){
-            board.GemClick(column, row);
-        }
-        else if(board.fever_on){
+        if(board.CheckFever()){
             board.FeverClick(column,row);
         }
+        else if(board.gem_movable){
+            board.GemClick(column, row);
+        }
+    }
+
+    public int GetColor(){
+        return (int)color;
     }
 
     public void DestroyGem(){
@@ -35,7 +52,15 @@ public class GemInfo : MonoBehaviour
     }
 
     IEnumerator DestroyGemC(){
-        anim.Play("gem_sparkle", 0, 0.0f);
+        ANgem.enabled = true;
+
+        if(color == Color.Red) ANgem.Play("gem_crush_red",0, 0.0f);
+        else if(color == Color.Yellow) ANgem.Play("gem_crush_yellow",0, 0.0f);
+        else if(color == Color.Green) ANgem.Play("gem_crush_green",0, 0.0f);
+        else if(color == Color.Blue) ANgem.Play("gem_crush_blue",0, 0.0f);
+        else if(color == Color.Purple) ANgem.Play("gem_crush_purple",0, 0.0f);
+        
+        ANsparkle.Play("gem_sparkle", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
     }

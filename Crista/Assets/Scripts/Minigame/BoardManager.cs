@@ -4,16 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public struct coordinate{
-    public int[] xy;
-}
-
 public class BoardManager : MonoBehaviour
 {
-    private MiniManager mini;
-    public int goal_color;
+    public MiniManager mini;
+    public int goal_color; // 0 yellow, 1 blue, 2 red, 3 green, 4 purple
+    private int gem_numb = 5; // need to change if gem color numb changes
 
-    public GameObject[] org_gem;
+    public GameObject org_gem;
+    // public GameObject[] org_gem;
     public GameObject tile;
     public Vector3[] drop_pos;
     public GameObject click_effect;
@@ -27,7 +25,6 @@ public class BoardManager : MonoBehaviour
     private float rotate_ang = 0;
 
     // fever related
-    public bool fever_on;
     private int fever_cnt = 0;
 
     // animation times
@@ -36,7 +33,8 @@ public class BoardManager : MonoBehaviour
     
     // goal state
     public GoalInfo goal_info;
-    private int goal_unit = 2;
+    public int goal_unit = 2;
+    
 
 
  // used to communicate with other classes ---------------------------------------------------
@@ -53,16 +51,19 @@ public class BoardManager : MonoBehaviour
     }
     public int GetGemColor(int column_, int row_){
         if(!CheckGemExist(column_, row_)) return -1;
-        return gems[column_, row_].color;
+        return gems[column_, row_].GetColor();
+    }
+
+    public bool CheckFever(){
+        return mini.fever_on;
     }
 // --------------------------------------------------------------------------------------------
 
     void Start()
     {   
-        mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
+        // mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
         // goal_info = GameObject.Find("GoalInfo").GetComponent<GoalInfo>();
         gem_movable = true;
-        fever_on = false;
         InitBoard();
         // for testing purpose ERASE BELOW
         goal_info.SetGoal(goal_unit);
@@ -95,11 +96,9 @@ public class BoardManager : MonoBehaviour
 
                 board_tiles[i, j] = new Vector3(-1.2f + i * diff_x, -1.7f + (i%2)*(-0.45f) + j * diff_y, 0);
 
-                int rand = Random.Range(0, org_gem.Length);
-                GameObject gem_temp = Instantiate(org_gem[rand], board_tiles[i,j], Quaternion.identity, this.transform);
-                gem_temp.GetComponent<GemInfo>().row = j;
-                gem_temp.GetComponent<GemInfo>().column = i;
-                gem_temp.GetComponent<GemInfo>().color = rand;
+                int color = Random.Range(0, gem_numb);
+                GameObject gem_temp = Instantiate(org_gem, board_tiles[i,j], Quaternion.identity, this.transform);
+                gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
                 gems[i, j] = gem_temp.GetComponent<GemInfo>();
 
             }
@@ -108,17 +107,15 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void InitGem(){
+    void RefillGem(){ // NOT USED!!!!!
         // get gems inside board
         for(int i = 0; i < 11; i++){
             for(int j = 0; j < 6; j++){
                 if(j == 5 && i % 2 == 0) continue; 
 
-                int rand = Random.Range(0, org_gem.Length);
-                GameObject gem_temp = Instantiate(org_gem[rand], board_tiles[i,j], Quaternion.identity, this.transform);
-                gem_temp.GetComponent<GemInfo>().row = j;
-                gem_temp.GetComponent<GemInfo>().column = i;
-                gem_temp.GetComponent<GemInfo>().color = rand;
+                int color = Random.Range(0, gem_numb);
+                GameObject gem_temp = Instantiate(org_gem, board_tiles[i,j], Quaternion.identity, this.transform);
+                gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
                 gems[i, j] = gem_temp.GetComponent<GemInfo>();
             }
         }
@@ -140,7 +137,7 @@ public class BoardManager : MonoBehaviour
             gems[column, row+1].MoveGem(column-1, row+eo, rotate_time);
 
             rotate_ang += 60;
-            StartCoroutine(ClickEffectRotate(rotate_time));
+            StartCoroutine(ClickEffectRotateC(rotate_time));
 
             // update gems array
             GemInfo g_temp = gems[column-1, row+eo];
@@ -163,7 +160,7 @@ public class BoardManager : MonoBehaviour
             gems[column-1, row-1+eo].MoveGem(column-1, row+eo, rotate_time);
 
             rotate_ang -= 60;
-            StartCoroutine(ClickEffectRotate(rotate_time));
+            StartCoroutine(ClickEffectRotateC(rotate_time));
 
             // update gems array
             GemInfo g_temp = gems[column-1, row+eo];
@@ -176,7 +173,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    IEnumerator ClickEffectRotate(float time)
+    IEnumerator ClickEffectRotateC(float time)
     {
         gem_movable = false;
 
@@ -205,13 +202,14 @@ public class BoardManager : MonoBehaviour
             click_effect.SetActive(false);
 
             // add score if gem color is the goal color
-            if(gems[column,row].color == goal_color) mini.AddScore(goal_unit);
+            if(gems[column,row].GetColor() == goal_color) mini.AddScore(goal_unit);
             else mini.AddFever(goal_unit);
 
             // Delete gems
             goal_info.EraseGems(column, row);
 
-            StartCoroutine(RefillBoard());
+            StartCoroutine("RefillBoard");
+            // Invoke("RefillBoard", 0.3f);
         }
         else{
             // do not enable click when user clicks the boundary of board
@@ -235,8 +233,6 @@ public class BoardManager : MonoBehaviour
     IEnumerator RefillBoard(){
         gem_movable = false;
         
-        yield return new WaitForSeconds(0.3f);
-
         int start = column-goal_unit > 0? column-goal_unit : 0;
         int end = column+goal_unit < 11? column+goal_unit : 11;
         for(int i = start; i < end; i++){
@@ -259,12 +255,12 @@ public class BoardManager : MonoBehaviour
                         }
                     }
 
-                    // if there was no gem on top
+                    // // if there was no gem on top
                     if(!filled){
                         // fill with new gem
-                        int rand = Random.Range(0, org_gem.Length);
-                        GameObject gem_temp = Instantiate(org_gem[rand], drop_pos[i], Quaternion.identity, this.transform);
-                        gem_temp.GetComponent<GemInfo>().color = rand;
+                        int color = Random.Range(0, gem_numb);
+                        GameObject gem_temp = Instantiate(org_gem, drop_pos[i], Quaternion.identity, this.transform);
+                        gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
                         // yield return new WaitForSeconds(0.1f);
                         gems[i, j] = gem_temp.GetComponent<GemInfo>();
                         gems[i, j].MoveGem(i, j, fall_time);
@@ -273,29 +269,72 @@ public class BoardManager : MonoBehaviour
             }
         }
 
+        // wait for gems to fall down then allow clicks
+        yield return new WaitForSeconds(fall_time);
         gem_movable = true;
     }
 
 
 // FEVER ---------------------------------------------------------------------------
     public void StartFever(){
-        fever_on = true;
         fever_cnt = 0;
         click_effect.SetActive(false);
         gem_clicked = false;
     }
 
-    void EndFever(){
-        fever_on = false;
-        InitGem();
-        mini.EndFever();
+    IEnumerator RefillBoardFever(){
+        gem_movable = false;
+        
+        for(int i = 0; i < 11; i++){
+            for(int j = 0; j < 6; j++){
+                if(i % 2 == 0 && j == 5) break; 
+                
+                if(!CheckGemExist(i, j)){
+                    bool filled = false;
+                    // check if there is gem on top
+                    for(int k = j; k < 6; k++){
+                        if(i % 2 == 0 && k == 5) break; 
+
+                        if(CheckGemExist(i, k)){
+                            // drop the gem on top to bottom
+                            gems[i, j] = gems[i,k];
+                            gems[i, k] = null;
+                            gems[i, j].MoveGem(i, j, fall_time);
+                            filled = true;
+                            break;
+                        }
+                    }
+
+                    // // if there was no gem on top
+                    if(!filled){
+                        // fill with new gem
+                        int color = Random.Range(0, gem_numb);
+                        GameObject gem_temp = Instantiate(org_gem, drop_pos[i], Quaternion.identity, this.transform);
+                        gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
+                        // yield return new WaitForSeconds(0.1f);
+                        gems[i, j] = gem_temp.GetComponent<GemInfo>();
+                        gems[i, j].MoveGem(i, j, fall_time);
+                    }
+                }
+            }
+        }
+
+        // wait for gems to fall down then allow clicks
+        yield return new WaitForSeconds(fall_time);
+        gem_movable = true;
+    }
+
+    public void EndFever(){
+        StartCoroutine("RefillBoardFever");
+        // Invoke("RefillBoardFever",0.5f);
     }
 
     public void FeverClick(int column_, int row_){
         mini.AddScore(1);
         DelGem(column_, row_);
-        fever_cnt++;
 
-        if(fever_cnt > 59) EndFever();
+        // in case player clicks all gem before Fever ends
+        fever_cnt++;
+        if(fever_cnt > 59) mini.EndFever();
     }
 }

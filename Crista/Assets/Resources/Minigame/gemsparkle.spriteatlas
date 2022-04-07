@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: gemsparkle
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: ce9a455676026014fb461d2875cd2cb5, type: 3}
+    - {fileID: 2800000, guid: 8c0a9b0c6a70a654eaf2dc9271d0bce9, type: 3}
+    - {fileID: 2800000, guid: 7306d76ff20b2e64a8cd1bec5183ff0b, type: 3}
+    - {fileID: 2800000, guid: 0534262f6cac5a94aa34c034a6abf516, type: 3}
+    - {fileID: 2800000, guid: 31fcb9c33175d55418c79a3c1cb349a2, type: 3}
+    - {fileID: 2800000, guid: 98687f685d9ad3f47a1d3ea79b83824f, type: 3}
+    - {fileID: 2800000, guid: a9f0bfe56f25f2f45a4d4335f89290d1, type: 3}
+    - {fileID: 2800000, guid: 5b34d162cb560694cbbbbe7efcbce138, type: 3}
+    - {fileID: 2800000, guid: 9ede1d02b957ca642b5075b6235f65fb, type: 3}
+    - {fileID: 2800000, guid: 5a422ffdcc4db9c4080826351b0c52f2, type: 3}
+    totalSpriteSurfaceArea: 41492480
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9ede1d02b957ca642b5075b6235f65fb, type: 3}
+  - {fileID: 21300000, guid: 5b34d162cb560694cbbbbe7efcbce138, type: 3}
+  - {fileID: 21300000, guid: 31fcb9c33175d55418c79a3c1cb349a2, type: 3}
+  - {fileID: 21300000, guid: a9f0bfe56f25f2f45a4d4335f89290d1, type: 3}
+  - {fileID: 21300000, guid: ce9a455676026014fb461d2875cd2cb5, type: 3}
+  - {fileID: 21300000, guid: 98687f685d9ad3f47a1d3ea79b83824f, type: 3}
+  - {fileID: 21300000, guid: 8c0a9b0c6a70a654eaf2dc9271d0bce9, type: 3}
+  - {fileID: 21300000, guid: 5a422ffdcc4db9c4080826351b0c52f2, type: 3}
+  - {fileID: 21300000, guid: 0534262f6cac5a94aa34c034a6abf516, type: 3}
+  - {fileID: 21300000, guid: 7306d76ff20b2e64a8cd1bec5183ff0b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 11
+  - 10
+  - 06
+  - 08
+  - 01
+  - 07
+  - 03
+  - 12
+  - 05
+  - 04
+  m_RenderDataMap: {}
+  m_Tag: gemsparkle
+  m_IsVariant: 0
