@@ -38,6 +38,7 @@ public class MiniManager : MonoBehaviour
     public bool fever_on = false;
     public Sprite[] fever_sp;
     public Sprite[] fever_fill_sp;
+    public Animator animator;
 
 
 
@@ -89,6 +90,7 @@ public class MiniManager : MonoBehaviour
         fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
 
         if(fever > full_fever && !fever_on) {
+            animator.SetBool("fever_on", true);
             fever_fill_img.sprite = fever_fill_sp[1];
             fever_img.sprite = fever_sp[1];
             fever_btn.enabled = true;
@@ -111,6 +113,8 @@ public class MiniManager : MonoBehaviour
     }
 
     public void EndFever(){
+        animator.SetBool("fever_on", false);
+
         board_img.sprite = puzzle_board_sp[0];
         fever_fill_img.sprite = fever_fill_sp[0];
         fever_img.sprite = fever_sp[0];

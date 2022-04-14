@@ -231,6 +231,8 @@ public class BoardManager : MonoBehaviour
     }
 
     IEnumerator RefillBoard(){
+        yield return new WaitForSeconds(0.3f); // wait for gem crush
+
         gem_movable = false;
         
         int start = column-goal_unit > 0? column-goal_unit : 0;
@@ -283,6 +285,8 @@ public class BoardManager : MonoBehaviour
     }
 
     IEnumerator RefillBoardFever(){
+        yield return new WaitForSeconds(0.3f); // wait for gem crush
+        
         gem_movable = false;
         
         for(int i = 0; i < 11; i++){
