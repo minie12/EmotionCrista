@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 enum Color{ Yellow = 0, Blue = 1, Red = 2, Green = 3, Purple = 4}
 
 public class GemInfo : MonoBehaviour

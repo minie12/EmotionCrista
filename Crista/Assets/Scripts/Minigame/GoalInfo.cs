@@ -47,15 +47,16 @@ public class GoalInfo : MonoBehaviour
 
     // DEBUG PURPOSE!!!!
     public Dropdown goalOption;
+    //------------------------------
+
+    void Start(){
+        board = gameObject.GetComponent<BoardManager>();
+    }
 
     public void GoalChange(){
         goal_unit = goalOption.value+2;
         board.goal_unit = goal_unit;
         SetGoal(goal_unit);
-    }
-
-    void Start(){
-        board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
     public void SetGoal(int unit){

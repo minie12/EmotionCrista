@@ -10,9 +10,8 @@ public class BoardManager : MonoBehaviour
     public int goal_color; // 0 yellow, 1 blue, 2 red, 3 green, 4 purple
     private int gem_numb = 5; // need to change if gem color numb changes
 
-    public GameObject org_gem;
-    // public GameObject[] org_gem;
-    public GameObject tile;
+    public GameObject gemPF;
+    // public GameObject[] gemPF;
     public Vector3[] drop_pos;
     public GameObject click_effect;
     private GemInfo[,] gems;
@@ -36,33 +35,10 @@ public class BoardManager : MonoBehaviour
     public int goal_unit = 2;
     
 
-
- // used to communicate with other classes ---------------------------------------------------
-    public void SetGoal(int unit){
-        goal_unit = unit;
-        goal_info.SetGoal(unit);
-    }
-    public void DelGem(int column_, int row_){
-        gems[column_, row_].DestroyGem();
-        gems[column_, row_] = null;
-    }
-    public Vector3 GetGemPosition(int column_, int row_){
-        return board_tiles[column_, row_];
-    }
-    public int GetGemColor(int column_, int row_){
-        if(!CheckGemExist(column_, row_)) return -1;
-        return gems[column_, row_].GetColor();
-    }
-
-    public bool CheckFever(){
-        return mini.fever_on;
-    }
-// --------------------------------------------------------------------------------------------
-
     void Start()
     {   
         // mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
-        // goal_info = GameObject.Find("GoalInfo").GetComponent<GoalInfo>();
+        // goal_info = gameObject.GetComponent<GoalInfo>();
         gem_movable = true;
         InitBoard();
         // for testing purpose ERASE BELOW
@@ -97,7 +73,7 @@ public class BoardManager : MonoBehaviour
                 board_tiles[i, j] = new Vector3(-1.2f + i * diff_x, -1.7f + (i%2)*(-0.45f) + j * diff_y, 0);
 
                 int color = Random.Range(0, gem_numb);
-                GameObject gem_temp = Instantiate(org_gem, board_tiles[i,j], Quaternion.identity, this.transform);
+                GameObject gem_temp = Instantiate(gemPF, board_tiles[i,j], Quaternion.identity, this.transform);
                 gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
                 gems[i, j] = gem_temp.GetComponent<GemInfo>();
 
@@ -114,7 +90,7 @@ public class BoardManager : MonoBehaviour
                 if(j == 5 && i % 2 == 0) continue; 
 
                 int color = Random.Range(0, gem_numb);
-                GameObject gem_temp = Instantiate(org_gem, board_tiles[i,j], Quaternion.identity, this.transform);
+                GameObject gem_temp = Instantiate(gemPF, board_tiles[i,j], Quaternion.identity, this.transform);
                 gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
                 gems[i, j] = gem_temp.GetComponent<GemInfo>();
             }
@@ -261,7 +237,7 @@ public class BoardManager : MonoBehaviour
                     if(!filled){
                         // fill with new gem
                         int color = Random.Range(0, gem_numb);
-                        GameObject gem_temp = Instantiate(org_gem, drop_pos[i], Quaternion.identity, this.transform);
+                        GameObject gem_temp = Instantiate(gemPF, drop_pos[i], Quaternion.identity, this.transform);
                         gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
                         // yield return new WaitForSeconds(0.1f);
                         gems[i, j] = gem_temp.GetComponent<GemInfo>();
@@ -276,6 +252,26 @@ public class BoardManager : MonoBehaviour
         gem_movable = true;
     }
 
+ // used to communicate with other classes ---------------------------------------------------
+    public void SetGoal(int unit){
+        goal_unit = unit;
+        goal_info.SetGoal(unit);
+    }
+    public void DelGem(int column_, int row_){
+        gems[column_, row_].DestroyGem();
+        gems[column_, row_] = null;
+    }
+    public Vector3 GetGemPosition(int column_, int row_){
+        return board_tiles[column_, row_];
+    }
+    public int GetGemColor(int column_, int row_){
+        if(!CheckGemExist(column_, row_)) return -1;
+        return gems[column_, row_].GetColor();
+    }
+
+    public bool CheckFever(){
+        return mini.fever_on;
+    }
 
 // FEVER ---------------------------------------------------------------------------
     public void StartFever(){
@@ -313,7 +309,7 @@ public class BoardManager : MonoBehaviour
                     if(!filled){
                         // fill with new gem
                         int color = Random.Range(0, gem_numb);
-                        GameObject gem_temp = Instantiate(org_gem, drop_pos[i], Quaternion.identity, this.transform);
+                        GameObject gem_temp = Instantiate(gemPF, drop_pos[i], Quaternion.identity, this.transform);
                         gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
                         // yield return new WaitForSeconds(0.1f);
                         gems[i, j] = gem_temp.GetComponent<GemInfo>();
