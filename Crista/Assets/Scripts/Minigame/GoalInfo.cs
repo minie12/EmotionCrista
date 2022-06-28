@@ -54,20 +54,28 @@ public class GoalInfo : MonoBehaviour
     }
 
     public void GoalChange(){
-        goal_unit = goalOption.value+2;
-        board.goal_unit = goal_unit;
+        // change number of goal_unit
+        //goal_unit = goalOption.value+2;
+        //board.goal_unit = goal_unit;
+        
         SetGoal(goal_unit);
     }
 
     public void SetGoal(int unit){
         goal_unit = unit;
         if(unit == 2) {
-            goal_num = Random.Range(0, goal2_e.GetLength(0));
+            int prev_num = goal_num;
+            while(goal_num == prev_num){
+                goal_num = Random.Range(0, goal2_e.GetLength(0));
+            }
             goal_sprite.sprite = goal2_sprites[goal_num];
         }
         else if(unit == 3) {
-             goal_num = Random.Range(0, goal3_e.GetLength(0));
-             goal_sprite.sprite = goal3_sprites[goal_num];
+            int prev_num = goal_num;
+            while(goal_num == prev_num){
+                goal_num = Random.Range(0, goal3_e.GetLength(0));
+            }
+            goal_sprite.sprite = goal3_sprites[goal_num];
         }
     }
 

@@ -15,6 +15,7 @@ public class GemInfo : MonoBehaviour
     public Animator ANsparkle; 
     public Animator ANgem; 
 
+
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }

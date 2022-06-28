@@ -7,17 +7,24 @@ using UnityEngine.EventSystems;
 
 public class MiniManager : MonoBehaviour
 {
+    public enum patternType{
+        YELLOW,
+        BLUE,
+        RED,
+        GREEN,
+        PURPLE
+    }
+
     // UI
-    public GameObject UI_Canvas;
     public Image timer_fill;
     public Image score_fill;
     public Text score_txt;
 
     // timer
-    public int full_time;
+    public static float full_time;
+    public static float time;
     public float full_fever_time = 10f;
     private float fever_time; // 10f
-    private float time;
 
     // board related
     private BoardManager board;
@@ -36,21 +43,20 @@ public class MiniManager : MonoBehaviour
     public Image fever_fill_img;
     public Image fever_img;
     public Button fever_btn;
-    public bool fever_on = false;
+    [HideInInspector]public bool fever_on = false;
     public Sprite[] fever_sp;
     public Sprite[] fever_fill_sp;
     public Animator animator;
 
+    // pattern
+    public PatternManager pattern;
+    int pattern_idx = 0;
+    
 
-    // YELLOW Pattern
-    public GameObject bubblePF;
-    private GameObject[] bubbles;
-    private int y_index;
-    private int bubble_numb;
-
-
-    // public Texture2D cursor;
-    // Vector2 mc = new Vector2(0, 0.1f); 
+    // move to GameManager (after adding main)
+    void Awake(){
+        Screen.SetResolution(1920, 1080, true);
+    }
 
 
     void Start(){
@@ -66,18 +72,15 @@ public class MiniManager : MonoBehaviour
         if(PlayerPrefs.HasKey("goalUnit")) goal_unit = PlayerPrefs.GetInt("goalUnit");
         board.SetGoal(goal_unit);
 
-        // PATTERN YELLOW
-        Y_Start();
+        // pattern
+        pattern = pattern.SpawnPattern(pattern_idx);
+        pattern.StartPattern();
     }
 
     void Update(){
         // timer_fill.fillAmount = Mathf.InverseLerp(0, full_time, time);
         timer_fill.fillAmount = time/full_time;
         time -= Time.deltaTime;
-
-        // used to manipulate mouse cursor shown on screen (not the actual HW)
-        // mc = new Vector2(0, mc.y + 20*Time.deltaTime); 
-        // Cursor.SetCursor(cursor, mc, CursorMode.Auto);
 
         if(fever_on){
             fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever_time, fever_time);
@@ -119,7 +122,9 @@ public class MiniManager : MonoBehaviour
         //reset fever gauge
         // fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
 
-        Y_StartFever(); // pattern yellow
+        // stop pattern
+        pattern.StartFever();
+
         board.StartFever();
         fever_btn.enabled = false;
     }
@@ -132,7 +137,9 @@ public class MiniManager : MonoBehaviour
         fever_img.sprite = fever_sp[0];
         fever_on = false;
         board.EndFever();
-        Y_EndFever(); // pattern yellow
+
+        // restart pattern
+        pattern.EndFever();
     }
 
 
@@ -141,40 +148,5 @@ public class MiniManager : MonoBehaviour
     {
         string nowbutton = EventSystem.current.currentSelectedGameObject.name;
         SceneManager.LoadScene(nowbutton, LoadSceneMode.Single);
-    }
-
-    // PATTERN ----------------------------------------------------
-    // Y
-    void Y_Start()
-    {
-        // Pattern yellow
-        y_index = 0; bubble_numb = 5;
-
-        bubbles = new GameObject[bubble_numb];
-        for(int i = 0; i < bubble_numb; i++){
-            GameObject gem_temp = Instantiate(bubblePF, new Vector3(0,0,0), Quaternion.identity, UI_Canvas.transform);
-            gem_temp.SetActive(false);
-            bubbles[i] = gem_temp;
-        }
-        InvokeRepeating("Y_SpawnBubble", 2, 2);
-    }
-
-    void Y_StartFever(){
-        CancelInvoke(); // stop spawing bubbles
-        // de-activate all bubles
-        for(int i = 0; i < bubble_numb; i++) bubbles[i].SetActive(false);
-        y_index = 0;
-    }
-
-    void Y_EndFever(){
-        InvokeRepeating("Y_SpawnBubble", 2, 2);
-    }
-
-    // PATTERN -- YELLOW
-    void Y_SpawnBubble(){
-        Vector3 rand_pos = new Vector3(Random.Range(800.0f, 1600.0f), Random.Range(220.0f, 850.0f), 5);
-        bubbles[y_index].transform.position = Camera.main.ScreenToWorldPoint(rand_pos);
-        bubbles[y_index].SetActive(true);
-        y_index = (y_index+1)%bubble_numb;
     }
 }

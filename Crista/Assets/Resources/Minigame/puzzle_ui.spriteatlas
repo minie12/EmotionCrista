@@ -42,7 +42,8 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 815a4c6625dc8084ab7f4ac084365682, type: 3}
     - {fileID: 2800000, guid: ba9d3649c391a8740b7d7b9870237dca, type: 3}
     - {fileID: 2800000, guid: 9292369271bfafc40803a326498a8ddc, type: 3}
-    totalSpriteSurfaceArea: 1809416
+    - {fileID: 2800000, guid: 4d47b878dde0b734aad39398ebb1bb5d, type: 3}
+    totalSpriteSurfaceArea: 2049058
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -52,6 +53,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a51298549a2dd2d4e9a9d8459a7fa461, type: 3}
   - {fileID: 21300000, guid: 815a4c6625dc8084ab7f4ac084365682, type: 3}
   - {fileID: 21300000, guid: 53fc2ee79d0e77646b3efb880f588eb4, type: 3}
+  - {fileID: 21300000, guid: 4d47b878dde0b734aad39398ebb1bb5d, type: 3}
   - {fileID: 21300000, guid: ba9d3649c391a8740b7d7b9870237dca, type: 3}
   - {fileID: 21300000, guid: c083f8499ddeceb4e923e65619248e17, type: 3}
   - {fileID: 21300000, guid: c8af3e2b972cd4c4282289fe80334d78, type: 3}
@@ -64,6 +66,7 @@ SpriteAtlas:
   - fever_gauge_full
   - hex_guide_click
   - fever_btn_bg
+  - puzzle_chat_ui
   - hex_guide_others
   - board_fever
   - board_main

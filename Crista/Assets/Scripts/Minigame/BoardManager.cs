@@ -11,7 +11,6 @@ public class BoardManager : MonoBehaviour
     private int gem_numb = 5; // need to change if gem color numb changes
 
     public GameObject gemPF;
-    // public GameObject[] gemPF;
     public Vector3[] drop_pos;
     public GameObject click_effect;
     private GemInfo[,] gems;
@@ -82,21 +81,6 @@ public class BoardManager : MonoBehaviour
             drop_pos[i] = new Vector2(-1.1f + i * diff_x, trans_y);
         }
     }
-
-    void RefillGem(){ // NOT USED!!!!!
-        // get gems inside board
-        for(int i = 0; i < 11; i++){
-            for(int j = 0; j < 6; j++){
-                if(j == 5 && i % 2 == 0) continue; 
-
-                int color = Random.Range(0, gem_numb);
-                GameObject gem_temp = Instantiate(gemPF, board_tiles[i,j], Quaternion.identity, this.transform);
-                gem_temp.GetComponent<GemInfo>().InitGem(i, j, color);
-                gems[i, j] = gem_temp.GetComponent<GemInfo>();
-            }
-        }
-    }
-
 
     void RotateGem(char key)
     {
