@@ -16,56 +16,55 @@ public class PatternYellow : PatternManager
     private int chatFlow_numb = 12;
     private int chat_index;
 
-    private int gimmick = 0;
     private float full_spawn_time = 2;
 
-    override public void StartPattern(){
-        y_index = 0;
+    override public void StartPattern(int gimmick_){
+        y_index = 0; gimmick = gimmick_; UI_text_idx = 0;
+        OrganizeCharacterChat();
 
         if(gimmick == 0){
-            chatBoxes = new GameObject[chatBox_numb];
-            for(int i = 0; i < chatBox_numb; i++){
-                GameObject temp = Instantiate(chatBoxPF, new Vector3(0,0,0), Quaternion.identity, UI_canvas.transform);
-                temp.SetActive(false);
-                chatBoxes[i] = temp;
+            if(UI_canvas.transform.childCount == 0){
+                chatBoxes = new GameObject[chatBox_numb];
+                for(int i = 0; i < chatBox_numb; i++){
+                    GameObject temp = Instantiate(chatBoxPF, new Vector3(0,0,0), Quaternion.identity, UI_canvas.transform);
+                    temp.SetActive(false);
+                    chatBoxes[i] = temp;
+                }
             }
 
             Invoke("Y_SpawnChatBox", full_spawn_time);
         }
-        else{
-            chatFlows = new GameObject[chatFlow_numb];
-            for(int i = 0; i < chatFlow_numb; i++){
-                GameObject temp = Instantiate(chatFlowPF, new Vector3(0,0,0), Quaternion.identity, UI_canvas.transform);
-                temp.SetActive(false);
-                chatFlows[i] = temp;
+        else if(gimmick == 1){
+            if(UI_canvas.transform.childCount == 0){
+                chatFlows = new GameObject[chatFlow_numb];
+                for(int i = 0; i < chatFlow_numb; i++){
+                    GameObject temp = Instantiate(chatFlowPF, new Vector3(0,0,0), Quaternion.identity, UI_canvas.transform);
+                    temp.SetActive(false);
+                    chatFlows[i] = temp;
+                }
             }
 
             Invoke("Y_SpawnChatFlow", full_spawn_time);
         }
     }
 
-    override public void StartFever(){
-        CancelInvoke(); // stop spawning 
 
-        // de-activate all pattern objects
-        foreach (Transform child in UI_canvas.transform)
-            child.gameObject.SetActive(false);
-
-        y_index = 0;
-    }
     
-    override public void EndFever(){
+    override public void StopPattern(){ CancelInvoke(); }
+
+    override public void RestartPattern(){
+        y_index = 0; 
+
         if(gimmick == 0) Invoke("Y_SpawnChatBox", full_spawn_time);
-        else Invoke("Y_SpawnChatFlow", full_spawn_time);
+        else if(gimmick == 1) Invoke("Y_SpawnChatFlow", full_spawn_time);
     }
 
     float CalcSpawnTime(){
-        float decrease_time = (MiniManager.full_time - MiniManager.time)/15f;
+        float decrease_time = mini_manager.TimeLeft()/15f;
         if(decrease_time > 1.3f) decrease_time = 1.3f;
 
         return full_spawn_time - decrease_time;
     }
-
     // Y1 --------------------------------------------------------------------------------------------------------
     void Y_SpawnChatBox(){
         // set position

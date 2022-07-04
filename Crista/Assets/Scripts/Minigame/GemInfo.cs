@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-enum Color{ Yellow = 0, Blue = 1, Red = 2, Green = 3, Purple = 4}
-
 public class GemInfo : MonoBehaviour
 {
     private BoardManager board;
     private int column, row;
-    Color color;
 
+    private PatternType color;
     public Sprite[] gem_sprites;
+
+    public SpriteRenderer gem_outline;
+    public Sprite SPgem_click;
+    public Sprite SPgem_side;
+
     public Animator ANsparkle; 
     public Animator ANgem; 
 
@@ -22,12 +24,29 @@ public class GemInfo : MonoBehaviour
 
     public void InitGem(int column_, int row_, int color_){
         column = column_; row = row_; 
-        if(color_ == (int)Color.Yellow) color = Color.Yellow;
-        else if(color_ == (int)Color.Blue) color = Color.Blue;
-        else if(color_ == (int)Color.Red) color = Color.Red;
-        else if(color_ == (int)Color.Green) color = Color.Green;
-        else color = Color.Purple;
+        if(color_ == (int)PatternType.YELLOW) color = PatternType.YELLOW;
+        else if(color_ == (int)PatternType.BLUE) color = PatternType.BLUE;
+        else if(color_ == (int)PatternType.RED) color = PatternType.RED;
+        else if(color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
+        else color = PatternType.PURPLE;
         gameObject.GetComponent<SpriteRenderer>().sprite = gem_sprites[(int)color];
+    }
+
+    /// <summary> Set outline sprite of gem </summary>
+    /// <param name="type"> click, side, undo. </param>
+    public void SetOutline(string type){
+        switch (type)
+        {
+            case "click":
+                gem_outline.sprite = SPgem_click;
+                break;
+            case "side":
+                gem_outline.sprite = SPgem_side;
+                break;
+            case "undo":
+                gem_outline.sprite = null;
+                break;
+        }
     }
 
     public void PrintInfo(){
@@ -39,7 +58,7 @@ public class GemInfo : MonoBehaviour
         if(board.CheckFever()){
             board.FeverClick(column,row);
         }
-        else if(board.gem_movable){
+        else if(board.GetGemMovable()){
             board.GemClick(column, row);
         }
     }
@@ -56,11 +75,11 @@ public class GemInfo : MonoBehaviour
     IEnumerator DestroyGemC(){
         ANgem.enabled = true;
 
-        if(color == Color.Red) ANgem.Play("gem_crush_red",0, 0.0f);
-        else if(color == Color.Yellow) ANgem.Play("gem_crush_yellow",0, 0.0f);
-        else if(color == Color.Green) ANgem.Play("gem_crush_green",0, 0.0f);
-        else if(color == Color.Blue) ANgem.Play("gem_crush_blue",0, 0.0f);
-        else if(color == Color.Purple) ANgem.Play("gem_crush_purple",0, 0.0f);
+        if(color == PatternType.RED) ANgem.Play("gem_crush_red",0, 0.0f);
+        else if(color == PatternType.YELLOW) ANgem.Play("gem_crush_yellow",0, 0.0f);
+        else if(color == PatternType.GREEN) ANgem.Play("gem_crush_green",0, 0.0f);
+        else if(color == PatternType.BLUE) ANgem.Play("gem_crush_blue",0, 0.0f);
+        else if(color == PatternType.PURPLE) ANgem.Play("gem_crush_purple",0, 0.0f);
         
         ANsparkle.Play("gem_sparkle", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
@@ -76,7 +95,7 @@ public class GemInfo : MonoBehaviour
         gameObject.GetComponent<Collider2D>().enabled = false;
 
         Vector3 start_pos = transform.position;
-        yield return new WaitForSeconds(0.01f); // used to prevent many accesses to GetGemPosition() at the same time
+        yield return new WaitForSeconds(0.01f); // used to avoid error but why?
         Vector3 end_pos = board.GetGemPosition(column, row);
 
         for(float t = 0; t <= 1 * time; t += Time.deltaTime){

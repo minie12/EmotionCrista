@@ -16,18 +16,18 @@ public class BoardManager : MonoBehaviour
     private GemInfo[,] gems;
     private Vector3[,] board_tiles;
 
-
-    public bool gem_movable;
+    private bool gem_movable = false;
     private bool gem_clicked;
+    private int prev_row, prev_column;
     private int row, column;
-    private float rotate_ang = 0;
 
     // fever related
     private int fever_cnt = 0;
 
-    // animation times
+    // animation and audio
     public float rotate_time;
     public float fall_time;
+    public AudioSource board_audio;
     
     // goal state
     public GoalInfo goal_info;
@@ -36,9 +36,6 @@ public class BoardManager : MonoBehaviour
 
     void Start()
     {   
-        // mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
-        // goal_info = gameObject.GetComponent<GoalInfo>();
-        gem_movable = true;
         InitBoard();
         // for testing purpose ERASE BELOW
         goal_info.SetGoal(goal_unit);
@@ -46,14 +43,14 @@ public class BoardManager : MonoBehaviour
 
     void Update()
     {
-        if (gem_clicked)
+        if (gem_clicked && gem_movable)
         {
             if (Input.GetKeyDown(KeyCode.A)) RotateGem('a');
             else if (Input.GetKeyDown(KeyCode.D)) RotateGem('d');
         }
     }
 
-    void InitBoard()
+    public void InitBoard()
     {
         board_tiles = new Vector3[11, 6];
         gems = new GemInfo[11, 6];
@@ -80,11 +77,22 @@ public class BoardManager : MonoBehaviour
 
             drop_pos[i] = new Vector2(-1.1f + i * diff_x, trans_y);
         }
+
+        gem_movable = true;
+    }
+
+    void SaveGemCooridnate(int column_, int row_){
+        prev_row = row; prev_column = column;
+        row = row_; column = column_;
     }
 
     void RotateGem(char key)
     {
+        gem_movable = false;
+
         int eo = (column%2 == 0)?1:0;
+
+        Invoke("EnableGemMovable", rotate_time);
 
         // turn CCW
         if(key == 'a'){
@@ -95,9 +103,6 @@ public class BoardManager : MonoBehaviour
             gems[column+1, row-1+eo].MoveGem(column+1, row+eo, rotate_time);
             gems[column+1, row+eo].MoveGem(column, row+1, rotate_time);
             gems[column, row+1].MoveGem(column-1, row+eo, rotate_time);
-
-            rotate_ang += 60;
-            StartCoroutine(ClickEffectRotateC(rotate_time));
 
             // update gems array
             GemInfo g_temp = gems[column-1, row+eo];
@@ -119,9 +124,6 @@ public class BoardManager : MonoBehaviour
             gems[column, row-1].MoveGem(column-1, row-1+eo, rotate_time);
             gems[column-1, row-1+eo].MoveGem(column-1, row+eo, rotate_time);
 
-            rotate_ang -= 60;
-            StartCoroutine(ClickEffectRotateC(rotate_time));
-
             // update gems array
             GemInfo g_temp = gems[column-1, row+eo];
             gems[column-1, row+eo] = gems[column-1, row-1+eo];
@@ -133,31 +135,15 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    IEnumerator ClickEffectRotateC(float time)
-    {
-        gem_movable = false;
-
-        Quaternion start_rot = click_effect.transform.rotation;
-        yield return new WaitForSeconds(0.05f); // used to prevent many accesses to GetPosition() at the same time
-        Quaternion end_rot = Quaternion.Euler(0, 0, rotate_ang);
-
-        for(float t = 0; t <= 1 * time; t += Time.deltaTime){
-            // Dampen towards the target rotation
-            click_effect.transform.rotation = Quaternion.Slerp(start_rot, end_rot, t / time);
-            yield return 0;
-        }
-            
-        click_effect.transform.rotation = end_rot;
-
-        gem_movable = true;
-    }
+    void EnableGemMovable(){gem_movable = true;}
 
     public void GemClick(int column_, int row_)
     {
-        row = row_; column = column_;
-
         // check if goal is met
-        if(goal_info.CheckGoal(column, row)){
+        if(goal_info.CheckGoal(column_, row_)){
+            SaveGemCooridnate(column_, row_);
+
+            EraseGemOutline();
             gem_clicked = false;
             click_effect.SetActive(false);
 
@@ -166,21 +152,57 @@ public class BoardManager : MonoBehaviour
             else mini.AddFever(goal_unit);
 
             // Delete gems
+            board_audio.Play();
             goal_info.EraseGems(column, row);
 
             StartCoroutine("RefillBoard");
-            // Invoke("RefillBoard", 0.3f);
         }
         else{
             // do not enable click when user clicks the boundary of board
             if(column_ == 10 || column_ == 0 || row_ == 5 || row_ == 0) return;
             if(row_ == 4 && column_ % 2 == 0) return;
 
+            SaveGemCooridnate(column_, row_);
+
             // show that gem has been clicked
-            gem_clicked = true;
+            ChangeGemOutline();
+            //gems[column, row].SetOutline("click");
             click_effect.transform.position = board_tiles[column, row];
             click_effect.SetActive(true);
         }
+    }
+
+    void EraseGemOutline(){
+        if(gem_clicked){
+            int eo = (prev_column%2 == 0)?1:0;
+
+            gems[prev_column, prev_row].SetOutline("undo");
+
+            gems[prev_column-1, prev_row+eo].SetOutline("undo");
+            gems[prev_column-1, prev_row-1+eo].SetOutline("undo");
+            gems[prev_column, prev_row-1].SetOutline("undo");
+            gems[prev_column+1, prev_row-1+eo].SetOutline("undo");
+            gems[prev_column+1, prev_row+eo].SetOutline("undo");
+            gems[prev_column, prev_row+1].SetOutline("undo");
+        }
+    }
+    void ChangeGemOutline(){
+        int eo;
+        
+        EraseGemOutline(); // disable previous gems
+      
+        eo = (column%2 == 0)?1:0;
+
+        gems[column, row].SetOutline("click");
+
+        gems[column-1, row+eo].SetOutline("side");
+        gems[column-1, row-1+eo].SetOutline("side");
+        gems[column, row-1].SetOutline("side");
+        gems[column+1, row-1+eo].SetOutline("side");
+        gems[column+1, row+eo].SetOutline("side");
+        gems[column, row+1].SetOutline("side");
+
+        gem_clicked = true;
     }
 
     bool CheckGemExist(int column_, int row_){
@@ -191,9 +213,8 @@ public class BoardManager : MonoBehaviour
     }
 
     IEnumerator RefillBoard(){
-        yield return new WaitForSeconds(0.3f); // wait for gem crush
-
         gem_movable = false;
+        yield return new WaitForSeconds(0.3f); // wait for gem crush
         
         int start = column-goal_unit > 0? column-goal_unit : 0;
         int end = column+goal_unit < 11? column+goal_unit : 11;
@@ -253,8 +274,22 @@ public class BoardManager : MonoBehaviour
         return gems[column_, row_].GetColor();
     }
 
+    public bool GetGemMovable(){return gem_movable;}
+    public void SetGemMovable(bool movable){gem_movable = movable;}
+
     public bool CheckFever(){
         return mini.fever_on;
+    }
+
+    public void ClearBoard(){
+        gem_movable = false;
+        click_effect.SetActive(false);
+        gem_clicked = false;
+        
+        StopAllCoroutines();
+        foreach(GemInfo gem in gems){
+            if(gem != null) gem.DestroyGem();
+        }
     }
 
 // FEVER ---------------------------------------------------------------------------
@@ -265,9 +300,9 @@ public class BoardManager : MonoBehaviour
     }
 
     IEnumerator RefillBoardFever(){
-        yield return new WaitForSeconds(0.3f); // wait for gem crush
-        
         gem_movable = false;
+
+        yield return new WaitForSeconds(0.3f); // wait for gem crush
         
         for(int i = 0; i < 11; i++){
             for(int j = 0; j < 6; j++){
@@ -314,6 +349,7 @@ public class BoardManager : MonoBehaviour
     }
 
     public void FeverClick(int column_, int row_){
+        board_audio.Play();
         mini.AddScore(1);
         DelGem(column_, row_);
 

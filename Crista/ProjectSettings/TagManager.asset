@@ -5,11 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - GemEffect
-  - RedGem
-  - GreenGem
-  - BlueGem
-  - YellowGem
-  - PurpleGem
   - Gem
   layers:
   - Default

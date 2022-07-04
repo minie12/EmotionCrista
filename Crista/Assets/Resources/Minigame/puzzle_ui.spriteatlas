@@ -43,37 +43,52 @@ SpriteAtlas:
     - {fileID: 2800000, guid: ba9d3649c391a8740b7d7b9870237dca, type: 3}
     - {fileID: 2800000, guid: 9292369271bfafc40803a326498a8ddc, type: 3}
     - {fileID: 2800000, guid: 4d47b878dde0b734aad39398ebb1bb5d, type: 3}
-    totalSpriteSurfaceArea: 2049058
+    - {fileID: 2800000, guid: 1e578de928e2cb94093dcc3f750371a5, type: 3}
+    - {fileID: 2800000, guid: 23b011324ef72a443a6c1f8d1ad3639e, type: 3}
+    - {fileID: 2800000, guid: 9f9d09afff356be4f8ca9695f67713be, type: 3}
+    - {fileID: 2800000, guid: 6e67eaeac2e0b964b96d6ec9c53c8da0, type: 3}
+    - {fileID: 2800000, guid: c4947f085cee94247817df13feedc989, type: 3}
+    totalSpriteSurfaceArea: 4203558
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 23b011324ef72a443a6c1f8d1ad3639e, type: 3}
   - {fileID: 21300000, guid: 9292369271bfafc40803a326498a8ddc, type: 3}
   - {fileID: 21300000, guid: a51298549a2dd2d4e9a9d8459a7fa461, type: 3}
   - {fileID: 21300000, guid: 815a4c6625dc8084ab7f4ac084365682, type: 3}
   - {fileID: 21300000, guid: 53fc2ee79d0e77646b3efb880f588eb4, type: 3}
+  - {fileID: 21300000, guid: c4947f085cee94247817df13feedc989, type: 3}
   - {fileID: 21300000, guid: 4d47b878dde0b734aad39398ebb1bb5d, type: 3}
   - {fileID: 21300000, guid: ba9d3649c391a8740b7d7b9870237dca, type: 3}
   - {fileID: 21300000, guid: c083f8499ddeceb4e923e65619248e17, type: 3}
+  - {fileID: 21300000, guid: 1e578de928e2cb94093dcc3f750371a5, type: 3}
+  - {fileID: 21300000, guid: 6e67eaeac2e0b964b96d6ec9c53c8da0, type: 3}
   - {fileID: 21300000, guid: c8af3e2b972cd4c4282289fe80334d78, type: 3}
   - {fileID: 21300000, guid: 2b6253abd02d9984ab0f7a3373e81a9f, type: 3}
   - {fileID: 21300000, guid: 70d67dbb738f4cc478802748504ebae7, type: 3}
   - {fileID: 21300000, guid: 0e6ba5dcdd3d8a048b4d1a40319220ae, type: 3}
   - {fileID: 21300000, guid: b6bd380f939cc924f9966ca10f9a24d9, type: 3}
+  - {fileID: 21300000, guid: 9f9d09afff356be4f8ca9695f67713be, type: 3}
   m_PackedSpriteNamesToIndex:
+  - hex_click
   - hex_norm
   - fever_gauge_full
   - hex_guide_click
   - fever_btn_bg
+  - gameover_retry
   - puzzle_chat_ui
   - hex_guide_others
   - board_fever
+  - hex
+  - gameover_quit
   - board_main
   - fever_btn
   - fever_btn_full
   - fever_gauge
   - hex_fever
+  - gameover_bg
   m_RenderDataMap: {}
   m_Tag: puzzle_ui
   m_IsVariant: 0

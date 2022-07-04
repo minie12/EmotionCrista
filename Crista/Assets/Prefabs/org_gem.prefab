@@ -260,7 +260,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.95, y: 0.85}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 274065020363150208}
   m_Layer: 7
   m_Name: org_gem
-  m_TagString: BlueGem
+  m_TagString: Gem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -372,6 +372,9 @@ MonoBehaviour:
   - {fileID: 3598714856469743548, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: -2511356291957038328, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: -7335531085601356040, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
+  gem_outline: {fileID: 1471261474537222146}
+  SPgem_click: {fileID: 21300000, guid: 23b011324ef72a443a6c1f8d1ad3639e, type: 3}
+  SPgem_side: {fileID: 21300000, guid: 1e578de928e2cb94093dcc3f750371a5, type: 3}
   ANsparkle: {fileID: 1299334156}
   ANgem: {fileID: 274065020363150208}
 --- !u!61 &-7377876002442744885
