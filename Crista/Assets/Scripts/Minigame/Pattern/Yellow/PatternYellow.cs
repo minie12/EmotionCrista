@@ -60,7 +60,7 @@ public class PatternYellow : PatternManager
     }
 
     float CalcSpawnTime(){
-        float decrease_time = mini_manager.TimeLeft()/15f;
+        float decrease_time = mini.TimeLeft()/15f;
         if(decrease_time > 1.3f) decrease_time = 1.3f;
 
         return full_spawn_time - decrease_time;

@@ -11,12 +11,13 @@ public class GemInfo : MonoBehaviour
     public Sprite[] gem_sprites;
 
     public SpriteRenderer gem_outline;
+    // public SpriteRenderer gem_pattern;
     public Sprite SPgem_click;
     public Sprite SPgem_side;
 
     public Animator ANsparkle; 
+    public Animator ANpattern; 
     public Animator ANgem; 
-
 
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
@@ -24,12 +25,7 @@ public class GemInfo : MonoBehaviour
 
     public void InitGem(int column_, int row_, int color_){
         column = column_; row = row_; 
-        if(color_ == (int)PatternType.YELLOW) color = PatternType.YELLOW;
-        else if(color_ == (int)PatternType.BLUE) color = PatternType.BLUE;
-        else if(color_ == (int)PatternType.RED) color = PatternType.RED;
-        else if(color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
-        else color = PatternType.PURPLE;
-        gameObject.GetComponent<SpriteRenderer>().sprite = gem_sprites[(int)color];
+        SetColor_(color_);
     }
 
     /// <summary> Set outline sprite of gem </summary>
@@ -38,13 +34,13 @@ public class GemInfo : MonoBehaviour
         switch (type)
         {
             case "click":
-                gem_outline.sprite = SPgem_click;
+                gem_outline.sprite = SPgem_click; // middle of hex when clicked
                 break;
             case "side":
-                gem_outline.sprite = SPgem_side;
+                gem_outline.sprite = SPgem_side; // sides of hex when clicked
                 break;
             case "undo":
-                gem_outline.sprite = null;
+                gem_outline.sprite = null; // undo the click
                 break;
         }
     }
@@ -67,11 +63,31 @@ public class GemInfo : MonoBehaviour
         return (int)color;
     }
 
+    public void SetColor(){
+        int now;
+        int prev = now = (int)color;
+
+        while(prev == now){
+            now = Random.Range(0, board.GetGemTypeCnt());
+        }
+
+        SetColor_(now);
+    }
+    
+    void SetColor_(int color_){
+        if(color_ == (int)PatternType.YELLOW) color = PatternType.YELLOW;
+        else if(color_ == (int)PatternType.BLUE) color = PatternType.BLUE;
+        else if(color_ == (int)PatternType.RED) color = PatternType.RED;
+        else if(color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
+        else color = PatternType.PURPLE;
+
+        gameObject.GetComponent<SpriteRenderer>().sprite = gem_sprites[(int)color];
+    }
+
     public void DestroyGem(){
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("DestroyGemC");
     }
-
     IEnumerator DestroyGemC(){
         ANgem.enabled = true;
 
@@ -84,6 +100,23 @@ public class GemInfo : MonoBehaviour
         ANsparkle.Play("gem_sparkle", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
+    }
+
+    public void FillWaterInHex(){
+        ANpattern.Play("gem_fill_water", 0, 0.0f);
+        StartCoroutine("FillWaterInHexC");
+    }
+
+    IEnumerator FillWaterInHexC(){
+        yield return new WaitForSeconds(0.1f);
+
+        // check whether gem_fill_water animation is done or not
+        while(!ANpattern.GetCurrentAnimatorStateInfo(0).IsTag("changeColor")){
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        SetColor(); // change color of gem
+        ANpattern.SetBool("bWaterFilled", true);
     }
 
     public void MoveGem(int column_, int row_, float time){

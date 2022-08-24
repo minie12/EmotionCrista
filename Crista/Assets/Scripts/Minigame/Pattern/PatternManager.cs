@@ -9,7 +9,7 @@ public class PatternManager : MonoBehaviour
     // YELLOW Pattern
     [HideInInspector] public GameObject UI_canvas;
     [HideInInspector] public Text UI_text;
-    [HideInInspector] public MiniManager mini_manager; 
+    [HideInInspector] public MiniManager mini; 
     [HideInInspector] public int gimmick = 0;
 
     // chat UI 
@@ -19,14 +19,20 @@ public class PatternManager : MonoBehaviour
     void Awake(){
         UI_canvas = GameObject.Find("PatternCanvas");
         UI_text = GameObject.Find("UIText").GetComponent<Text>();
-        mini_manager = GameObject.Find("MiniManager").GetComponent<MiniManager>();
+        mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
     }
 
     public PatternManager SpawnPattern(int pattern_idx){
-        if(pattern_idx == 0){ // YELLOW
+        if(pattern_idx == (int)PatternType.YELLOW){ // YELLOW'
+            Debug.Log("Returned Pattern Yellow");
             return GetComponent<PatternYellow>();
         }
+        else if(pattern_idx == (int)PatternType.BLUE){ // BLUE
+            Debug.Log("Returned Pattern Blue");
+            return GetComponent<PatternBlue>();
+        }
 
+        Debug.Log("No Pattern Found");
         return GetComponent<PatternYellow>();
     }
 
@@ -37,7 +43,7 @@ public class PatternManager : MonoBehaviour
     public void OrganizeCharacterChat(){
         UI_text_idx = 0;
         foreach(CharacterChat myChat in GameManager.Instance.myChatList.characterChat){
-            if(myChat.name == mini_manager.fungus_message){
+            if(myChat.name == mini.fungus_message){
                 UI_text_info = myChat.chat.Split('\r');
                 break;
             }
