@@ -245,4 +245,41 @@ public class MiniManager : MonoBehaviour
         }
         return gem;
     }
+
+    public GemInfo[] GetRandomGems(int cnt)
+    {
+        // TODO: Does not check whether the gem is already filled with water
+        GemInfo[] gems = new GemInfo[cnt];
+        int[,] picked_coordinate = new int[cnt, 2];
+
+        for (int i = 0; i < cnt; i++)
+        {
+            GemInfo gem; int column_, row_;
+            bool bPicked;
+            do
+            {
+                bPicked = false;
+                column_ = Random.Range(0, 11);
+                row_ = Random.Range(0, 6);
+                gem = board.GetGem(column_, row_);
+
+                // check if this gem is already picked
+                for (int j = 0; j < i; j++)
+                {
+                    if (picked_coordinate[j,0] == column_ && picked_coordinate[j, 1] == row_)
+                    {
+                        bPicked = true;
+                        break;
+                    }
+                }
+            } while (gem == null || gem.bPattern_applied || bPicked);
+
+            picked_coordinate[i, 0] = column_;
+            picked_coordinate[i, 1] = row_;
+
+            gems[i] = gem;
+        }
+        
+        return gems;
+    }
 }
