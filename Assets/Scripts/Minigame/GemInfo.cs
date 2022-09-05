@@ -17,13 +17,16 @@ public class GemInfo : MonoBehaviour
 
     public Animator ANsparkle; 
     public Animator ANpattern; 
-    public Animator ANgem; 
+    public Animator ANgem;
+
+    public bool bPattern_applied;
 
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
     public void InitGem(int column_, int row_, int color_){
+        bPattern_applied = false;
         column = column_; row = row_; 
         SetColor_(color_);
     }
@@ -103,6 +106,7 @@ public class GemInfo : MonoBehaviour
     }
 
     public void FillWaterInHex(){
+        bPattern_applied = true;  // so that this gem does not get selected at GetRandomGem()
         ANpattern.Play("gem_fill_water", 0, 0.0f);
         StartCoroutine("FillWaterInHexC");
     }
@@ -116,6 +120,7 @@ public class GemInfo : MonoBehaviour
         }
 
         SetColor(); // change color of gem
+        bPattern_applied = false;
         ANpattern.SetBool("bWaterFilled", true);
     }
 

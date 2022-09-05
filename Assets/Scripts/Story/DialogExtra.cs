@@ -13,6 +13,10 @@ public class DialogExtra : MonoBehaviour
         GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGame(color, gimmick, message);
     }
 
+    public void StartSaveData(Fungus.Flowchart flowchart){
+        GameObject.Find("SaveLoadManager").GetComponent<SaveLoadManager>().SetSaveData(flowchart.Variables);
+    }
+
     public void ExitGame(){
         Application.Quit();
     }
