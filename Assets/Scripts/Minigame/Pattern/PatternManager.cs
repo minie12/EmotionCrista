@@ -52,7 +52,7 @@ public class PatternManager : MonoBehaviour
         if(UI_text_info.GetLength(0)!=0) SetUIText();
     }
 
-    // 텍스트 한 글자씩 타이핑 효과
+    // text by text typing effect
     IEnumerator TypingAnimation(Text typingText, string message, float speed)
     {
         for (int i = 0; i < message.Length; i++)
