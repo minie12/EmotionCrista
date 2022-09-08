@@ -51,6 +51,17 @@ public class PatternManager : MonoBehaviour
 
         if(UI_text_info.GetLength(0)!=0) SetUIText();
     }
+
+    // 텍스트 한 글자씩 타이핑 효과
+    IEnumerator TypingAnimation(Text typingText, string message, float speed)
+    {
+        for (int i = 0; i < message.Length; i++)
+        {
+            typingText.text = message.Substring(0, i + 1);
+            yield return new WaitForSeconds(speed);
+        }
+    }
+
     public void SetUIText(){
         string[] contents = UI_text_info[UI_text_idx].Split('/');
 
@@ -62,7 +73,8 @@ public class PatternManager : MonoBehaviour
 
     IEnumerator SetUIText_(string[] contents){
         foreach(string content in contents){
-            UI_text.text = content;
+            // UI_text.text = content;
+            StartCoroutine(TypingAnimation(UI_text, content, 0.07f));
             yield return new WaitForSeconds(4f);
         }
     }
