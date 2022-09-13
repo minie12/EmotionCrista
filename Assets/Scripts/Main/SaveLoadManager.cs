@@ -57,6 +57,7 @@ public class SaveLoadManager : MonoBehaviour
 
         //string prefsKey = Fungus.SetSaveProfile.SaveProfile + "_" + Fungus.GetFlowchart().SubstituteVariables("player_name");
 
+        PlayerPrefs.SetInt("load_data", 1); // flag for checking if scene is loaded from load menu
         PlayerPrefs.SetString("player_name", game_data.player_name);
         PlayerPrefs.SetString("story_numb", game_data.story_numb);
 

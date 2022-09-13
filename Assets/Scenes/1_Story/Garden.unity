@@ -472,7 +472,6 @@ GameObject:
   - component: {fileID: 272716471}
   - component: {fileID: 272716470}
   - component: {fileID: 272716306}
-  - component: {fileID: 272716469}
   - component: {fileID: 272716248}
   - component: {fileID: 272716474}
   - component: {fileID: 272716475}
@@ -539,10 +538,9 @@ MonoBehaviour:
   eventHandler: {fileID: 272716259}
   commandList:
   - {fileID: 272716258}
-  - {fileID: 272716248}
   - {fileID: 272716257}
   - {fileID: 272716256}
-  - {fileID: 272716469}
+  - {fileID: 272716248}
   - {fileID: 272716255}
   - {fileID: 272716474}
   - {fileID: 272716254}
@@ -1350,8 +1348,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 272716396}
-  selectedCommands: []
+  - {fileID: 272716249}
+  selectedCommands:
+  - {fileID: 272716256}
   variables:
   - {fileID: 272716261}
   - {fileID: 272716276}
@@ -9826,34 +9825,6 @@ MonoBehaviour:
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
   fadeTweenType: 4
---- !u!114 &272716469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272716247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 369
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 1073799933}
-  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: DialogExtra
-  targetMethod: 
-  targetMethodText: 
-  methodParameters: []
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
 --- !u!114 &272716470
 MonoBehaviour:
   m_ObjectHideFlags: 2

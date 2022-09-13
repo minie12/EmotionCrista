@@ -29,10 +29,17 @@ public class DialogExtra : MonoBehaviour
 
     public void LoadPlayerPrefs()
     {
+        if (!PlayerPrefs.HasKey("load_data") || PlayerPrefs.GetInt("load_data") == 0)
+            return;
+
+        PlayerPrefs.SetInt("load_data", 0);
+
         Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
 
         flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("player_name"));
         flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("story_numb"));
+        Debug.Log(PlayerPrefs.GetString("story_numb"));
+        Debug.Log(flowchart.GetStringVariable("StoryNumb"));
     }
 
     //------------------ LOVE ENDING --------------------------------------
