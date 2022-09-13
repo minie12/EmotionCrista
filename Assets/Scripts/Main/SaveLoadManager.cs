@@ -52,9 +52,15 @@ public class SaveLoadManager : MonoBehaviour
     }
 
     public void StartLoadData(){
-        LoadFromFile();
+        //LoadFromFile();
+        LoadTesting();
 
+        //string prefsKey = Fungus.SetSaveProfile.SaveProfile + "_" + Fungus.GetFlowchart().SubstituteVariables("player_name");
 
+        PlayerPrefs.SetString("player_name", game_data.player_name);
+        PlayerPrefs.SetString("story_numb", game_data.story_numb);
+
+        SceneManager.LoadScene(game_data.scene_name, LoadSceneMode.Single);
     }
 
     private void LoadFromFile(){
@@ -68,6 +74,12 @@ public class SaveLoadManager : MonoBehaviour
         Debug.Log(game_data.story_numb);
 
         load_stream.Close();
+    }
+    private void LoadTesting()
+    {
+        game_data.scene_name = "Garden";
+        game_data.player_name = "SaRangHe";
+        game_data.story_numb = "D02_RazEnding_1";
     }
 }
 
