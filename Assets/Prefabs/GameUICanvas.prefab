@@ -1533,7 +1533,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5197354369245054771, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
         m_TargetAssemblyTypeName: DialogExtra, Assembly-CSharp
         m_MethodName: StartSaveData
         m_Mode: 2

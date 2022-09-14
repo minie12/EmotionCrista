@@ -15,8 +15,8 @@ public class DialogExtra : MonoBehaviour
         GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGame(color, gimmick, message);
     }
 
-    public void StartSaveData(Fungus.Flowchart flowchart){
-        GameObject.Find("SaveLoadManager").GetComponent<SaveLoadManager>().SetSaveData(flowchart.Variables);
+    public void StartSaveData(){
+        GameObject.Find("SaveLoadManager").GetComponent<SaveLoadManager>().SetSaveData();
     }
 
     public void ExitGame(){
@@ -29,17 +29,15 @@ public class DialogExtra : MonoBehaviour
 
     public void LoadPlayerPrefs()
     {
-        if (!PlayerPrefs.HasKey("load_data") || PlayerPrefs.GetInt("load_data") == 0)
+        if (!PlayerPrefs.HasKey("LoadData") || PlayerPrefs.GetInt("LoadData") == 0)
             return;
 
-        PlayerPrefs.SetInt("load_data", 0);
+        PlayerPrefs.SetInt("LoadData", 0);
 
         Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
 
-        flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("player_name"));
-        flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("story_numb"));
-        Debug.Log(PlayerPrefs.GetString("story_numb"));
-        Debug.Log(flowchart.GetStringVariable("StoryNumb"));
+        flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("PlayerName"));
+        flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("StoryNumb"));
     }
 
     //------------------ LOVE ENDING --------------------------------------
