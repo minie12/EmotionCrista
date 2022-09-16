@@ -62,6 +62,9 @@ public class PatternManager : MonoBehaviour
         }
     }
 
+    // manage text showing after finish previous show
+    private bool isShowingText = false;
+
     public void SetUIText(){
         string[] contents = UI_text_info[UI_text_idx].Split('/');
 
@@ -72,11 +75,17 @@ public class PatternManager : MonoBehaviour
     }
 
     IEnumerator SetUIText_(string[] contents){
+        while (isShowingText)
+        {
+            yield return null;
+        }
+        isShowingText = true;
         foreach(string content in contents){
             // UI_text.text = content;
             StartCoroutine(TypingAnimation(UI_text, content, 0.07f));
             yield return new WaitForSeconds(4f);
         }
+        isShowingText = false;
     }
 
     public void ClearPattern(){
