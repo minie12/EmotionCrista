@@ -31,6 +31,10 @@ public class PatternManager : MonoBehaviour
             Debug.Log("Returned Pattern Blue");
             return GetComponent<PatternBlue>();
         }
+        else if (pattern_idx == (int)PatternType.RED){ // RED
+            Debug.Log("Returned Pattern Red");
+            return GetComponent<PatternRed>();
+        }
 
         Debug.Log("No Pattern Found");
         return GetComponent<PatternYellow>();

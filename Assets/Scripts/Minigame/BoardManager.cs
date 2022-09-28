@@ -142,7 +142,15 @@ public class BoardManager : MonoBehaviour
             click_effect.SetActive(false);
 
             // add score if gem color is the goal color
-            if(gems[column,row].GetColor() == goal_color) mini.AddScore(goal_unit);
+            if (gems[column, row].GetColor() == goal_color)
+            {
+                // red
+                if (goal_color == 2)
+                {
+                    GameObject.Find("PatternManager").GetComponent<PatternRed>().RedExplosionTest();
+                }
+                mini.AddScore(goal_unit);
+            }
             else mini.AddFever(goal_unit);
 
             // Delete gems
