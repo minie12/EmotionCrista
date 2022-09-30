@@ -61,7 +61,7 @@ public class MiniManager : MonoBehaviour
     void Start(){
         time = full_time; score = 0; fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
-        board.goal_color = 0;
+        //board.goal_color = 0;
 
         // ui
         score_fill.fillAmount = 0;
