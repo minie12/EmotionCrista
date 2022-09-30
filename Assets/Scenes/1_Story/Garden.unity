@@ -253,7 +253,6 @@ GameObject:
   - component: {fileID: 272716261}
   - component: {fileID: 272716276}
   - component: {fileID: 272716249}
-  - component: {fileID: 272716258}
   - component: {fileID: 272716257}
   - component: {fileID: 272716256}
   - component: {fileID: 272716255}
@@ -448,7 +447,6 @@ GameObject:
   - component: {fileID: 272716437}
   - component: {fileID: 272716436}
   - component: {fileID: 272716435}
-  - component: {fileID: 272716452}
   - component: {fileID: 272716389}
   - component: {fileID: 272716456}
   - component: {fileID: 272716455}
@@ -477,6 +475,8 @@ GameObject:
   - component: {fileID: 272716475}
   - component: {fileID: 272716476}
   - component: {fileID: 272716477}
+  - component: {fileID: 272716452}
+  - component: {fileID: 272716258}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -486,7 +486,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &272716248
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -537,7 +537,7 @@ MonoBehaviour:
   description: Tutorial Start
   eventHandler: {fileID: 272716259}
   commandList:
-  - {fileID: 272716258}
+  - {fileID: 272716452}
   - {fileID: 272716257}
   - {fileID: 272716256}
   - {fileID: 272716248}
@@ -946,7 +946,7 @@ MonoBehaviour:
   variable: {fileID: 272716276}
 --- !u!114 &272716258
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -956,9 +956,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 27
+  itemId: 377
   indentLevel: 0
-  musicClip: {fileID: 8300000, guid: 57fa8163000d11c4bb58570c36eb083b, type: 3}
+  musicClip: {fileID: 8300000, guid: a99a03b1d00acc64cb65b41aaa21ba31, type: 3}
   atTime: 0
   loop: 1
   fadeDuration: 1
@@ -1348,9 +1348,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 272716249}
-  selectedCommands:
-  - {fileID: 272716256}
+  - {fileID: 272716370}
+  selectedCommands: []
   variables:
   - {fileID: 272716261}
   - {fileID: 272716276}
@@ -3579,7 +3578,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 141.38506
-    y: 214.6354
+    y: 217.28616
     width: 153.37964
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -4176,7 +4175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 199
   indentLevel: 0
-  storyText: "\uB124 ,\uB204\uAD6C\uC5D0\uAC8C\uB098 \uBC1D\uC73C\uC2DC\uACE0\u2026\uB204\uAD6C\uBCF4\uB2E4
+  storyText: "\uB124, \uB204\uAD6C\uC5D0\uAC8C\uB098 \uBC1D\uC73C\uC2DC\uACE0\u2026\uB204\uAD6C\uBCF4\uB2E4
     \uC5F4\uC2EC\uD788 \uD558\uC2DC\uC796\uC544\uC694."
   description: 
   character: {fileID: 1629730836}
@@ -4733,7 +4732,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 272716452}
+  - {fileID: 272716258}
   - {fileID: 272716421}
   - {fileID: 272716379}
   - {fileID: 272716377}
@@ -9350,7 +9349,7 @@ MonoBehaviour:
     vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &272716452
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9360,9 +9359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 341
+  itemId: 376
   indentLevel: 0
-  musicClip: {fileID: 8300000, guid: a99a03b1d00acc64cb65b41aaa21ba31, type: 3}
+  musicClip: {fileID: 8300000, guid: 57fa8163000d11c4bb58570c36eb083b, type: 3}
   atTime: 0
   loop: 1
   fadeDuration: 1
@@ -9902,7 +9901,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &272716474
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9964,7 +9963,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &272716475
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9984,7 +9983,7 @@ MonoBehaviour:
   fadeTweenType: 4
 --- !u!114 &272716476
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -10003,7 +10002,7 @@ MonoBehaviour:
   sceneNameOLD: 
 --- !u!114 &272716477
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -10363,7 +10362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: 26.799988}
+  m_AnchoredPosition: {x: -1, y: 21.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876843011
@@ -10722,17 +10721,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968244704}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 286320982}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -68, y: 409}
-  m_SizeDelta: {x: 90, y: 350}
+  m_AnchoredPosition: {x: -77, y: 409}
+  m_SizeDelta: {x: 408, y: 104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &968244706
 MonoBehaviour:
@@ -10754,7 +10753,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1827256401195719252, guid: 955f496cb87bc4749aa0f0a8b39729e4, type: 3}
+  m_Sprite: {fileID: 6833988697084703088, guid: 955f496cb87bc4749aa0f0a8b39729e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11013,8 +11012,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -748, y: 418}
-  m_SizeDelta: {x: 330, y: 110}
+  m_AnchoredPosition: {x: -735, y: 422.6}
+  m_SizeDelta: {x: 332, y: 132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1182817679
 MonoBehaviour:
@@ -11036,7 +11035,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c04884a90622f304282ea824821271ee, type: 3}
+  m_Sprite: {fileID: 1827256401195719252, guid: 955f496cb87bc4749aa0f0a8b39729e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11409,7 +11408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: -20}
+  m_AnchoredPosition: {x: -1, y: -25.499878}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1614803893

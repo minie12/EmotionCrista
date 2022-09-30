@@ -2697,17 +2697,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
   m_PrefabInstance: {fileID: 1224208578}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1224208580 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5197354369245054771, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
-  m_PrefabInstance: {fileID: 1224208578}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224208579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87ad11d20bffbe459a5675b481fdae4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1263565836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,8 +3051,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 117838655}
-  - {fileID: 142846091}
   - {fileID: 1268546182}
+  - {fileID: 142846091}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3151,30 +3140,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 41075687, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 415780847826084781, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1016838419410369646, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
       propertyPath: m_Text
-      value: "\uC0C1\uB2F4\uC2E4 \uBCF5\uB3C4"
+      value: "\uC5F0\uAD6C\uC2E4 \uBCF5\uB3C4"
       objectReference: {fileID: 0}
-    - target: {fileID: 4520606028327542304, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1224208580}
-    - target: {fileID: 4520606028327542304, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartSaveData
-      objectReference: {fileID: 0}
-    - target: {fileID: 4520606028327542304, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 464191729}
     - target: {fileID: 7702878879267928493, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
       propertyPath: m_Name
       value: GameUICanvas
