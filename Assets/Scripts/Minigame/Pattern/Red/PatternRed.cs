@@ -91,7 +91,7 @@ public class PatternRed : PatternManager
         int[] percentage = new int[10];
         for (int i = 0; i < 8; i++)
         {
-            percentage[i] = 3;
+            percentage[i] = 1;
         }
         for (int i = 8; i < 10; i++)
         {

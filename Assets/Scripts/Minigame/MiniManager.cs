@@ -33,7 +33,7 @@ public class MiniManager : MonoBehaviour
     private BoardManager board;
     public SpriteRenderer board_img;
     public Sprite[] puzzle_board_sp;
-    private int goal_unit = 2;
+    private int goal_unit = 3;
 
     // score
     public float full_score;
@@ -52,7 +52,7 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int pattern_idx = (int)PatternType.RED;
+    int pattern_idx = (int)PatternType.BLUE;
 
     // game mode
     private bool bPuzzle_mode = true;

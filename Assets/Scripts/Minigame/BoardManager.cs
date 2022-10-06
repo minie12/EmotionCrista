@@ -31,7 +31,7 @@ public class BoardManager : MonoBehaviour
     
     // goal state
     public GoalInfo goal_info;
-    public int goal_unit = 2;
+    public int goal_unit = 3;
     
 
     void Start(){   

@@ -6237,7 +6237,7 @@ MonoBehaviour:
   fall_time: 0.1
   board_audio: {fileID: 1184631180}
   goal_info: {fileID: 1184631179}
-  goal_unit: 2
+  goal_unit: 3
 --- !u!212 &1184631178
 SpriteRenderer:
   m_ObjectHideFlags: 0
