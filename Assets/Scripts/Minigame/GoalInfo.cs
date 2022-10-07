@@ -8,7 +8,7 @@ public class GoalInfo : MonoBehaviour
     private BoardManager board;
 
     // ui, sprite
-    public SpriteRenderer goal_sprite;
+    public SpriteRenderer goalSprite;
     public Sprite[] goal2_sprites;
     public Sprite[] goal3_sprites;
 
@@ -42,8 +42,8 @@ public class GoalInfo : MonoBehaviour
                                                 };
 
     // info
-    private int goal_unit = 2;
-    private int goal_num = 0;
+    private int goalGemCnt = 2;
+    private int goalIdx = 0;
 
     // crush gems info
     public List<List<int>> crushedGems = new List<List<int>>();
@@ -57,28 +57,28 @@ public class GoalInfo : MonoBehaviour
     }
 
     public void GoalChange(){
-        // change number of goal_unit
-        //goal_unit = goalOption.value+2;
-        //board.goal_unit = goal_unit;
+        // change number of goalGemCnt
+        //goalGemCnt = goalOption.value+2;
+        //board.goalGemCnt = goalGemCnt;
         
-        SetGoal(goal_unit);
+        SetGoal(goalGemCnt);
     }
 
     public void SetGoal(int unit){
-        goal_unit = unit;
+        goalGemCnt = unit;
         if(unit == 2) {
-            int prev_num = goal_num;
-            while(goal_num == prev_num){
-                goal_num = Random.Range(0, goal2_e.GetLength(0));
+            int prevIdx = goalIdx;
+            while(goalIdx == prevIdx){
+                goalIdx = Random.Range(0, goal2_e.GetLength(0));
             }
-            goal_sprite.sprite = goal2_sprites[goal_num];
+            goalSprite.sprite = goal2_sprites[goalIdx];
         }
         else if(unit == 3) {
-            int prev_num = goal_num;
-            while(goal_num == prev_num){
-                goal_num = Random.Range(0, goal3_e.GetLength(0));
+            int prevIdx = goalIdx;
+            while(goalIdx == prevIdx){
+                goalIdx = Random.Range(0, goal3_e.GetLength(0));
             }
-            goal_sprite.sprite = goal3_sprites[goal_num];
+            goalSprite.sprite = goal3_sprites[goalIdx];
         }
     }
 
@@ -87,10 +87,10 @@ public class GoalInfo : MonoBehaviour
         crushedGems = new List<List<int>>();
         crushedGems.Add(new List<int> { column, row });
 
-        if (goal_unit == 2){
+        if (goalGemCnt == 2){
             if(column%2 == 0){
-                int row2 = row + goal2_e[goal_num, 1];
-                int column2 = column + goal2_e[goal_num, 0];
+                int row2 = row + goal2_e[goalIdx, 1];
+                int column2 = column + goal2_e[goalIdx, 0];
                 if (board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
                 {
                     crushedGems.Add(new List<int> { column2, row2 });
@@ -98,8 +98,8 @@ public class GoalInfo : MonoBehaviour
                 }
             }
             else{
-                int row2 = row + goal2_o[goal_num, 1];
-                int column2 = column + goal2_o[goal_num, 0];
+                int row2 = row + goal2_o[goalIdx, 1];
+                int column2 = column + goal2_o[goalIdx, 0];
                 if(board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
                 {
                     crushedGems.Add(new List<int> { column2, row2 });
@@ -107,19 +107,19 @@ public class GoalInfo : MonoBehaviour
                 }
             }
         } 
-        else if(goal_unit == 3){
+        else if(goalGemCnt == 3){
             if(column%2 == 0){
                 for(int i = 0; i < goal3_e.GetLength(1); i++){
-                    int row2 = row + goal3_e[goal_num, i, 1];
-                    int column2 = column + goal3_e[goal_num, i, 0];
+                    int row2 = row + goal3_e[goalIdx, i, 1];
+                    int column2 = column + goal3_e[goalIdx, i, 0];
                     if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
                     crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
             else{
                 for(int i = 0; i < goal3_o.GetLength(1); i++){
-                    int row2 = row + goal3_o[goal_num, i, 1];
-                    int column2 = column + goal3_o[goal_num, i, 0];
+                    int row2 = row + goal3_o[goalIdx, i, 1];
+                    int column2 = column + goal3_o[goalIdx, i, 0];
                     if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
                     crushedGems.Add(new List<int> { column2, row2 });
                 }
@@ -139,30 +139,30 @@ public class GoalInfo : MonoBehaviour
             return;
         }
 
-        if(goal_unit == 2){
+        if(goalGemCnt == 2){
             if(column%2 == 0){
-                int row2 = row + goal2_e[goal_num, 1];
-                int column2 = column + goal2_e[goal_num, 0];
+                int row2 = row + goal2_e[goalIdx, 1];
+                int column2 = column + goal2_e[goalIdx, 0];
                 board.DelGem(column2, row2);
             }
             else{
-                int row2 = row + goal2_o[goal_num, 1];
-                int column2 = column + goal2_o[goal_num, 0];
+                int row2 = row + goal2_o[goalIdx, 1];
+                int column2 = column + goal2_o[goalIdx, 0];
                 board.DelGem(column2, row2);
             }
         } 
-        else if(goal_unit == 3){
+        else if(goalGemCnt == 3){
             if(column%2 == 0){
                 for(int i = 0; i < goal3_e.GetLength(1); i++){
-                    int row2 = row + goal3_e[goal_num, i, 1];
-                    int column2 = column + goal3_e[goal_num, i, 0];
+                    int row2 = row + goal3_e[goalIdx, i, 1];
+                    int column2 = column + goal3_e[goalIdx, i, 0];
                     board.DelGem(column2, row2);
                 }
             }
             else{
                 for(int i = 0; i < goal3_o.GetLength(1); i++){
-                    int row2 = row + goal3_o[goal_num, i, 1];
-                    int column2 = column + goal3_o[goal_num, i, 0];
+                    int row2 = row + goal3_o[goalIdx, i, 1];
+                    int column2 = column + goal3_o[goalIdx, i, 0];
                     board.DelGem(column2, row2);
                 }
             }

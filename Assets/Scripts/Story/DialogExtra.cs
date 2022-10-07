@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogExtra : MonoBehaviour
 {
-    private int raz_point;
+    private int razPoint;
 
     public void SetCharacterName(string nameText_, Fungus.Character player){        
         player.SetStandardText(nameText_);
@@ -43,25 +43,25 @@ public class DialogExtra : MonoBehaviour
     //------------------ LOVE ENDING --------------------------------------
     public void StartRazEnding()
     {
-        raz_point = 0;
+        razPoint = 0;
     }
 
     public void AddRazPoint()
     {
-        raz_point += 1;
+        razPoint += 1;
     }
 
-    public void ChangeDialogImage(Sprite change_sp, Color change_color, Font change_font)
+    public void ChangeDialogImage(Sprite changeSP, Color changeColor, Font changeFont)
     {
-        GameObject.Find("SayDialog").GetComponentInChildren(typeof(Image)).GetComponent<Image>().sprite = change_sp;
-        GameObject.Find("NameText").GetComponent<Outline>().effectColor = change_color;
-        GameObject.Find("StoryText").GetComponent<Text>().font = change_font;
+        GameObject.Find("SayDialog").GetComponentInChildren(typeof(Image)).GetComponent<Image>().sprite = changeSP;
+        GameObject.Find("NameText").GetComponent<Outline>().effectColor = changeColor;
+        GameObject.Find("StoryText").GetComponent<Text>().font = changeFont;
         GameObject.Find("StoryText").GetComponent<RectTransform>().localPosition = new Vector3(200, 200, 0);
     }
 
-    public void ChangeUIImage(Sprite change_sp)
+    public void ChangeUIImage(Sprite changeSP)
     {
-        GameObject.Find("Setting").GetComponent<Image>().sprite = change_sp;
+        GameObject.Find("Setting").GetComponent<Image>().sprite = changeSP;
     }
     // --------------------------------------------------------------------
 }

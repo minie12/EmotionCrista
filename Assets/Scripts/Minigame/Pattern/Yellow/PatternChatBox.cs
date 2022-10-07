@@ -36,7 +36,6 @@ public class PatternChatBox : MonoBehaviour, IDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Clicked");
         Vector3 screenPoint = Input.mousePosition;
         screenPoint.z = 5.0f; //distance of the plane from the camera
         transform.position = Camera.main.ScreenToWorldPoint(screenPoint);

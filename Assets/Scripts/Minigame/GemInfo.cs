@@ -8,25 +8,25 @@ public class GemInfo : MonoBehaviour
     private int column, row;
 
     private PatternType color;
-    public Sprite[] gem_sprites;
+    public Sprite[] gemSprites;
 
-    public SpriteRenderer gem_outline;
+    public SpriteRenderer gemOutline;
     // public SpriteRenderer gem_pattern;
-    public Sprite SPgem_click;
-    public Sprite SPgem_side;
+    public Sprite gemClickSP;
+    public Sprite gemSideSP;
 
-    public Animator ANsparkle; 
-    public Animator ANpattern; 
-    public Animator ANgem;
+    public Animator sparkleANIM; 
+    public Animator patternANIM; 
+    public Animator gemANIM;
 
-    public bool bPattern_applied;
+    public bool bPatternApplied;
 
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
     public void InitGem(int column_, int row_, int color_){
-        bPattern_applied = false;
+        bPatternApplied = false;
         column = column_; row = row_; 
         SetColor_(color_);
     }
@@ -37,13 +37,13 @@ public class GemInfo : MonoBehaviour
         switch (type)
         {
             case "click":
-                gem_outline.sprite = SPgem_click; // middle of hex when clicked
+                gemOutline.sprite = gemClickSP; // middle of hex when clicked
                 break;
             case "side":
-                gem_outline.sprite = SPgem_side; // sides of hex when clicked
+                gemOutline.sprite = gemSideSP; // sides of hex when clicked
                 break;
             case "undo":
-                gem_outline.sprite = null; // undo the click
+                gemOutline.sprite = null; // undo the click
                 break;
         }
     }
@@ -84,7 +84,7 @@ public class GemInfo : MonoBehaviour
         else if(color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
         else color = PatternType.PURPLE;
 
-        gameObject.GetComponent<SpriteRenderer>().sprite = gem_sprites[(int)color];
+        gameObject.GetComponent<SpriteRenderer>().sprite = gemSprites[(int)color];
     }
 
     public void DestroyGem(){
@@ -92,22 +92,22 @@ public class GemInfo : MonoBehaviour
         StartCoroutine("DestroyGemC");
     }
     IEnumerator DestroyGemC(){
-        ANgem.enabled = true;
+        gemANIM.enabled = true;
 
-        if(color == PatternType.RED) ANgem.Play("gem_crush_red",0, 0.0f);
-        else if(color == PatternType.YELLOW) ANgem.Play("gem_crush_yellow",0, 0.0f);
-        else if(color == PatternType.GREEN) ANgem.Play("gem_crush_green",0, 0.0f);
-        else if(color == PatternType.BLUE) ANgem.Play("gem_crush_blue",0, 0.0f);
-        else if(color == PatternType.PURPLE) ANgem.Play("gem_crush_purple",0, 0.0f);
+        if(color == PatternType.RED) gemANIM.Play("gem_crush_red",0, 0.0f);
+        else if(color == PatternType.YELLOW) gemANIM.Play("gem_crush_yellow",0, 0.0f);
+        else if(color == PatternType.GREEN) gemANIM.Play("gem_crush_green",0, 0.0f);
+        else if(color == PatternType.BLUE) gemANIM.Play("gem_crush_blue",0, 0.0f);
+        else if(color == PatternType.PURPLE) gemANIM.Play("gem_crush_purple",0, 0.0f);
         
-        ANsparkle.Play("gem_sparkle", 0, 0.0f);
+        sparkleANIM.Play("gem_sparkle", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
     }
 
     public void FillWaterInHex(){
-        bPattern_applied = true;  // so that this gem does not get selected at GetRandomGem()
-        ANpattern.Play("gem_fill_water", 0, 0.0f);
+        bPatternApplied = true;  // so that this gem does not get selected at GetRandomGem()
+        patternANIM.Play("gem_fill_water", 0, 0.0f);
         StartCoroutine("FillWaterInHexC");
     }
 
@@ -115,13 +115,13 @@ public class GemInfo : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         // check whether gem_fill_water animation is done or not
-        while(!ANpattern.GetCurrentAnimatorStateInfo(0).IsTag("changeColor")){
+        while(!patternANIM.GetCurrentAnimatorStateInfo(0).IsTag("changeColor")){
             yield return new WaitForSeconds(0.1f);
         }
 
         SetColor(); // change color of gem
-        bPattern_applied = false;
-        ANpattern.SetBool("bWaterFilled", true);
+        bPatternApplied = false;
+        patternANIM.SetBool("bWaterFilled", true);
     }
 
     public void MoveGem(int column_, int row_, float time){
@@ -132,16 +132,16 @@ public class GemInfo : MonoBehaviour
     IEnumerator MoveGemC(float time){    
         gameObject.GetComponent<Collider2D>().enabled = false;
 
-        Vector3 start_pos = transform.position;
+        Vector3 startPos = transform.position;
         yield return new WaitForSeconds(0.01f); // used to avoid error but why?
-        Vector3 end_pos = board.GetGemPosition(column, row);
+        Vector3 endPos = board.GetGemPosition(column, row);
 
         for(float t = 0; t <= 1 * time; t += Time.deltaTime){
-            transform.position = Vector3.Lerp(start_pos, end_pos, t / time);
+            transform.position = Vector3.Lerp(startPos, endPos, t / time);
             yield return 0;
         }
 
-        transform.position = end_pos;
+        transform.position = endPos;
         
         gameObject.GetComponent<Collider2D>().enabled = true;
     }

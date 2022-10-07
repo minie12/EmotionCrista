@@ -5,16 +5,18 @@ using UnityEngine.UI;
 
 public class TabletManager : MonoBehaviour
 {
-    public int survey_cnt;
-    private string fungus_message = "D01_NariaSurvey";
+    public int surveyCnt;
+    private string fungusMessage = "D01_NariaSurvey";
 
     // contents
     public GameObject[] contents;
 
+    public void IncreaseSurveyCnt(int n) { surveyCnt += n; }
+
     public void FinishSurvey(){
-        if(survey_cnt >= 4) {
-            survey_cnt = 0;
-            Fungus.Flowchart.BroadcastFungusMessage(fungus_message);
+        if(surveyCnt >= 4) {
+            surveyCnt = 0;
+            Fungus.Flowchart.BroadcastFungusMessage(fungusMessage);
         }
     }
 
