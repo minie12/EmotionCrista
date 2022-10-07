@@ -53,6 +53,16 @@ public class PatternRed : PatternManager
         // crushed gems info in GoalInfo.cs
         List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
 
+        // crushed gems check (because seperate around and crushed)
+        bool[,] crushedCheck = new bool[11, 6];
+        for(int i = 0; i < crushedGems.Count; i++)
+        {
+            int cur_col = crushedGems[i][0];
+            int cur_row = crushedGems[i][1];
+            Debug.Log("Å©·¯½¬µÈ ±¤¹°: " + cur_col + ", " + cur_row);
+            crushedCheck[cur_col, cur_row] = true;
+        }
+
         bool[,] aroundGems = new bool[11, 6];
 
         // extract without overlap gems
@@ -82,6 +92,12 @@ public class PatternRed : PatternManager
                 {
                     continue;
                 }
+                // if around is crushed then continue
+                if (crushedCheck[new_col, new_row])
+                {
+                    continue;
+                }
+                
 
                 aroundGems[new_col, new_row] = true;
             }
@@ -91,7 +107,7 @@ public class PatternRed : PatternManager
         int[] percentage = new int[10];
         for (int i = 0; i < 8; i++)
         {
-            percentage[i] = 1;
+            percentage[i] = 6;
         }
         for (int i = 8; i < 10; i++)
         {
@@ -107,6 +123,10 @@ public class PatternRed : PatternManager
         {
             for (int j = 0; j <= 5; j++)
             {
+                if(j==5 && i % 2 == 0)
+                {
+                    break;
+                }
                 if (aroundGems[i, j])
                 {
                     aroundGems_.Add(new List<int> { i, j });
@@ -114,18 +134,28 @@ public class PatternRed : PatternManager
             }
         }
 
-        Debug.Log(aroundGems_);
+        // check already explosion
+        bool[,] explosionCheck = new bool[11, 6];
+
+        // choose min value 
+        explosionNum = System.Math.Min(explosionNum, aroundGems_.Count);
 
         // choose random explosion gem
-        for (int i = 0; i < explosionNum; i++)
+        for (int i = 0; i < explosionNum;)
         {
             rand = Random.Range(0, aroundGems_.Count);
             int column_ = aroundGems_[rand][0];
             int row_ = aroundGems_[rand][1];
 
-            Debug.Log("Æø¹ßÇÏ´Â ±¤¹°: " + column_ + ", " + row_);
+            if (explosionCheck[column_,row_])
+            {
+                continue;
+            }
 
+            Debug.Log("Æø¹ßÇÏ´Â ±¤¹°: " + column_ + ", " + row_);
+            explosionCheck[column_,row_] = true;
             GameObject.Find("Board").GetComponent<GoalInfo>().EraseGems(column_, row_, false);
+            i++;
         }
 
     }

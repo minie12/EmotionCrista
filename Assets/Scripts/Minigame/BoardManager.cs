@@ -134,7 +134,7 @@ public class BoardManager : MonoBehaviour
 
     public void InvokeRefil()
     {
-        StartCoroutine("RefillBoard");
+        StartCoroutine("RefillBoardFever");
 
     }
 

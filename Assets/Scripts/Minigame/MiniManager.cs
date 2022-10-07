@@ -52,7 +52,7 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int pattern_idx = (int)PatternType.BLUE;
+    int pattern_idx = (int)PatternType.RED;
 
     // game mode
     private bool bPuzzle_mode = true;
