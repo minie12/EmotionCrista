@@ -31,7 +31,7 @@ public class BoardManager : MonoBehaviour
     
     // goal state
     public GoalInfo goal_info;
-    public int goal_unit = 2;
+    public int goal_unit = 3;
     
 
     void Start(){   
@@ -132,22 +132,40 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void StartRefilBoardFever()
+    {
+        StartCoroutine("RefillBoardFever");
+    }
+
     public void GemClick(int column_, int row_){
+        // current clicked gem color
+        int curColor = gems[column_, row_].GetColor();
+        
         // check if goal is met
-        if(goal_info.CheckGoal(column_, row_)){
+        if (goal_info.CheckGoal(column_, row_)){
             SaveGemCooridnate(column_, row_);
 
             EraseGemOutline();
             bGem_clicked = false;
             click_effect.SetActive(false);
 
+            Debug.Log(goal_color);
+
             // add score if gem color is the goal color
-            if(gems[column,row].GetColor() == goal_color) mini.AddScore(goal_unit);
+            if (curColor == goal_color) mini.AddScore(goal_unit);
             else mini.AddFever(goal_unit);
 
             // Delete gems
             board_audio.Play();
-            goal_info.EraseGems(column, row);
+            goal_info.EraseGems(column, row, true);
+
+            // red gimmick
+            if (goal_color == 2 && curColor == 2)
+            {
+                Debug.Log("red gimmick");
+                GameObject.Find("PatternManager").GetComponent<PatternRed>().InvokeExplosion();
+                return;
+            }
 
             StartCoroutine("RefillBoard");
         }

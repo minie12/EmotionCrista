@@ -45,6 +45,9 @@ public class GoalInfo : MonoBehaviour
     private int goal_unit = 2;
     private int goal_num = 0;
 
+    // crush gems info
+    public List<List<int>> crushedGems = new List<List<int>>();
+
     // DEBUG PURPOSE!!!!
     public Dropdown goalOption;
     //------------------------------
@@ -80,16 +83,28 @@ public class GoalInfo : MonoBehaviour
     }
 
     public bool CheckGoal(int column, int row){
-        if(goal_unit == 2){
+        // init
+        crushedGems = new List<List<int>>();
+        crushedGems.Add(new List<int> { column, row });
+
+        if (goal_unit == 2){
             if(column%2 == 0){
                 int row2 = row + goal2_e[goal_num, 1];
                 int column2 = column + goal2_e[goal_num, 0];
-                if(board.GetGemColor(column, row) == board.GetGemColor(column2, row2)) return true;
+                if (board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
+                {
+                    crushedGems.Add(new List<int> { column2, row2 });
+                    return true;
+                }
             }
             else{
                 int row2 = row + goal2_o[goal_num, 1];
                 int column2 = column + goal2_o[goal_num, 0];
-                if(board.GetGemColor(column, row) == board.GetGemColor(column2, row2)) return true;
+                if(board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
+                {
+                    crushedGems.Add(new List<int> { column2, row2 });
+                    return true;
+                }
             }
         } 
         else if(goal_unit == 3){
@@ -98,6 +113,7 @@ public class GoalInfo : MonoBehaviour
                     int row2 = row + goal3_e[goal_num, i, 1];
                     int column2 = column + goal3_e[goal_num, i, 0];
                     if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
+                    crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
             else{
@@ -105,17 +121,23 @@ public class GoalInfo : MonoBehaviour
                     int row2 = row + goal3_o[goal_num, i, 1];
                     int column2 = column + goal3_o[goal_num, i, 0];
                     if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
+                    crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
-
             return true;
         }
 
         return false;
     } 
 
-    public void EraseGems(int column, int row){
+    public void EraseGems(int column, int row, bool isCrush){
         board.DelGem(column, row);
+
+        // if is not crush, only one gems erase
+        if (!isCrush)
+        {
+            return;
+        }
 
         if(goal_unit == 2){
             if(column%2 == 0){

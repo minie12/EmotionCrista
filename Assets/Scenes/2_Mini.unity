@@ -6237,7 +6237,7 @@ MonoBehaviour:
   fall_time: 0.1
   board_audio: {fileID: 1184631180}
   goal_info: {fileID: 1184631179}
-  goal_unit: 2
+  goal_unit: 3
 --- !u!212 &1184631178
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8421,6 +8421,7 @@ GameObject:
   - component: {fileID: 2142439448}
   - component: {fileID: 2142439447}
   - component: {fileID: 2142439450}
+  - component: {fileID: 2142439451}
   m_Layer: 0
   m_Name: PatternManager
   m_TagString: Untagged
@@ -8490,6 +8491,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3de0aa58621d1b34d9e27c1e558fc7db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI_canvas: {fileID: 0}
+  UI_text: {fileID: 0}
+  mini: {fileID: 0}
+  gimmick: 0
+  UI_text_info: []
+  UI_text_idx: 0
+--- !u!114 &2142439451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142439446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9358312e4c294bf45934ed79d9dff428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UI_canvas: {fileID: 0}
