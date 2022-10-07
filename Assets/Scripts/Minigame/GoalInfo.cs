@@ -85,6 +85,7 @@ public class GoalInfo : MonoBehaviour
     public bool CheckGoal(int column, int row){
         // init
         crushedGems = new List<List<int>>();
+        crushedGems.Add(new List<int> { column, row });
 
         if (goal_unit == 2){
             if(column%2 == 0){
@@ -107,24 +108,22 @@ public class GoalInfo : MonoBehaviour
             }
         } 
         else if(goal_unit == 3){
-            int row2 = 0, column2 = 0;
-
             if(column%2 == 0){
                 for(int i = 0; i < goal3_e.GetLength(1); i++){
-                    row2 = row + goal3_e[goal_num, i, 1];
-                    column2 = column + goal3_e[goal_num, i, 0];
+                    int row2 = row + goal3_e[goal_num, i, 1];
+                    int column2 = column + goal3_e[goal_num, i, 0];
                     if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
+                    crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
             else{
                 for(int i = 0; i < goal3_o.GetLength(1); i++){
-                    row2 = row + goal3_o[goal_num, i, 1];
-                    column2 = column + goal3_o[goal_num, i, 0];
+                    int row2 = row + goal3_o[goal_num, i, 1];
+                    int column2 = column + goal3_o[goal_num, i, 0];
                     if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
+                    crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
-
-            crushedGems.Add(new List<int> { column2, row2 });
             return true;
         }
 

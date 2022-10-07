@@ -132,14 +132,15 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void InvokeRefil()
+    public void StartRefilBoardFever()
     {
-        StartCoroutine("RefillBoard");
-
+        StartCoroutine("RefillBoardFever");
     }
 
     public void GemClick(int column_, int row_){
-        int temp = gems[column_, row_].GetColor();
+        // current clicked gem color
+        int curColor = gems[column_, row_].GetColor();
+        
         // check if goal is met
         if (goal_info.CheckGoal(column_, row_)){
             SaveGemCooridnate(column_, row_);
@@ -151,28 +152,22 @@ public class BoardManager : MonoBehaviour
             Debug.Log(goal_color);
 
             // add score if gem color is the goal color
-            if (temp == goal_color)
-            {
-                // red
-                if (goal_color == 2)
-                {
-                    Debug.Log("red gimmick");
-                    GameObject.Find("PatternManager").GetComponent<PatternRed>().RedExplosionTest();
-                }
-                mini.AddScore(goal_unit);
-            }
+            if (curColor == goal_color) mini.AddScore(goal_unit);
             else mini.AddFever(goal_unit);
 
             // Delete gems
             board_audio.Play();
             goal_info.EraseGems(column, row, true);
 
-            // StartCoroutine("RefillBoard");
-            // temp
-            if (goal_color == 2 && temp == 2)
-                Invoke("InvokeRefil", 0.4f);
-            else
-                StartCoroutine("RefillBoard");
+            // red gimmick
+            if (goal_color == 2 && curColor == 2)
+            {
+                Debug.Log("red gimmick");
+                GameObject.Find("PatternManager").GetComponent<PatternRed>().InvokeExplosion();
+                return;
+            }
+
+            StartCoroutine("RefillBoard");
         }
         else{
             // do not enable click when user clicks the boundary of board
