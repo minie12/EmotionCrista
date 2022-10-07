@@ -3,84 +3,156 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SaveLoadManager : MonoBehaviour
 {
-    string directory_name = "Saves";
-    string file_index = "0";
+    string directoryName = "Saves";
+    string fileIndex = "0";
 
-    SaveLoadData game_data = new SaveLoadData();
+    bool bSave = false;
+    
+    // SaveLoad Data Menu UI
+    public GameObject SaveLoadMenu;
+    public Text SaveLoadMenuTitle;
+    public Text MenuDayText;
+    public Text MenuPlayerText;
+    public Text MenuPlaceText;
+    public Text MenuModeText;
 
-    public void SetSaveData(List<Fungus.Variable> variables){
-        //var flowchart = GameObject.FindObjectOfType<Fungus.Flowchart>();
-        //List<Fungus.Variable> variables = flowchart.Variables;
+    SaveLoadData gameData;
 
-        game_data.scene_name = SceneManager.GetActiveScene().name;
-
-        for (int i = 0; i < variables.Count; i++)
+    public void SetActiveSaveLoadMenu(bool bSave_)
+    {
+        bSave = bSave_;
+        if (bSave)
         {
-            var variable = variables[i];
-            if (variable == null) continue;
-            else if (variable.Key == "PlayerName")
-            {
-                Fungus.StringVariable v = variable as Fungus.StringVariable;
-                game_data.player_name = v.Value;
-            }
-            else if(variable.Key == "StoryNumb")
-            {
-                Fungus.StringVariable v = variable as Fungus.StringVariable;
-                game_data.story_numb = v.Value;
-            }
+            SaveLoadMenuTitle.text = "저 장 하 기";
         }
-
-        SaveToFile();
+        else
+        {
+            SaveLoadMenuTitle.text = "불 러 오 기";
+        }
+        SaveLoadMenu.SetActive(true);
     }
 
-    private void SaveToFile(){
-        if(!Directory.Exists(directory_name))
-            Directory.CreateDirectory(directory_name);
+    public void SelectSaveLoadData()
+    {
+        if (bSave)
+        {
+            SetSaveData();
+        }
+        else // load
+        {
+            StartLoadData();
+        }
+    }
 
-        BinaryFormatter bin_formatter = new BinaryFormatter();
-        FileStream save_stream = File.Create(directory_name + "/" + file_index + ".bin");
+    public void SetSaveData() {
+        gameData.Initialize();
 
-        bin_formatter.Serialize(save_stream, game_data);
+        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
 
-        Debug.Log("Saved Data at: " + directory_name + "/" + file_index + ".bin");
+        gameData.SceneName = SceneManager.GetActiveScene().name;
+        gameData.PlayerName = flowchart.GetVariable("PlayerName").GetValue() as string;
+        gameData.StoryNumb = flowchart.GetVariable("StoryNumb").GetValue() as string;
 
-        save_stream.Close();
+        if (gameData.SceneName == "" || gameData.PlayerName == "" || gameData.StoryNumb == "")
+        {
+            Debug.Log("ERROR(SaveLoadManager): Save data info is missing (" + gameData.SceneName + ", " + gameData.PlayerName + ", " + gameData.StoryNumb + ")");
+            return;
+        }
+
+        Debug.Log(gameData.StoryNumb.Substring(1));
+        string[] temp = gameData.StoryNumb.Substring(1).Split('_');
+        foreach(string a in temp){
+            Debug.Log(a);
+        }
+        MenuDayText.text = temp[0];
+        MenuPlayerText.text = gameData.PlayerName;
+        MenuPlaceText.text = gameData.SceneName;
+
+        SaveToFile_();
+    }
+
+    private void SaveToFile_(){
+        if(!Directory.Exists(directoryName))
+            Directory.CreateDirectory(directoryName);
+
+        BinaryFormatter binFormatter = new BinaryFormatter();
+        FileStream saveStream = File.Create(directoryName + "/" + fileIndex + ".bin");
+
+        binFormatter.Serialize(saveStream, gameData);
+
+        Debug.Log("Saved Data at: " + directoryName + "/" + fileIndex + ".bin");
+
+        saveStream.Close();
     }
 
     public void StartLoadData(){
-        LoadFromFile();
+        bSave = false;
 
+        gameData.Initialize();
+        //LoadFromFile();
+        LoadTesting();
 
+        // check if all is loaded well
+        if(gameData.SceneName == "" || gameData.PlayerName == "" || gameData.StoryNumb == "")
+        {
+            Debug.Log("ERROR(SaveLoadManager): Load data info is missing (" + gameData.SceneName + ", " + gameData.PlayerName + ", " + gameData.StoryNumb + ")");
+            return;
+        }
+
+        //string prefsKey = Fungus.SetSaveProfile.SaveProfile + "_" + Fungus.GetFlowchart().SubstituteVariables("player_name");
+
+        PlayerPrefs.SetInt("LoadData", 1); // flag for checking if scene is loaded from load menu
+        PlayerPrefs.SetString("PlayerName", gameData.PlayerName);
+        PlayerPrefs.SetString("StoryNumb", gameData.StoryNumb);
+
+        SceneManager.LoadScene(gameData.SceneName, LoadSceneMode.Single);
     }
 
     private void LoadFromFile(){
-        BinaryFormatter bin_formatter = new BinaryFormatter();
-        FileStream load_stream = File.Open(directory_name + "/" + file_index + ".bin", FileMode.Open);
+        BinaryFormatter binFormatter = new BinaryFormatter();
+        string path = directoryName + "/" + fileIndex + ".bin";
+        if (!Directory.Exists(path))
+        {
+            Debug.Log("ERROR(SaveLoadManager): Load file path not found. ");
+            return; 
+        }
 
-        game_data = (SaveLoadData)bin_formatter.Deserialize(load_stream);
+        FileStream load_stream = File.Open(path, FileMode.Open);
 
-        Debug.Log(game_data.scene_name);
-        Debug.Log(game_data.player_name);
-        Debug.Log(game_data.story_numb);
+        gameData = (SaveLoadData)binFormatter.Deserialize(load_stream);
 
         load_stream.Close();
+    }
+    private void LoadTesting()
+    {
+        gameData.SceneName = "Garden";
+        gameData.PlayerName = "SaRangHe";
+        gameData.StoryNumb = "D02_RazEnding_1";
     }
 }
 
 [System.Serializable]
 public struct SaveLoadData
 {
-    public string scene_name;
-    public string player_name;
-    public string story_numb;
+    public string SceneName;
+    public string PlayerName;
+    public string StoryNumb;
 
-    public SaveLoadData(string sname_ = "LabCorridor", string pname_ = " ", string story_ = "D01_NariaAfter"){
-        scene_name = sname_;
-        player_name = pname_;
-        story_numb = story_;
+    public SaveLoadData(string sname_ = "", string pname_ = "", string story_ = ""){
+        SceneName = sname_;
+        PlayerName = pname_;
+        StoryNumb = story_;
+    }
+
+    public void Initialize()
+    {
+        SceneName = "";
+        PlayerName = "";
+        StoryNumb = "";
     }
 }

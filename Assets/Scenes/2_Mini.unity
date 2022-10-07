@@ -1669,7 +1669,7 @@ MonoBehaviour:
     vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &79947804
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1690,7 +1690,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &79947805
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1711,7 +1711,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &79947806
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   sceneNameOLD: 
 --- !u!114 &79947807
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2548,7 +2548,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2d3bc1cfd3ae496468c1a65cc53eb6e3, type: 3}
 --- !u!114 &79947839
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2582,7 +2582,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
 --- !u!114 &79947841
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2880,7 +2880,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
 --- !u!114 &79947856
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2896,7 +2896,7 @@ MonoBehaviour:
   variable: {fileID: 79947811}
 --- !u!114 &79947857
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3232,7 +3232,7 @@ MonoBehaviour:
   suppressAllAutoSelections: 0
 --- !u!114 &79947865
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3249,7 +3249,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2d3bc1cfd3ae496468c1a65cc53eb6e3, type: 3}
 --- !u!114 &79947866
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3277,7 +3277,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &79947867
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3294,7 +3294,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
 --- !u!114 &79947868
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3322,7 +3322,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &79947869
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3339,7 +3339,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: a437beebc2e0e3640ac13f5a28519367, type: 3}
 --- !u!114 &79947870
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -5459,29 +5459,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3c2510cd077104c81a8df23455ca45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer_fill: {fileID: 1680676385}
-  score_fill: {fileID: 909345578}
-  score_txt: {fileID: 1396175137}
-  UI_score: {fileID: 290280211}
-  UI_gameover: {fileID: 524833904}
-  board_img: {fileID: 1184631178}
-  puzzle_board_sp:
+  timerFill: {fileID: 1680676385}
+  scoreFill: {fileID: 909345578}
+  scoreTXT: {fileID: 1396175137}
+  UIScore: {fileID: 290280211}
+  UIGameOver: {fileID: 524833904}
+  boardImg: {fileID: 1184631178}
+  puzzleBoardSP:
   - {fileID: 21300000, guid: c8af3e2b972cd4c4282289fe80334d78, type: 3}
   - {fileID: 21300000, guid: c083f8499ddeceb4e923e65619248e17, type: 3}
-  full_score: 30
-  fever_fill_img: {fileID: 157930644}
-  fever_img: {fileID: 1144650190}
-  fever_btn: {fileID: 1144650192}
-  bFever_on: 0
-  fever_sp:
+  fullScore: 30
+  feverFillIMG: {fileID: 157930644}
+  feverIMG: {fileID: 1144650190}
+  feverBTN: {fileID: 1144650192}
+  bFeverOn: 0
+  feverSP:
   - {fileID: 21300000, guid: 2b6253abd02d9984ab0f7a3373e81a9f, type: 3}
   - {fileID: 21300000, guid: 70d67dbb738f4cc478802748504ebae7, type: 3}
-  fever_fill_sp:
+  feverFillSP:
   - {fileID: 21300000, guid: 0e6ba5dcdd3d8a048b4d1a40319220ae, type: 3}
   - {fileID: 21300000, guid: a51298549a2dd2d4e9a9d8459a7fa461, type: 3}
   animator: {fileID: 157930646}
   pattern: {fileID: 2142439448}
-  fungus_message: D01_NariaGame
+  fungusMessage: D01_NariaGame
 --- !u!4 &925114810
 Transform:
   m_ObjectHideFlags: 0
@@ -6229,15 +6229,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mini: {fileID: 925114809}
-  goal_color: 2
+  goalColor: 2
   gemPF: {fileID: 8180331941094223346, guid: 41e5d453e606fb74f9bbba3ecbe5356b, type: 3}
-  drop_pos: []
-  click_effect: {fileID: 1088655649}
-  rotate_time: 0.1
-  fall_time: 0.1
-  board_audio: {fileID: 1184631180}
-  goal_info: {fileID: 1184631179}
-  goal_unit: 3
+  dropPos: []
+  clickEffect: {fileID: 1088655649}
+  rotateTime: 0.1
+  dropTime: 0.1
+  boardAUD: {fileID: 1184631180}
+  goalInfo: {fileID: 1184631179}
+  goalGemCnt: 3
 --- !u!212 &1184631178
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6301,7 +6301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd57416b2fadb64d88731a8cbf9c413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal_sprite: {fileID: 1372681408}
+  goalSprite: {fileID: 1372681408}
   goal2_sprites:
   - {fileID: 21300000, guid: b97ee82bcac9a4b43bcb551db3a2c519, type: 3}
   - {fileID: 21300000, guid: 59167c8e05238c444891b1dcef67b61c, type: 3}
@@ -8441,12 +8441,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdba1fa2eebad84481a3d252af1a226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_canvas: {fileID: 300192819}
-  UI_text: {fileID: 284505029}
+  UICanvas: {fileID: 0}
+  chatTXT: {fileID: 0}
   mini: {fileID: 0}
   gimmick: 0
-  UI_text_info: []
-  UI_text_idx: 0
+  chatTextInfo: []
+  chatTextIdx: 0
   chatBoxPF: {fileID: 7392564247816721281, guid: 9a08ae07b448971448ef36f5fe04e50b, type: 3}
   chatFlowPF: {fileID: 5719818028725036154, guid: a1da6c57202161643858f742eb896fed, type: 3}
 --- !u!114 &2142439448
@@ -8461,12 +8461,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85940fd60af05fb41a2cb9cf439aa4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_canvas: {fileID: 300192819}
-  UI_text: {fileID: 284505029}
+  UICanvas: {fileID: 0}
+  chatTXT: {fileID: 0}
   mini: {fileID: 0}
   gimmick: 0
-  UI_text_info: []
-  UI_text_idx: 0
+  chatTextInfo: []
+  chatTextIdx: 0
 --- !u!4 &2142439449
 Transform:
   m_ObjectHideFlags: 0
@@ -8493,12 +8493,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de0aa58621d1b34d9e27c1e558fc7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_canvas: {fileID: 0}
-  UI_text: {fileID: 0}
+  UICanvas: {fileID: 0}
+  chatTXT: {fileID: 0}
   mini: {fileID: 0}
   gimmick: 0
-  UI_text_info: []
-  UI_text_idx: 0
+  chatTextInfo: []
+  chatTextIdx: 0
 --- !u!114 &2142439451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8511,9 +8511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9358312e4c294bf45934ed79d9dff428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_canvas: {fileID: 0}
-  UI_text: {fileID: 0}
+  UICanvas: {fileID: 0}
+  chatTXT: {fileID: 0}
   mini: {fileID: 0}
   gimmick: 0
-  UI_text_info: []
-  UI_text_idx: 0
+  chatTextInfo: []
+  chatTextIdx: 0

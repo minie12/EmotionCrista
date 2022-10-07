@@ -12,17 +12,17 @@ public class SurveyButton : MonoBehaviour
     }
 
     public void ChangeButtonColor(GameObject btn){
-        bool prev_clicked = false;
+        bool prevClicked = false;
         foreach(Transform button in transform){
             if(!button.gameObject.GetComponent<Button>().interactable){
                 button.gameObject.GetComponent<Image>().color = new Color32(0XFF, 0XFF, 0XFF, 0XFF);
                 button.gameObject.GetComponent<Button>().interactable = true;
-                prev_clicked = true;
+                prevClicked = true;
             }
         }
         
         btn.GetComponent<Image>().color = new Color32(0xBE, 0xBF, 0xBE, 0xFF);
         btn.GetComponent<Button>().interactable = false;
-        if(!prev_clicked) tabletManager.survey_cnt++;
+        if(!prevClicked) tabletManager.IncreaseSurveyCnt(1);
     }
 }

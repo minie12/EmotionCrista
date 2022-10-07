@@ -8,43 +8,43 @@ public class PatternYellow : PatternManager
 {
     public GameObject chatBoxPF;
     private GameObject[] chatBoxes;
-    private int y_index;
-    private int chatBox_numb = 6;
+    private int patternIdx;
+    private int chatBoxCnt = 6;
 
     public GameObject chatFlowPF;
     private GameObject[] chatFlows;
-    private int chatFlow_numb = 12;
-    private int chat_index;
+    private int chatFlowCnt = 12;
+    private int currentChatIdx;
 
-    private float full_spawn_time = 2;
+    private float fullSpawnTime = 2;
 
     override public void StartPattern(int gimmick_){
-        y_index = 0; gimmick = gimmick_; UI_text_idx = 0;
+        patternIdx = 0; gimmick = gimmick_; chatTextIdx = 0;
         OrganizeCharacterChat();
 
         if(gimmick == 0){
-            if(UI_canvas.transform.childCount == 0){
-                chatBoxes = new GameObject[chatBox_numb];
-                for(int i = 0; i < chatBox_numb; i++){
-                    GameObject temp = Instantiate(chatBoxPF, new Vector3(0,0,0), Quaternion.identity, UI_canvas.transform);
+            if(UICanvas.transform.childCount == 0){
+                chatBoxes = new GameObject[chatBoxCnt];
+                for(int i = 0; i < chatBoxCnt; i++){
+                    GameObject temp = Instantiate(chatBoxPF, new Vector3(0,0,0), Quaternion.identity, UICanvas.transform);
                     temp.SetActive(false);
                     chatBoxes[i] = temp;
                 }
             }
 
-            Invoke("Y_SpawnChatBox", full_spawn_time);
+            Invoke("Y_SpawnChatBox", fullSpawnTime);
         }
         else if(gimmick == 1){
-            if(UI_canvas.transform.childCount == 0){
-                chatFlows = new GameObject[chatFlow_numb];
-                for(int i = 0; i < chatFlow_numb; i++){
-                    GameObject temp = Instantiate(chatFlowPF, new Vector3(0,0,0), Quaternion.identity, UI_canvas.transform);
+            if(UICanvas.transform.childCount == 0){
+                chatFlows = new GameObject[chatFlowCnt];
+                for(int i = 0; i < chatFlowCnt; i++){
+                    GameObject temp = Instantiate(chatFlowPF, new Vector3(0,0,0), Quaternion.identity, UICanvas.transform);
                     temp.SetActive(false);
                     chatFlows[i] = temp;
                 }
             }
 
-            Invoke("Y_SpawnChatFlow", full_spawn_time);
+            Invoke("Y_SpawnChatFlow", fullSpawnTime);
         }
     }
 
@@ -53,34 +53,34 @@ public class PatternYellow : PatternManager
     override public void StopPattern(){ CancelInvoke(); }
 
     override public void RestartPattern(){
-        y_index = 0; 
+        patternIdx = 0; 
 
-        if(gimmick == 0) Invoke("Y_SpawnChatBox", full_spawn_time);
-        else if(gimmick == 1) Invoke("Y_SpawnChatFlow", full_spawn_time);
+        if(gimmick == 0) Invoke("Y_SpawnChatBox", fullSpawnTime);
+        else if(gimmick == 1) Invoke("Y_SpawnChatFlow", fullSpawnTime);
     }
 
     float CalcSpawnTime(){
-        float decrease_time = mini.TimeLeft()/15f;
-        if(decrease_time > 1.3f) decrease_time = 1.3f;
+        float decreaseTime = mini.TimeLeft()/15f;
+        if(decreaseTime > 1.3f) decreaseTime = 1.3f;
 
-        return full_spawn_time - decrease_time;
+        return fullSpawnTime - decreaseTime;
     }
     // Y1 --------------------------------------------------------------------------------------------------------
     void Y_SpawnChatBox(){
         // set position
-        Vector3 rand_pos = new Vector3(Random.Range(800.0f, 1600.0f), Random.Range(220.0f, 850.0f), 5);
-        chatBoxes[y_index].transform.position = Camera.main.ScreenToWorldPoint(rand_pos);
+        Vector3 randPos = new Vector3(Random.Range(800.0f, 1600.0f), Random.Range(220.0f, 850.0f), 5);
+        chatBoxes[patternIdx].transform.position = Camera.main.ScreenToWorldPoint(randPos);
         float size = Random.Range(0.45f, 1.2f);
 
-        chatBoxes[y_index].transform.SetSiblingIndex(chatBox_numb-1);
+        chatBoxes[patternIdx].transform.SetSiblingIndex(chatBoxCnt-1);
         StartCoroutine(Y_ChatBoxAnim(size));
-        y_index = (y_index+1)%chatBox_numb;
+        patternIdx = (patternIdx+1)%chatBoxCnt;
 
         Invoke("Y_SpawnChatBox", CalcSpawnTime());
     }
 
     IEnumerator Y_ChatBoxAnim(float size){
-        GameObject go = chatBoxes[y_index];
+        GameObject go = chatBoxes[patternIdx];
         go.GetComponent<RectTransform>().localScale = new Vector3(size+1f, size+1f, 1);
         go.SetActive(true);
         go.transform.DOScale(new Vector3(size-0.15f, size-0.15f), 0.25f);
@@ -91,16 +91,16 @@ public class PatternYellow : PatternManager
 
     // Y2 --------------------------------------------------------------------------------------------------------
     void Y_SpawnChatFlow(){
-        int index_temp = chat_index;
-        while(index_temp == chat_index){
+        int indexTemp = currentChatIdx;
+        while(indexTemp == currentChatIdx){
             // so that chatFlow gets spawned at diff locations 
-            index_temp = Random.Range(0, 7); // 7 is length of spawn_positions (at PatternChatFlow)
+            indexTemp = Random.Range(0, 7); // 7 is length of spawn_positions (at PatternChatFlow)
         }
-        chat_index = index_temp;
-        chatFlows[y_index].GetComponent<PatternChatFlow>().index = index_temp;
-        chatFlows[y_index].SetActive(true);
+        currentChatIdx = indexTemp;
+        chatFlows[patternIdx].GetComponent<PatternChatFlow>().index = indexTemp;
+        chatFlows[patternIdx].SetActive(true);
 
-        y_index = (y_index+1)%chatFlow_numb;
+        patternIdx = (patternIdx+1)%chatFlowCnt;
 
         Invoke("Y_SpawnChatFlow", CalcSpawnTime()+0.4f);
     }

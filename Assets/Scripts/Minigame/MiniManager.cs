@@ -17,216 +17,220 @@ public enum PatternType{
 public class MiniManager : MonoBehaviour
 {    
     // UI
-    public Image timer_fill;
-    public Image score_fill;
-    public Text score_txt;
-    public GameObject UI_score;
-    public GameObject UI_gameover;
+    public Image timerFill;
+    public Image scoreFill;
+    public Text scoreTXT;
+    public GameObject UIScore;
+    public GameObject UIGameOver;
 
     // timer
-    [SerializeField] private const float full_time = 50f;
-    private float time;
-    [SerializeField] private const float full_fever_time = 10f;
-    private float fever_time; // 10f
+    [SerializeField] private const float fullPlayTime = 50f;
+    private float playTime;
+    [SerializeField] private const float fullFeverTime = 10f;
+    private float feverTime; // 10f
 
     // board related
     private BoardManager board;
-    public SpriteRenderer board_img;
-    public Sprite[] puzzle_board_sp;
-    private int goal_unit = 3;
+    public SpriteRenderer boardImg;
+    public Sprite[] puzzleBoardSP;
+    private int goalGemCnt = 3;
 
     // score
-    public float full_score;
+    public float fullScore;
     private int score;
 
     // fever
-    [SerializeField] private const int full_fever = 20;
+    [SerializeField] private const int fullFever = 20;
     private int fever;
-    public Image fever_fill_img;
-    public Image fever_img;
-    public Button fever_btn;
-    [HideInInspector]public bool bFever_on = false;
-    public Sprite[] fever_sp;
-    public Sprite[] fever_fill_sp;
+    public Image feverFillIMG;
+    public Image feverIMG;
+    public Button feverBTN;
+    [HideInInspector]public bool bFeverOn = false;
+    public Sprite[] feverSP;
+    public Sprite[] feverFillSP;
     public Animator animator;
 
     // pattern
     public PatternManager pattern;
-    int pattern_idx = (int)PatternType.RED;
+    int patternIdx = (int)PatternType.RED;
 
     // game mode
-    private bool bPuzzle_mode = true;
-    public string fungus_message = "D01_NariaGame"; // used to get chat texts in pattern manager
+    private bool bPuzzleMode = true;
+    public string fungusMessage = "D01_NariaGame"; // used to get chat texts in pattern manager
+
+    // Get & Set -----------------------------------------------------
+    public string GetFungusMessage() { return fungusMessage; }
+    // ---------------------------------------------------------------
 
     void Start(){
-        time = full_time; score = 0; fever = 0;
+        playTime = fullPlayTime; score = 0; fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
         //board.goal_color = 0;
 
         // ui
-        score_fill.fillAmount = 0;
-        timer_fill.fillAmount = 0;
-        fever_fill_img.fillAmount = 0;
+        scoreFill.fillAmount = 0;
+        timerFill.fillAmount = 0;
+        feverFillIMG.fillAmount = 0;
 
-        if(PlayerPrefs.HasKey("goalUnit")) goal_unit = PlayerPrefs.GetInt("goalUnit");
-        board.SetGoal(goal_unit);
+        if(PlayerPrefs.HasKey("goalUnit")) goalGemCnt = PlayerPrefs.GetInt("goalUnit");
+        board.SetGoal(goalGemCnt);
 
         // pattern
-        pattern = pattern.SpawnPattern(pattern_idx);
+        pattern = pattern.SpawnPattern(patternIdx);
         pattern.StartPattern(0);
     }
 
     void Update(){
-        if(bPuzzle_mode){
-            // timer_fill.fillAmount = Mathf.InverseLerp(0, full_time, time);
-            timer_fill.fillAmount = time/full_time;
-            time -= Time.deltaTime;
+        if(bPuzzleMode){
+            // timerFill.fillAmount = Mathf.InverseLerp(0, fullPlayTime, playTime);
+            timerFill.fillAmount = playTime/fullPlayTime;
+            playTime -= Time.deltaTime;
 
-            if(time <= 0){
+            if(playTime <= 0){
                 GameOver();
             }
 
-            if(bFever_on){
-                fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever_time, fever_time);
-                fever_time -= Time.deltaTime;
-                if(fever_time <= 0) EndFever();
+            if(bFeverOn){
+                feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFeverTime, feverTime);
+                feverTime -= Time.deltaTime;
+                if(feverTime <= 0) EndFever();
             }
         }
     }
 
     public float TimeLeft(){
-        return full_time - time;
+        return fullPlayTime - playTime;
     }
 
     public void AddScore(int n){
         score += n;
         SetScoreUI();
-        int score_pt = (int)((score/full_score)*100);
-        if(score_pt > 100) score_pt = 100;
-        // score_txt.text = (score_pt).ToString() + " %";
-        // score_fill.fillAmount = Mathf.InverseLerp(0, full_score, score);
+        int scorePercent = (int)((score/fullScore)*100);
+        if(scorePercent > 100) scorePercent = 100;
+        // scoreTXT.text = (scorePercent).ToString() + " %";
+        // scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
 
-        if(!bFever_on) {
-            time += 0.5f;
+        if(!bFeverOn) {
+            playTime += 0.5f;
             AddFever(n);
         }
         
         // setting UI chatbox of character
-        int prev_score_pt = (int)((score-n)/full_score*100);
-        if(prev_score_pt < 30 && score_pt >= 30) pattern.SetUIText();
-        else if(prev_score_pt < 35 && score_pt >= 35) pattern.SetUIText();
-        else if(prev_score_pt < 40 && score_pt >= 40) pattern.SetUIText();
-        else if(prev_score_pt < 60 && score_pt >= 60) pattern.SetUIText();
-        else if(prev_score_pt < 65 && score_pt >= 65) pattern.SetUIText();
-        else if(prev_score_pt < 80 && score_pt >= 80) pattern.SetUIText();
+        int prevScorePercent = (int)((score-n)/fullScore*100);
+        if(prevScorePercent < 30 && scorePercent >= 30) pattern.SetUIText();
+        else if(prevScorePercent < 35 && scorePercent >= 35) pattern.SetUIText();
+        else if(prevScorePercent < 40 && scorePercent >= 40) pattern.SetUIText();
+        else if(prevScorePercent < 60 && scorePercent >= 60) pattern.SetUIText();
+        else if(prevScorePercent < 65 && scorePercent >= 65) pattern.SetUIText();
+        else if(prevScorePercent < 80 && scorePercent >= 80) pattern.SetUIText();
 
-        if(score_pt >= 100 && bPuzzle_mode) {
-            bPuzzle_mode = false; // disable time count
+        if(scorePercent >= 100 && bPuzzleMode) {
+            bPuzzleMode = false; // disable playTime count
             board.SetGemMovable(false);
             Invoke("StartStoryMode",0.6f);
         }
     }
 
     void SetScoreUI(){
-        int score_pt = (int)((score/full_score)*100);
-        if(score_pt > 100) score_pt = 100;
-        score_txt.text = (score_pt).ToString() + " %";
-        score_fill.fillAmount = Mathf.InverseLerp(0, full_score, score);
+        int scorePercent = (int)((score/fullScore)*100);
+        if(scorePercent > 100) scorePercent = 100;
+        scoreTXT.text = (scorePercent).ToString() + " %";
+        scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
     }
 
     public void AddFever(int n){
-        time += 0.5f;
+        playTime += 0.5f;
         fever += n;
-        fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
+        feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
-        if(fever > full_fever && !bFever_on && !animator.GetBool("bFever_on")){
-            animator.SetBool("bFever_on", true);
-            fever_fill_img.sprite = fever_fill_sp[1];
-            fever_img.sprite = fever_sp[1];
-            fever_btn.enabled = true;
+        if(fever > fullFever && !bFeverOn && !animator.GetBool("bFeverOn")){
+            animator.SetBool("bFeverOn", true);
+            feverFillIMG.sprite = feverFillSP[1];
+            feverIMG.sprite = feverSP[1];
+            feverBTN.enabled = true;
         }
     }
 
     public void StartFever(){
         // reset
-        bFever_on = true;
-        fever_time = full_fever_time;
-        board_img.sprite = puzzle_board_sp[1];
+        bFeverOn = true;
+        feverTime = fullFeverTime;
+        boardImg.sprite = puzzleBoardSP[1];
 
         // stop pattern
         pattern.ClearPattern();
 
         board.StartFever();
-        fever_btn.enabled = false;
+        feverBTN.enabled = false;
     }
 
     public void EndFever(){
-        animator.SetBool("bFever_on", false);
+        animator.SetBool("bFeverOn", false);
 
-        fever_btn.enabled = false;
-        board_img.sprite = puzzle_board_sp[0];
-        fever_fill_img.sprite = fever_fill_sp[0];
-        fever_img.sprite = fever_sp[0];
+        feverBTN.enabled = false;
+        boardImg.sprite = puzzleBoardSP[0];
+        feverFillIMG.sprite = feverFillSP[0];
+        feverIMG.sprite = feverSP[0];
 
-        fever = 0; fever_fill_img.fillAmount = Mathf.InverseLerp(0, full_fever, fever);
+        fever = 0; feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
-        bFever_on = false;
-        if(bPuzzle_mode && score < full_score) board.EndFever();
+        bFeverOn = false;
+        if(bPuzzleMode && score < fullScore) board.EndFever();
 
         // restart pattern
-        if(bPuzzle_mode && score < full_score) pattern.RestartPattern();
+        if(bPuzzleMode && score < fullScore) pattern.RestartPattern();
     }
 
     void GameOver(){
-        bPuzzle_mode = false;
+        bPuzzleMode = false;
 
         board.ClearBoard();
 
         pattern.ClearPattern();
         Invoke("GameOver_", 0.6f);
     }
-    void GameOver_(){ UI_gameover.SetActive(true);}
+    void GameOver_(){ UIGameOver.SetActive(true);}
 
     void StartStoryMode(){
-        bPuzzle_mode = false;
+        bPuzzleMode = false;
         // if game ended in fever mode
-        if(bFever_on) EndFever();
+        if(bFeverOn) EndFever();
 
         // clear board sprites
         pattern.StopPattern();
         if(fever != 0) AddFever(-fever);
-        UI_score.SetActive(false);
+        UIScore.SetActive(false);
         board.ClearBoard();
 
-        Fungus.Flowchart.BroadcastFungusMessage(fungus_message);
+        Fungus.Flowchart.BroadcastFungusMessage(fungusMessage);
     }
 
     public void RestartGame(string color, int gimmick_, string message){
-        fungus_message = message;
+        fungusMessage = message;
         
         score = 0; SetScoreUI();
         EndFever();
-        time = full_time;
-        UI_score.SetActive(true);
+        playTime = fullPlayTime;
+        UIScore.SetActive(true);
         board.InitBoard();
-        bPuzzle_mode = true;
+        bPuzzleMode = true;
 
         pattern.StartPattern(gimmick_);
     }
 
     public void RestartGameOver(){
-        UI_gameover.SetActive(false);
+        UIGameOver.SetActive(false);
 
         score = 0; SetScoreUI();
         EndFever();
-        time = full_time;
-        UI_score.SetActive(true);
-        if(bFever_on){
-            bFever_on = false;
+        playTime = fullPlayTime;
+        UIScore.SetActive(true);
+        if(bFeverOn){
+            bFeverOn = false;
             EndFever();
         }
         board.InitBoard();
-        bPuzzle_mode = true;
+        bPuzzleMode = true;
 
         pattern.RestartPattern();
     }
@@ -250,7 +254,7 @@ public class MiniManager : MonoBehaviour
     {
         // TODO: Does not check whether the gem is already filled with water
         GemInfo[] gems = new GemInfo[cnt];
-        int[,] picked_coordinate = new int[cnt, 2];
+        int[,] pickedCoordinates = new int[cnt, 2];
 
         for (int i = 0; i < cnt; i++)
         {
@@ -266,16 +270,16 @@ public class MiniManager : MonoBehaviour
                 // check if this gem is already picked
                 for (int j = 0; j < i; j++)
                 {
-                    if (picked_coordinate[j,0] == column_ && picked_coordinate[j, 1] == row_)
+                    if (pickedCoordinates[j,0] == column_ && pickedCoordinates[j, 1] == row_)
                     {
                         bPicked = true;
                         break;
                     }
                 }
-            } while (gem == null || gem.bPattern_applied || bPicked);
+            } while (gem == null || gem.bPatternApplied || bPicked);
 
-            picked_coordinate[i, 0] = column_;
-            picked_coordinate[i, 1] = row_;
+            pickedCoordinates[i, 0] = column_;
+            pickedCoordinates[i, 1] = row_;
 
             gems[i] = gem;
         }

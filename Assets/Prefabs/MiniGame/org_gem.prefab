@@ -367,18 +367,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa46b77aef5520a408ca403da72076aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gem_sprites:
+  gemSprites:
   - {fileID: -16793423984005362, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: -4672790576089934573, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: 3598714856469743548, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: -2511356291957038328, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: -7335531085601356040, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
-  gem_outline: {fileID: 1471261474537222146}
-  SPgem_click: {fileID: 21300000, guid: 23b011324ef72a443a6c1f8d1ad3639e, type: 3}
-  SPgem_side: {fileID: 21300000, guid: 1e578de928e2cb94093dcc3f750371a5, type: 3}
-  ANsparkle: {fileID: 1299334156}
-  ANpattern: {fileID: 8584591083762226425}
-  ANgem: {fileID: 274065020363150208}
+  gemOutline: {fileID: 1471261474537222146}
+  gemClickSP: {fileID: 21300000, guid: 23b011324ef72a443a6c1f8d1ad3639e, type: 3}
+  gemSideSP: {fileID: 21300000, guid: 1e578de928e2cb94093dcc3f750371a5, type: 3}
+  sparkleANIM: {fileID: 1299334156}
+  patternANIM: {fileID: 8584591083762226425}
+  gemANIM: {fileID: 274065020363150208}
+  bPatternApplied: 0
 --- !u!61 &-7377876002442744885
 BoxCollider2D:
   m_ObjectHideFlags: 0
