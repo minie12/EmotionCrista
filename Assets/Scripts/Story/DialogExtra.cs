@@ -27,6 +27,11 @@ public class DialogExtra : MonoBehaviour
         go.SetActive(!go.activeSelf);
     }
 
+    public void OnTogglePause()
+    {
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+    }
+
     public void LoadPlayerPrefs()
     {
         if (!PlayerPrefs.HasKey("LoadData") || PlayerPrefs.GetInt("LoadData") == 0)
