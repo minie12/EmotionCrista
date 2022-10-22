@@ -79,7 +79,7 @@ public class PatternRed : PatternManager
 
             Debug.Log("Æø¹ßÇÏ´Â ±¤¹°: " + column_ + ", " + row_);
             check[rand] = true;
-            GameObject.Find("Board").GetComponent<GoalInfo>().EraseGems(column_, row_, false);
+            GameObject.Find("Board").GetComponent<BoardManager>().ExplosionGem(column_, row_);
             i++;
         }
     }
