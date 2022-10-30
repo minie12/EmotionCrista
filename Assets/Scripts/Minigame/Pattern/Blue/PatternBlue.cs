@@ -5,18 +5,30 @@ using UnityEngine;
 public class PatternBlue : PatternManager
 {
     private float waterFillTime = 3.8f;
+    private float bubbleTime = 1.8f;
     private string day_and_level = "2hard"; // 1easy: 1, 1normal: 2, 1hard: 3, 2easy: 3, 2normal: 4, 2hard: 5
+
+    // bubble
+    public GameObject bubble_PF;
 
     override public void StartPattern(int gimmick_){
         gimmick = gimmick_;
         OrganizeCharacterChat();
 
         if(gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
+        if(gimmick == 1)
+        {
+            InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
+        }
     }
 
     override public void StopPattern(){ CancelInvoke(); }
     override public void RestartPattern(){
         if (gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
+        if (gimmick == 1)
+        {
+            InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
+        }
     }
 
     // B1 -----------------------------------------------
@@ -59,5 +71,20 @@ public class PatternBlue : PatternManager
         {
             gems[i].FillWaterInHex();
         }
+    }
+
+
+    void B_StartBubble()
+    {
+        // create object
+        GameObject temp = Instantiate(bubble_PF, new Vector3(0, 0, 0), Quaternion.identity, UICanvas.transform);
+        temp.SetActive(false);
+
+        // set position
+        Vector3 rand_pos = new Vector3(Random.Range(0f, 1600.0f), 0f, 5);
+        temp.transform.position = Camera.main.ScreenToWorldPoint(rand_pos);
+        float size = Random.Range(0.45f, 1.2f);
+        temp.GetComponent<RectTransform>().localScale = new Vector3(size, size, 1);
+        temp.SetActive(true);
     }
 }
