@@ -27,9 +27,18 @@ public class DialogExtra : MonoBehaviour
         go.SetActive(!go.activeSelf);
     }
 
+    // minigame option (pause)
     public void OnTogglePause()
     {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+    }
+
+    // minigame option (restart)
+    public void RestartPuzzleOption()
+    {
+        GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGamePause();
+        GameObject.Find("PauseOptions").SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void LoadPlayerPrefs()

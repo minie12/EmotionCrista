@@ -205,6 +205,15 @@ public class MiniManager : MonoBehaviour
         Fungus.Flowchart.BroadcastFungusMessage(fungusMessage);
     }
 
+    public void RestartGamePause()
+    {
+        bPuzzleMode = false;
+        board.ClearBoardWithoutAnim();
+        pattern.ClearPattern();
+        RestartGameOver();
+    }
+
+    // after dialogue with client
     public void RestartGame(string color, int gimmick_, string message){
         fungusMessage = message;
         
@@ -218,6 +227,7 @@ public class MiniManager : MonoBehaviour
         pattern.StartPattern(gimmick_);
     }
 
+    // after game over
     public void RestartGameOver(){
         UIGameOver.SetActive(false);
 

@@ -308,13 +308,30 @@ public class BoardManager : MonoBehaviour
         return mini.bFeverOn;
     }
 
-    public void ClearBoard(){
+    void ClearBoardInit()
+    {
         bGemMovable = false;
         clickEffect.SetActive(false);
         bGemClicked = false;
-        
+
         StopAllCoroutines();
-        foreach(GemInfo gem in gems){
+    }
+
+    public void ClearBoardWithoutAnim()
+    {
+        ClearBoardInit();
+        foreach (GemInfo gem in gems)
+        {
+            if (gem != null)
+            {
+                Destroy(gem.gameObject);
+            }
+        }
+    }
+
+    public void ClearBoard(){
+        ClearBoardInit();
+        foreach (GemInfo gem in gems){
             if(gem != null) gem.DestroyGem();
         }
     }
