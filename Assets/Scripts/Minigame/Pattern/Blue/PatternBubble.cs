@@ -7,6 +7,7 @@ public class PatternBubble : MonoBehaviour
 {
     private RectTransform r_transform;
     private float half_height;
+    private float speed = 0.06f;
 
     void Awake()
     {
@@ -19,10 +20,9 @@ public class PatternBubble : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Vector3 orgPos = transform.position;
-        transform.position = new Vector3(orgPos.x, orgPos.y + 0.06f, orgPos.z);
+        transform.Translate(new Vector3(0, speed, 0));
 
-        if (r_transform.anchoredPosition.y + half_height > 1200) this.gameObject.SetActive(false);
+        if (r_transform.anchoredPosition.y + half_height > 1080) this.gameObject.SetActive(false);
     }
 
     public void onClickBubble()

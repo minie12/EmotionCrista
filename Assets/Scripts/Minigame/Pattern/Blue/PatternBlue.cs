@@ -81,7 +81,9 @@ public class PatternBlue : PatternManager
         temp.SetActive(false);
 
         // set position
-        Vector3 rand_pos = new Vector3(Random.Range(0f, 1600.0f), 0f, 5);
+        Vector3 rand_pos = new Vector3(Random.Range(0f, 1920.0f), 0f, 5);
+
+        // location object in screen
         temp.transform.position = Camera.main.ScreenToWorldPoint(rand_pos);
         float size = Random.Range(0.45f, 1.2f);
         temp.GetComponent<RectTransform>().localScale = new Vector3(size, size, 1);
