@@ -18,6 +18,7 @@ public class GemInfo : MonoBehaviour
     public Animator sparkleANIM; 
     public Animator patternANIM; 
     public Animator gemANIM;
+    public Animator explosionANIM;
 
     public bool bPatternApplied;
 
@@ -94,13 +95,28 @@ public class GemInfo : MonoBehaviour
     IEnumerator DestroyGemC(){
         gemANIM.enabled = true;
 
-        if(color == PatternType.RED) gemANIM.Play("gem_crush_red",0, 0.0f);
-        else if(color == PatternType.YELLOW) gemANIM.Play("gem_crush_yellow",0, 0.0f);
-        else if(color == PatternType.GREEN) gemANIM.Play("gem_crush_green",0, 0.0f);
-        else if(color == PatternType.BLUE) gemANIM.Play("gem_crush_blue",0, 0.0f);
-        else if(color == PatternType.PURPLE) gemANIM.Play("gem_crush_purple",0, 0.0f);
-        
+        if (color == PatternType.RED) gemANIM.Play("gem_crush_red", 0, 0.0f);
+        else if (color == PatternType.YELLOW) gemANIM.Play("gem_crush_yellow", 0, 0.0f);
+        else if (color == PatternType.GREEN) gemANIM.Play("gem_crush_green", 0, 0.0f);
+        else if (color == PatternType.BLUE) gemANIM.Play("gem_crush_blue", 0, 0.0f);
+        else if (color == PatternType.PURPLE) gemANIM.Play("gem_crush_purple", 0, 0.0f);
+
         sparkleANIM.Play("gem_sparkle", 0, 0.0f);
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
+    }
+
+    public void ExplosionGem()
+    {
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        StartCoroutine("ExplosionGemC");
+    }
+
+    IEnumerator ExplosionGemC()
+    {
+        gemANIM.enabled = true;
+
+        explosionANIM.Play("gem_explosion_red", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
     }

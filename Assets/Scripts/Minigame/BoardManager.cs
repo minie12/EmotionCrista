@@ -282,6 +282,11 @@ public class BoardManager : MonoBehaviour
         gems[column_, row_].DestroyGem();
         gems[column_, row_] = null;
     }
+    public void ExplosionGem(int column_, int row_)
+    {
+        gems[column_, row_].ExplosionGem();
+        gems[column_, row_] = null;
+    }
     public Vector3 GetGemPosition(int column_, int row_){
         return boardTiles[column_, row_];
     }
