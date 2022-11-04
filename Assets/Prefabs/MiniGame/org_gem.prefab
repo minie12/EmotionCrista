@@ -476,6 +476,12 @@ MonoBehaviour:
   - {fileID: 3598714856469743548, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: -2511356291957038328, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
   - {fileID: -7335531085601356040, guid: fc4b5a07882c76546b1813112a17fa00, type: 3}
+  special_gem_sprites:
+  - {fileID: -599239779167545910, guid: 4c15bf84a03128f4ab4de466b4629386, type: 3}
+  - {fileID: 2089717927940913464, guid: 4c15bf84a03128f4ab4de466b4629386, type: 3}
+  - {fileID: -5653763009156058411, guid: 4c15bf84a03128f4ab4de466b4629386, type: 3}
+  - {fileID: -6401226255081047871, guid: 4c15bf84a03128f4ab4de466b4629386, type: 3}
+  - {fileID: 3681103018163538317, guid: 4c15bf84a03128f4ab4de466b4629386, type: 3}
   gemOutline: {fileID: 1471261474537222146}
   gemClickSP: {fileID: 21300000, guid: 23b011324ef72a443a6c1f8d1ad3639e, type: 3}
   gemSideSP: {fileID: 21300000, guid: 1e578de928e2cb94093dcc3f750371a5, type: 3}

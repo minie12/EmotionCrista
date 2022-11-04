@@ -52,7 +52,7 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.BLUE;
+    int patternIdx = (int)PatternType.GREEN;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -66,7 +66,7 @@ public class MiniManager : MonoBehaviour
         playTime = fullPlayTime; score = 0; fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
         // temp
-        board.goalColor = 1;
+        board.goalColor = patternIdx;
 
         // ui
         scoreFill.fillAmount = 0;
@@ -78,7 +78,7 @@ public class MiniManager : MonoBehaviour
 
         // pattern
         pattern = pattern.SpawnPattern(patternIdx);
-        pattern.StartPattern(1);
+        pattern.StartPattern(0);
     }
 
     void Update(){

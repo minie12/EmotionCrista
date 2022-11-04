@@ -9,6 +9,7 @@ public class GemInfo : MonoBehaviour
 
     private PatternType color;
     public Sprite[] gemSprites;
+    public Sprite[] special_gem_sprites;
 
     public SpriteRenderer gemOutline;
     // public SpriteRenderer gem_pattern;
@@ -21,6 +22,15 @@ public class GemInfo : MonoBehaviour
     public Animator explosionANIM;
 
     public bool bPatternApplied;
+
+    // change gem effect
+    private float fadeTime = 1f;
+    private SpriteRenderer spriteRenderer;
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
@@ -85,7 +95,61 @@ public class GemInfo : MonoBehaviour
         else if(color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
         else color = PatternType.PURPLE;
 
-        gameObject.GetComponent<SpriteRenderer>().sprite = gemSprites[(int)color];
+        spriteRenderer.sprite = gemSprites[(int)color];
+    }
+
+    public int GetColumn()
+    {
+        return column;
+    }
+
+    public int GetRow()
+    {
+        return row;
+    }
+
+    // change special gem
+    public void ChangeSpecialGem()
+    {
+        spriteRenderer.sprite = special_gem_sprites[(int)color];
+    }
+
+    // change gem color
+    public void ChangeGemColor(int color_)
+    {
+        spriteRenderer.sprite = gemSprites[color_];
+    }
+
+    // Fade in
+    public void FadeIn()
+    {
+        StartCoroutine(FadeInCorutine());
+    }
+
+    // Fade out
+    public void FadeOut()
+    {
+        StartCoroutine(FadeOutCorutine());
+    }
+
+    private IEnumerator FadeInCorutine()
+    {
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        while (spriteRenderer.color.a < 1.0f)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime * fadeTime);
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeOutCorutine()
+    {
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
+        while (spriteRenderer.color.a > 0.0f)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - Time.deltaTime * fadeTime);
+            yield return null;
+        }
     }
 
     public void DestroyGem(){
