@@ -8,6 +8,7 @@ public class PatternGreen : PatternManager
     private bool[,] check = new bool[11, 6];
 
     private float bugSpeed = 1f;
+    private float rotateSpeed = 1.0f;
 
     override public void StartPattern(int gimmick_)
     {
@@ -43,33 +44,42 @@ public class PatternGreen : PatternManager
         }   
     }
 
-    GemInfo GetNotGreenGemRandom()
+    GemInfo GetNotGreenGemRandom(int standard_c, int standard_r)
     {
         while (true)
         {
-            GemInfo randGem = mini.GetRandomGem();
+            GemInfo randGem = mini.GetRandomGemOnWay(standard_c, standard_r);
+            int column_ = randGem.GetColumn();
+            int row_ = randGem.GetRow();
+            if (check[column_, row_])
+            {
+                continue;
+            }
             if (randGem.GetColor() != (int)PatternType.GREEN)
             {
+                check[column_, row_] = true;
                 return randGem;
             }
         }
     }
 
-    List<GemInfo> GetHistoryGemRandom(int cnt)
+    List<GemInfo> GetHistoryGemRandom(int cnt, int start_c, int start_r)
     {
         List<GemInfo> result = new List<GemInfo>();
+        int prev_c = start_c, prev_r = start_r;
         for (int i = 0; i < cnt;)
         {
-            GemInfo randGem = mini.GetRandomGem();
-            int column_ = randGem.GetColumn();
-            int row_ = randGem.GetRow();
+            GemInfo randGem = mini.GetRandomGemOnWay(prev_c, prev_r);
+            int new_c = randGem.GetColumn();
+            int new_r = randGem.GetRow();
 
-            if (check[column_,row_])
+            if (check[new_c, new_r])
             {
                 continue;
             }
             result.Add(randGem);
-            check[column_, row_] = true;
+            check[new_c, new_r] = true;
+            prev_c = new_c; prev_r = new_r;
             i++;
         }
         return result;
@@ -115,6 +125,7 @@ public class PatternGreen : PatternManager
         previousGem.FadeIn();
     }
 
+
     IEnumerator MoveStartToTarget(GameObject start, GameObject target)
     {
         float currentTime = 0.0f;
@@ -127,7 +138,25 @@ public class PatternGreen : PatternManager
         }
         start.transform.position = target.transform.position;
         yield return null;
+    }
 
+    IEnumerator ChangeDirectionTowards(GameObject start, GameObject target)
+    {
+        // set angle
+        Vector2 direction = new Vector2(target.transform.position.x - start.transform.position.x, target.transform.position.y - start.transform.position.y);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion angleAxis = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+
+        float currentTime = 0.0f;
+        Quaternion current = start.transform.rotation;
+        while (currentTime < rotateSpeed)
+        {
+            currentTime += (Time.deltaTime);
+            start.transform.rotation = Quaternion.Slerp(current, angleAxis, currentTime / rotateSpeed);
+            yield return null;
+        }
+        StartCoroutine(MoveStartToTarget(start, target));
+        yield return null;
     }
 
     IEnumerator MoveBug(List<GemInfo> history, GameObject start)
@@ -135,8 +164,9 @@ public class PatternGreen : PatternManager
         yield return new WaitForSeconds(bugSpeed);
         for (int i = 0; i < history.Count; i++)
         {
-            StartCoroutine(MoveStartToTarget(start, history[i].gameObject));
-            yield return new WaitForSeconds(bugSpeed);
+            // bug head towards target
+            StartCoroutine(ChangeDirectionTowards(start, history[i].gameObject));
+            yield return new WaitForSeconds(rotateSpeed + bugSpeed);
         }
         ChangeGemLast(start, history[history.Count - 1]);
     }
@@ -155,15 +185,13 @@ public class PatternGreen : PatternManager
         // create bug
         GameObject bug = CreateBug();
 
-        // get target
-        GemInfo target = GetNotGreenGemRandom();
-        int targetColumn = target.GetColumn();
-        int targetRow = target.GetRow();
-
-        check[targetColumn, targetRow] = true;
-
         // get history
-        List<GemInfo> history = GetHistoryGemRandom(2);
+        GemInfo bugInfo = bug.GetComponent<GemInfo>();
+        List<GemInfo> history = GetHistoryGemRandom(2, bugInfo.GetColumn(), bugInfo.GetRow());
+
+        // get target
+        int idx = history.Count - 1;
+        GemInfo target = GetNotGreenGemRandom(history[idx].GetColumn(), history[idx].GetRow());
         history.Add(target);
 
         // move bug

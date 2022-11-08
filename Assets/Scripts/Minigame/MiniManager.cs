@@ -261,6 +261,49 @@ public class MiniManager : MonoBehaviour
         return gem;
     }
 
+    public GemInfo GetRandomGemOnWay(int current_c, int current_r)
+    {
+        GemInfo gem = null;
+        while(gem == null)
+        {
+            // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+            int direction = Random.Range(0, 6);
+            int distance = Random.Range(0, 10);
+            int odd = current_c % 2;
+            int column_ = current_c, row_ = current_r;
+            switch (direction)
+            {
+                case 0:
+                    row_ += distance;
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 1:
+                    column_ += distance; row_ += ((odd == 1) ? distance/2 : (distance+1)/2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 2:
+                    column_ += distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 3: // down
+                    row_ -= distance;
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 4:
+                    column_ -= distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 5:
+                    column_ -= distance; row_ += ((odd == 1) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return gem;
+    }
+
     public GemInfo[] GetRandomGems(int cnt)
     {
         // TODO: Does not check whether the gem is already filled with water
