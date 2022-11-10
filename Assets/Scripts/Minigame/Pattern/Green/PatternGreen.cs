@@ -7,7 +7,7 @@ public class PatternGreen : PatternManager
     public GameObject gemPF;
     private bool[,] check = new bool[11, 6];
 
-    private float bugSpeed = 1f;
+    private float bugSpeed = 2f;
     private float rotateSpeed = 1.0f;
 
     override public void StartPattern(int gimmick_)
@@ -126,18 +126,20 @@ public class PatternGreen : PatternManager
     }
 
 
-    IEnumerator MoveStartToTarget(GameObject start, GameObject target)
+    IEnumerator MoveStartToTarget(GameObject start, GameObject target, float endTime)
     {
         float currentTime = 0.0f;
         Vector3 current = start.transform.position;
-        while (currentTime < bugSpeed)
+
+        WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+
+        while (currentTime < endTime)
         {
-            currentTime += (Time.deltaTime);
-            start.transform.position = Vector3.Lerp(current, target.transform.position, currentTime / bugSpeed);
-            yield return null;
+            currentTime += Time.deltaTime * bugSpeed;
+            start.transform.position = Vector3.Lerp(current, target.transform.position, currentTime / endTime);
+            yield return waitForEndOfFrame;
         }
         start.transform.position = target.transform.position;
-        yield return null;
     }
 
     IEnumerator ChangeDirectionTowards(GameObject start, GameObject target)
@@ -155,8 +157,7 @@ public class PatternGreen : PatternManager
             start.transform.rotation = Quaternion.Slerp(current, angleAxis, currentTime / rotateSpeed);
             yield return null;
         }
-        StartCoroutine(MoveStartToTarget(start, target));
-        yield return null;
+        start.transform.rotation = angleAxis;
     }
 
     IEnumerator MoveBug(List<GemInfo> history, GameObject start)
@@ -164,9 +165,21 @@ public class PatternGreen : PatternManager
         yield return new WaitForSeconds(bugSpeed);
         for (int i = 0; i < history.Count; i++)
         {
+            // get target object
+            GameObject target = history[i].gameObject;
+
             // bug head towards target
-            StartCoroutine(ChangeDirectionTowards(start, history[i].gameObject));
-            yield return new WaitForSeconds(rotateSpeed + bugSpeed);
+            StartCoroutine(ChangeDirectionTowards(start, target));
+            // hold time
+            yield return new WaitForSeconds(rotateSpeed);
+
+            // get direction start to target
+            float endTime = Mathf.Sqrt(Mathf.Pow(start.transform.position.x - target.transform.position.x, 2) + Mathf.Pow(start.transform.position.y - target.transform.position.y, 2));
+
+            // move bug
+            StartCoroutine(MoveStartToTarget(start, target, endTime));
+            // hold time
+            yield return new WaitForSeconds(endTime / bugSpeed);
         }
         ChangeGemLast(start, history[history.Count - 1]);
     }
