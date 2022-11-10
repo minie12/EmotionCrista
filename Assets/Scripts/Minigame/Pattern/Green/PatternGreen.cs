@@ -7,8 +7,8 @@ public class PatternGreen : PatternManager
     public GameObject gemPF;
     private bool[,] check = new bool[11, 6];
 
-    private float bugSpeed = 2f;
-    private float rotateSpeed = 1.0f;
+    private float bugSpeed = 3f;
+    private float rotateSpeed = 0.5f;
 
     override public void StartPattern(int gimmick_)
     {
@@ -180,6 +180,8 @@ public class PatternGreen : PatternManager
             StartCoroutine(MoveStartToTarget(start, target, endTime));
             // hold time
             yield return new WaitForSeconds(endTime / bugSpeed);
+
+            yield return new WaitForSeconds(Random.Range(0.0f, 1.5f));
         }
         ChangeGemLast(start, history[history.Count - 1]);
     }
