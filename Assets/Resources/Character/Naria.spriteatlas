@@ -32,7 +32,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: c23ffacf39a4db341abd48247b34a1d6, type: 3}
-    totalSpriteSurfaceArea: 28311552
+    totalSpriteSurfaceArea: 31457280
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -40,6 +40,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: a20a6340d014582458057e89e39aac03, type: 3}
   - {fileID: 21300000, guid: 91e897d463661934a8e483accf676b3c, type: 3}
+  - {fileID: 21300000, guid: 3f6d0d85866dc204d9c0c80d5d05e29e, type: 3}
   - {fileID: 21300000, guid: b34f00e8629440e46ac5c36246b93e96, type: 3}
   - {fileID: 21300000, guid: 8d50db3b0000f6b41bbee9fd8a996bd7, type: 3}
   - {fileID: 21300000, guid: a437beebc2e0e3640ac13f5a28519367, type: 3}
@@ -50,6 +51,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - Naria_tear
   - Naria_gg
+  - Naria_right
   - Naria
   - Naria_gchim
   - Naria_pgon
