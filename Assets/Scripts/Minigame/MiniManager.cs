@@ -52,7 +52,7 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.RED;
+    int patternIdx = (int)PatternType.BLUE;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -65,7 +65,8 @@ public class MiniManager : MonoBehaviour
     void Start(){
         playTime = fullPlayTime; score = 0; fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
-        //board.goal_color = 0;
+        // temp
+        board.goalColor = 1;
 
         // ui
         scoreFill.fillAmount = 0;
@@ -77,7 +78,7 @@ public class MiniManager : MonoBehaviour
 
         // pattern
         pattern = pattern.SpawnPattern(patternIdx);
-        pattern.StartPattern(0);
+        pattern.StartPattern(1);
     }
 
     void Update(){
@@ -205,6 +206,15 @@ public class MiniManager : MonoBehaviour
         Fungus.Flowchart.BroadcastFungusMessage(fungusMessage);
     }
 
+    public void RestartGamePause()
+    {
+        bPuzzleMode = false;
+        board.ClearBoardWithoutAnim();
+        pattern.ClearPattern();
+        RestartGameOver();
+    }
+
+    // after dialogue with client
     public void RestartGame(string color, int gimmick_, string message){
         fungusMessage = message;
         
@@ -218,6 +228,7 @@ public class MiniManager : MonoBehaviour
         pattern.StartPattern(gimmick_);
     }
 
+    // after game over
     public void RestartGameOver(){
         UIGameOver.SetActive(false);
 
