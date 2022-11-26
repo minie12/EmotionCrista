@@ -480,7 +480,7 @@ MonoBehaviour:
   scrollPos: {x: -128.45851, y: 184.50592}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 400
+  blockViewHeight: 551
   zoom: 0.4900004
   scrollViewRect:
     serializedVersion: 2
@@ -489,8 +489,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 79947794}
-  selectedCommands: []
+  - {fileID: 79947864}
+  selectedCommands:
+  - {fileID: 79947809}
   variables:
   - {fileID: 79947785}
   - {fileID: 79947811}
@@ -3221,9 +3222,9 @@ MonoBehaviour:
   - {fileID: 79947839}
   - {fileID: 79947812}
   - {fileID: 79947810}
-  - {fileID: 79947870}
   - {fileID: 79947809}
   - {fileID: 79947869}
+  - {fileID: 79947870}
   - {fileID: 79947868}
   - {fileID: 79947867}
   - {fileID: 79947866}
@@ -9323,6 +9324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  soundVolumeBGM: 0
+  soundVolumeSFX: 0
   textJSON: {fileID: 4900000, guid: 71898bb6261b1b44aa25f8ed0ca13522, type: 3}
   myChatList:
     characterChat: []
