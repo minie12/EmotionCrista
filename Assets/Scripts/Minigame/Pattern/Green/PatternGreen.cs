@@ -95,6 +95,7 @@ public class PatternGreen : PatternManager
        
         greenGem.FadeOut();
 
+        // just create image
         GameObject specialGem = Instantiate(gemPF, greenGem.GetComponent<Transform>().position, Quaternion.identity, this.transform);
         specialGem.transform.GetChild(0).gameObject.SetActive(false);
         specialGem.GetComponent<SpriteRenderer>().sortingOrder = 5;
@@ -104,6 +105,15 @@ public class PatternGreen : PatternManager
 
         specialGemInfo.FadeIn();
 
+        // get around gems
+        List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(prevColumn, prevRow);
+
+        // block rotate gems
+        greenGem.bRotateAble = false;
+        for (int i = 0; i < aroundGems.Count; i++)
+        {
+            aroundGems[i].bRotateAble = false;
+        }
         return specialGem;
     }
 
@@ -123,8 +133,27 @@ public class PatternGreen : PatternManager
         GemInfo previousGem = GameObject.Find("Board").GetComponent<BoardManager>().GetGem(startColumn, startRow);
         previousGem.ChangeGemColor(targetColor);
         previousGem.FadeIn();
+
+
+
+        // turn on rotate true
+        StartCoroutine(TurnOnRotateTrue(previousGem));
     }
 
+
+    IEnumerator TurnOnRotateTrue(GemInfo previousGem)
+    {
+        yield return new WaitForSeconds(1f);
+
+        previousGem.bRotateAble = true;
+
+        // get around gems
+        List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(previousGem.GetColumn(), previousGem.GetRow());
+        for (int i = 0; i < aroundGems.Count; i++)
+        {
+            aroundGems[i].bRotateAble = true;
+        }
+    }
 
     IEnumerator MoveStartToTarget(GameObject start, GameObject target, float endTime)
     {

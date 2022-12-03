@@ -27,6 +27,9 @@ public class GemInfo : MonoBehaviour
     private float fadeTime = 1f;
     private SpriteRenderer spriteRenderer;
 
+    // manage rotate
+    [HideInInspector] public bool bRotateAble = true;
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -38,6 +41,7 @@ public class GemInfo : MonoBehaviour
 
     public void InitGem(int column_, int row_, int color_){
         bPatternApplied = false;
+        bRotateAble = true;
         column = column_; row = row_; 
         SetColor_(color_);
     }
@@ -204,6 +208,7 @@ public class GemInfo : MonoBehaviour
         patternANIM.SetBool("bWaterFilled", true);
     }
 
+    // just change row, column. Actually move action in BoardManager's RotateGem func.
     public void MoveGem(int column_, int row_, float time){
         row = row_; column = column_;
 
