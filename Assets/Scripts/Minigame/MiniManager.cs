@@ -52,7 +52,7 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.BLUE;
+    int patternIdx = (int)PatternType.GREEN;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -66,7 +66,7 @@ public class MiniManager : MonoBehaviour
         playTime = fullPlayTime; score = 0; fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
         // temp
-        board.goalColor = 1;
+        board.goalColor = patternIdx;
 
         // ui
         scoreFill.fillAmount = 0;
@@ -78,7 +78,7 @@ public class MiniManager : MonoBehaviour
 
         // pattern
         pattern = pattern.SpawnPattern(patternIdx);
-        pattern.StartPattern(1);
+        pattern.StartPattern(0);
     }
 
     void Update(){
@@ -257,6 +257,49 @@ public class MiniManager : MonoBehaviour
             column_ = Random.Range(0, 11);
             row_ = Random.Range(0, 6);
             gem = board.GetGem(column_, row_);
+        }
+        return gem;
+    }
+
+    public GemInfo GetRandomGemOnWay(int current_c, int current_r)
+    {
+        GemInfo gem = null;
+        while(gem == null)
+        {
+            // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+            int direction = Random.Range(0, 6);
+            int distance = Random.Range(0, 10);
+            int odd = current_c % 2;
+            int column_ = current_c, row_ = current_r;
+            switch (direction)
+            {
+                case 0:
+                    row_ += distance;
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 1:
+                    column_ += distance; row_ += ((odd == 1) ? distance/2 : (distance+1)/2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 2:
+                    column_ += distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 3: // down
+                    row_ -= distance;
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 4:
+                    column_ -= distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 5:
+                    column_ -= distance; row_ += ((odd == 1) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                default:
+                    break;
+            }
         }
         return gem;
     }

@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour
     private GemInfo[,] gems;
     private Vector3[,] boardTiles;
 
+    // wait for rotate time
     private bool bGemMovable = false;
     private bool bGemClicked;
     private int prevRow, prevColumn;
@@ -32,7 +33,10 @@ public class BoardManager : MonoBehaviour
     // goal state
     public GoalInfo goalInfo;
     public int goalGemCnt = 3;
-    
+
+    // around gems direction vector (odd/even standard: col)
+    private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
+    private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
     void Start(){   
         InitBoard();
@@ -41,8 +45,9 @@ public class BoardManager : MonoBehaviour
     }
 
     void Update(){
-        if (bGemClicked && bGemMovable)
+        if (bGemClicked && bGemMovable && gems[column, row].bRotateAble)
         {
+            Debug.Log("column row : " + column + " " + row + " " + gems[column, row].bRotateAble);
             if (Input.GetKeyDown(KeyCode.A)) RotateGem('a');
             else if (Input.GetKeyDown(KeyCode.D)) RotateGem('d');
         }
@@ -130,6 +135,33 @@ public class BoardManager : MonoBehaviour
             gems[column+1, row+eo] = gems[column, row+1];
             gems[column, row+1] = gTemp;
         }
+    }
+
+    // return around gems
+    public List<GemInfo> GetAroundGems(int column_, int row_)
+    {
+        int[,] direction = new int[6,2];
+        if(column_ % 2 == 0)
+        {
+            direction = aroundGem_e;
+        }
+        else
+        {
+            direction = aroundGem_o;
+        }
+
+        List<GemInfo> result = new List<GemInfo>();
+        for(int i = 0; i < 6; i++)
+        {
+            int newC = column_ + direction[i,0];
+            int newR = row_ + direction[i,1];
+
+            if(CheckGemExist(newC, newR))
+            {
+                result.Add(gems[newC, newR]);
+            }
+        }
+        return result;
     }
 
     public void StartRefilBoardFever()
