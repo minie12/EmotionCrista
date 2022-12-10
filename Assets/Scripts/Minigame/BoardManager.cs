@@ -199,6 +199,17 @@ public class BoardManager : MonoBehaviour
                 return;
             }
 
+            // purple gimmick
+            if (goalColor == (int)PatternType.PURPLE)
+            {
+                List<GemInfo> aroundChainGems = CheckExitChainAround();
+                
+                for(int i = 0; i < aroundChainGems.Count; i++)
+                {
+                    aroundChainGems[i].MinusChainCnt();
+                }
+            }
+
             StartCoroutine("RefillBoard");
         }
         else{
@@ -215,6 +226,32 @@ public class BoardManager : MonoBehaviour
             clickEffect.SetActive(true);
         }
     }
+
+
+    // check exit chain around gem
+    List<GemInfo> CheckExitChainAround()
+    {
+        List<GemInfo> result = new List<GemInfo>();
+
+        List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
+
+        for(int i = 0; i < crushedGems.Count; i++)
+        {
+            List<GemInfo> aroundGems = GetAroundGems(crushedGems[i][0], crushedGems[i][1]);
+
+            for (int j = 0; j < aroundGems.Count; j++)
+            {
+                // exit chain
+                if (aroundGems[j].transform.Find("ANchain").gameObject.activeSelf)
+                {
+                    result.Add(aroundGems[j]);
+                }
+            }
+        }
+        
+        return result;
+    }
+
 
     // used in ChangeGemOutline()
     // erase outline of gem if other gem is clicked

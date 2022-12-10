@@ -23,7 +23,7 @@ public class PatternManager : MonoBehaviour
     }
 
     public PatternManager SpawnPattern(int patternIdx){
-        if(patternIdx == (int)PatternType.YELLOW){ // YELLOW'
+        if(patternIdx == (int)PatternType.YELLOW){ // YELLOW
             Debug.Log("Returned Pattern Yellow");
             return GetComponent<PatternYellow>();
         }
@@ -35,9 +35,13 @@ public class PatternManager : MonoBehaviour
             Debug.Log("Returned Pattern Red");
             return GetComponent<PatternRed>();
         } 
-        else if (patternIdx == (int)PatternType.GREEN){ //GREEN
+        else if (patternIdx == (int)PatternType.GREEN){ // GREEN
             Debug.Log("Returned Pattern Green");
             return GetComponent<PatternGreen>();
+        }
+        else if (patternIdx == (int)PatternType.PURPLE){ // PURPLE
+            Debug.Log("Returned Pattern Purple");
+            return GetComponent<PatternPurple>();
         }
 
         Debug.Log("No Pattern Found");

@@ -7,6 +7,9 @@ public class GemInfo : MonoBehaviour
     private BoardManager board;
     private int column, row;
 
+    // purple gimmick
+    private int chainCnt;
+
     private PatternType color;
     public Sprite[] gemSprites;
     public Sprite[] special_gem_sprites;
@@ -20,11 +23,11 @@ public class GemInfo : MonoBehaviour
     public Animator patternANIM; 
     public Animator gemANIM;
     public Animator explosionANIM;
+    public GameObject chainAnimObj;
 
     public bool bPatternApplied;
 
     // change gem effect
-    private float fadeTime = 1f;
     private SpriteRenderer spriteRenderer;
 
     // manage rotate
@@ -112,6 +115,29 @@ public class GemInfo : MonoBehaviour
         return row;
     }
 
+    // purple gimmick chain
+    public int MinusChainCnt()
+    {
+        if(chainCnt > 0)
+        {
+            chainCnt--;
+
+            // play animation
+            StartCoroutine(ChainGemC(chainCnt));
+        }
+        return chainCnt;
+    }
+
+    IEnumerator ChainGemC(int cnt)
+    {
+        gemANIM.enabled = true;
+
+        GameObject temp = chainAnimObj.transform.GetChild(cnt).gameObject;
+        temp.GetComponent<Animator>().Play("gem_chain_purple", 0, 0.0f);
+        yield return new WaitForSeconds(1f);
+        temp.SetActive(false);
+    }
+
     // change special gem
     public void ChangeSpecialGem()
     {
@@ -124,19 +150,29 @@ public class GemInfo : MonoBehaviour
         spriteRenderer.sprite = gemSprites[color_];
     }
 
-    // Fade in
-    public void FadeIn()
+    // Fade in (fadeTime = time while fade, target = object to fade)
+    public void FadeIn(float fadeTime = 1f, int target = -1)
     {
-        StartCoroutine(FadeInCorutine());
+        SpriteRenderer temp = spriteRenderer;
+        if(target >= 0)
+        {
+            temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
+        }
+        StartCoroutine(FadeInCorutine(fadeTime, temp));
     }
 
     // Fade out
-    public void FadeOut()
+    public void FadeOut(float fadeTime = 1f, int target = -1)
     {
-        StartCoroutine(FadeOutCorutine());
+        SpriteRenderer temp = spriteRenderer;
+        if (target >= 0)
+        {
+            temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
+        }
+        StartCoroutine(FadeOutCorutine(fadeTime, temp));
     }
 
-    private IEnumerator FadeInCorutine()
+    private IEnumerator FadeInCorutine(float fadeTime, SpriteRenderer spriteRenderer)
     {
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
         while (spriteRenderer.color.a < 1.0f)
@@ -146,7 +182,7 @@ public class GemInfo : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeOutCorutine()
+    private IEnumerator FadeOutCorutine(float fadeTime, SpriteRenderer spriteRenderer)
     {
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
         while (spriteRenderer.color.a > 0.0f)
@@ -187,6 +223,18 @@ public class GemInfo : MonoBehaviour
         explosionANIM.Play("gem_explosion_red", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
+    }
+
+    public void SetChainGem(int cnt)
+    {
+        chainCnt = cnt;
+
+        // turn chain obj active true
+        chainAnimObj.SetActive(true);
+        for(int i = 0; i < cnt; i++)
+        {
+            chainAnimObj.transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
 
     public void FillWaterInHex(){
