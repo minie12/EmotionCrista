@@ -261,6 +261,18 @@ public class MiniManager : MonoBehaviour
         return gem;
     }
 
+    public GemInfo GetPatternGemRandom()
+    {
+        while (true)
+        {
+            GemInfo randGem = GetRandomGem();
+            if (randGem.GetColor() == patternIdx)
+            {
+                return randGem;
+            }
+        }
+    }
+
     public GemInfo GetRandomGemOnWay(int current_c, int current_r)
     {
         GemInfo gem = null;

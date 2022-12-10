@@ -32,18 +32,6 @@ public class PatternGreen : PatternManager
 
     }
 
-    GemInfo GetGreenGemRandom()
-    {
-        while (true)
-        {
-            GemInfo randGem = mini.GetRandomGem();
-            if (randGem.GetColor() == (int)PatternType.GREEN)
-            {
-                return randGem;
-            }
-        }   
-    }
-
     GemInfo GetNotGreenGemRandom(int standard_c, int standard_r)
     {
         while (true)
@@ -88,7 +76,7 @@ public class PatternGreen : PatternManager
     GameObject CreateBug()
     {
         // get green gem random
-        GemInfo greenGem = GetGreenGemRandom();
+        GemInfo greenGem = mini.GetPatternGemRandom();
         int prevColumn = greenGem.GetColumn();
         int prevRow = greenGem.GetRow();
         check[prevColumn, prevRow] = true;
