@@ -1,0 +1,18 @@
+[
+    {
+        "id": "0001",
+        "desc": "시도",
+        "character": "Patrick",
+        "dialog": "안녕하세요. 시도중입니다. {wc}WC 인식도 됨.",
+        "spriteRenderer": "Character_Middle",
+        "sprite": "Naria/Naria_happy" 
+    },
+    {
+        "id": "0002",
+        "desc": "시도2",
+        "character": "Patrick",
+        "dialog": "ID 2개 있을 때도 되는지 {b}확인 완료{/b}!",
+        "spriteRenderer": "Character_Middle",
+        "sprite": "Naria/Naria_surprise" 
+    }
+]
