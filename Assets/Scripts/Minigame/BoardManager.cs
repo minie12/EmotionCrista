@@ -114,6 +114,15 @@ public class BoardManager : MonoBehaviour
             gems[column+1, row-1+eo] = gems[column, row-1];
             gems[column, row-1] = gems[column-1, row-1+eo];
             gems[column-1, row-1+eo] = gTemp;
+
+            // return bRotateAble value
+            bool temp = gems[column - 1, row + eo].bRotateAble;
+            gems[column - 1, row + eo].bRotateAble = gems[column - 1, row - 1 + eo].bRotateAble;
+            gems[column - 1, row - 1 + eo].bRotateAble = gems[column, row - 1].bRotateAble;
+            gems[column, row - 1].bRotateAble = gems[column + 1, row - 1 + eo].bRotateAble;
+            gems[column + 1, row - 1 + eo].bRotateAble = gems[column + 1, row + eo].bRotateAble;
+            gems[column + 1, row + eo].bRotateAble = gems[column, row + 1].bRotateAble;
+            gems[column, row + 1].bRotateAble = temp;
         } 
         
         // turn CW
@@ -134,6 +143,15 @@ public class BoardManager : MonoBehaviour
             gems[column+1, row-1+eo] = gems[column+1, row+eo];
             gems[column+1, row+eo] = gems[column, row+1];
             gems[column, row+1] = gTemp;
+
+            // return bRotateAble value
+            bool temp = gems[column - 1, row + eo].bRotateAble;
+            gems[column - 1, row + eo].bRotateAble = gems[column, row + 1].bRotateAble;
+            gems[column, row + 1].bRotateAble = gems[column + 1, row + eo].bRotateAble;
+            gems[column + 1, row + eo].bRotateAble = gems[column + 1, row - 1 + eo].bRotateAble;
+            gems[column + 1, row - 1 + eo].bRotateAble = gems[column, row - 1].bRotateAble;
+            gems[column, row - 1].bRotateAble = gems[column - 1, row - 1 + eo].bRotateAble;
+            gems[column - 1, row - 1 + eo].bRotateAble = temp;
         }
     }
 
@@ -206,6 +224,7 @@ public class BoardManager : MonoBehaviour
                 
                 for(int i = 0; i < aroundChainGems.Count; i++)
                 {
+                    Debug.Log(aroundChainGems[i]);
                     aroundChainGems[i].MinusChainCnt();
                 }
             }
@@ -232,8 +251,10 @@ public class BoardManager : MonoBehaviour
     List<GemInfo> CheckExitChainAround()
     {
         List<GemInfo> result = new List<GemInfo>();
+        bool[,] check = new bool[11, 6];
 
         List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
+        Debug.Log("크러쉬된 광물 개수: "+ crushedGems.Count);
 
         for(int i = 0; i < crushedGems.Count; i++)
         {
@@ -242,9 +263,12 @@ public class BoardManager : MonoBehaviour
             for (int j = 0; j < aroundGems.Count; j++)
             {
                 // exit chain
-                if (aroundGems[j].transform.Find("ANchain").gameObject.activeSelf)
+                int column_ = aroundGems[j].GetColumn();
+                int row_ = aroundGems[j].GetRow();
+                if (aroundGems[j].transform.Find("ANchain").gameObject.activeSelf && !check[column_,row_])
                 {
                     result.Add(aroundGems[j]);
+                    check[column_, row_] = true;
                 }
             }
         }

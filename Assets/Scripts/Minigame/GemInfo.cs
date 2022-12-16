@@ -33,6 +33,8 @@ public class GemInfo : MonoBehaviour
     // manage rotate
     [HideInInspector] public bool bRotateAble = true;
 
+
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -130,8 +132,6 @@ public class GemInfo : MonoBehaviour
 
     IEnumerator ChainGemC(int cnt)
     {
-        gemANIM.enabled = true;
-
         GameObject temp = chainAnimObj.transform.GetChild(cnt).gameObject;
         temp.GetComponent<Animator>().Play("gem_chain_purple", 0, 0.0f);
         yield return new WaitForSeconds(1f);
