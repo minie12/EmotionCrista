@@ -36,9 +36,12 @@ public class PatternPurple : PatternManager
 
         // block rotate gems
         gem.bRotateAble = false;
+        // fix location gems
+        gem.bLocationFixed = true;
         for (int i = 0; i < aroundGems.Count; i++)
         {
             aroundGems[i].bRotateAble = false;
+            aroundGems[i].bLocationFixed = true;
             aroundGems[i].SetChainGem(chainCnt);
             List<GemInfo> aroundGemsTemp = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
             for(int j = 0; j < aroundGemsTemp.Count; j++)

@@ -35,6 +35,7 @@ public class BoardManager : MonoBehaviour
     public int goalGemCnt = 3;
 
     // around gems direction vector (odd/even standard: col)
+    // up&left, up, up&right, down&right, down, down&left
     private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
     private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
@@ -326,28 +327,69 @@ public class BoardManager : MonoBehaviour
         
         int start = column-goalGemCnt > 0? column-goalGemCnt : 0;
         int end = column+goalGemCnt < 11? column+goalGemCnt : 11;
-        for(int i = start; i < end; i++){
-            for(int j = (row-goalGemCnt > 0? row-goalGemCnt : 0); j < 6; j++){
-                if(i % 2 == 0 && j == 5) break; 
+        for (int j = 0; j < 6; j++)
+        {
+            for (int i = start; i < end; i++)
+            {
+                if (i % 2 == 0 && j == 5) { 
+                    continue; 
+                }
                 
                 if(!CheckGemExist(i, j)){
+                    Debug.Log("ºó ±¤¹° " + i + ", " + j);
                     bool filled = false;
                     // check if there is gem on top
                     for(int k = j; k < 6; k++){
-                        if(i % 2 == 0 && k == 5) break; 
+                        if(i % 2 == 0 && k == 5) break;
 
-                        if(CheckGemExist(i, k)){
-                            // drop the gem on top to bottom
-                            gems[i, j] = gems[i,k];
-                            gems[i, k] = null;
-                            gems[i, j].MoveGem(i, j, dropTime);
-                            filled = true;
-                            break;
+                        if (!CheckGemExist(i, k))
+                        {
+                            continue;
                         }
+
+                        int newColumn = i;
+                        int newRow = k;
+
+                        if (gems[i, k].bLocationFixed)
+                        {
+                            List<GemInfo> aroundGems = GetAroundGems(i, k);
+                            if(aroundGems.Count == 0)
+                            {
+                                continue;
+                            }
+                            bool checkAround = false;
+                            for(int l = 0; l < aroundGems.Count; l++)
+                            {
+                                if (aroundGems[l].bLocationFixed)
+                                {
+                                    continue;
+                                }
+                                // drop the gem on top to bottom
+                                checkAround = true;
+                                newColumn = aroundGems[l].GetColumn();
+                                newRow = aroundGems[l].GetRow();
+                                break;
+                            }
+                            if (!checkAround)
+                            {
+                                continue;
+                            }
+                            
+                        }
+
+                        Debug.Log("Ã¤¿î ±¤¹° : " + newColumn + ", " + newRow);
+
+                        // drop the gem on top to bottom
+                        gems[i, j] = gems[newColumn, newRow];
+                        gems[newColumn, newRow] = null;
+                        gems[i, j].MoveGem(i, j, dropTime);
+                        filled = true;
+                        break;
                     }
 
                     // if there was no gem on top
                     if(!filled){
+                        Debug.Log("Å¾ ºñ¾îÀÖÀ½ " + i);
                         // fill with new gem
                         int color = Random.Range(0, totalGemTypeCnt);
                         GameObject gemTemp = Instantiate(gemPF, dropPos[i], Quaternion.identity, this.transform);

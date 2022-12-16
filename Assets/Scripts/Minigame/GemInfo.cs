@@ -33,7 +33,8 @@ public class GemInfo : MonoBehaviour
     // manage rotate
     [HideInInspector] public bool bRotateAble = true;
 
-
+    // manage location fixed
+    [HideInInspector] public bool bLocationFixed = false; 
 
     void Awake()
     {
@@ -47,6 +48,7 @@ public class GemInfo : MonoBehaviour
     public void InitGem(int column_, int row_, int color_){
         bPatternApplied = false;
         bRotateAble = true;
+        bLocationFixed = false;
         column = column_; row = row_; 
         SetColor_(color_);
     }
