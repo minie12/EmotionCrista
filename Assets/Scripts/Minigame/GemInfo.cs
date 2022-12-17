@@ -119,6 +119,11 @@ public class GemInfo : MonoBehaviour
         return row;
     }
 
+    public int GetChainCnt()
+    {
+        return chainCnt;
+    }
+
     // purple gimmick chain
     public int MinusChainCnt()
     {
@@ -136,7 +141,7 @@ public class GemInfo : MonoBehaviour
     {
         GameObject temp = chainAnimObj.transform.GetChild(cnt).gameObject;
         temp.GetComponent<Animator>().Play("gem_chain_purple", 0, 0.0f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.9f);
         temp.SetActive(false);
     }
 

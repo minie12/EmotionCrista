@@ -227,7 +227,16 @@ public class BoardManager : MonoBehaviour
                 for(int i = 0; i < aroundChainGems.Count; i++)
                 {
                     Debug.Log(aroundChainGems[i]);
-                    aroundChainGems[i].MinusChainCnt();
+                    int extraChain = aroundChainGems[i].MinusChainCnt();
+
+                    // end chain
+                    if(extraChain == 0)
+                    {
+                        float fadeTime = 1f;
+                        aroundChainGems[i].FadeOut(fadeTime, 5);
+                        StartCoroutine(DeleteChain(fadeTime, aroundChainGems[i]));
+                    }
+
                 }
             }
 
@@ -245,6 +254,22 @@ public class BoardManager : MonoBehaviour
             //gems[column, row].SetOutline("click");
             clickEffect.transform.position = boardTiles[column, row];
             clickEffect.SetActive(true);
+        }
+    }
+
+    IEnumerator DeleteChain(float fadeTime, GemInfo gem)
+    {
+        yield return new WaitForSeconds(fadeTime); // term fade out 
+
+        gem.chainAnimObj.SetActive(false);
+        gem.bLocationFixed = false;
+        if(IsExitChainAround(gem.GetColumn(), gem.GetRow()))
+        {
+            gem.bRotateAble = false;
+        }
+        else
+        {
+            gem.bRotateAble = true;
         }
     }
 
@@ -267,7 +292,7 @@ public class BoardManager : MonoBehaviour
                 // exit chain
                 int column_ = aroundGems[j].GetColumn();
                 int row_ = aroundGems[j].GetRow();
-                if (aroundGems[j].transform.Find("ANchain").gameObject.activeSelf && !check[column_,row_])
+                if (aroundGems[j].GetChainCnt() > 0 && !check[column_,row_])
                 {
                     result.Add(aroundGems[j]);
                     check[column_, row_] = true;
@@ -288,7 +313,7 @@ public class BoardManager : MonoBehaviour
             // exit chain
             int column_ = aroundGems[j].GetColumn();
             int row_ = aroundGems[j].GetRow();
-            if (aroundGems[j].transform.Find("ANchain").gameObject.activeSelf)
+            if(aroundGems[j].GetChainCnt() > 0)
             {
                 return true;
             }
