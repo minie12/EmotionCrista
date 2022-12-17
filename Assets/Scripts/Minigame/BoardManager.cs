@@ -279,6 +279,24 @@ public class BoardManager : MonoBehaviour
     }
 
 
+    bool IsExitChainAround(int col, int r)
+    {
+        List<GemInfo> aroundGems = GetAroundGems(col, r);
+
+        for (int j = 0; j < aroundGems.Count; j++)
+        {
+            // exit chain
+            int column_ = aroundGems[j].GetColumn();
+            int row_ = aroundGems[j].GetRow();
+            if (aroundGems[j].transform.Find("ANchain").gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     // used in ChangeGemOutline()
     // erase outline of gem if other gem is clicked
     void EraseGemOutline(){
@@ -406,6 +424,15 @@ public class BoardManager : MonoBehaviour
                 // yield return new WaitForSeconds(0.1f);
                 gems[i, j] = gemTemp.GetComponent<GemInfo>();
                 gems[i, j].MoveGem(i, j, dropTime);
+            }
+
+            if (IsExitChainAround(i, j))
+            {
+                gems[i, j].bRotateAble = false;
+            }
+            else
+            {
+                gems[i, j].bRotateAble = true;
             }
         }
 
