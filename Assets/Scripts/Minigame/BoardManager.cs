@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class BoardManager : MonoBehaviour
 {
@@ -230,7 +231,7 @@ public class BoardManager : MonoBehaviour
                 }
             }
 
-            StartCoroutine("RefillBoard");
+            StartCoroutine("RefillBoardTemp");
         }
         else{
             // do not enable click when user clicks the boundary of board
@@ -320,6 +321,100 @@ public class BoardManager : MonoBehaviour
         if(gems[column_, row_] == null) return false;
         return true;
     }
+
+
+    IEnumerator RefillBoardTemp()
+    {
+        bGemMovable = false;
+        yield return new WaitForSeconds(0.3f); // wait for gem crush
+
+        // sort row increasing -> column increasing
+        List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
+        Debug.Log("보드 채우기 크러쉬된 광물 개수: " + crushedGems.Count);
+        
+        crushedGems = crushedGems.OrderBy(x => x[1]).ThenBy(y => y[0]).ToList();
+
+        Debug.Log("정렬 후 " + crushedGems.Count);
+
+        while(crushedGems.Count > 0)
+        {
+            List<int> cur = crushedGems[0];
+            crushedGems.RemoveAt(0);
+
+            bool filled = false;
+            int i = cur[0]; // column
+            int j = cur[1]; // row
+            // check if there is gem on top
+            for (int k = j + 1; k < 6; k++)
+            {
+                if (i % 2 == 0 && k == 5) break;
+
+                if (!CheckGemExist(i, k))
+                {
+                    continue;
+                }
+
+                int newColumn = i;
+                int newRow = k;
+
+                if (gems[i, k].bLocationFixed)
+                {
+                    List<GemInfo> aroundGems = GetAroundGems(i, k);
+                    if (aroundGems.Count == 0)
+                    {
+                        continue;
+                    }
+                    bool checkAround = false;
+                    for (int l = aroundGems.Count - 1; l >= 0; l--)
+                    {
+                        if (aroundGems[l].bLocationFixed)
+                        {
+                            continue;
+                        }
+                        // drop the gem on top to bottom
+                        checkAround = true;
+                        newColumn = aroundGems[l].GetColumn();
+                        newRow = aroundGems[l].GetRow();
+                        break;
+                    }
+                    if (!checkAround)
+                    {
+                        continue;
+                    }
+
+                }
+
+                Debug.Log("채운 광물 : " + newColumn + ", " + newRow);
+
+                // drop the gem on top to bottom
+                gems[i, j] = gems[newColumn, newRow];
+                gems[newColumn, newRow] = null;
+                gems[i, j].MoveGem(i, j, dropTime);
+                crushedGems.Add(new List<int> { newColumn, newRow });
+                filled = true;
+                break;
+            }
+
+            // if there was no gem on top
+            if (!filled)
+            {
+                Debug.Log("탑 비어있음 " + i);
+                // fill with new gem
+                int color = Random.Range(0, totalGemTypeCnt);
+                GameObject gemTemp = Instantiate(gemPF, dropPos[i], Quaternion.identity, this.transform);
+                gemTemp.GetComponent<GemInfo>().InitGem(i, j, color);
+                // yield return new WaitForSeconds(0.1f);
+                gems[i, j] = gemTemp.GetComponent<GemInfo>();
+                gems[i, j].MoveGem(i, j, dropTime);
+            }
+        }
+
+
+        // wait for gems to fall down then allow clicks
+        yield return new WaitForSeconds(dropTime);
+        bGemMovable = true;
+    }
+
 
     IEnumerator RefillBoard(){
         bGemMovable = false;
