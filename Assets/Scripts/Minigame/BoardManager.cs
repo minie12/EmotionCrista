@@ -573,7 +573,7 @@ public class BoardManager : MonoBehaviour
         return boardTiles[column_, row_];
     }
     public int GetGemColor(int column_, int row_){
-        if(!CheckGemExist(column_, row_)) return -1;
+        if(!CheckGemExist(column_, row_) || gems[column_, row_].bLocationFixed) return -1;
         return gems[column_, row_].GetColor();
     }
 
