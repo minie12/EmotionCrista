@@ -263,14 +263,23 @@ public class BoardManager : MonoBehaviour
 
         gem.chainAnimObj.SetActive(false);
         gem.bLocationFixed = false;
-        if(IsExitChainAround(gem.GetColumn(), gem.GetRow()))
+
+
+        List<GemInfo> aroundGems = GetAroundGems(gem.GetColumn(), gem.GetRow());
+        aroundGems.Add(gem);
+
+        for(int i = 0; i < aroundGems.Count; i++)
         {
-            gem.bRotateAble = false;
+            if (IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow()))
+            {
+                gem.bRotateAble = false;
+            }
+            else
+            {
+                gem.bRotateAble = true;
+            }
         }
-        else
-        {
-            gem.bRotateAble = true;
-        }
+        
     }
 
 
