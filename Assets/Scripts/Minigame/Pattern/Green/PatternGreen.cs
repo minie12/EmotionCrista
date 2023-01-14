@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class PatternGreen : PatternManager
 {
-    public GameObject gemPF;
+    private GameObject gemPF;
     private bool[,] check = new bool[11, 6];
 
     private float bugSpeed = 3f;
     private float rotateSpeed = 0.5f;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        gemPF = Resources.Load<GameObject>("Prefabs/MiniGame/org_gem");
+
+        Debug.Log("Awake");
+    }
 
     override public void StartPattern(int gimmick_)
     {

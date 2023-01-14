@@ -6,17 +6,28 @@ using DG.Tweening;
 
 public class PatternYellow : PatternManager
 {
-    public GameObject chatBoxPF;
+    private GameObject chatBoxPF;
     private GameObject[] chatBoxes;
     private int patternIdx;
     private int chatBoxCnt = 6;
 
-    public GameObject chatFlowPF;
+    private GameObject chatFlowPF;
     private GameObject[] chatFlows;
     private int chatFlowCnt = 12;
     private int currentChatIdx;
 
     private float fullSpawnTime = 2;
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+        chatBoxPF = Resources.Load<GameObject>("Prefabs/MiniGame/chatBox");
+        chatFlowPF = Resources.Load<GameObject>("Prefabs/MiniGame/chatFlow");
+
+        Debug.Log("Awake");
+    }
+
 
     override public void StartPattern(int gimmick_){
         patternIdx = 0; gimmick = gimmick_; chatTextIdx = 0;

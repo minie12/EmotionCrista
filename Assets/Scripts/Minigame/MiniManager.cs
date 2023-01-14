@@ -52,7 +52,7 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.PURPLE;
+    int patternIdx = (int)PatternType.BLUE;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -77,9 +77,47 @@ public class MiniManager : MonoBehaviour
         board.SetGoal(goalGemCnt);
 
         // pattern
-        pattern = pattern.SpawnPattern(patternIdx);
-        pattern.StartPattern(0);
+        pattern = SpawnPattern(patternIdx);
+        pattern.StartPattern(1);
     }
+
+    public PatternManager SpawnPattern(int patternIdx)
+    {
+        if (patternIdx == (int)PatternType.YELLOW)
+        { // YELLOW
+            Debug.Log("Returned Pattern Yellow");
+            this.gameObject.AddComponent<PatternYellow>();
+            return GetComponent<PatternYellow>();
+        }
+        else if (patternIdx == (int)PatternType.BLUE)
+        { // BLUE
+            Debug.Log("Returned Pattern Blue");
+            this.gameObject.AddComponent<PatternBlue>();
+            return GetComponent<PatternBlue>();
+        }
+        else if (patternIdx == (int)PatternType.RED)
+        { // RED
+            Debug.Log("Returned Pattern Red");
+            this.gameObject.AddComponent<PatternRed>();
+            return GetComponent<PatternRed>();
+        }
+        else if (patternIdx == (int)PatternType.GREEN)
+        { // GREEN
+            Debug.Log("Returned Pattern Green");
+            this.gameObject.AddComponent<PatternGreen>();
+            return GetComponent<PatternGreen>();
+        }
+        else if (patternIdx == (int)PatternType.PURPLE)
+        { // PURPLE
+            Debug.Log("Returned Pattern Purple");
+            this.gameObject.AddComponent<PatternPurple>();
+            return GetComponent<PatternPurple>();
+        }
+
+        Debug.Log("No Pattern Found");
+        return GetComponent<PatternYellow>();
+    }
+
 
     void Update(){
         if(bPuzzleMode){
