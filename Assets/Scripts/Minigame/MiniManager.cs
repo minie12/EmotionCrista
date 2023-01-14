@@ -52,7 +52,7 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.GREEN;
+    int patternIdx = (int)PatternType.PURPLE;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -259,6 +259,18 @@ public class MiniManager : MonoBehaviour
             gem = board.GetGem(column_, row_);
         }
         return gem;
+    }
+
+    public GemInfo GetPatternGemRandom()
+    {
+        while (true)
+        {
+            GemInfo randGem = GetRandomGem();
+            if (randGem.GetColor() == patternIdx)
+            {
+                return randGem;
+            }
+        }
     }
 
     public GemInfo GetRandomGemOnWay(int current_c, int current_r)

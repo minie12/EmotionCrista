@@ -32,18 +32,6 @@ public class PatternGreen : PatternManager
 
     }
 
-    GemInfo GetGreenGemRandom()
-    {
-        while (true)
-        {
-            GemInfo randGem = mini.GetRandomGem();
-            if (randGem.GetColor() == (int)PatternType.GREEN)
-            {
-                return randGem;
-            }
-        }   
-    }
-
     GemInfo GetNotGreenGemRandom(int standard_c, int standard_r)
     {
         while (true)
@@ -88,12 +76,12 @@ public class PatternGreen : PatternManager
     GameObject CreateBug()
     {
         // get green gem random
-        GemInfo greenGem = GetGreenGemRandom();
+        GemInfo greenGem = mini.GetPatternGemRandom();
         int prevColumn = greenGem.GetColumn();
         int prevRow = greenGem.GetRow();
         check[prevColumn, prevRow] = true;
        
-        greenGem.FadeOut();
+        greenGem.FadeOut(1f);
 
         // just create image
         GameObject specialGem = Instantiate(gemPF, greenGem.GetComponent<Transform>().position, Quaternion.identity, this.transform);
@@ -103,7 +91,7 @@ public class PatternGreen : PatternManager
         specialGemInfo.InitGem(prevColumn, prevRow, (int)PatternType.GREEN);
         specialGemInfo.ChangeSpecialGem();
 
-        specialGemInfo.FadeIn();
+        specialGemInfo.FadeIn(1f);
 
         // get around gems
         List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(prevColumn, prevRow);
@@ -124,15 +112,15 @@ public class PatternGreen : PatternManager
         int startRow = bug.GetComponent<GemInfo>().GetRow();
 
         // target gem change to green gem
-        bug.GetComponent<GemInfo>().FadeOut();
+        bug.GetComponent<GemInfo>().FadeOut(1f);
         StartCoroutine(DestroyObject(bug));
         target.ChangeGemColor((int)PatternType.GREEN);
-        target.FadeIn();
+        target.FadeIn(1f);
 
         // previous gem change to target color
         GemInfo previousGem = GameObject.Find("Board").GetComponent<BoardManager>().GetGem(startColumn, startRow);
         previousGem.ChangeGemColor(targetColor);
-        previousGem.FadeIn();
+        previousGem.FadeIn(1f);
 
 
 

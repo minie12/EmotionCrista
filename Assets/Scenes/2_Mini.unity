@@ -10146,6 +10146,7 @@ GameObject:
   - component: {fileID: 2142439450}
   - component: {fileID: 2142439451}
   - component: {fileID: 2142439452}
+  - component: {fileID: 2142439453}
   m_Layer: 0
   m_Name: PatternManager
   m_TagString: Untagged
@@ -10261,3 +10262,21 @@ MonoBehaviour:
   chatTextInfo: []
   chatTextIdx: 0
   gemPF: {fileID: 8180331941094223346, guid: 41e5d453e606fb74f9bbba3ecbe5356b, type: 3}
+--- !u!114 &2142439453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142439446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb32cd376b1d75c44b17d606718d7275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UICanvas: {fileID: 0}
+  chatTXT: {fileID: 0}
+  mini: {fileID: 0}
+  gimmick: 0
+  chatTextInfo: []
+  chatTextIdx: 0
