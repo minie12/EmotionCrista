@@ -6,6 +6,12 @@ public class PatternPurple : PatternManager
 {
     private int chainCnt = 3;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        Debug.Log("Awake");
+    }
+
     override public void StartPattern(int gimmick_)
     {
         gimmick = gimmick_;

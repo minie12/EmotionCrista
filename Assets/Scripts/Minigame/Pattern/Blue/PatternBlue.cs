@@ -9,7 +9,14 @@ public class PatternBlue : PatternManager
     private string day_and_level = "2hard"; // 1easy: 1, 1normal: 2, 1hard: 3, 2easy: 3, 2normal: 4, 2hard: 5
 
     // bubble
-    public GameObject bubble_PF;
+    private GameObject bubble_PF;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        bubble_PF = Resources.Load<GameObject>("Prefabs/MiniGame/bubble");
+        Debug.Log("Awake");
+    }
 
     override public void StartPattern(int gimmick_){
         gimmick = gimmick_;

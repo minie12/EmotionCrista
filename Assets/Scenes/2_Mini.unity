@@ -10153,7 +10153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2142439447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10166,14 +10166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdba1fa2eebad84481a3d252af1a226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICanvas: {fileID: 0}
-  chatTXT: {fileID: 0}
-  mini: {fileID: 0}
-  gimmick: 0
-  chatTextInfo: []
-  chatTextIdx: 0
-  chatBoxPF: {fileID: 7392564247816721281, guid: 9a08ae07b448971448ef36f5fe04e50b, type: 3}
-  chatFlowPF: {fileID: 5719818028725036154, guid: a1da6c57202161643858f742eb896fed, type: 3}
 --- !u!114 &2142439448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10186,12 +10178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85940fd60af05fb41a2cb9cf439aa4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICanvas: {fileID: 0}
-  chatTXT: {fileID: 0}
-  mini: {fileID: 0}
-  gimmick: 0
-  chatTextInfo: []
-  chatTextIdx: 0
 --- !u!4 &2142439449
 Transform:
   m_ObjectHideFlags: 0
@@ -10218,13 +10204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de0aa58621d1b34d9e27c1e558fc7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICanvas: {fileID: 0}
-  chatTXT: {fileID: 0}
-  mini: {fileID: 0}
-  gimmick: 0
-  chatTextInfo: []
-  chatTextIdx: 0
-  bubble_PF: {fileID: 3413713992449533354, guid: bad6e3dcb0d214648af6ef83b7a49bbc, type: 3}
 --- !u!114 &2142439451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10237,12 +10216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9358312e4c294bf45934ed79d9dff428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICanvas: {fileID: 0}
-  chatTXT: {fileID: 0}
-  mini: {fileID: 0}
-  gimmick: 0
-  chatTextInfo: []
-  chatTextIdx: 0
 --- !u!114 &2142439452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10255,13 +10228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c6f2394756388448150895599d4d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICanvas: {fileID: 0}
-  chatTXT: {fileID: 0}
-  mini: {fileID: 0}
-  gimmick: 0
-  chatTextInfo: []
-  chatTextIdx: 0
-  gemPF: {fileID: 8180331941094223346, guid: 41e5d453e606fb74f9bbba3ecbe5356b, type: 3}
 --- !u!114 &2142439453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10274,9 +10240,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb32cd376b1d75c44b17d606718d7275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICanvas: {fileID: 0}
-  chatTXT: {fileID: 0}
-  mini: {fileID: 0}
-  gimmick: 0
-  chatTextInfo: []
-  chatTextIdx: 0
