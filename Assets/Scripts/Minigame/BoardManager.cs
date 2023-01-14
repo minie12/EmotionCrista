@@ -91,69 +91,87 @@ public class BoardManager : MonoBehaviour
         row = row_; column = column_;
     }
 
+    // rotate move gems (direction: 1 (cw), -1 (ccw))
+    void RotateMoveGem(int[,] d, int direction)
+    {
+        int idx = 0;
+        while(true)
+        {
+            int prevIdx = idx;
+            idx = (idx + direction + 6) % 6;
+            gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].MoveGem(column + d[idx, 0], row + d[idx, 1], rotateTime);
+            if (idx == 0)
+            {
+                break;
+            }
+        }
+    }
+
+    // rotate gems info (direction: -1 (cw), 1 (ccw))
+    void RotateUpdateGemInfo(int[,] d, int direction)
+    {
+        int idx = 0;
+        GemInfo gTemp = gems[column + d[idx, 0], row + d[idx, 1]];
+        while (true)
+        {
+            int prevIdx = idx;
+            idx = (idx + direction + 6) % 6;
+            if (idx == 0)
+            {
+                gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gTemp;
+                break;
+            }
+            gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gems[column + d[idx, 0], row + d[idx, 1]];
+        }
+    }
+
+    // rotate gem's rotateAble value (opposite direction with update gem array)
+    void RotateGemRotateAble(int[,] d, int direction)
+    {
+        int idx = 0;
+        bool temp = gems[column + d[idx, 0], row + d[idx, 1]].bRotateAble;
+        while (true)
+        {
+            int prevIdx = idx;
+            idx = (idx + direction + 6) % 6;
+            if (idx == 0)
+            {
+                gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].bRotateAble = temp;
+                break;
+            }
+            gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].bRotateAble = gems[column + d[idx, 0], row + d[idx, 1]].bRotateAble;
+        }
+    }
+
     void RotateGem(char key){
         bGemMovable = false;
 
-        int eo = (column%2 == 0)?1:0;
+        int[,] d = (column % 2 == 0) ? aroundGem_e : aroundGem_o;
 
         Invoke("EnableGemMovable", rotateTime);
 
         // turn CCW
         if(key == 'a'){
             // rotate gameobjects
-            gems[column-1, row+eo].MoveGem(column-1, row-1+eo, rotateTime);
-            gems[column-1, row-1+eo].MoveGem(column, row-1, rotateTime);
-            gems[column, row-1].MoveGem(column+1, row-1+eo, rotateTime);
-            gems[column+1, row-1+eo].MoveGem(column+1, row+eo, rotateTime);
-            gems[column+1, row+eo].MoveGem(column, row+1, rotateTime);
-            gems[column, row+1].MoveGem(column-1, row+eo, rotateTime);
+            RotateMoveGem(d, -1);
 
             // update gems array
-            GemInfo gTemp = gems[column-1, row+eo];
-            gems[column-1, row+eo] = gems[column, row+1];
-            gems[column, row+1] = gems[column+1, row+eo];
-            gems[column+1, row+eo] = gems[column+1, row-1+eo];
-            gems[column+1, row-1+eo] = gems[column, row-1];
-            gems[column, row-1] = gems[column-1, row-1+eo];
-            gems[column-1, row-1+eo] = gTemp;
+            RotateUpdateGemInfo(d, 1);
 
             // return bRotateAble value
-            bool temp = gems[column - 1, row + eo].bRotateAble;
-            gems[column - 1, row + eo].bRotateAble = gems[column - 1, row - 1 + eo].bRotateAble;
-            gems[column - 1, row - 1 + eo].bRotateAble = gems[column, row - 1].bRotateAble;
-            gems[column, row - 1].bRotateAble = gems[column + 1, row - 1 + eo].bRotateAble;
-            gems[column + 1, row - 1 + eo].bRotateAble = gems[column + 1, row + eo].bRotateAble;
-            gems[column + 1, row + eo].bRotateAble = gems[column, row + 1].bRotateAble;
-            gems[column, row + 1].bRotateAble = temp;
+            RotateGemRotateAble(d, -1);
         } 
         
         // turn CW
         else{
             // rotate gameobjects
-            gems[column-1, row+eo].MoveGem(column, row+1, rotateTime);
-            gems[column, row+1].MoveGem(column+1, row+eo, rotateTime);
-            gems[column+1, row+eo].MoveGem(column+1, row-1+eo, rotateTime);
-            gems[column+1, row-1+eo].MoveGem(column, row-1, rotateTime);
-            gems[column, row-1].MoveGem(column-1, row-1+eo, rotateTime);
-            gems[column-1, row-1+eo].MoveGem(column-1, row+eo, rotateTime);
+            RotateMoveGem(d, 1);
 
             // update gems array
-            GemInfo gTemp = gems[column-1, row+eo];
-            gems[column-1, row+eo] = gems[column-1, row-1+eo];
-            gems[column-1, row-1+eo] = gems[column, row-1];
-            gems[column, row-1] = gems[column+1, row-1+eo];
-            gems[column+1, row-1+eo] = gems[column+1, row+eo];
-            gems[column+1, row+eo] = gems[column, row+1];
-            gems[column, row+1] = gTemp;
+            RotateUpdateGemInfo(d, -1);
 
             // return bRotateAble value
-            bool temp = gems[column - 1, row + eo].bRotateAble;
-            gems[column - 1, row + eo].bRotateAble = gems[column, row + 1].bRotateAble;
-            gems[column, row + 1].bRotateAble = gems[column + 1, row + eo].bRotateAble;
-            gems[column + 1, row + eo].bRotateAble = gems[column + 1, row - 1 + eo].bRotateAble;
-            gems[column + 1, row - 1 + eo].bRotateAble = gems[column, row - 1].bRotateAble;
-            gems[column, row - 1].bRotateAble = gems[column - 1, row - 1 + eo].bRotateAble;
-            gems[column - 1, row - 1 + eo].bRotateAble = temp;
+            RotateGemRotateAble(d, 1);
         }
     }
 
@@ -240,7 +258,7 @@ public class BoardManager : MonoBehaviour
                 }
             }
 
-            StartCoroutine("RefillBoardTemp");
+            StartCoroutine("RefillBoard");
         }
         else{
             // do not enable click when user clicks the boundary of board
@@ -375,7 +393,7 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    IEnumerator RefillBoardTemp()
+    IEnumerator RefillBoard()
     {
         bGemMovable = false;
         yield return new WaitForSeconds(0.3f); // wait for gem crush
@@ -460,6 +478,7 @@ public class BoardManager : MonoBehaviour
                 gems[i, j].MoveGem(i, j, dropTime);
             }
 
+            // 주변에 사슬 있다면 회전 막기
             if (IsExitChainAround(i, j))
             {
                 gems[i, j].bRotateAble = false;
@@ -476,94 +495,7 @@ public class BoardManager : MonoBehaviour
         bGemMovable = true;
     }
 
-
-    IEnumerator RefillBoard(){
-        bGemMovable = false;
-        yield return new WaitForSeconds(0.3f); // wait for gem crush
-        
-        int start = column-goalGemCnt > 0? column-goalGemCnt : 0;
-        int end = column+goalGemCnt < 11? column+goalGemCnt : 11;
-        for (int j = 0; j < 6; j++)
-        {
-            for (int i = start; i < end; i++)
-            {
-                if (i % 2 == 0 && j == 5) { 
-                    continue; 
-                }
-                
-                if(!CheckGemExist(i, j)){
-                    Debug.Log("빈 광물 " + i + ", " + j);
-                    bool filled = false;
-                    // check if there is gem on top
-                    for(int k = j; k < 6; k++){
-                        if(i % 2 == 0 && k == 5) break;
-
-                        if (!CheckGemExist(i, k))
-                        {
-                            continue;
-                        }
-
-                        int newColumn = i;
-                        int newRow = k;
-
-                        if (gems[i, k].bLocationFixed)
-                        {
-                            List<GemInfo> aroundGems = GetAroundGems(i, k);
-                            if(aroundGems.Count == 0)
-                            {
-                                continue;
-                            }
-                            bool checkAround = false;
-                            for(int l = 0; l < aroundGems.Count; l++)
-                            {
-                                if (aroundGems[l].bLocationFixed)
-                                {
-                                    continue;
-                                }
-                                // drop the gem on top to bottom
-                                checkAround = true;
-                                newColumn = aroundGems[l].GetColumn();
-                                newRow = aroundGems[l].GetRow();
-                                break;
-                            }
-                            if (!checkAround)
-                            {
-                                continue;
-                            }
-                            
-                        }
-
-                        Debug.Log("채운 광물 : " + newColumn + ", " + newRow);
-
-                        // drop the gem on top to bottom
-                        gems[i, j] = gems[newColumn, newRow];
-                        gems[newColumn, newRow] = null;
-                        gems[i, j].MoveGem(i, j, dropTime);
-                        filled = true;
-                        break;
-                    }
-
-                    // if there was no gem on top
-                    if(!filled){
-                        Debug.Log("탑 비어있음 " + i);
-                        // fill with new gem
-                        int color = Random.Range(0, totalGemTypeCnt);
-                        GameObject gemTemp = Instantiate(gemPF, dropPos[i], Quaternion.identity, this.transform);
-                        gemTemp.GetComponent<GemInfo>().InitGem(i, j, color);
-                        // yield return new WaitForSeconds(0.1f);
-                        gems[i, j] = gemTemp.GetComponent<GemInfo>();
-                        gems[i, j].MoveGem(i, j, dropTime);
-                    }
-                }
-            }
-        }
-
-        // wait for gems to fall down then allow clicks
-        yield return new WaitForSeconds(dropTime);
-        bGemMovable = true;
-    }
-
- // used to communicate with other classes ---------------------------------------------------
+    // used to communicate with other classes ---------------------------------------------------
     public int GetGemTypeCnt() { return totalGemTypeCnt; }
     public void SetGoal(int unit){
         goalGemCnt = unit;
