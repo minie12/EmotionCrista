@@ -3,7 +3,9 @@ guid: 6fdba1fa2eebad84481a3d252af1a226
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - chatBoxPF: {fileID: 7392564247816721281, guid: 9a08ae07b448971448ef36f5fe04e50b, type: 3}
+  - chatFlowPF: {fileID: 5719818028725036154, guid: a1da6c57202161643858f742eb896fed, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

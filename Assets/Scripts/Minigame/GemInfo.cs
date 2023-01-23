@@ -7,8 +7,12 @@ public class GemInfo : MonoBehaviour
     private BoardManager board;
     private int column, row;
 
+    // purple gimmick
+    private int chainCnt;
+
     private PatternType color;
     public Sprite[] gemSprites;
+    public Sprite[] special_gem_sprites;
 
     public SpriteRenderer gemOutline;
     // public SpriteRenderer gem_pattern;
@@ -19,8 +23,23 @@ public class GemInfo : MonoBehaviour
     public Animator patternANIM; 
     public Animator gemANIM;
     public Animator explosionANIM;
+    public GameObject chainAnimObj;
 
     public bool bPatternApplied;
+
+    // change gem effect
+    private SpriteRenderer spriteRenderer;
+
+    // manage rotate
+    [HideInInspector] public bool bRotateAble = true;
+
+    // manage location fixed
+    [HideInInspector] public bool bLocationFixed = false; 
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Start(){
         board = GameObject.Find("Board").GetComponent<BoardManager>();
@@ -28,6 +47,8 @@ public class GemInfo : MonoBehaviour
 
     public void InitGem(int column_, int row_, int color_){
         bPatternApplied = false;
+        bRotateAble = true;
+        bLocationFixed = false;
         column = column_; row = row_; 
         SetColor_(color_);
     }
@@ -85,7 +106,97 @@ public class GemInfo : MonoBehaviour
         else if(color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
         else color = PatternType.PURPLE;
 
-        gameObject.GetComponent<SpriteRenderer>().sprite = gemSprites[(int)color];
+        spriteRenderer.sprite = gemSprites[(int)color];
+    }
+
+    public int GetColumn()
+    {
+        return column;
+    }
+
+    public int GetRow()
+    {
+        return row;
+    }
+
+    public int GetChainCnt()
+    {
+        return chainCnt;
+    }
+
+    // purple gimmick chain
+    public int MinusChainCnt()
+    {
+        if(chainCnt > 0)
+        {
+            chainCnt--;
+
+            // play animation
+            StartCoroutine(ChainGemC(chainCnt));
+        }
+        return chainCnt;
+    }
+
+    IEnumerator ChainGemC(int cnt)
+    {
+        GameObject temp = chainAnimObj.transform.GetChild(cnt).gameObject;
+        temp.GetComponent<Animator>().Play("gem_chain_purple", 0, 0.0f);
+        yield return new WaitForSeconds(0.9f);
+        temp.SetActive(false);
+    }
+
+    // change special gem
+    public void ChangeSpecialGem()
+    {
+        spriteRenderer.sprite = special_gem_sprites[(int)color];
+    }
+
+    // change gem color
+    public void ChangeGemColor(int color_)
+    {
+        spriteRenderer.sprite = gemSprites[color_];
+    }
+
+    // Fade in (fadeTime = time while fade, target = object to fade)
+    public void FadeIn(float fadeTime = 1f, int target = -1)
+    {
+        SpriteRenderer temp = spriteRenderer;
+        if(target >= 0)
+        {
+            temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
+        }
+        StartCoroutine(FadeInCorutine(fadeTime, temp));
+    }
+
+    // Fade out
+    public void FadeOut(float fadeTime = 1f, int target = -1)
+    {
+        SpriteRenderer temp = spriteRenderer;
+        if (target >= 0)
+        {
+            temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
+        }
+        StartCoroutine(FadeOutCorutine(fadeTime, temp));
+    }
+
+    private IEnumerator FadeInCorutine(float fadeTime, SpriteRenderer spriteRenderer)
+    {
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        while (spriteRenderer.color.a < 1.0f)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime * fadeTime);
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeOutCorutine(float fadeTime, SpriteRenderer spriteRenderer)
+    {
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
+        while (spriteRenderer.color.a > 0.0f)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - Time.deltaTime * fadeTime);
+            yield return null;
+        }
     }
 
     public void DestroyGem(){
@@ -121,6 +232,18 @@ public class GemInfo : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void SetChainGem(int cnt)
+    {
+        chainCnt = cnt;
+
+        // turn chain obj active true
+        chainAnimObj.SetActive(true);
+        for(int i = 0; i < cnt; i++)
+        {
+            chainAnimObj.transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
     public void FillWaterInHex(){
         bPatternApplied = true;  // so that this gem does not get selected at GetRandomGem()
         patternANIM.Play("gem_fill_water", 0, 0.0f);
@@ -140,6 +263,7 @@ public class GemInfo : MonoBehaviour
         patternANIM.SetBool("bWaterFilled", true);
     }
 
+    // just change row, column. Actually move action in BoardManager's RotateGem func.
     public void MoveGem(int column_, int row_, float time){
         row = row_; column = column_;
 

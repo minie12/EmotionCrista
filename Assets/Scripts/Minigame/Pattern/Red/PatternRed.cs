@@ -8,6 +8,14 @@ public class PatternRed : PatternManager
     private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
     private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Debug.Log("Awake");
+    }
+
+
     // Setting gimmick
     override public void StartPattern(int gimmick_)
     {

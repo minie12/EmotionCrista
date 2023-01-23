@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 3de0aa58621d1b34d9e27c1e558fc7db
+guid: fb32cd376b1d75c44b17d606718d7275
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - bubble_PF: {fileID: 3413713992449533354, guid: bad6e3dcb0d214648af6ef83b7a49bbc, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

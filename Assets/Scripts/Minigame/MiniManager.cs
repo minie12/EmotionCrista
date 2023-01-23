@@ -66,7 +66,7 @@ public class MiniManager : MonoBehaviour
         playTime = fullPlayTime; score = 0; fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
         // temp
-        board.goalColor = 1;
+        board.goalColor = patternIdx;
 
         // ui
         scoreFill.fillAmount = 0;
@@ -77,9 +77,47 @@ public class MiniManager : MonoBehaviour
         board.SetGoal(goalGemCnt);
 
         // pattern
-        pattern = pattern.SpawnPattern(patternIdx);
+        pattern = SpawnPattern(patternIdx);
         pattern.StartPattern(1);
     }
+
+    public PatternManager SpawnPattern(int patternIdx)
+    {
+        if (patternIdx == (int)PatternType.YELLOW)
+        { // YELLOW
+            Debug.Log("Returned Pattern Yellow");
+            this.gameObject.AddComponent<PatternYellow>();
+            return GetComponent<PatternYellow>();
+        }
+        else if (patternIdx == (int)PatternType.BLUE)
+        { // BLUE
+            Debug.Log("Returned Pattern Blue");
+            this.gameObject.AddComponent<PatternBlue>();
+            return GetComponent<PatternBlue>();
+        }
+        else if (patternIdx == (int)PatternType.RED)
+        { // RED
+            Debug.Log("Returned Pattern Red");
+            this.gameObject.AddComponent<PatternRed>();
+            return GetComponent<PatternRed>();
+        }
+        else if (patternIdx == (int)PatternType.GREEN)
+        { // GREEN
+            Debug.Log("Returned Pattern Green");
+            this.gameObject.AddComponent<PatternGreen>();
+            return GetComponent<PatternGreen>();
+        }
+        else if (patternIdx == (int)PatternType.PURPLE)
+        { // PURPLE
+            Debug.Log("Returned Pattern Purple");
+            this.gameObject.AddComponent<PatternPurple>();
+            return GetComponent<PatternPurple>();
+        }
+
+        Debug.Log("No Pattern Found");
+        return GetComponent<PatternYellow>();
+    }
+
 
     void Update(){
         if(bPuzzleMode){
@@ -257,6 +295,61 @@ public class MiniManager : MonoBehaviour
             column_ = Random.Range(0, 11);
             row_ = Random.Range(0, 6);
             gem = board.GetGem(column_, row_);
+        }
+        return gem;
+    }
+
+    public GemInfo GetPatternGemRandom()
+    {
+        while (true)
+        {
+            GemInfo randGem = GetRandomGem();
+            if (randGem.GetColor() == patternIdx)
+            {
+                return randGem;
+            }
+        }
+    }
+
+    public GemInfo GetRandomGemOnWay(int current_c, int current_r)
+    {
+        GemInfo gem = null;
+        while(gem == null)
+        {
+            // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+            int direction = Random.Range(0, 6);
+            int distance = Random.Range(0, 10);
+            int odd = current_c % 2;
+            int column_ = current_c, row_ = current_r;
+            switch (direction)
+            {
+                case 0:
+                    row_ += distance;
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 1:
+                    column_ += distance; row_ += ((odd == 1) ? distance/2 : (distance+1)/2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 2:
+                    column_ += distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 3: // down
+                    row_ -= distance;
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 4:
+                    column_ -= distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                case 5:
+                    column_ -= distance; row_ += ((odd == 1) ? distance / 2 : (distance + 1) / 2);
+                    gem = board.GetGem(column_, row_);
+                    break;
+                default:
+                    break;
+            }
         }
         return gem;
     }
