@@ -4,34 +4,41 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
-public class PreDialogData
+public class RawDialogData
 {
-    public string id;
-    public string desc;
-    public string character;
-    public string dialog;
-    public string spriteRenderer;
-    public string sprite;
+    public string Id;
+    public string Character;
+    public string SpriteName;
+    public string SpritePosition;
+    public string Dialog;
+    public string Desc;
 }
 [System.Serializable]
-public class PreDialogDataList
+public class RawDialogDataList
 {
-    public PreDialogData[] data;
+    public RawDialogData[] data;
+
+    public static RawDialogDataList CreateFromJSON(string jsonData)
+    {
+        return JsonUtility.FromJson<RawDialogDataList>("{\"data\":" + jsonData + "}");
+    }
 }
 
 public class DialogData
 {
     public string character;
+    public string[] spriteName;
+    public string[] spritePosition;
     public string dialog;
-    public string spriteRenderer;
-    public string sprite;
 
-    public DialogData(string inCharacter, string inDialog, string inSpriteRenderer, string inSprite)
+    public DialogData(string inCharacter, string inSprite, string inspritePosition, string inDialog)
     {
         character = inCharacter;
+        inSprite = inSprite.Replace(" ", "");
+        inspritePosition = inspritePosition.Replace(" ", "");
+        spriteName = inSprite.Split(',');
+        spritePosition = inspritePosition.Split(',');
         dialog = inDialog;
-        spriteRenderer = inSpriteRenderer;
-        sprite = inSprite;
     }
 }
 
@@ -42,7 +49,7 @@ public class DialogDataManager : MonoBehaviour
 
     static void JsonLoad(string loadID)
     {
-        string path = Path.Combine(Application.dataPath, "JSON/DialogData.json");
+        string path = Path.Combine(Application.dataPath, "JSON/FullDialog.json");
 
         if (!File.Exists(path))
         {
@@ -56,11 +63,9 @@ public class DialogDataManager : MonoBehaviour
             Debug.Log(loadJson);
 
             // Do not load all data at once
-            PreDialogDataList PreDialogList = new PreDialogDataList();
-            PreDialogList = JsonUtility.FromJson<PreDialogDataList>("{\"data\":" + loadJson + "}");
+            RawDialogDataList RawDialogList = RawDialogDataList.CreateFromJSON(loadJson);
 
-
-            if (PreDialogList == null)
+            if (RawDialogList == null)
             {
                 Debug.Log("ERROR(DialogDataManger.cs): DialogData json file could not be loaded.");
             }
@@ -70,11 +75,9 @@ public class DialogDataManager : MonoBehaviour
                 DialogList.Clear();
             }
 
-            for (int i = 0; i < PreDialogList.data.Length; i++)
+            for (int i = 0; i < RawDialogList.data.Length; i++)
             {
-                DialogList.Add(PreDialogList.data[i].id, new DialogData(PreDialogList.data[i].character, PreDialogList.data[i].dialog, PreDialogList.data[i].spriteRenderer, PreDialogList.data[i].sprite));
-                Debug.Log(PreDialogList.data[i].id + " " + DialogList[PreDialogList.data[i].id].character + " " + DialogList[PreDialogList.data[i].id].sprite);
-
+                DialogList.Add(RawDialogList.data[i].Id, new DialogData(RawDialogList.data[i].Character, RawDialogList.data[i].SpriteName, RawDialogList.data[i].SpritePosition, RawDialogList.data[i].Dialog));
             }
         }
     }
@@ -91,8 +94,6 @@ public class DialogDataManager : MonoBehaviour
         {
             Debug.Log("Cannot load: " + id);
         }
-
-        Debug.Log(id + " " + DialogList[id].character + " " + DialogList[id].sprite);
 
         return DialogList[id];
     }

@@ -16,54 +16,24 @@ namespace Fungus
 
         #region Variable: Say
 
-        [SerializeField] protected string storyText = "";
-
-        [Tooltip("Notes about this story text for other authors, localization, etc.")]
-        [SerializeField] protected string description = "";
-
-        [SerializeField] protected Character character;
+        protected string storyText = "";
+        protected string description = "";
+        protected Character character;
         protected Sprite portrait;
-
-        [Tooltip("Voiceover audio to play when writing the text")]
-        [SerializeField] protected AudioClip voiceOverClip;
-
-        [Tooltip("Always show this Say text when the command is executed multiple times")]
-        [SerializeField] protected bool showAlways = true;
-
-        [Tooltip("Number of times to show this Say text when the command is executed multiple times")]
-        [SerializeField] protected int showCount = 1;
-
-        [Tooltip("Type this text in the previous dialog box.")]
-        [SerializeField] protected bool extendPrevious = false;
-
-        [Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]
-        [SerializeField] protected bool fadeWhenDone = true;
-
-        [Tooltip("Wait for player to click before continuing.")]
-        [SerializeField] protected bool waitForClick = true;
-
-        [Tooltip("Stop playing voiceover when text finishes writing.")]
-        [SerializeField] protected bool stopVoiceover = true;
-
-        [Tooltip("Wait for the Voice Over to complete before continuing")]
-        [SerializeField] protected bool waitForVO = false;
+        protected AudioClip voiceOverClip;
+        protected bool showAlways = true;
+        protected int showCount = 1;
+        protected bool extendPrevious = false;
+        protected bool fadeWhenDone = true;
+        protected bool waitForClick = true;
+        protected bool stopVoiceover = true;
+        protected bool waitForVO = false;
 
         //add wait for vo that overrides stopvo
 
-        [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
-        [SerializeField] protected SayDialog setSayDialog;
+        protected SayDialog setSayDialog;
 
         protected int executionCount;
-        #endregion
-
-        #region Variable: SetSprite
-
-        [Tooltip("List of sprites to set the sprite property on")]
-        [SerializeField] protected List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
-
-        [Tooltip("The sprite set on the target sprite renderers")]
-        [SerializeField] protected Sprite sprite;
-
         #endregion
 
         #region Public members
@@ -86,22 +56,30 @@ namespace Fungus
         public override void OnEnter()
         {
             DialogData data = DialogDataManager.GetDialogData(textID);
-            storyText = data.dialog;
-            string src = "Character/" + data.sprite;
-            sprite = Resources.Load<Sprite>(src);
-            if (spriteRenderers.Count != 0)
-                spriteRenderers[0] = GameObject.Find(data.spriteRenderer).GetComponent<SpriteRenderer>();
-            else
-                spriteRenderers.Add(GameObject.Find(data.spriteRenderer).GetComponent<SpriteRenderer>());
+            
             character = GameObject.Find(data.character).GetComponent<Character>();
-
+            storyText = data.dialog;
 
             #region Method: SetSprite
 
-            for (int i = 0; i < spriteRenderers.Count; i++)
+            if (data.spriteName.Length != data.spritePosition.Length)
             {
-                var spriteRenderer = spriteRenderers[i];
-                spriteRenderer.sprite = sprite;
+                Debug.Log("#ERROR: (" + textID + ") number of sprite and position not matching");
+                return;
+            }
+            for (int i = 0; i < data.spriteName.Length; i++)
+            {
+                string spritePath = "Character/" + data.spriteName[i];
+                Sprite tempSprite = Resources.Load<Sprite>(spritePath);
+
+                SpriteRenderer spritePosition = GameObject.Find("Position"+data.spritePosition[i]).GetComponent<SpriteRenderer>();
+                if (spritePosition == null)
+                {
+                    Debug.Log("#ERROR: (" + textID + ") Wrong sprite position name");
+                    continue;
+                }
+                
+                spritePosition.sprite = tempSprite;
             }
 
             #endregion

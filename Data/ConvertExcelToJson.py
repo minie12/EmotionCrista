@@ -4,8 +4,8 @@ import os
 import sys
 
 def main(argv):
-    if(len(argv) < 3):
-        print("Error: Wrong command format. \n...Command format should be: python <__.py> <__.xlsx> <sheetname> <__.json>")
+    if(len(argv) < 2):
+        print("Error: Wrong command format. \n...Command format should be: python <__.py> <__.xlsx> <sheetname>")
         return
     
     currentDir = os.getcwd()
@@ -17,7 +17,7 @@ def main(argv):
     excelData = pandas.read_excel(excelPath, sheet_name=sheetName)
 
     # Change excel data to Json and Write to file
-    outputName = argv[2]
+    outputName = "FullDialog.json"
     jsonPath = os.path.join(currentDir, outputName)
 
     jsonData = excelData.to_json(jsonPath, orient='records', force_ascii = False)
