@@ -11,11 +11,23 @@ public class CharacterChat{
 public class myChatList{
     public CharacterChat[] characterChat;
 }
+public enum GameState
+{
+    StartMenu,
+    StoryMode,
+    MiniGameMode
+}
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState state;
+
+    private GameObject fungusManager;
+    
+    // sound
+    public float soundVolumeBGM;
+    public float soundVolumeSFX;
 
     public TextAsset textJSON;
     public myChatList myChatList = new myChatList();
@@ -30,15 +42,15 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
             Instance = this;  
             myChatList = JsonUtility.FromJson<myChatList>(textJSON.text);
+            fungusManager = GameObject.Find("FungusManager");
+
         } else if(Instance != this) // If there is already an instance and it's not `this` instance
         {
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
         }
     }
-}
 
-public enum GameState{
-    StartMenu,
-    StoryMode,
-    MiniGameMode
+    //------------------ Sound Setting ------------------------------
+    void SetSoundVolumeBGM() { }
+
 }
