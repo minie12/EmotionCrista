@@ -6,7 +6,6 @@ public class PatternBlue : PatternManager
 {
     private float waterFillTime = 3.8f;
     private float bubbleTime = 1.8f;
-    private string day_and_level = "2hard"; // 1easy: 1, 1normal: 2, 1hard: 3, 2easy: 3, 2normal: 4, 2hard: 5
 
     // bubble
     private GameObject bubble_PF;
@@ -15,11 +14,11 @@ public class PatternBlue : PatternManager
     {
         base.Awake();
         bubble_PF = Resources.Load<GameObject>("Prefabs/MiniGame/bubble");
-        Debug.Log("Awake");
     }
 
-    override public void StartPattern(int gimmick_){
+    override public void StartPattern(int gimmick_, int level_){
         gimmick = gimmick_;
+        level = level_;
         OrganizeCharacterChat();
 
         if(gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
@@ -42,29 +41,29 @@ public class PatternBlue : PatternManager
     void B_StartWaterFill(){
         int waterGemCnt = 1;
         float rand = Random.value;
-        switch (day_and_level)
+        switch (level)
         {
-            case "1normal":
+            case 0:
                 if (rand <= 0.6f) waterGemCnt = 1;
                 else waterGemCnt = 2;
                 break;
-            case "1hard":
+            case 1:
                 if (rand <= 0.5f) waterGemCnt = 1;
                 else if (rand <= 0.8f) waterGemCnt = 2;
                 else waterGemCnt = 3;
                 break;
-            case "2easy":
+            case 2:
                 if (rand <= 0.45f) waterGemCnt = 1;
                 else if (rand <= 0.35f) waterGemCnt = 2;
                 else waterGemCnt = 3;
                 break;
-            case "2normal":
+            case 3:
                 if (rand <= 0.45f) waterGemCnt = 1;
                 else if (rand <= 0.8f) waterGemCnt = 2;
                 else if (rand <= 0.95f) waterGemCnt = 3;
                 else waterGemCnt = 4;
                 break;
-            case "2hard":
+            case 4:
                 if (rand <= 0.5f) waterGemCnt = 1;
                 else if (rand <= 0.70f) waterGemCnt = 2;
                 else if (rand <= 0.83f) waterGemCnt = 3;

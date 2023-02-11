@@ -230,15 +230,15 @@ public class BoardManager : MonoBehaviour
             goalInfo.EraseGems(column, row, true);
 
             // red gimmick
-            if (goalColor == 2 && currentGemColor == 2)
+            if (goalColor == 2 && currentGemColor == 2 && GameObject.Find("MiniManager").GetComponent<PatternRed>().GetIsPlaying())
             {
                 Debug.Log("red gimmick");
-                GameObject.Find("PatternManager").GetComponent<PatternRed>().InvokeExplosion();
+                GameObject.Find("MiniManager").GetComponent<PatternRed>().InvokeExplosion();
                 return;
             }
 
             // purple gimmick
-            if (goalColor == (int)PatternType.PURPLE)
+            if (goalColor == (int)PatternType.PURPLE && GameObject.Find("MiniManager").GetComponent<PatternPurple>().GetIsPlaying())
             {
                 List<GemInfo> aroundChainGems = CheckExitChainAround();
                 

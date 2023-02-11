@@ -8,23 +8,37 @@ public class PatternRed : PatternManager
     private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
     private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
+    private bool isPlaying = false; // manage gimmick start & end
 
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("Awake");
     }
 
 
     // Setting gimmick
-    override public void StartPattern(int gimmick_)
+    override public void StartPattern(int gimmick_, int level_)
     {
         gimmick = gimmick_;
+        level = level_;
+        isPlaying = true;
         OrganizeCharacterChat();
     }
 
-    override public void StopPattern() {}
-    override public void RestartPattern() {}
+    override public void StopPattern() 
+    {
+        isPlaying = false;
+    }
+    override public void RestartPattern() 
+    {
+        isPlaying = true;
+        OrganizeCharacterChat();
+    }
+
+    public bool GetIsPlaying()
+    {
+        return isPlaying;
+    }
 
     // get explosion gem cnt on percentage
     int GetExplosionGemCnt(int [] percentage)
