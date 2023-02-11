@@ -58,6 +58,10 @@ public class PatternYellow : PatternManager
 
             Invoke("Y_SpawnChatFlow", fullSpawnTime);
         }
+        else if(gimmick == 2)
+        {
+            Invoke("Y_HeartBeat", fullSpawnTime);
+        }
     }
 
 
@@ -69,6 +73,10 @@ public class PatternYellow : PatternManager
 
         if(gimmick == 0) Invoke("Y_SpawnChatBox", fullSpawnTime);
         else if(gimmick == 1) Invoke("Y_SpawnChatFlow", fullSpawnTime);
+        else if(gimmick == 2)
+        {
+            Invoke("Y_HeartBeat", fullSpawnTime);
+        }
     }
 
     float CalcSpawnTime(){
@@ -115,5 +123,13 @@ public class PatternYellow : PatternManager
         patternIdx = (patternIdx+1)%chatFlowCnt;
 
         Invoke("Y_SpawnChatFlow", CalcSpawnTime()+0.4f);
+    }
+
+    // Y3 --------------------------------------------------------------------------------------------------------
+    void Y_HeartBeat()
+    {
+        // get yellow gem random
+        GemInfo gem = mini.GetPatternGemRandom();
+        Debug.Log(gem.GetColumn()+" "+ gem.GetRow());
     }
 }
