@@ -9,24 +9,24 @@ public class PatternGreen : PatternManager
 
     private float bugSpeed = 3f;
     private float rotateSpeed = 0.5f;
+    private float bugInterval = 5f;
 
     protected override void Awake()
     {
         base.Awake();
         gemPF = Resources.Load<GameObject>("Prefabs/MiniGame/org_gem");
-
-        Debug.Log("Awake");
     }
 
-    override public void StartPattern(int gimmick_)
+    override public void StartPattern(int gimmick_, int level_)
     {
         gimmick = gimmick_;
+        level = level_;
         OrganizeCharacterChat();
 
         // give term before choose gem because board init
         if (gimmick == 0) 
         { 
-            Invoke("GreenGimmick0", 1f); 
+            InvokeRepeating("GreenGimmick0", 1f, bugInterval); 
         }
     }
 
@@ -35,7 +35,7 @@ public class PatternGreen : PatternManager
     {
         if (gimmick == 0) 
         {
-            Invoke("GreenGimmick0", 1f);
+            InvokeRepeating("GreenGimmick0", 1f, bugInterval);
         }
 
     }
