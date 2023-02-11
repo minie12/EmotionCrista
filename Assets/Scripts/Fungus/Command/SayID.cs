@@ -62,25 +62,24 @@ namespace Fungus
 
             #region Method: SetSprite
 
-            if (data.spriteName.Length != data.spritePosition.Length)
+            if (data.spriteName != null)
             {
-                Debug.Log("#ERROR: (" + textID + ") number of sprite and position not matching");
-                return;
-            }
-            for (int i = 0; i < data.spriteName.Length; i++)
-            {
-                string spritePath = "Character/" + data.spriteName[i];
-                Sprite tempSprite = Resources.Load<Sprite>(spritePath);
-
-                SpriteRenderer spritePosition = GameObject.Find("Position"+data.spritePosition[i]).GetComponent<SpriteRenderer>();
-                if (spritePosition == null)
+                for (int i = 0; i < data.spriteName.Length; i++)
                 {
-                    Debug.Log("#ERROR: (" + textID + ") Wrong sprite position name");
-                    continue;
+                    string spritePath = "Character/" + data.spriteName[i];
+                    Sprite tempSprite = Resources.Load<Sprite>(spritePath);
+
+                    SpriteRenderer spritePosition = GameObject.Find("Position" + data.spritePosition[i]).GetComponent<SpriteRenderer>();
+                    if (spritePosition == null)
+                    {
+                        Debug.LogError("(SayID.cs) " + textID + ": Wrong sprite position name");
+                        continue;
+                    }
+
+                    spritePosition.sprite = tempSprite;
                 }
-                
-                spritePosition.sprite = tempSprite;
             }
+
 
             #endregion
 

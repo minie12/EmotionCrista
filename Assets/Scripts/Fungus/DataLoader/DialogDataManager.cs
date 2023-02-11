@@ -31,14 +31,24 @@ public class DialogData
     public string[] spritePosition;
     public string dialog;
 
-    public DialogData(string inCharacter, string inSprite, string inspritePosition, string inDialog)
+    public DialogData(string textID, string inCharacter, string inSprite, string inspritePosition, string inDialog)
     {
-        character = inCharacter;
+        character = inCharacter.Replace(" ", "");
+        dialog = inDialog;
+
+        if (inSprite == "")
+            return;
+
         inSprite = inSprite.Replace(" ", "");
         inspritePosition = inspritePosition.Replace(" ", "");
         spriteName = inSprite.Split(',');
         spritePosition = inspritePosition.Split(',');
-        dialog = inDialog;
+
+        if (spriteName.Length != spritePosition.Length)
+        {
+            Debug.LogError("(DialogDataManager.cs) " + textID + ": number of sprite and position not matching");
+            return;
+        }
     }
 }
 
@@ -53,21 +63,20 @@ public class DialogDataManager : MonoBehaviour
 
         if (!File.Exists(path))
         {
-            Debug.Log("ERROR(DialogDataManger.cs): DialogData json file could not be found.");
+            Debug.LogError("(DialogDataManger.cs) DialogData json file could not be found.");
             return;
         }
         else
         {
             // List<PreDialogData> PreDialogList = new List<PreDialogData>();
             string loadJson = File.ReadAllText(path);
-            Debug.Log(loadJson);
 
             // Do not load all data at once
             RawDialogDataList RawDialogList = RawDialogDataList.CreateFromJSON(loadJson);
 
             if (RawDialogList == null)
             {
-                Debug.Log("ERROR(DialogDataManger.cs): DialogData json file could not be loaded.");
+                Debug.LogError("(DialogDataManger.cs) DialogData json file could not be loaded.");
             }
 
             if (DialogList.Count != 0)
@@ -77,7 +86,7 @@ public class DialogDataManager : MonoBehaviour
 
             for (int i = 0; i < RawDialogList.data.Length; i++)
             {
-                DialogList.Add(RawDialogList.data[i].Id, new DialogData(RawDialogList.data[i].Character, RawDialogList.data[i].SpriteName, RawDialogList.data[i].SpritePosition, RawDialogList.data[i].Dialog));
+                DialogList.Add(RawDialogList.data[i].Id.Replace(" ", ""), new DialogData(RawDialogList.data[i].Id, RawDialogList.data[i].Character, RawDialogList.data[i].SpriteName, RawDialogList.data[i].SpritePosition, RawDialogList.data[i].Dialog));
             }
         }
     }
@@ -92,7 +101,7 @@ public class DialogDataManager : MonoBehaviour
 
         if (!DialogList.ContainsKey(id))
         {
-            Debug.Log("Cannot load: " + id);
+            Debug.LogError("Cannot load: " + id);
         }
 
         return DialogList[id];
