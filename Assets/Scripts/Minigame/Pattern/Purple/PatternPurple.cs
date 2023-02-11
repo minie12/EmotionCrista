@@ -5,33 +5,48 @@ using UnityEngine;
 public class PatternPurple : PatternManager
 {
     private int chainCnt = 3;
+    private float interval = 10f;
+
+    private bool isPlaying = false;
 
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("Awake");
     }
 
-    override public void StartPattern(int gimmick_)
+    override public void StartPattern(int gimmick_, int level_)
     {
         gimmick = gimmick_;
+        level = level_;
+        isPlaying = true;
         OrganizeCharacterChat();
 
         // give term before choose gem because board init
         if (gimmick == 0)
         {
-            Invoke("PurpleGimmick0", 1f);
+            InvokeRepeating("PurpleGimmick0", 1f, interval);
         }
     }
 
-    override public void StopPattern() { CancelInvoke(); }
+    override public void StopPattern() 
+    {
+        isPlaying = false;
+        CancelInvoke(); 
+    }
+
     override public void RestartPattern()
     {
+        isPlaying = true;
         if (gimmick == 0)
         {
-            Invoke("PurpleGimmick0", 1f);
+            InvokeRepeating("PurpleGimmick0", 1f, interval);
         }
 
+    }
+
+    public bool GetIsPlaying()
+    {
+        return isPlaying;
     }
 
 

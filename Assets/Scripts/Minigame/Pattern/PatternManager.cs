@@ -6,11 +6,12 @@ using DG.Tweening;
 
 public class PatternManager : MonoBehaviour
 {
-    // YELLOW Pattern
+    // Pattern
     protected GameObject UICanvas;
     protected Text chatTXT;
     protected MiniManager mini; 
     protected int gimmick = 0;
+    protected int level = (int)LevelType.EASY1; // difficulty
 
     // chat UI 
     protected string[] chatTextInfo;
@@ -22,7 +23,7 @@ public class PatternManager : MonoBehaviour
         mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
     }
 
-    virtual public void StartPattern(int gimmick_){}
+    virtual public void StartPattern(int gimmick_, int level_){}
     virtual public void StopPattern(){}
     virtual public void RestartPattern(){}
 

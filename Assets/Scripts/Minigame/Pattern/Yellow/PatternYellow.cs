@@ -8,7 +8,7 @@ public class PatternYellow : PatternManager
 {
     private GameObject chatBoxPF;
     private GameObject[] chatBoxes;
-    private int patternIdx;
+    private int patternIdx; // is exist minimanager
     private int chatBoxCnt = 6;
 
     private GameObject chatFlowPF;
@@ -24,13 +24,14 @@ public class PatternYellow : PatternManager
         base.Awake();
         chatBoxPF = Resources.Load<GameObject>("Prefabs/MiniGame/chatBox");
         chatFlowPF = Resources.Load<GameObject>("Prefabs/MiniGame/chatFlow");
-
-        Debug.Log("Awake");
     }
 
 
-    override public void StartPattern(int gimmick_){
-        patternIdx = 0; gimmick = gimmick_; chatTextIdx = 0;
+    override public void StartPattern(int gimmick_, int level_){
+        patternIdx = 0;
+        chatTextIdx = 0;
+        gimmick = gimmick_; 
+        level = level_;
         OrganizeCharacterChat();
 
         if(gimmick == 0){

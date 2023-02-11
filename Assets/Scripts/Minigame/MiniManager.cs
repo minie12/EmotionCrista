@@ -6,12 +6,22 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public enum PatternType{
-        YELLOW,
-        BLUE,
-        RED,
-        GREEN,
-        PURPLE,
-        NOTHING
+    YELLOW,
+    BLUE,
+    RED,
+    GREEN,
+    PURPLE,
+    NOTHING
+}
+
+public enum LevelType
+{
+    EASY1,
+    NORMAL1,
+    HARD1,
+    EASY2,
+    NORMAL2,
+    HARD2
 }
 
 public class MiniManager : MonoBehaviour
@@ -52,7 +62,9 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.BLUE;
+    int patternIdx = (int)PatternType.PURPLE;
+    int patternGimmick = 0;
+    int patternLevel = (int)LevelType.EASY1;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -78,7 +90,7 @@ public class MiniManager : MonoBehaviour
 
         // pattern
         pattern = SpawnPattern(patternIdx);
-        pattern.StartPattern(1);
+        pattern.StartPattern(patternGimmick, patternLevel);
     }
 
     public PatternManager SpawnPattern(int patternIdx)
@@ -263,7 +275,7 @@ public class MiniManager : MonoBehaviour
         board.InitBoard();
         bPuzzleMode = true;
 
-        pattern.StartPattern(gimmick_);
+        pattern.StartPattern(gimmick_, patternLevel);
     }
 
     // after game over
