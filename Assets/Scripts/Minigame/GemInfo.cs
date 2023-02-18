@@ -199,6 +199,26 @@ public class GemInfo : MonoBehaviour
         }
     }
 
+    // shake gem effect
+    public void GemShake(float prevTime, float amount, float time, bool keepAmount = false)
+    {
+        StartCoroutine(GemShakeRoutine(prevTime, amount, time, keepAmount));
+    }
+
+    private IEnumerator GemShakeRoutine(float prevTime, float amount, float time, bool keepAmount)
+    {
+        yield return new WaitForSeconds(prevTime);
+
+        Vector3 originPosition = transform.position;
+        for (float t = time; t >= 0; t -= Time.deltaTime)
+        {
+            Vector3 rand = new Vector3(0, Random.insideUnitCircle.y, 0) * (keepAmount ? amount : Mathf.Lerp(amount, 0, 1 - t / time));
+            transform.position += rand;
+            yield return null;
+        }
+        transform.position = originPosition;
+    }
+
     public void DestroyGem(){
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("DestroyGemC");

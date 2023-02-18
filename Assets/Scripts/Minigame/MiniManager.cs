@@ -366,6 +366,62 @@ public class MiniManager : MonoBehaviour
         return gem;
     }
 
+    // get 6 direction around gem list
+    public List<List<GemInfo>> GetAroundGemList(int current_c, int current_r)
+    {
+        List<List<GemInfo>> aroundGemList = new List<List<GemInfo>>();
+        int odd = current_c % 2;
+
+        // init 6 direction
+        // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+        for (int i = 0; i < 6; i++) // direction
+        {
+            List<GemInfo> temp = new List<GemInfo>();
+            for(int j = 1; j < 10; j++) // distance
+            {
+                int column_ = current_c, row_ = current_r;
+                GemInfo gem = null;
+                switch (i)
+                {
+                    case 0:
+                        row_ += j;
+                        gem = board.GetGem(column_, row_);
+                        break;
+                    case 1:
+                        column_ += j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
+                        gem = board.GetGem(column_, row_);
+                        break;
+                    case 2:
+                        column_ += j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
+                        gem = board.GetGem(column_, row_);
+                        break;
+                    case 3: // down
+                        row_ -= j;
+                        gem = board.GetGem(column_, row_);
+                        break;
+                    case 4:
+                        column_ -= j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
+                        gem = board.GetGem(column_, row_);
+                        break;
+                    case 5:
+                        column_ -= j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
+                        gem = board.GetGem(column_, row_);
+                        break;
+                    default:
+                        break;
+                }
+                if (gem == null)
+                {
+                    break;
+                }
+                temp.Add(gem);
+            }
+            aroundGemList.Add(temp);
+        }
+        return aroundGemList;
+    }
+
+
     public GemInfo[] GetRandomGems(int cnt)
     {
         // TODO: Does not check whether the gem is already filled with water

@@ -130,6 +130,18 @@ public class PatternYellow : PatternManager
     {
         // get yellow gem random
         GemInfo gem = mini.GetPatternGemRandom();
-        Debug.Log(gem.GetColumn()+" "+ gem.GetRow());
+        gem.ChangeSpecialGem();
+        gem.FadeIn();
+        gem.GemShake(1f, 0.01f, 1f);
+
+        List<List<GemInfo>> aroundGemList = mini.GetAroundGemList(gem.GetColumn(), gem.GetRow());
+        for(int i = 0; i < 6; i++)
+        {
+            Debug.Log(i);
+            for(int j = 0; j < aroundGemList[i].Count; j++)
+            {
+                Debug.Log(aroundGemList[i][j].GetColumn().ToString() + "," + aroundGemList[i][j].GetRow().ToString());
+            }
+        }
     }
 }
