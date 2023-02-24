@@ -187,7 +187,7 @@ public class PatternYellow : PatternManager
         GemInfo gem = mini.GetPatternGemRandom();
         gem.ChangeSpecialGem();
         gem.FadeIn();
-        gem.GemShake(1f, 0.01f, 1f);
+        gem.GemHeartBeat(1f, 1f);
 
         // get around gem list
         List<List<GemInfo>> aroundGemList = mini.GetAroundGemList(gem.GetColumn(), gem.GetRow());

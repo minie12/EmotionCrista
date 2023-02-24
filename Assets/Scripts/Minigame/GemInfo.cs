@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GemInfo : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class GemInfo : MonoBehaviour
 
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     void Start(){
@@ -200,16 +201,27 @@ public class GemInfo : MonoBehaviour
     }
 
     // hearbeat gem
-    public void GemHeartBeat(float prevTime, float amount, float time)
+    public void GemHeartBeat(float prevTime, float time)
     {
-        StartCoroutine(GemBeatRoutine(prevTime, amount, time));
+        StartCoroutine(GemBeatRoutine(prevTime, time));
     }
 
-    private IEnumerator GemBeatRoutine(float prevTime, float amount, float time)
+    private IEnumerator GemBeatRoutine(float prevTime, float time)
     {
         yield return new WaitForSeconds(prevTime);
 
-
+        float originX = transform.GetChild(0).localScale.x;
+        float originY = transform.GetChild(0).localScale.y;
+        transform.GetChild(0).DOScale(new Vector3(originX - 0.1f, originY - 0.1f), 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        transform.GetChild(0).DOScale(new Vector3(originX + 0.15f, originY + 0.15f), 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        transform.GetChild(0).DOScale(new Vector3(originX, originY), 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        transform.GetChild(0).DOScale(new Vector3(originX + 0.15f, originY + 0.15f), 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        transform.GetChild(0).DOScale(new Vector3(originX - 0.1f, originY - 0.1f), 0.25f);
+        yield return new WaitForSeconds(0.25f);
     }
 
     // shake gem effect
