@@ -199,6 +199,19 @@ public class GemInfo : MonoBehaviour
         }
     }
 
+    // hearbeat gem
+    public void GemHeartBeat(float prevTime, float amount, float time)
+    {
+        StartCoroutine(GemBeatRoutine(prevTime, amount, time));
+    }
+
+    private IEnumerator GemBeatRoutine(float prevTime, float amount, float time)
+    {
+        yield return new WaitForSeconds(prevTime);
+
+
+    }
+
     // shake gem effect
     public void GemShake(float prevTime, float amount, float time, bool keepAmount = false)
     {
@@ -217,6 +230,17 @@ public class GemInfo : MonoBehaviour
             yield return null;
         }
         transform.position = originPosition;
+    }
+
+    public void OnlyDestroyGem(float time = 0f)
+    {
+        StartCoroutine(OnlyDestroyGemC(time));
+    }
+
+    IEnumerator OnlyDestroyGemC(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
     }
 
     public void DestroyGem(){
