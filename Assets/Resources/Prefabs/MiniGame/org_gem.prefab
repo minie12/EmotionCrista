@@ -281,7 +281,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.75, y: 0.75}
+  m_Size: {x: 0.67, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -896,10 +896,10 @@ MonoBehaviour:
   gemOutline: {fileID: 1471261474537222146}
   gemClickSP: {fileID: 21300000, guid: 23b011324ef72a443a6c1f8d1ad3639e, type: 3}
   gemSideSP: {fileID: 21300000, guid: 1e578de928e2cb94093dcc3f750371a5, type: 3}
-  sparkleANIM: {fileID: 749190047184081001}
-  patternANIM: {fileID: 749190047184081001}
+  sparkleANIM: {fileID: 1299334156}
+  patternANIM: {fileID: 8584591083762226425}
   gemANIM: {fileID: 749190047184081001}
-  explosionANIM: {fileID: 749190047184081001}
+  explosionANIM: {fileID: 6379514937080278653}
   chainAnimObj: {fileID: 5961675756984476918}
   bPatternApplied: 0
   bRotateAble: 1

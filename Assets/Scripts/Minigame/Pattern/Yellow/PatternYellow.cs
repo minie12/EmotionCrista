@@ -17,7 +17,7 @@ public class PatternYellow : PatternManager
     private int currentChatIdx;
 
     private float fullSpawnTime = 2;
-    private float dropTime = 0.1f;
+    private float dropTime = 0.2f;
 
     private GameObject gemPF;
 
@@ -130,9 +130,9 @@ public class PatternYellow : PatternManager
     }
 
     // Y3 --------------------------------------------------------------------------------------------------------
-    IEnumerator GemWavelength(GemInfo startGem, List<List<GemInfo>> aroundGemList)
+    IEnumerator GemWavelength(GemInfo startGem, GemInfo temp, List<List<GemInfo>> aroundGemList)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.8f);
 
         
         for(int i = 0; i < 6; i++)
@@ -177,8 +177,21 @@ public class PatternYellow : PatternManager
             }
         }
 
+        //temp.FadeOut();
         yield return new WaitForSeconds(dropTime);
         GameObject.Find("Board").GetComponent<BoardManager>().SetGemMovable(true);
+
+        // gem origin
+        temp.OnlyDestroyGem();
+        startGem.FadeOut();
+        startGem.FadeOut(1f, 0);
+        GemInfo newGem = Instantiate(gemPF, startGem.transform.position, Quaternion.identity, this.transform).GetComponent<GemInfo>();
+        newGem.FadeIn();
+        newGem.ChangeGemColor((int)PatternType.YELLOW);
+        GameObject.Find("Board").GetComponent<BoardManager>().SetGem(startGem.GetColumn(), startGem.GetRow(), newGem);
+
+        yield return new WaitForSeconds(0.9f);
+        startGem.OnlyDestroyGem();
     }
 
     void Y_HeartBeat()
@@ -186,14 +199,22 @@ public class PatternYellow : PatternManager
         // get yellow gem random
         GemInfo gem = mini.GetPatternGemRandom();
         gem.ChangeSpecialGem();
+        gem.SetTransformScale(0.85f);
         gem.FadeIn();
         gem.GemHeartBeat(1f, 1f);
+
+        // ghost effect
+        GemInfo temp = Instantiate(gemPF, gem.transform.position, Quaternion.identity, this.transform).GetComponent<GemInfo>();
+        temp.ChangeSpecialGem();
+        temp.SetTransformScale(0.85f);
+        temp.SetSpriteColor(188f, 188f, 188f, 130f);
+        temp.GemHeartBeat(1.15f, 1f);
 
         // get around gem list
         List<List<GemInfo>> aroundGemList = mini.GetAroundGemList(gem.GetColumn(), gem.GetRow());
 
         // start gem wavelength
         GameObject.Find("Board").GetComponent<BoardManager>().SetGemMovable(false);
-        StartCoroutine(GemWavelength(gem, aroundGemList));
+        StartCoroutine(GemWavelength(gem, temp, aroundGemList));
     }
 }

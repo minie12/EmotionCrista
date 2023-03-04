@@ -110,6 +110,19 @@ public class GemInfo : MonoBehaviour
         spriteRenderer.sprite = gemSprites[(int)color];
     }
 
+    // set sprite renderer color
+    public void SetSpriteColor(float r, float g, float b, float a)
+    {
+        spriteRenderer.color = new Color(r / 255f, g / 255f, b / 255f, a / 255f);
+    }
+
+    // set transform scale
+    public void SetTransformScale(float coef) 
+    {
+        Vector3 originScale = spriteRenderer.gameObject.transform.localScale;
+        spriteRenderer.gameObject.transform.localScale = new Vector3(originScale.x * coef, originScale.y * coef, originScale.z * coef);
+    }
+
     public int GetColumn()
     {
         return column;
@@ -175,7 +188,8 @@ public class GemInfo : MonoBehaviour
         SpriteRenderer temp = spriteRenderer;
         if (target >= 0)
         {
-            temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
+            temp = gameObject.transform.GetComponent<SpriteRenderer>();
+            //temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
         }
         StartCoroutine(FadeOutCorutine(fadeTime, temp));
     }
@@ -212,16 +226,19 @@ public class GemInfo : MonoBehaviour
 
         float originX = transform.GetChild(0).localScale.x;
         float originY = transform.GetChild(0).localScale.y;
-        transform.GetChild(0).DOScale(new Vector3(originX - 0.1f, originY - 0.1f), 0.1f);
+        float maxScale = 0.3f;
+        float midScale = 0.2f;
+        float minScale = 0.1f;
+        transform.GetChild(0).DOScale(new Vector3(originX - minScale, originY - minScale), 0.02f);
+        yield return new WaitForSeconds(0.02f);
+        transform.GetChild(0).DOScale(new Vector3(originX + midScale, originY + midScale), 0.15f);
+        yield return new WaitForSeconds(0.15f);
+        transform.GetChild(0).DOScale(new Vector3(originX + minScale, originY + minScale), 0.1f);
         yield return new WaitForSeconds(0.1f);
-        transform.GetChild(0).DOScale(new Vector3(originX + 0.15f, originY + 0.15f), 0.2f);
-        yield return new WaitForSeconds(0.2f);
-        transform.GetChild(0).DOScale(new Vector3(originX, originY), 0.1f);
-        yield return new WaitForSeconds(0.1f);
-        transform.GetChild(0).DOScale(new Vector3(originX + 0.15f, originY + 0.15f), 0.2f);
-        yield return new WaitForSeconds(0.2f);
-        transform.GetChild(0).DOScale(new Vector3(originX - 0.1f, originY - 0.1f), 0.25f);
-        yield return new WaitForSeconds(0.25f);
+        transform.GetChild(0).DOScale(new Vector3(originX + maxScale, originY + maxScale), 0.1f);
+        yield return new WaitForSeconds(0.3f);
+        transform.GetChild(0).DOScale(new Vector3(originX - minScale, originY - minScale), 0.3f);
+        yield return new WaitForSeconds(0.3f);
     }
 
     // shake gem effect
