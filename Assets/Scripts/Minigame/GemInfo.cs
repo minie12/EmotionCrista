@@ -116,6 +116,17 @@ public class GemInfo : MonoBehaviour
         spriteRenderer.color = new Color(r / 255f, g / 255f, b / 255f, a / 255f);
     }
 
+    public void SetTransformColor()
+    {
+        transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+    }
+
+    public void SetTransformColorOrigin()
+    {
+        transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+    }
+
+
     // set transform scale
     public void SetTransformScale(float coef) 
     {
@@ -214,31 +225,30 @@ public class GemInfo : MonoBehaviour
         }
     }
 
-    // hearbeat gem
-    public void GemHeartBeat(float prevTime, float time)
+    // hearbeat gem (use in yellow gimmick 2)
+    public void GemHeartBeat(float prevTime, float amount, float time)
     {
-        StartCoroutine(GemBeatRoutine(prevTime, time));
+        StartCoroutine(GemBeatRoutine(prevTime, amount, time));
     }
 
-    private IEnumerator GemBeatRoutine(float prevTime, float time)
+    private IEnumerator GemBeatRoutine(float prevTime, float amount, float time)
     {
         yield return new WaitForSeconds(prevTime);
 
         float originX = transform.GetChild(0).localScale.x;
-        float originY = transform.GetChild(0).localScale.y;
-        float maxScale = 0.3f;
-        float midScale = 0.2f;
-        float minScale = 0.1f;
-        transform.GetChild(0).DOScale(new Vector3(originX - minScale, originY - minScale), 0.02f);
-        yield return new WaitForSeconds(0.02f);
-        transform.GetChild(0).DOScale(new Vector3(originX + midScale, originY + midScale), 0.15f);
-        yield return new WaitForSeconds(0.15f);
-        transform.GetChild(0).DOScale(new Vector3(originX + minScale, originY + minScale), 0.1f);
-        yield return new WaitForSeconds(0.1f);
-        transform.GetChild(0).DOScale(new Vector3(originX + maxScale, originY + maxScale), 0.1f);
-        yield return new WaitForSeconds(0.3f);
-        transform.GetChild(0).DOScale(new Vector3(originX - minScale, originY - minScale), 0.3f);
-        yield return new WaitForSeconds(0.3f);
+
+        float maxScale = originX * amount;
+        float midScale = originX * amount * 0.9f;
+        float minScale = originX * 0.9f;
+        float[] scaleList = { minScale, midScale, originX, maxScale, minScale };
+        float[] timeList = { time * 0.025f, time * 0.165f, time * 0.11f, time * 0.11f, time * 0.34f };
+        float[] intervalList = { time * 0.025f, time * 0.165f, time * 0.11f, time * 0.36f, time * 0.34f };
+
+        for (int i = 0; i < scaleList.Length; i++)
+        {
+            transform.GetChild(0).DOScale(new Vector3(scaleList[i], scaleList[i]), timeList[i]);
+            yield return new WaitForSeconds(intervalList[i]);
+        }
     }
 
     // shake gem effect

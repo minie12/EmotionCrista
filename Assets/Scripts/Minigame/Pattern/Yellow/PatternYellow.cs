@@ -182,16 +182,18 @@ public class PatternYellow : PatternManager
         GameObject.Find("Board").GetComponent<BoardManager>().SetGemMovable(true);
 
         // gem origin
-        temp.OnlyDestroyGem();
+        temp.FadeOut();
         startGem.FadeOut();
-        startGem.FadeOut(1f, 0);
         GemInfo newGem = Instantiate(gemPF, startGem.transform.position, Quaternion.identity, this.transform).GetComponent<GemInfo>();
+        newGem.SetTransformColor();
         newGem.FadeIn();
         newGem.ChangeGemColor((int)PatternType.YELLOW);
         GameObject.Find("Board").GetComponent<BoardManager>().SetGem(startGem.GetColumn(), startGem.GetRow(), newGem);
 
         yield return new WaitForSeconds(0.9f);
         startGem.OnlyDestroyGem();
+        temp.OnlyDestroyGem();
+        newGem.SetTransformColorOrigin();
     }
 
     void Y_HeartBeat()
@@ -200,15 +202,17 @@ public class PatternYellow : PatternManager
         GemInfo gem = mini.GetPatternGemRandom();
         gem.ChangeSpecialGem();
         gem.SetTransformScale(0.85f);
+        gem.SetTransformColor();
         gem.FadeIn();
-        gem.GemHeartBeat(1f, 1f);
+        gem.GemHeartBeat(1f, 1.5f, 0.8f);
 
         // ghost effect
         GemInfo temp = Instantiate(gemPF, gem.transform.position, Quaternion.identity, this.transform).GetComponent<GemInfo>();
         temp.ChangeSpecialGem();
         temp.SetTransformScale(0.85f);
-        temp.SetSpriteColor(188f, 188f, 188f, 130f);
-        temp.GemHeartBeat(1.15f, 1f);
+        gem.SetTransformColor();
+        temp.SetSpriteColor(188f, 188f, 188f, 110f);
+        temp.GemHeartBeat(1.1f, 1.6f, 0.8f);
 
         // get around gem list
         List<List<GemInfo>> aroundGemList = mini.GetAroundGemList(gem.GetColumn(), gem.GetRow());
