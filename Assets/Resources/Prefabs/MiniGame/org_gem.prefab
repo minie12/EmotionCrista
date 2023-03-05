@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 3072809835972831174}
   - component: {fileID: 749190047184081001}
   m_Layer: 7
-  m_Name: org_gem
+  m_Name: gem
   m_TagString: Gem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

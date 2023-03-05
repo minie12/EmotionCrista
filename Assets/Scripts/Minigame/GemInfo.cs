@@ -1,32 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using System.Collections;
+using UnityEngine;
 
 public class GemInfo : MonoBehaviour
 {
     private BoardManager board;
     private int column, row;
 
-    // purple gimmick
-    private int chainCnt;
-
     private PatternType color;
     public Sprite[] gemSprites;
     public Sprite[] special_gem_sprites;
 
     public SpriteRenderer gemOutline;
-    // public SpriteRenderer gem_pattern;
     public Sprite gemClickSP;
     public Sprite gemSideSP;
 
-    public Animator sparkleANIM; 
-    public Animator patternANIM; 
+    public Animator sparkleANIM;
+    public Animator patternANIM;
     public Animator gemANIM;
     public Animator explosionANIM;
     public GameObject chainAnimObj;
 
     public bool bPatternApplied;
+
+    // purple gimmick
+    private int chainCnt;
 
     // change gem effect
     private SpriteRenderer spriteRenderer;
@@ -35,28 +33,32 @@ public class GemInfo : MonoBehaviour
     [HideInInspector] public bool bRotateAble = true;
 
     // manage location fixed
-    [HideInInspector] public bool bLocationFixed = false; 
+    [HideInInspector] public bool bLocationFixed = false;
 
     void Awake()
     {
+        // get gem sprite renderer
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
-    void Start(){
+    void Start()
+    {
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
-    public void InitGem(int column_, int row_, int color_){
+    public void InitGem(int column_, int row_, int color_)
+    {
         bPatternApplied = false;
         bRotateAble = true;
         bLocationFixed = false;
-        column = column_; row = row_; 
+        column = column_; row = row_;
         SetColor_(color_);
     }
 
     /// <summary> Set outline sprite of gem </summary>
     /// <param name="type"> click, side, undo. </param>
-    public void SetOutline(string type){
+    public void SetOutline(string type)
+    {
         switch (type)
         {
             case "click":
@@ -71,67 +73,70 @@ public class GemInfo : MonoBehaviour
         }
     }
 
-    public void PrintInfo(){
-        Debug.Log(column+ " " + row + " " + color);
+    public void PrintInfo()
+    {
+        Debug.Log(column + " " + row + " " + color);
     }
 
     // Start is called before the first frame update
-    void OnMouseUp(){
-        if(board.CheckFever()){
-            board.FeverClick(column,row);
+    void OnMouseUp()
+    {
+        if (board.CheckFever())
+        {
+            board.FeverClick(column, row);
         }
-        else if(board.GetGemMovable()){
+        else if (board.GetGemMovable())
+        {
             board.GemClick(column, row);
         }
     }
 
-    public int GetColor(){
+    public int GetColor()
+    {
         return (int)color;
     }
 
-    public void SetColor(){
+    public void SetColor()
+    {
         int now;
         int prev = now = (int)color;
 
-        while(prev == now){
+        while (prev == now)
+        {
             now = Random.Range(0, board.GetGemTypeCnt());
         }
 
         SetColor_(now);
     }
-    
-    void SetColor_(int color_){
-        if(color_ == (int)PatternType.YELLOW) color = PatternType.YELLOW;
-        else if(color_ == (int)PatternType.BLUE) color = PatternType.BLUE;
-        else if(color_ == (int)PatternType.RED) color = PatternType.RED;
-        else if(color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
+
+    void SetColor_(int color_)
+    {
+        if (color_ == (int)PatternType.YELLOW) color = PatternType.YELLOW;
+        else if (color_ == (int)PatternType.BLUE) color = PatternType.BLUE;
+        else if (color_ == (int)PatternType.RED) color = PatternType.RED;
+        else if (color_ == (int)PatternType.GREEN) color = PatternType.GREEN;
         else color = PatternType.PURPLE;
 
         spriteRenderer.sprite = gemSprites[(int)color];
     }
 
-    // set sprite renderer color
+    // set gem sprite renderer color
     public void SetSpriteColor(float r, float g, float b, float a)
-    {
+    { 
         spriteRenderer.color = new Color(r / 255f, g / 255f, b / 255f, a / 255f);
     }
 
-    public void SetTransformColor()
+    // set background sprite renderer color
+    public void SetBackgroundColor(float r, float g, float b, float a)
     {
-        transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+        transform.GetComponent<SpriteRenderer>().color = new Color(r / 255f, g / 255f, b / 255f, a / 255f);
     }
 
-    public void SetTransformColorOrigin()
-    {
-        transform.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-    }
-
-
-    // set transform scale
-    public void SetTransformScale(float coef) 
+    // set gem transform scale
+    public void SetTransformScale(float coefficient)
     {
         Vector3 originScale = spriteRenderer.gameObject.transform.localScale;
-        spriteRenderer.gameObject.transform.localScale = new Vector3(originScale.x * coef, originScale.y * coef, originScale.z * coef);
+        spriteRenderer.gameObject.transform.localScale = new Vector3(originScale.x * coefficient, originScale.y * coefficient, originScale.z * coefficient);
     }
 
     public int GetColumn()
@@ -152,7 +157,7 @@ public class GemInfo : MonoBehaviour
     // purple gimmick chain
     public int MinusChainCnt()
     {
-        if(chainCnt > 0)
+        if (chainCnt > 0)
         {
             chainCnt--;
 
@@ -179,48 +184,37 @@ public class GemInfo : MonoBehaviour
     // change gem color
     public void ChangeGemColor(int color_)
     {
-        spriteRenderer.sprite = gemSprites[color_];
+        SetColor_(color_);
     }
 
-    // Fade in (fadeTime = time while fade, target = object to fade)
-    public void FadeIn(float fadeTime = 1f, int target = -1)
+    // Fade in (fadeTime = time while fade, target = object to fade (default = child 0 (gem)))
+    public void FadeIn(float fadeTime = 1f, int target = 0)
     {
-        SpriteRenderer temp = spriteRenderer;
-        if(target >= 0)
+        SpriteRenderer temp = GetComponent<SpriteRenderer>();
+        if (target >= 0)
         {
             temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
         }
-        StartCoroutine(FadeInCorutine(fadeTime, temp));
+        StartCoroutine(FadeEffect(0f, fadeTime, temp));
     }
 
     // Fade out
-    public void FadeOut(float fadeTime = 1f, int target = -1)
+    public void FadeOut(float fadeTime = 1f, int target = 0)
     {
-        SpriteRenderer temp = spriteRenderer;
+        SpriteRenderer temp = GetComponent<SpriteRenderer>();
         if (target >= 0)
         {
-            temp = gameObject.transform.GetComponent<SpriteRenderer>();
-            //temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
+            temp = gameObject.transform.GetChild(target).GetComponent<SpriteRenderer>();
         }
-        StartCoroutine(FadeOutCorutine(fadeTime, temp));
+        StartCoroutine(FadeEffect(1f, -fadeTime, temp));
     }
 
-    private IEnumerator FadeInCorutine(float fadeTime, SpriteRenderer spriteRenderer)
+    private IEnumerator FadeEffect(float start, float time, SpriteRenderer spriteRenderer)
     {
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
-        while (spriteRenderer.color.a < 1.0f)
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, start);
+        while (spriteRenderer.color.a != (1f - start))
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime * fadeTime);
-            yield return null;
-        }
-    }
-
-    private IEnumerator FadeOutCorutine(float fadeTime, SpriteRenderer spriteRenderer)
-    {
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
-        while (spriteRenderer.color.a > 0.0f)
-        {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - Time.deltaTime * fadeTime);
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime / time);
             yield return null;
         }
     }
@@ -240,9 +234,9 @@ public class GemInfo : MonoBehaviour
         float maxScale = originX * amount;
         float midScale = originX * amount * 0.9f;
         float minScale = originX * 0.9f;
-        float[] scaleList = { minScale, midScale, originX, maxScale, minScale };
-        float[] timeList = { time * 0.025f, time * 0.165f, time * 0.11f, time * 0.11f, time * 0.34f };
-        float[] intervalList = { time * 0.025f, time * 0.165f, time * 0.11f, time * 0.36f, time * 0.34f };
+        float[] scaleList = { minScale, midScale, originX, maxScale, originX };
+        float[] timeList = { time * 0.025f, time * 0.175f, time * 0.11f, time * 0.11f, time * 0.34f };
+        float[] intervalList = { time * 0.025f, time * 0.175f, time * 0.11f, time * 0.35f, time * 0.34f };
 
         for (int i = 0; i < scaleList.Length; i++)
         {
@@ -252,7 +246,7 @@ public class GemInfo : MonoBehaviour
     }
 
     // shake gem effect
-    public void GemShake(float prevTime, float amount, float time, bool keepAmount = false)
+    public void GemShake(float prevTime, float amount, float time, bool keepAmount = true)
     {
         StartCoroutine(GemShakeRoutine(prevTime, amount, time, keepAmount));
     }
@@ -265,28 +259,30 @@ public class GemInfo : MonoBehaviour
         for (float t = time; t >= 0; t -= Time.deltaTime)
         {
             Vector3 rand = new Vector3(0, Random.insideUnitCircle.y, 0) * (keepAmount ? amount : Mathf.Lerp(amount, 0, 1 - t / time));
-            transform.position += rand;
+            transform.position = originPosition + rand;
             yield return null;
         }
         transform.position = originPosition;
     }
 
-    public void OnlyDestroyGem(float time = 0f)
+    public void OnlyDestroyGem(float prevTime = 0f)
     {
-        StartCoroutine(OnlyDestroyGemC(time));
+        StartCoroutine(OnlyDestroyGemC(prevTime));
     }
 
-    IEnumerator OnlyDestroyGemC(float time)
+    IEnumerator OnlyDestroyGemC(float prevTime)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(prevTime);
         Destroy(gameObject);
     }
 
-    public void DestroyGem(){
+    public void DestroyGem()
+    {
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("DestroyGemC");
     }
-    IEnumerator DestroyGemC(){
+    IEnumerator DestroyGemC()
+    {
         gemANIM.enabled = true;
 
         if (color == PatternType.RED) gemANIM.Play("gem_crush_red", 0, 0.0f);
@@ -321,23 +317,26 @@ public class GemInfo : MonoBehaviour
 
         // turn chain obj active true
         chainAnimObj.SetActive(true);
-        for(int i = 0; i < cnt; i++)
+        for (int i = 0; i < cnt; i++)
         {
             chainAnimObj.transform.GetChild(i).gameObject.SetActive(true);
         }
     }
 
-    public void FillWaterInHex(){
+    public void FillWaterInHex()
+    {
         bPatternApplied = true;  // so that this gem does not get selected at GetRandomGem()
         patternANIM.Play("gem_fill_water", 0, 0.0f);
         StartCoroutine("FillWaterInHexC");
     }
 
-    IEnumerator FillWaterInHexC(){
+    IEnumerator FillWaterInHexC()
+    {
         yield return new WaitForSeconds(0.1f);
 
         // check whether gem_fill_water animation is done or not
-        while(!patternANIM.GetCurrentAnimatorStateInfo(0).IsTag("changeColor")){
+        while (!patternANIM.GetCurrentAnimatorStateInfo(0).IsTag("changeColor"))
+        {
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -347,25 +346,28 @@ public class GemInfo : MonoBehaviour
     }
 
     // just change row, column. Actually move action in BoardManager's RotateGem func.
-    public void MoveGem(int column_, int row_, float time){
+    public void MoveGem(int column_, int row_, float time)
+    {
         row = row_; column = column_;
 
         StartCoroutine(MoveGemC(time));
     }
-    IEnumerator MoveGemC(float time){    
+    IEnumerator MoveGemC(float time)
+    {
         gameObject.GetComponent<Collider2D>().enabled = false;
 
         Vector3 startPos = transform.position;
         yield return new WaitForSeconds(0.01f); // used to avoid error but why?
         Vector3 endPos = board.GetGemPosition(column, row);
 
-        for(float t = 0; t <= 1 * time; t += Time.deltaTime){
+        for (float t = 0; t <= 1 * time; t += Time.deltaTime)
+        {
             transform.position = Vector3.Lerp(startPos, endPos, t / time);
             yield return 0;
         }
 
         transform.position = endPos;
-        
+
         gameObject.GetComponent<Collider2D>().enabled = true;
     }
 }
