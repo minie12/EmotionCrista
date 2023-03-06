@@ -18,6 +18,7 @@ public class PatternYellow : PatternManager
 
     private float fadeTime = 1f;
     private float heartbeatTime = 1f;
+    private float heartSizeOffset = 0.88f;
     private float fullSpawnTime = 2;
     private float dropTime = 0.2f;
 
@@ -173,18 +174,16 @@ public class PatternYellow : PatternManager
             }
         }
 
-        yield return new WaitForSeconds(dropTime);
+        yield return new WaitForSeconds(dropTime + 0.1f);
         GameObject.Find("Board").GetComponent<BoardManager>().SetGemMovable(true);
 
         // gem origin
         temp.SetSpriteColor(255f, 255, 255f, 255f);
         temp.FadeOut(fadeTime);
-        startGem.SetTransformScale(1f / 0.88f);
+        temp.OnlyDestroyGem(fadeTime);
         startGem.ChangeGemColor((int)PatternType.YELLOW);
+        startGem.SetTransformScale(1f / heartSizeOffset);
         startGem.FadeIn(fadeTime);
-
-        yield return new WaitForSeconds(fadeTime);
-        temp.OnlyDestroyGem();
     }
 
     void AroundGemShake(List<List<GemInfo>> aroundGemList)
@@ -198,10 +197,10 @@ public class PatternYellow : PatternManager
         }
     }
 
-    void SetGemFeature(GemInfo gem, float scale, float prevTime, float amount)
+    void SetGemFeature(GemInfo gem, float prevTime, float amount)
     {
         gem.ChangeSpecialGem();
-        gem.SetTransformScale(scale);
+        gem.SetTransformScale(heartSizeOffset);
         gem.GemHeartBeat(prevTime, amount, heartbeatTime);
     }
 
@@ -209,12 +208,12 @@ public class PatternYellow : PatternManager
     {
         // get yellow gem random
         GemInfo gem = mini.GetPatternGemRandom();
-        SetGemFeature(gem, 0.88f, fadeTime, 1.5f);
+        SetGemFeature(gem, fadeTime, 1.5f);
         gem.FadeIn(fadeTime);
 
         // ghost effect
         GemInfo temp = Instantiate(gemPF, gem.transform.position, Quaternion.identity, this.transform).GetComponent<GemInfo>();
-        SetGemFeature(temp, 0.88f, fadeTime + 0.1f, 1.6f);
+        SetGemFeature(temp, fadeTime + 0.1f, 1.6f);
         temp.SetBackgroundColor(255f, 255f, 255f, 0f); // background transparency
         temp.SetSpriteColor(188f, 188f, 188f, 110f);
 
