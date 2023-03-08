@@ -212,7 +212,8 @@ public class GemInfo : MonoBehaviour
     private IEnumerator FadeEffect(float start, float time, SpriteRenderer spriteRenderer)
     {
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, start);
-        while (spriteRenderer.color.a != (1f - start))
+        float target = 1f - start;
+        while ((target == 0f && spriteRenderer.color.a >= target) || (target == 1f && target >= spriteRenderer.color.a))
         {
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime / time);
             yield return null;
