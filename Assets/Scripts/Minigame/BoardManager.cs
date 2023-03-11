@@ -518,6 +518,11 @@ public class BoardManager : MonoBehaviour
         return gems[column_, row_].GetColor();
     }
 
+    public void SetGem(int column_, int row_, GemInfo gem)
+    {
+        gems[column_, row_] = gem;
+    }
+
     public GemInfo GetGem(int column_, int row_){
         if(!CheckGemExist(column_, row_)) return null;
         return gems[column_, row_];
