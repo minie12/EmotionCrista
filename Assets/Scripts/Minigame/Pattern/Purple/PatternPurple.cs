@@ -5,7 +5,7 @@ using UnityEngine;
 public class PatternPurple : PatternManager
 {
     private int chainCnt = 3;
-    private float interval = 10f;
+    private float interval = 30f;
 
     private bool isPlaying = false;
 
