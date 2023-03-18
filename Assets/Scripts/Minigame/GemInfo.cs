@@ -266,6 +266,18 @@ public class GemInfo : MonoBehaviour
         transform.position = originPosition;
     }
 
+    // gem fire
+    public void FireGem()
+    {
+        explosionANIM.gameObject.SetActive(true);
+        explosionANIM.Play("gem_fire_red", 0, 0.0f);
+    }
+
+    public void StopFireGem()
+    {
+        explosionANIM.gameObject.SetActive(false);
+    }
+
     public void OnlyDestroyGem(float prevTime = 0f)
     {
         StartCoroutine(OnlyDestroyGemC(prevTime));
@@ -279,6 +291,7 @@ public class GemInfo : MonoBehaviour
 
     public void DestroyGem()
     {
+        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("DestroyGemC");
     }
@@ -299,6 +312,7 @@ public class GemInfo : MonoBehaviour
 
     public void ExplosionGem()
     {
+        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("ExplosionGemC");
     }

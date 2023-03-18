@@ -571,6 +571,11 @@ public class BoardManager : MonoBehaviour
         bGemClicked = false;
     }
 
+    public void RefillBoardOut()
+    {
+        StartCoroutine(RefillBoardFever());
+    }
+
     IEnumerator RefillBoardFever(){
         bGemMovable = false;
 
