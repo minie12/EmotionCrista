@@ -35,6 +35,9 @@ public class GemInfo : MonoBehaviour
     // manage location fixed
     [HideInInspector] public bool bLocationFixed = false;
 
+    // check fire road
+    [HideInInspector] public bool isFired = false;
+
     void Awake()
     {
         // get gem sprite renderer
@@ -137,6 +140,16 @@ public class GemInfo : MonoBehaviour
     {
         Vector3 originScale = spriteRenderer.gameObject.transform.localScale;
         spriteRenderer.gameObject.transform.localScale = new Vector3(originScale.x * coefficient, originScale.y * coefficient, originScale.z * coefficient);
+    }
+
+    public void SetColumn(int col)
+    {
+        column = col;
+    }
+
+    public void SetRow(int row_)
+    {
+        row = row_;
     }
 
     public int GetColumn()
@@ -269,12 +282,14 @@ public class GemInfo : MonoBehaviour
     // gem fire
     public void FireGem()
     {
+        isFired = true;
         explosionANIM.gameObject.SetActive(true);
         explosionANIM.Play("gem_fire_red", 0, 0.0f);
     }
 
     public void StopFireGem()
     {
+        isFired = false;
         explosionANIM.gameObject.SetActive(false);
     }
 

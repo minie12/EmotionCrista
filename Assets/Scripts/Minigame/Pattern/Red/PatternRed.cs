@@ -234,9 +234,25 @@ public class PatternRed : PatternManager
         fireCheck[col, row] = false;
     }
 
+    public bool GetFireCheck(int col, int row)
+    {
+        return fireCheck[col, row];
+    }
+
+    public void SetFireCheckTrue(int col, int row)
+    {
+        fireCheck[col, row] = true;
+    }
+
     private IEnumerator InitFire()
     {
-        yield return new WaitForSeconds(0.3f); // wait for gem crush
+        Debug.Log("광물초기화 시키기");
+
+        yield return null;
+        // yield return new WaitForSeconds(0.3f); // wait for gem crush
+
+        // stop coroutine
+        StopAllCoroutines();
 
         for (int i = 0; i <= 10; i++)
         {
@@ -247,8 +263,16 @@ public class PatternRed : PatternManager
                 {
                     break;
                 }
+                if (fireCheck[i, j] == false)
+                {
+                    continue;
+                }
                 fireCheck[i, j] = false;
-                GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j).StopFireGem();
+                GemInfo temp = GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j);
+                if (temp != null)
+                {
+                    temp.StopFireGem();
+                }
             }
         }
     }
@@ -325,7 +349,7 @@ public class PatternRed : PatternManager
                     {
                         break;
                     }
-                    if (aroundCheck[i, j])
+                    if (aroundCheck[i, j] && GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j) != null)
                     {
                         aroundGems.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
                     }

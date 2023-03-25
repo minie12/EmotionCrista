@@ -118,10 +118,30 @@ public class BoardManager : MonoBehaviour
             idx = (idx + direction + 6) % 6;
             if (idx == 0)
             {
+                //gTemp.SetColumn(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetColumn());
+                //gTemp.SetRow(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetRow());
                 gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gTemp;
+                if (gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].isFired)
+                {
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+                }
+                else
+                {
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+                }
                 break;
             }
+            //gems[column + d[idx, 0], row + d[idx, 1]].SetColumn(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetColumn());
+            //gems[column + d[idx, 0], row + d[idx, 1]].SetRow(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetRow());
             gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gems[column + d[idx, 0], row + d[idx, 1]];
+            if (gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].isFired)
+            {
+                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+            }
+            else
+            {
+                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+            }
         }
     }
 
@@ -457,9 +477,20 @@ public class BoardManager : MonoBehaviour
                 Debug.Log("Ã¤¿î ±¤¹° : " + newColumn + ", " + newRow);
 
                 // drop the gem on top to bottom
+                //gems[newColumn, newRow].SetColumn(i);
+                //gems[newColumn, newRow].SetRow(j);
                 gems[i, j] = gems[newColumn, newRow];
                 gems[newColumn, newRow] = null;
                 gems[i, j].MoveGem(i, j, dropTime);
+                if (gems[i, j].isFired)
+                {
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(i, j);
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(newColumn, newRow);
+                }
+                else
+                {
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(i, j);
+                }
                 crushedGems.Add(new List<int> { newColumn, newRow });
                 filled = true;
                 break;
@@ -593,9 +624,20 @@ public class BoardManager : MonoBehaviour
 
                         if(CheckGemExist(i, k)){
                             // drop the gem on top to bottom
+                            //gems[i, k].SetColumn(i);
+                            //gems[i, k].SetRow(j);
                             gems[i, j] = gems[i,k];
                             gems[i, k] = null;
                             gems[i, j].MoveGem(i, j, dropTime);
+                            if (gems[i, j].isFired)
+                            {
+                                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(i, j);
+                                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(i, k);
+                            }
+                            else
+                            {
+                                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(i, j);
+                            }
                             filled = true;
                             break;
                         }
