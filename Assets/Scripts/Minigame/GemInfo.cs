@@ -18,6 +18,7 @@ public class GemInfo : MonoBehaviour
     public Animator sparkleANIM;
     public Animator patternANIM;
     public Animator gemANIM;
+    public Animator fireANIM;
     public Animator explosionANIM;
     public GameObject chainAnimObj;
 
@@ -283,21 +284,21 @@ public class GemInfo : MonoBehaviour
     public void FireGem(bool isStart = false)
     {
         isFired = true;
-        explosionANIM.gameObject.SetActive(true);
+        fireANIM.gameObject.SetActive(true);
         if (isStart)
         {
-            explosionANIM.Play("gem_fire_red_start", 0, 0.0f);
+            fireANIM.Play("gem_fire_red_start", 0, 0.0f);
         }
         else
         {
-            explosionANIM.Play("gem_fire_red", 0, 0.0f);
+            fireANIM.Play("gem_fire_red", 0, 0.0f);
         }
     }
 
     public void StopFireGem()
     {
         isFired = false;
-        explosionANIM.gameObject.SetActive(false);
+        fireANIM.gameObject.SetActive(false);
     }
 
     public void OnlyDestroyGem(float prevTime = 0f)
