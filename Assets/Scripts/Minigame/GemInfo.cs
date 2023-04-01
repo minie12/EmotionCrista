@@ -280,11 +280,18 @@ public class GemInfo : MonoBehaviour
     }
 
     // gem fire
-    public void FireGem()
+    public void FireGem(bool isStart = false)
     {
         isFired = true;
         explosionANIM.gameObject.SetActive(true);
-        explosionANIM.Play("gem_fire_red", 0, 0.0f);
+        if (isStart)
+        {
+            explosionANIM.Play("gem_fire_red_start", 0, 0.0f);
+        }
+        else
+        {
+            explosionANIM.Play("gem_fire_red", 0, 0.0f);
+        }
     }
 
     public void StopFireGem()

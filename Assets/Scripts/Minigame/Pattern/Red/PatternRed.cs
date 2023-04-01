@@ -209,7 +209,7 @@ public class PatternRed : PatternManager
     {
         // get random gem
         startGem = mini.GetPatternGemRandom();
-        startGem.FireGem();
+        startGem.FireGem(true);
         fireCheck[startGem.GetColumn(), startGem.GetRow()] = true;
 
         StartCoroutine(SpreadFire(3f));
@@ -299,6 +299,10 @@ public class PatternRed : PatternManager
                         gemList.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
                     }
                 }
+            }
+            if(gemList.Count == 0)
+            {
+                break;
             }
 
             // 1. get around gems
