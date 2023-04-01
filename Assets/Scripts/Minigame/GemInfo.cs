@@ -329,6 +329,13 @@ public class GemInfo : MonoBehaviour
     {
         GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
+
+        if (isFired)
+        {
+            GameObject.Find("Board").GetComponent<BoardManager>().SetGemClicked(false);
+            Debug.Log("clear gem clicked!");
+        }
+
         StartCoroutine("ExplosionGemC");
     }
 

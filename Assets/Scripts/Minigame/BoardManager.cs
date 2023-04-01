@@ -373,6 +373,7 @@ public class BoardManager : MonoBehaviour
     // erase outline of gem if other gem is clicked
     void EraseGemOutline(){
         if(bGemClicked){
+            Debug.Log("prev coordinate"+ prevColumn+ prevRow);
             int eo = (prevColumn%2 == 0)?1:0;
 
             gems[prevColumn, prevRow].SetOutline("undo");
@@ -383,6 +384,8 @@ public class BoardManager : MonoBehaviour
             gems[prevColumn+1, prevRow-1+eo].SetOutline("undo");
             gems[prevColumn+1, prevRow+eo].SetOutline("undo");
             gems[prevColumn, prevRow+1].SetOutline("undo");
+
+            clickEffect.SetActive(false);
         }
     }
 
@@ -562,6 +565,16 @@ public class BoardManager : MonoBehaviour
     void EnableGemMovable() { bGemMovable = true; }
     public bool GetGemMovable() { return bGemMovable; }
     public void SetGemMovable(bool movable) { bGemMovable = movable; }
+
+    public void SetGemClicked(bool clicked)
+    {   
+        if (!clicked)
+        {
+            SaveGemCooridnate(column, row);
+            EraseGemOutline();
+        }
+        bGemClicked = clicked;
+    }
 
     public bool CheckFever(){
         return mini.bFeverOn;

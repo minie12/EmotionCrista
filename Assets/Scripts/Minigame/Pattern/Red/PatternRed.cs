@@ -220,7 +220,7 @@ public class PatternRed : PatternManager
     {
         yield return new WaitForSeconds(previousTime);
 
-        if (fireCheck[gem.GetColumn(), gem.GetRow()] == true && GameObject.Find("Board").GetComponent<BoardManager>().GetGem(gem.GetColumn(), gem.GetRow()))
+        if (fireCheck[gem.GetColumn(), gem.GetRow()] == true && gem)
         {
             fireCheck[gem.GetColumn(), gem.GetRow()] = false;
             gem.ExplosionGem();
