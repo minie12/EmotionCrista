@@ -244,9 +244,9 @@ public class PatternRed : PatternManager
         fireCheck[col, row] = true;
     }
 
-    private IEnumerator InitFire()
+    public IEnumerator InitFire()
     {
-        Debug.Log("광물초기화 시키기");
+        Debug.Log("init gem fired");
 
         yield return null;
         // yield return new WaitForSeconds(0.3f); // wait for gem crush

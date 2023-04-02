@@ -613,6 +613,10 @@ public class BoardManager : MonoBehaviour
         feverCnt = 0;
         clickEffect.SetActive(false);
         bGemClicked = false;
+        if (goalColor == 2)
+        {
+            StartCoroutine(mini.GetComponent<PatternRed>().InitFire());
+        }
     }
 
     public void RefillBoardOut()
