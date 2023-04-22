@@ -6,12 +6,12 @@ using UnityEngine;
 [System.Serializable]
 public class RawDialogData
 {
-    public string Id;
-    public string Character;
-    public string SpriteName;
-    public string SpritePosition;
-    public string Dialog;
-    public string Desc;
+    public string id;
+    public string character;
+    public string spriteName;
+    public string spritePosition;
+    public string dialog;
+    public string desc;
 }
 [System.Serializable]
 public class RawDialogDataList
@@ -52,8 +52,7 @@ public class DialogData
     }
 }
 
-
-public class DialogDataManager : MonoBehaviour
+public class StoryDialogReader : MonoBehaviour
 {
     static private Dictionary<string, DialogData> DialogList = new Dictionary<string, DialogData>();
 
@@ -86,14 +85,15 @@ public class DialogDataManager : MonoBehaviour
 
             for (int i = 0; i < RawDialogList.data.Length; i++)
             {
-                DialogList.Add(RawDialogList.data[i].Id.Replace(" ", ""), new DialogData(RawDialogList.data[i].Id, RawDialogList.data[i].Character, RawDialogList.data[i].SpriteName, RawDialogList.data[i].SpritePosition, RawDialogList.data[i].Dialog));
+                DialogList.Add(RawDialogList.data[i].id.Replace(" ", ""), new DialogData(RawDialogList.data[i].id, RawDialogList.data[i].character, RawDialogList.data[i].spriteName, RawDialogList.data[i].spritePosition, RawDialogList.data[i].dialog));
             }
         }
     }
-
     static public DialogData GetDialogData(string id)
     {
-        if(!DialogList.ContainsKey(id))
+        id = id.Replace(" ", "");
+
+        if (!DialogList.ContainsKey(id))
         {
             // load next data
             JsonLoad(id);

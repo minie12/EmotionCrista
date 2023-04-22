@@ -14,10 +14,13 @@ namespace Fungus
     {
         [SerializeField] protected string textID = "";
 
+        [Tooltip("Notes about the option text for other authors, localization, etc.")]
+        [TextArea()]
+        [SerializeField] protected string description = "";
+
         #region Variable: Say
 
         protected string storyText = "";
-        protected string description = "";
         protected Character character;
         protected Sprite portrait;
         protected AudioClip voiceOverClip;
@@ -55,7 +58,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            DialogData data = DialogDataManager.GetDialogData(textID);
+            DialogData data = StoryDialogReader.GetDialogData(textID);
             
             character = GameObject.Find(data.character).GetComponent<Character>();
             storyText = data.dialog;
@@ -145,9 +148,9 @@ namespace Fungus
             {
                 namePrefix += textID + ": ";
             }
-            if (character != null)
+            if (description != null)
             {
-                namePrefix += character.NameText + " ";
+                namePrefix += description + " ";
             }
 
             return namePrefix;

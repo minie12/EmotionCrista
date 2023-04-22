@@ -78,5 +78,13 @@ public class DialogExtra : MonoBehaviour
         GameObject.Find("Setting").GetComponent<Image>().sprite = changeSP;
     }
     // --------------------------------------------------------------------
+
+    //-------------------------- DIARY ------------------------------------
+    public void SetDiaryText(Text diaryText)
+    {
+        int storyIndex = GameManager.instance.GetStoryIndex();
+        diaryText.text = DiaryDialogReader.GetDialogData(storyIndex);
+    }
+    //---------------------------------------------------------------------
 }
 
