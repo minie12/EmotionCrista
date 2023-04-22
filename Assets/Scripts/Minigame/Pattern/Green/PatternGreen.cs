@@ -9,7 +9,7 @@ public class PatternGreen : PatternManager
 
     private float bugSpeed = 3f;
     private float rotateSpeed = 0.5f;
-    private float bugInterval = 5f;
+    private float bugInterval = 20f;
 
     protected override void Awake()
     {
@@ -25,7 +25,7 @@ public class PatternGreen : PatternManager
 
         // give term before choose gem because board init
         if (gimmick == 0) 
-        { 
+        {
             InvokeRepeating("GreenGimmick0", 1f, bugInterval); 
         }
     }
@@ -93,9 +93,9 @@ public class PatternGreen : PatternManager
 
         // just create image
         GameObject specialGem = Instantiate(gemPF, greenGem.GetComponent<Transform>().position, Quaternion.identity, this.transform);
-        specialGem.transform.GetChild(0).gameObject.SetActive(false);
-        specialGem.GetComponent<SpriteRenderer>().sortingOrder = 5;
+        specialGem.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 3;
         GemInfo specialGemInfo = specialGem.GetComponent<GemInfo>();
+        specialGemInfo.SetBackgroundColor(255f, 255f, 255f, 0f);
         specialGemInfo.InitGem(prevColumn, prevRow, (int)PatternType.GREEN);
         specialGemInfo.ChangeSpecialGem();
 
@@ -129,8 +129,6 @@ public class PatternGreen : PatternManager
         GemInfo previousGem = GameObject.Find("Board").GetComponent<BoardManager>().GetGem(startColumn, startRow);
         previousGem.ChangeGemColor(targetColor);
         previousGem.FadeIn(1f);
-
-
 
         // turn on rotate true
         StartCoroutine(TurnOnRotateTrue(previousGem));
