@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogExtra : MonoBehaviour
 {
     private int razPoint;
+
+    public void GoToScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }    
 
     public void SetCharacterName(string nameText_, Fungus.Character player){        
         player.SetStandardText(nameText_);
@@ -54,7 +60,7 @@ public class DialogExtra : MonoBehaviour
         flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("StoryNumb"));
     }
 
-    //------------------ LOVE ENDING --------------------------------------
+    #region LoveEnding
     public void StartRazEnding()
     {
         razPoint = 0;
@@ -77,14 +83,14 @@ public class DialogExtra : MonoBehaviour
     {
         GameObject.Find("Setting").GetComponent<Image>().sprite = changeSP;
     }
-    // --------------------------------------------------------------------
+    #endregion
 
-    //-------------------------- DIARY ------------------------------------
+    #region Diary
     public void SetDiaryText(Text diaryText)
     {
         int storyIndex = GameManager.instance.GetStoryIndex();
         diaryText.text = DiaryDialogReader.GetDialogData(storyIndex);
     }
-    //---------------------------------------------------------------------
+    #endregion
 }
 

@@ -489,9 +489,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 79947864}
+  - {fileID: 79947781}
   selectedCommands:
-  - {fileID: 79947809}
+  - {fileID: 79947822}
   variables:
   - {fileID: 79947785}
   - {fileID: 79947811}
@@ -2198,7 +2198,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 2d3bc1cfd3ae496468c1a65cc53eb6e3, type: 3}
+  sprite: {fileID: 21300000, guid: 87c10163f83e9fd47a009e9d64b23afe, type: 3}
 --- !u!114 &79947823
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5890,12 +5890,12 @@ SpriteRenderer:
   m_SortingLayerID: 297710347
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b34f00e8629440e46ac5c36246b93e96, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 87c10163f83e9fd47a009e9d64b23afe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.35, y: 18}
+  m_Size: {x: 18.75, y: 25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9326,9 +9326,6 @@ MonoBehaviour:
   state: 0
   soundVolumeBGM: 0
   soundVolumeSFX: 0
-  textJSON: {fileID: 4900000, guid: 71898bb6261b1b44aa25f8ed0ca13522, type: 3}
-  myChatList:
-    characterChat: []
 --- !u!4 &1699835179
 Transform:
   m_ObjectHideFlags: 0
