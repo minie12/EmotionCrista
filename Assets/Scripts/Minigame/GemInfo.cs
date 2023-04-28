@@ -18,6 +18,7 @@ public class GemInfo : MonoBehaviour
     public Animator sparkleANIM;
     public Animator patternANIM;
     public Animator gemANIM;
+    public Animator fireANIM;
     public Animator explosionANIM;
     public GameObject chainAnimObj;
 
@@ -34,6 +35,9 @@ public class GemInfo : MonoBehaviour
 
     // manage location fixed
     [HideInInspector] public bool bLocationFixed = false;
+
+    // check fire road
+    [HideInInspector] public bool isFired = false;
 
     void Awake()
     {
@@ -137,6 +141,16 @@ public class GemInfo : MonoBehaviour
     {
         Vector3 originScale = spriteRenderer.gameObject.transform.localScale;
         spriteRenderer.gameObject.transform.localScale = new Vector3(originScale.x * coefficient, originScale.y * coefficient, originScale.z * coefficient);
+    }
+
+    public void SetColumn(int col)
+    {
+        column = col;
+    }
+
+    public void SetRow(int row_)
+    {
+        row = row_;
     }
 
     public int GetColumn()
@@ -266,6 +280,27 @@ public class GemInfo : MonoBehaviour
         transform.position = originPosition;
     }
 
+    // gem fire
+    public void FireGem(bool isStart = false)
+    {
+        isFired = true;
+        fireANIM.gameObject.SetActive(true);
+        if (isStart)
+        {
+            fireANIM.Play("gem_fire_red_start", 0, 0.0f);
+        }
+        else
+        {
+            fireANIM.Play("gem_fire_red", 0, 0.0f);
+        }
+    }
+
+    public void StopFireGem()
+    {
+        isFired = false;
+        fireANIM.gameObject.SetActive(false);
+    }
+
     public void OnlyDestroyGem(float prevTime = 0f)
     {
         StartCoroutine(OnlyDestroyGemC(prevTime));
@@ -279,6 +314,7 @@ public class GemInfo : MonoBehaviour
 
     public void DestroyGem()
     {
+        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("DestroyGemC");
     }
@@ -299,7 +335,15 @@ public class GemInfo : MonoBehaviour
 
     public void ExplosionGem()
     {
+        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
+
+        if (isFired)
+        {
+            GameObject.Find("Board").GetComponent<BoardManager>().SetGemClicked(false);
+            Debug.Log("clear gem clicked!");
+        }
+
         StartCoroutine("ExplosionGemC");
     }
 
