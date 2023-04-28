@@ -1151,7 +1151,6 @@ GameObject:
   - component: {fileID: 554832083}
   - component: {fileID: 554832082}
   - component: {fileID: 554832081}
-  - component: {fileID: 554832084}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1186,7 +1185,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 554831970}
   selectedCommands:
-  - {fileID: 554832084}
+  - {fileID: 554831971}
   variables:
   - {fileID: 554831982}
   - {fileID: 554832077}
@@ -1245,7 +1244,6 @@ MonoBehaviour:
   - {fileID: 554832014}
   - {fileID: 554832013}
   - {fileID: 554832012}
-  - {fileID: 554832084}
   - {fileID: 554831971}
   - {fileID: 554831983}
   suppressAllAutoSelections: 0
@@ -3987,33 +3985,6 @@ MonoBehaviour:
   vector3Data:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
---- !u!114 &554832084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554831967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 227
-  indentLevel: 0
-  storyText: Wow
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!1 &603746193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4410,7 +4381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 174.3, y: -67.2}
+  m_AnchoredPosition: {x: 174.29999, y: -67.20001}
   m_SizeDelta: {x: 332, y: 132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &649397507
@@ -6450,8 +6421,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.4627451, g: 0.4627451, b: 0.4627451, a: 1}
+    m_PressedColor: {r: 0.4627451, g: 0.4627451, b: 0.4627451, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1

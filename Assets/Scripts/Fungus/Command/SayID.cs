@@ -62,7 +62,7 @@ namespace Fungus
             
             character = GameObject.Find(data.character).GetComponent<Character>();
             storyText = data.dialog;
-
+            
             #region Method: SetSprite
 
             if (data.spriteName != null)
@@ -85,6 +85,7 @@ namespace Fungus
 
 
             #endregion
+        
 
             #region Method: Say
             if (!showAlways && executionCount >= showCount)

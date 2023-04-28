@@ -337,7 +337,6 @@ GameObject:
   - component: {fileID: 79947833}
   - component: {fileID: 79947832}
   - component: {fileID: 79947831}
-  - component: {fileID: 79947830}
   - component: {fileID: 79947838}
   - component: {fileID: 79947837}
   - component: {fileID: 79947840}
@@ -489,9 +488,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 79947781}
-  selectedCommands:
-  - {fileID: 79947822}
+  - {fileID: 79947858}
+  selectedCommands: []
   variables:
   - {fileID: 79947785}
   - {fileID: 79947811}
@@ -576,13 +574,12 @@ MonoBehaviour:
   - {fileID: 79947783}
   - {fileID: 79947829}
   - {fileID: 79947791}
-  - {fileID: 79947836}
   - {fileID: 79947828}
   - {fileID: 79947832}
   - {fileID: 79947833}
-  - {fileID: 79947831}
+  - {fileID: 79947836}
   - {fileID: 79947834}
-  - {fileID: 79947830}
+  - {fileID: 79947831}
   - {fileID: 79947835}
   - {fileID: 79947796}
   - {fileID: 79947793}
@@ -1054,7 +1051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 18
   indentLevel: 0
-  storyText: "\uC5C6\uC5B4\uC694, \uC5C6\uB2E4\uB2C8\uAE4C\uC694?"
+  storyText: "{wp=2}\uD558\uD558. \uC5C6\uC5B4\uC694. \uC5C6\uB2E4\uB2C8\uAE4C\uC694?"
   description: 
   character: {fileID: 1162301555}
   portrait: {fileID: 0}
@@ -1081,7 +1078,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 19
   indentLevel: 0
-  storyText: "\uB124? \uADF8\uC57C..."
+  storyText: "\uB124? \uADF8\uC57C... {wc}\u2019\uAC10\uC815 \uAD11\uBB3C\uC758 \uC0C9\uC774
+    \uBC14\uB00C\uB294\uAC8C \uC774\uC0C1\uD55C\uB370 \uC123\uBD88\uB9AC \uB9D0\uC744
+    \uAEBC\uB0B4\uAE30\uC5D4\u2026\u2019"
   description: 
   character: {fileID: 546148635}
   portrait: {fileID: 0}
@@ -2168,8 +2167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 99
   indentLevel: 0
-  storyText: "\uBE44\uB85D \uC791\uC5C5\uC2E4\uC5D0 \uC880\uBE44\uAC00 \uC2B5\uACA9\uD588\uC744
-    \uB54C\uB3C4 \uC791\uC5C5\uC740 \uACC4\uC18D\uD574\uC11C \uC644\uACB0\uB3C4 \uB0B4\uC168\uACE0...!"
+  storyText: "{size=70}\uBE44\uB85D \uC791\uC5C5\uC2E4\uC5D0 \uC880\uBE44\uAC00 \uC2B5\uACA9\uD588\uC744\uB54C\uB3C4
+    \uC791\uC5C5\uC740 \uACC4\uC18D\uD574\uC11C \uC644\uACB0\uB3C4 \uB0B4\uC168\uACE0...!{/size}{punch=10,0.5}"
   description: 
   character: {fileID: 1162301555}
   portrait: {fileID: 0}
@@ -2198,7 +2197,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 87c10163f83e9fd47a009e9d64b23afe, type: 3}
+  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
 --- !u!114 &79947823
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2215,7 +2214,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
+  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
 --- !u!114 &79947824
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2259,7 +2258,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: b34f00e8629440e46ac5c36246b93e96, type: 3}
+  sprite: {fileID: 21300000, guid: 87c10163f83e9fd47a009e9d64b23afe, type: 3}
 --- !u!114 &79947826
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2303,7 +2302,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 8d50db3b0000f6b41bbee9fd8a996bd7, type: 3}
+  sprite: {fileID: 21300000, guid: 0c54f7f1ced1c9b4c815fb4ed34ba72e, type: 3}
 --- !u!114 &79947828
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2349,24 +2348,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: c729153c77c941847ac9168aa55bc262, type: 3}
---- !u!114 &79947830
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 58
-  indentLevel: 0
-  spriteRenderers:
-  - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
+  sprite: {fileID: 21300000, guid: 9fb094b57c285d24ebda54ce6cec4352, type: 3}
 --- !u!114 &79947831
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2383,7 +2365,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: a437beebc2e0e3640ac13f5a28519367, type: 3}
+  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
 --- !u!114 &79947832
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2400,7 +2382,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 8d50db3b0000f6b41bbee9fd8a996bd7, type: 3}
+  sprite: {fileID: 21300000, guid: d3d512ee3aabbde4faed801ccf235402, type: 3}
 --- !u!114 &79947833
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2500,7 +2482,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: b34f00e8629440e46ac5c36246b93e96, type: 3}
+  sprite: {fileID: 21300000, guid: 0c54f7f1ced1c9b4c815fb4ed34ba72e, type: 3}
 --- !u!114 &79947837
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2546,7 +2528,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 2d3bc1cfd3ae496468c1a65cc53eb6e3, type: 3}
+  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
 --- !u!114 &79947839
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2563,7 +2545,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: a437beebc2e0e3640ac13f5a28519367, type: 3}
+  sprite: {fileID: 21300000, guid: d3d512ee3aabbde4faed801ccf235402, type: 3}
 --- !u!114 &79947840
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2580,7 +2562,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
+  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
 --- !u!114 &79947841
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2681,7 +2663,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 2d3bc1cfd3ae496468c1a65cc53eb6e3, type: 3}
+  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
 --- !u!114 &79947845
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2698,7 +2680,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 91e897d463661934a8e483accf676b3c, type: 3}
+  sprite: {fileID: 21300000, guid: d59f0c691b863504181b2a95699d5a79, type: 3}
 --- !u!114 &79947846
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2715,7 +2697,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: c729153c77c941847ac9168aa55bc262, type: 3}
+  sprite: {fileID: 21300000, guid: 9fb094b57c285d24ebda54ce6cec4352, type: 3}
 --- !u!114 &79947847
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2732,7 +2714,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: b34f00e8629440e46ac5c36246b93e96, type: 3}
+  sprite: {fileID: 21300000, guid: 87c10163f83e9fd47a009e9d64b23afe, type: 3}
 --- !u!114 &79947848
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2834,7 +2816,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: c729153c77c941847ac9168aa55bc262, type: 3}
+  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
 --- !u!114 &79947854
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2878,7 +2860,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
+  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
 --- !u!114 &79947856
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3222,8 +3204,8 @@ MonoBehaviour:
   - {fileID: 79947839}
   - {fileID: 79947812}
   - {fileID: 79947810}
-  - {fileID: 79947809}
   - {fileID: 79947869}
+  - {fileID: 79947809}
   - {fileID: 79947870}
   - {fileID: 79947868}
   - {fileID: 79947867}
@@ -3247,7 +3229,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 2d3bc1cfd3ae496468c1a65cc53eb6e3, type: 3}
+  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
 --- !u!114 &79947866
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3292,7 +3274,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: e6b2a72e20eeae642a0bc3f24f7e17dd, type: 3}
+  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
 --- !u!114 &79947868
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3337,7 +3319,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: a437beebc2e0e3640ac13f5a28519367, type: 3}
+  sprite: {fileID: 21300000, guid: 0c54f7f1ced1c9b4c815fb4ed34ba72e, type: 3}
 --- !u!114 &79947870
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3354,7 +3336,7 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderers:
   - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: 8d50db3b0000f6b41bbee9fd8a996bd7, type: 3}
+  sprite: {fileID: 21300000, guid: d3d512ee3aabbde4faed801ccf235402, type: 3}
 --- !u!114 &79947871
 MonoBehaviour:
   m_ObjectHideFlags: 2

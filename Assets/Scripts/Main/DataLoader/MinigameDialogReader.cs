@@ -26,7 +26,7 @@ public class MinigameDialogReader : MonoBehaviour
 
     static void JsonLoad(string loadID)
     {
-        string path = Path.Combine(Application.dataPath, "JSON/MinigameText.json");
+        string path = Path.Combine(Application.streamingAssetsPath, "JSON/MinigameText.json");
 
         if (!File.Exists(path))
         {

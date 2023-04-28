@@ -1214,7 +1214,6 @@ GameObject:
   - component: {fileID: 281614065}
   - component: {fileID: 281614063}
   - component: {fileID: 281614069}
-  - component: {fileID: 281614071}
   - component: {fileID: 281614075}
   - component: {fileID: 281614019}
   - component: {fileID: 281614017}
@@ -1593,7 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 382
+  itemId: 389
   indentLevel: 0
   key: CharacterName
   variable: {fileID: 281614006}
@@ -1690,7 +1689,6 @@ MonoBehaviour:
   - {fileID: 281614016}
   - {fileID: 281614017}
   - {fileID: 281614020}
-  - {fileID: 281614071}
   suppressAllAutoSelections: 0
 --- !u!114 &281614011
 MonoBehaviour:
@@ -1751,7 +1749,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 281614011}
+  - {fileID: 281614068}
   selectedCommands: []
   variables:
   - {fileID: 281614009}
@@ -2766,23 +2764,6 @@ MonoBehaviour:
   indentLevel: 0
   textID: Dialogue.naria.0072
   description: 
---- !u!114 &281614071
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281613999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 133
-  indentLevel: 0
-  spriteRenderers:
-  - {fileID: 803788744}
-  sprite: {fileID: 0}
 --- !u!114 &281614072
 MonoBehaviour:
   m_ObjectHideFlags: 2

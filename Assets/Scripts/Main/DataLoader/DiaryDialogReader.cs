@@ -26,7 +26,7 @@ public class DiaryDialogReader : MonoBehaviour
 
     static void JsonLoad()
     {
-        string path = Path.Combine(Application.dataPath, "JSON/DiaryText.json");
+        string path = Path.Combine(Application.streamingAssetsPath, "JSON/DiaryText.json");
 
         if (!File.Exists(path))
         {
