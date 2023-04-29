@@ -62,8 +62,8 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.RED;
-    int patternGimmick = 1;
+    int patternIdx = (int)PatternType.PURPLE;
+    int patternGimmick = 0;
     int patternLevel = (int)LevelType.EASY1;
 
     // game mode
