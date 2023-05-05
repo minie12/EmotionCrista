@@ -123,11 +123,11 @@ public class BoardManager : MonoBehaviour
                 gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gTemp;
                 if (gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].isFired)
                 {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
                 }
                 else
                 {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
                 }
                 break;
             }
@@ -136,11 +136,11 @@ public class BoardManager : MonoBehaviour
             gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gems[column + d[idx, 0], row + d[idx, 1]];
             if (gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].isFired)
             {
-                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
             }
             else
             {
-                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
+                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
             }
         }
     }
@@ -308,7 +308,9 @@ public class BoardManager : MonoBehaviour
 
         for(int i = 0; i < aroundGems.Count; i++)
         {
-            if (IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow()))
+            bool isChain = IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
+            Debug.Log("주변 광물 " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", 사슬 유무: "+ isChain);
+            if (isChain)
             {
                 gem.bRotateAble = false;
             }
@@ -487,12 +489,12 @@ public class BoardManager : MonoBehaviour
                 gems[i, j].MoveGem(i, j, dropTime);
                 if (gems[i, j].isFired)
                 {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(i, j);
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(newColumn, newRow);
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(i, j);
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(newColumn, newRow);
                 }
                 else
                 {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(i, j);
+                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(i, j);
                 }
                 crushedGems.Add(new List<int> { newColumn, newRow });
                 filled = true;
@@ -648,12 +650,12 @@ public class BoardManager : MonoBehaviour
                             gems[i, j].MoveGem(i, j, dropTime);
                             if (gems[i, j].isFired)
                             {
-                                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckTrue(i, j);
-                                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(i, k);
+                                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(i, j);
+                                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(i, k);
                             }
                             else
                             {
-                                GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(i, j);
+                                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(i, j);
                             }
                             filled = true;
                             break;

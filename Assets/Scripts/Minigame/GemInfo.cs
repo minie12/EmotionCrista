@@ -89,7 +89,7 @@ public class GemInfo : MonoBehaviour
         {
             board.FeverClick(column, row);
         }
-        else if (board.GetGemMovable())
+        else if (board.GetGemMovable() && !bLocationFixed)
         {
             board.GemClick(column, row);
         }
@@ -314,7 +314,7 @@ public class GemInfo : MonoBehaviour
 
     public void DestroyGem()
     {
-        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
+        GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("DestroyGemC");
     }
