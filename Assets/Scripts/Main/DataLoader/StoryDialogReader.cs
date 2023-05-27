@@ -27,28 +27,12 @@ public class RawDialogDataList
 public class DialogData
 {
     public string character;
-    public string[] spriteName;
-    public string[] spritePosition;
     public string dialog;
 
-    public DialogData(string textID, string inCharacter, string inSprite, string inspritePosition, string inDialog)
+    public DialogData(string inCharacter, string inDialog)
     {
         character = inCharacter.Replace(" ", "");
         dialog = inDialog;
-
-        if (inSprite == "")
-            return;
-
-        inSprite = inSprite.Replace(" ", "");
-        inspritePosition = inspritePosition.Replace(" ", "");
-        spriteName = inSprite.Split(',');
-        spritePosition = inspritePosition.Split(',');
-
-        if (spriteName.Length != spritePosition.Length)
-        {
-            Debug.LogError("(DialogDataManager.cs) " + textID + ": number of sprite and position not matching");
-            return;
-        }
     }
 }
 
@@ -85,7 +69,7 @@ public class StoryDialogReader : MonoBehaviour
 
             for (int i = 0; i < RawDialogList.data.Length; i++)
             {
-                DialogList.Add(RawDialogList.data[i].id.Replace(" ", ""), new DialogData(RawDialogList.data[i].id, RawDialogList.data[i].character, RawDialogList.data[i].spriteName, RawDialogList.data[i].spritePosition, RawDialogList.data[i].dialog));
+                DialogList.Add(RawDialogList.data[i].id.Replace(" ", ""), new DialogData(RawDialogList.data[i].character, RawDialogList.data[i].dialog));
             }
         }
     }

@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 272716276}
   - component: {fileID: 272716478}
   - component: {fileID: 272716257}
+  - component: {fileID: 272716479}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1359,6 +1360,7 @@ MonoBehaviour:
   - {fileID: 272716469}
   - {fileID: 272716276}
   - {fileID: 272716272}
+  - {fileID: 272716479}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -10054,6 +10056,21 @@ MonoBehaviour:
   indentLevel: 0
   key: StoryRound
   variable: {fileID: 272716469}
+--- !u!114 &272716479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272716247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: RoutineCount
+  value: 0
 --- !u!1 &286320981
 GameObject:
   m_ObjectHideFlags: 0

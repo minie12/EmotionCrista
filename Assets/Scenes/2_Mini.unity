@@ -295,102 +295,153 @@ GameObject:
   - component: {fileID: 79947777}
   - component: {fileID: 79947775}
   - component: {fileID: 79947781}
-  - component: {fileID: 79947782}
   - component: {fileID: 79947784}
-  - component: {fileID: 79947783}
   - component: {fileID: 79947786}
   - component: {fileID: 79947785}
   - component: {fileID: 79947790}
-  - component: {fileID: 79947789}
-  - component: {fileID: 79947788}
-  - component: {fileID: 79947787}
-  - component: {fileID: 79947792}
-  - component: {fileID: 79947791}
-  - component: {fileID: 79947796}
-  - component: {fileID: 79947795}
   - component: {fileID: 79947794}
-  - component: {fileID: 79947793}
   - component: {fileID: 79947776}
-  - component: {fileID: 79947797}
-  - component: {fileID: 79947798}
-  - component: {fileID: 79947799}
-  - component: {fileID: 79947800}
-  - component: {fileID: 79947811}
   - component: {fileID: 79947818}
-  - component: {fileID: 79947815}
   - component: {fileID: 79947814}
   - component: {fileID: 79947816}
   - component: {fileID: 79947817}
-  - component: {fileID: 79947820}
   - component: {fileID: 79947819}
   - component: {fileID: 79947822}
   - component: {fileID: 79947827}
-  - component: {fileID: 79947826}
   - component: {fileID: 79947825}
-  - component: {fileID: 79947824}
   - component: {fileID: 79947823}
   - component: {fileID: 79947829}
-  - component: {fileID: 79947828}
   - component: {fileID: 79947836}
-  - component: {fileID: 79947835}
-  - component: {fileID: 79947834}
-  - component: {fileID: 79947833}
   - component: {fileID: 79947832}
   - component: {fileID: 79947831}
-  - component: {fileID: 79947838}
-  - component: {fileID: 79947837}
-  - component: {fileID: 79947840}
   - component: {fileID: 79947847}
   - component: {fileID: 79947846}
   - component: {fileID: 79947845}
   - component: {fileID: 79947844}
-  - component: {fileID: 79947843}
-  - component: {fileID: 79947842}
-  - component: {fileID: 79947861}
-  - component: {fileID: 79947860}
-  - component: {fileID: 79947859}
-  - component: {fileID: 79947848}
-  - component: {fileID: 79947878}
-  - component: {fileID: 79947877}
-  - component: {fileID: 79947876}
-  - component: {fileID: 79947875}
-  - component: {fileID: 79947874}
-  - component: {fileID: 79947871}
   - component: {fileID: 79947864}
   - component: {fileID: 79947863}
   - component: {fileID: 79947862}
+  - component: {fileID: 79947801}
+  - component: {fileID: 79947780}
+  - component: {fileID: 79947804}
+  - component: {fileID: 79947865}
+  - component: {fileID: 79947839}
+  - component: {fileID: 79947870}
+  - component: {fileID: 79947869}
+  - component: {fileID: 79947867}
+  - component: {fileID: 79947835}
+  - component: {fileID: 79947834}
+  - component: {fileID: 79947833}
+  - component: {fileID: 79947830}
+  - component: {fileID: 79947828}
+  - component: {fileID: 79947826}
+  - component: {fileID: 79947824}
+  - component: {fileID: 79947797}
+  - component: {fileID: 79947792}
+  - component: {fileID: 79947791}
+  - component: {fileID: 79947789}
+  - component: {fileID: 79947788}
+  - component: {fileID: 79947843}
+  - component: {fileID: 79947842}
+  - component: {fileID: 79947841}
+  - component: {fileID: 79947840}
+  - component: {fileID: 79947838}
+  - component: {fileID: 79947837}
   - component: {fileID: 79947821}
+  - component: {fileID: 79947820}
+  - component: {fileID: 79947815}
   - component: {fileID: 79947813}
   - component: {fileID: 79947812}
   - component: {fileID: 79947810}
   - component: {fileID: 79947809}
   - component: {fileID: 79947808}
   - component: {fileID: 79947802}
-  - component: {fileID: 79947801}
-  - component: {fileID: 79947780}
+  - component: {fileID: 79947800}
+  - component: {fileID: 79947799}
+  - component: {fileID: 79947798}
+  - component: {fileID: 79947796}
+  - component: {fileID: 79947795}
+  - component: {fileID: 79947793}
+  - component: {fileID: 79947787}
+  - component: {fileID: 79947783}
+  - component: {fileID: 79947782}
+  - component: {fileID: 79947872}
+  - component: {fileID: 79947868}
+  - component: {fileID: 79947866}
   - component: {fileID: 79947803}
-  - component: {fileID: 79947849}
+  - component: {fileID: 79947852}
   - component: {fileID: 79947851}
   - component: {fileID: 79947850}
-  - component: {fileID: 79947852}
-  - component: {fileID: 79947854}
+  - component: {fileID: 79947849}
+  - component: {fileID: 79947811}
+  - component: {fileID: 79947805}
+  - component: {fileID: 79947806}
   - component: {fileID: 79947853}
-  - component: {fileID: 79947855}
+  - component: {fileID: 79947848}
+  - component: {fileID: 79947877}
+  - component: {fileID: 79947876}
+  - component: {fileID: 79947875}
+  - component: {fileID: 79947874}
+  - component: {fileID: 79947873}
+  - component: {fileID: 79947871}
+  - component: {fileID: 79947861}
+  - component: {fileID: 79947860}
+  - component: {fileID: 79947859}
   - component: {fileID: 79947858}
   - component: {fileID: 79947857}
   - component: {fileID: 79947856}
+  - component: {fileID: 79947855}
+  - component: {fileID: 79947854}
   - component: {fileID: 79947807}
-  - component: {fileID: 79947806}
-  - component: {fileID: 79947805}
-  - component: {fileID: 79947804}
-  - component: {fileID: 79947865}
-  - component: {fileID: 79947841}
-  - component: {fileID: 79947839}
-  - component: {fileID: 79947870}
-  - component: {fileID: 79947869}
-  - component: {fileID: 79947868}
-  - component: {fileID: 79947867}
-  - component: {fileID: 79947866}
+  - component: {fileID: 79947892}
+  - component: {fileID: 79947891}
+  - component: {fileID: 79947890}
+  - component: {fileID: 79947889}
+  - component: {fileID: 79947888}
+  - component: {fileID: 79947887}
+  - component: {fileID: 79947886}
+  - component: {fileID: 79947885}
+  - component: {fileID: 79947884}
+  - component: {fileID: 79947883}
+  - component: {fileID: 79947882}
+  - component: {fileID: 79947881}
+  - component: {fileID: 79947880}
+  - component: {fileID: 79947879}
+  - component: {fileID: 79947878}
+  - component: {fileID: 79947914}
+  - component: {fileID: 79947913}
+  - component: {fileID: 79947912}
+  - component: {fileID: 79947911}
+  - component: {fileID: 79947910}
+  - component: {fileID: 79947909}
+  - component: {fileID: 79947908}
+  - component: {fileID: 79947907}
+  - component: {fileID: 79947906}
+  - component: {fileID: 79947905}
+  - component: {fileID: 79947904}
+  - component: {fileID: 79947903}
+  - component: {fileID: 79947902}
+  - component: {fileID: 79947901}
+  - component: {fileID: 79947900}
+  - component: {fileID: 79947899}
+  - component: {fileID: 79947898}
+  - component: {fileID: 79947897}
+  - component: {fileID: 79947896}
+  - component: {fileID: 79947895}
+  - component: {fileID: 79947894}
+  - component: {fileID: 79947893}
+  - component: {fileID: 79947931}
+  - component: {fileID: 79947930}
+  - component: {fileID: 79947929}
+  - component: {fileID: 79947928}
+  - component: {fileID: 79947916}
+  - component: {fileID: 79947915}
+  - component: {fileID: 79947922}
+  - component: {fileID: 79947921}
+  - component: {fileID: 79947920}
+  - component: {fileID: 79947919}
+  - component: {fileID: 79947918}
+  - component: {fileID: 79947917}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -460,6 +511,8 @@ MonoBehaviour:
   commandList:
   - {fileID: 79947816}
   - {fileID: 79947775}
+  - {fileID: 79947853}
+  - {fileID: 79947848}
   - {fileID: 79947786}
   - {fileID: 79947790}
   suppressAllAutoSelections: 0
@@ -476,7 +529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -128.45851, y: 184.50592}
+  scrollPos: {x: -3.9688032, y: 202.87328}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 551
@@ -488,12 +541,13 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 79947858}
+  - {fileID: 79947852}
   selectedCommands: []
   variables:
   - {fileID: 79947785}
-  - {fileID: 79947811}
   - {fileID: 79947780}
+  - {fileID: 79947811}
+  - {fileID: 79947805}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -547,42 +601,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 244.69383
-    y: -44.795864
-    width: 131.63258
+    x: 287.55093
+    y: -103.979485
+    width: 156.12236
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 2
-  blockName: D01_NariaGame
+  blockName: D01_Naria_AfterEasy
   description: 
   eventHandler: {fileID: 79947776}
   commandList:
   - {fileID: 79947784}
   - {fileID: 79947817}
   - {fileID: 79947822}
-  - {fileID: 79947782}
-  - {fileID: 79947788}
+  - {fileID: 79947835}
+  - {fileID: 79947834}
   - {fileID: 79947827}
-  - {fileID: 79947789}
+  - {fileID: 79947833}
   - {fileID: 79947825}
+  - {fileID: 79947830}
+  - {fileID: 79947828}
   - {fileID: 79947826}
-  - {fileID: 79947792}
-  - {fileID: 79947787}
   - {fileID: 79947823}
   - {fileID: 79947824}
-  - {fileID: 79947783}
+  - {fileID: 79947797}
   - {fileID: 79947829}
-  - {fileID: 79947791}
-  - {fileID: 79947828}
+  - {fileID: 79947792}
   - {fileID: 79947832}
-  - {fileID: 79947833}
+  - {fileID: 79947791}
   - {fileID: 79947836}
-  - {fileID: 79947834}
+  - {fileID: 79947789}
   - {fileID: 79947831}
-  - {fileID: 79947835}
+  - {fileID: 79947788}
+  - {fileID: 79947783}
+  - {fileID: 79947802}
+  - {fileID: 79947800}
+  - {fileID: 79947799}
+  - {fileID: 79947798}
   - {fileID: 79947796}
+  - {fileID: 79947795}
   - {fileID: 79947793}
+  - {fileID: 79947787}
   suppressAllAutoSelections: 0
 --- !u!114 &79947782
 MonoBehaviour:
@@ -593,25 +653,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 3
+  itemId: 234
   indentLevel: 0
-  storyText: "\uC791\uAC00\uB2D8\uC774 \uC644\uC804 \uC874\uACBD\uC2A4\uB7FD\uB2E4\uB2C8\uAE4C\uC694!{wc}\uB2E4\uC74C
-    \uCC28\uAE30\uC791\uC774 \uC815\uB9D0 \uAE30\uB300\uB3FC\uC694."
+  textID: Dialogue.naria.0028
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947783
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -621,24 +669,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 5
+  itemId: 233
   indentLevel: 0
-  storyText: "\uC5B8\uC81C\uCBE4 \uB098\uC624\uB294\uC9C0 \uC544\uC2DC\uB098\uC694?"
+  textID: Dialogue.naria.0023
   description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947784
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -697,25 +734,76 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 10
+  itemId: 232
   indentLevel: 0
-  storyText: "\uB124\uB124. \uC804\uC791\uACFC \uC774\uC5B4\uC9C0\uB294 \uC138\uACC4\uAD00\uC774\uB77C\uC9C0
-    \uBB50\uC608\uC694!\r"
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
+  targetObject: {fileID: 1707319390}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: RestartPuzzle
+  targetMethodText: 'RestartPuzzle (String, Int32, String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: yellow
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  - objValue:
+      typeAssemblyname: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.Int32
+      intValue: -1
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: D01_NariaNormal
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!114 &79947788
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -725,25 +813,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 9
+  itemId: 175
   indentLevel: 0
-  storyText: "\uC544... \uADF8 \uC791\uAC00\uBD84\uC758 \uCC28\uAE30\uC791 \uC598\uAE30\uB3C4
-    \uB098\uC654\uB098\uC694?"
+  textID: Dialogue.naria.0022
   description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947789
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -753,24 +829,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 8
+  itemId: 174
   indentLevel: 0
-  storyText: ...
+  textID: Dialogue.naria.0021
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947790
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -842,24 +907,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 12
+  itemId: 173
   indentLevel: 0
-  storyText: "\uC5B8\uC81C\uCBE4\uC774\uC694? {w=0.5} "
+  textID: Dialogue.naria.0020
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947792
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -869,24 +923,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 11
+  itemId: 172
   indentLevel: 0
-  storyText: "\uC815\uB9D0 \uAE30\uB300 \uB418\uC2DC\uACA0\uC5B4\uC694."
+  textID: Dialogue.naria.0019
   description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947793
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -896,22 +939,149 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 16
+  itemId: 231
   indentLevel: 0
-  text: "\uBB34\uC2A8 \uBB38\uC81C\uAC00 \uC788\uB098\uC694?"
-  description: 
-  targetBlock: {fileID: 79947794}
-  hideIfVisited: 0
-  interactable:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  setMenuDialog: {fileID: 0}
-  hideThisOption:
+  anyVar:
+    variable: {fileID: 79947780}
+    data:
+      animatorData:
+        animatorRef: {fileID: 0}
+        animatorVal: {fileID: 0}
+      audioSourceData:
+        audioSourceRef: {fileID: 0}
+        audioSourceVal: {fileID: 0}
+      booleanData:
+        booleanRef: {fileID: 0}
+        booleanVal: 0
+      collectionData:
+        collectionRef: {fileID: 0}
+        collectionVal: {fileID: 0}
+      collider2DData:
+        collider2DRef: {fileID: 0}
+        collider2DVal: {fileID: 0}
+      colliderData:
+        colliderRef: {fileID: 0}
+        colliderVal: {fileID: 0}
+      colorData:
+        colorRef: {fileID: 0}
+        colorVal: {r: 0, g: 0, b: 0, a: 0}
+      floatData:
+        floatRef: {fileID: 0}
+        floatVal: 0
+      gameObjectData:
+        gameObjectRef: {fileID: 0}
+        gameObjectVal: {fileID: 0}
+      integerData:
+        integerRef: {fileID: 0}
+        integerVal: -1
+      materialData:
+        materialRef: {fileID: 0}
+        materialVal: {fileID: 0}
+      matrix4x4Data:
+        matrix4x4Ref: {fileID: 0}
+        matrix4x4Val:
+          e00: 0
+          e01: 0
+          e02: 0
+          e03: 0
+          e10: 0
+          e11: 0
+          e12: 0
+          e13: 0
+          e20: 0
+          e21: 0
+          e22: 0
+          e23: 0
+          e30: 0
+          e31: 0
+          e32: 0
+          e33: 0
+      objectData:
+        objectRef: {fileID: 0}
+        objectVal: {fileID: 0}
+      quaternionData:
+        quaternionRef: {fileID: 0}
+        quaternionVal: {x: 0, y: 0, z: 0, w: 0}
+      rigidbody2DData:
+        rigidbody2DRef: {fileID: 0}
+        rigidbody2DVal: {fileID: 0}
+      rigidbodyData:
+        rigidbodyRef: {fileID: 0}
+        rigidbodyVal: {fileID: 0}
+      spriteData:
+        spriteRef: {fileID: 0}
+        spriteVal: {fileID: 0}
+      stringData:
+        stringRef: {fileID: 0}
+        stringVal: Normal
+      textureData:
+        textureRef: {fileID: 0}
+        textureVal: {fileID: 0}
+      transformData:
+        transformRef: {fileID: 0}
+        transformVal: {fileID: 0}
+      vector2Data:
+        vector2Ref: {fileID: 0}
+        vector2Val: {x: 0, y: 0}
+      vector3Data:
+        vector3Ref: {fileID: 0}
+        vector3Val: {x: 0, y: 0, z: 0}
+      vector4Data:
+        vector4Ref: {fileID: 0}
+        vector4Val: {x: 0, y: 0, z: 0, w: 0}
+  setOperator: 0
+  variable: {fileID: 0}
+  booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  animatorData:
+    animatorRef: {fileID: 0}
+    animatorVal: {fileID: 0}
+  audioSourceData:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 0}
+  colorData:
+    colorRef: {fileID: 0}
+    colorVal: {r: 0, g: 0, b: 0, a: 0}
+  gameObjectData:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  materialData:
+    materialRef: {fileID: 0}
+    materialVal: {fileID: 0}
+  objectData:
+    objectRef: {fileID: 0}
+    objectVal: {fileID: 0}
+  rigidbody2DData:
+    rigidbody2DRef: {fileID: 0}
+    rigidbody2DVal: {fileID: 0}
+  spriteData:
+    spriteRef: {fileID: 0}
+    spriteVal: {fileID: 0}
+  textureData:
+    textureRef: {fileID: 0}
+    textureVal: {fileID: 0}
+  transformData:
+    transformRef: {fileID: 0}
+    transformVal: {fileID: 0}
+  vector2Data:
+    vector2Ref: {fileID: 0}
+    vector2Val: {x: 0, y: 0}
+  vector3Data:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &79947794
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -926,26 +1096,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 422.81635
-    y: -11.572261
-    width: 121.42851
+    x: 447.30612
+    y: -107.49056
+    width: 168.36725
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 15
-  blockName: Any Problem?
+  blockName: D01_Naria_AfterNormal
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 79947866}
   commandList:
+  - {fileID: 79947872}
+  - {fileID: 79947868}
   - {fileID: 79947847}
-  - {fileID: 79947800}
-  - {fileID: 79947846}
   - {fileID: 79947843}
-  - {fileID: 79947844}
+  - {fileID: 79947782}
+  - {fileID: 79947846}
   - {fileID: 79947842}
-  - {fileID: 79947799}
+  - {fileID: 79947844}
+  - {fileID: 79947841}
+  - {fileID: 79947840}
   - {fileID: 79947845}
-  - {fileID: 79947798}
+  - {fileID: 79947838}
   - {fileID: 79947819}
   - {fileID: 79947801}
   - {fileID: 79947814}
@@ -959,30 +1132,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 441.20972
-    y: -64.69428
-    width: 96.938736
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 14
-  blockName: No News
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 79947838}
-  - {fileID: 79947837}
-  - {fileID: 79947840}
-  - {fileID: 79947797}
-  - {fileID: 79947820}
-  - {fileID: 79947802}
-  - {fileID: 79947815}
-  suppressAllAutoSelections: 0
+  itemId: 230
+  indentLevel: 0
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1838729676}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  targetGameObjectOLD: {fileID: 0}
 --- !u!114 &79947796
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -992,22 +1153,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 13
+  itemId: 229
   indentLevel: 0
-  text: "\uC544\uC9C1 \uC18C\uC2DD\uC774 \uC5C6\uB294\uAC70\uAD70\uC694."
+  textID: Dialogue.naria.0026
   description: 
-  targetBlock: {fileID: 79947795}
-  hideIfVisited: 0
-  interactable:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  setMenuDialog: {fileID: 0}
-  hideThisOption:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
 --- !u!114 &79947797
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1017,26 +1169,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 17
+  itemId: 171
   indentLevel: 0
-  storyText: "\uC804\uC791\uC758 \uC8FC\uC778\uACF5\uC774 \uB2E4\uC74C \uC2DC\uB9AC\uC988\uC5D0\uB3C4
-    \uC880 \uC5BC\uAD74 \uBE44\uCDB0 \uC8FC\uBA74 \uC88B\uC744\uAC70 \uAC19\uC544\uC694.
-    {wc}\uC880 \uB354 \uC131\uC7A5\uD55C \uBAA8\uC2B5\uC774\uACA0\uC8E0?"
+  textID: Dialogue.naria.0018
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947798
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1046,24 +1185,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 18
+  itemId: 228
   indentLevel: 0
-  storyText: "{wp=2}\uD558\uD558. \uC5C6\uC5B4\uC694. \uC5C6\uB2E4\uB2C8\uAE4C\uC694?"
+  textID: Dialogue.naria.0025
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947799
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1073,26 +1201,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 19
+  itemId: 227
   indentLevel: 0
-  storyText: "\uB124? \uADF8\uC57C... {wc}\u2019\uAC10\uC815 \uAD11\uBB3C\uC758 \uC0C9\uC774
-    \uBC14\uB00C\uB294\uAC8C \uC774\uC0C1\uD55C\uB370 \uC123\uBD88\uB9AC \uB9D0\uC744
-    \uAEBC\uB0B4\uAE30\uC5D4\u2026\u2019"
-  description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
 --- !u!114 &79947800
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1102,24 +1218,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 20
+  itemId: 226
   indentLevel: 0
-  storyText: "...\r{wc}\n\uBB38\uC81C\uC694?\r"
+  textID: Dialogue.naria.0024
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947801
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1281,149 +1386,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 109
+  itemId: 225
   indentLevel: 0
-  anyVar:
-    variable: {fileID: 79947780}
-    data:
-      animatorData:
-        animatorRef: {fileID: 0}
-        animatorVal: {fileID: 0}
-      audioSourceData:
-        audioSourceRef: {fileID: 0}
-        audioSourceVal: {fileID: 0}
-      booleanData:
-        booleanRef: {fileID: 0}
-        booleanVal: 0
-      collectionData:
-        collectionRef: {fileID: 0}
-        collectionVal: {fileID: 0}
-      collider2DData:
-        collider2DRef: {fileID: 0}
-        collider2DVal: {fileID: 0}
-      colliderData:
-        colliderRef: {fileID: 0}
-        colliderVal: {fileID: 0}
-      colorData:
-        colorRef: {fileID: 0}
-        colorVal: {r: 0, g: 0, b: 0, a: 0}
-      floatData:
-        floatRef: {fileID: 0}
-        floatVal: 0
-      gameObjectData:
-        gameObjectRef: {fileID: 0}
-        gameObjectVal: {fileID: 0}
-      integerData:
-        integerRef: {fileID: 0}
-        integerVal: -1
-      materialData:
-        materialRef: {fileID: 0}
-        materialVal: {fileID: 0}
-      matrix4x4Data:
-        matrix4x4Ref: {fileID: 0}
-        matrix4x4Val:
-          e00: 0
-          e01: 0
-          e02: 0
-          e03: 0
-          e10: 0
-          e11: 0
-          e12: 0
-          e13: 0
-          e20: 0
-          e21: 0
-          e22: 0
-          e23: 0
-          e30: 0
-          e31: 0
-          e32: 0
-          e33: 0
-      objectData:
-        objectRef: {fileID: 0}
-        objectVal: {fileID: 0}
-      quaternionData:
-        quaternionRef: {fileID: 0}
-        quaternionVal: {x: 0, y: 0, z: 0, w: 0}
-      rigidbody2DData:
-        rigidbody2DRef: {fileID: 0}
-        rigidbody2DVal: {fileID: 0}
-      rigidbodyData:
-        rigidbodyRef: {fileID: 0}
-        rigidbodyVal: {fileID: 0}
-      spriteData:
-        spriteRef: {fileID: 0}
-        spriteVal: {fileID: 0}
-      stringData:
-        stringRef: {fileID: 0}
-        stringVal: Easy
-      textureData:
-        textureRef: {fileID: 0}
-        textureVal: {fileID: 0}
-      transformData:
-        transformRef: {fileID: 0}
-        transformVal: {fileID: 0}
-      vector2Data:
-        vector2Ref: {fileID: 0}
-        vector2Val: {x: 0, y: 0}
-      vector3Data:
-        vector3Ref: {fileID: 0}
-        vector3Val: {x: 0, y: 0, z: 0}
-      vector4Data:
-        vector4Ref: {fileID: 0}
-        vector4Val: {x: 0, y: 0, z: 0, w: 0}
-  setOperator: 0
-  variable: {fileID: 0}
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  animatorData:
-    animatorRef: {fileID: 0}
-    animatorVal: {fileID: 0}
-  audioSourceData:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  colorData:
-    colorRef: {fileID: 0}
-    colorVal: {r: 0, g: 0, b: 0, a: 0}
-  gameObjectData:
-    gameObjectRef: {fileID: 0}
-    gameObjectVal: {fileID: 0}
-  materialData:
-    materialRef: {fileID: 0}
-    materialVal: {fileID: 0}
-  objectData:
-    objectRef: {fileID: 0}
-    objectVal: {fileID: 0}
-  rigidbody2DData:
-    rigidbody2DRef: {fileID: 0}
-    rigidbody2DVal: {fileID: 0}
-  spriteData:
-    spriteRef: {fileID: 0}
-    spriteVal: {fileID: 0}
-  textureData:
-    textureRef: {fileID: 0}
-    textureVal: {fileID: 0}
-  transformData:
-    transformRef: {fileID: 0}
-    transformVal: {fileID: 0}
-  vector2Data:
-    vector2Ref: {fileID: 0}
-    vector2Val: {x: 0, y: 0}
-  vector3Data:
-    vector3Ref: {fileID: 0}
-    vector3Val: {x: 0, y: 0, z: 0}
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
 --- !u!114 &79947803
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1433,240 +1403,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 113
-  indentLevel: 0
-  anyOrAllConditions: 0
-  conditions:
-  - compareOperator: 0
-    anyVar:
-      variable: {fileID: 79947780}
-      data:
-        animatorData:
-          animatorRef: {fileID: 0}
-          animatorVal: {fileID: 0}
-        audioSourceData:
-          audioSourceRef: {fileID: 0}
-          audioSourceVal: {fileID: 0}
-        booleanData:
-          booleanRef: {fileID: 0}
-          booleanVal: 0
-        collectionData:
-          collectionRef: {fileID: 0}
-          collectionVal: {fileID: 0}
-        collider2DData:
-          collider2DRef: {fileID: 0}
-          collider2DVal: {fileID: 0}
-        colliderData:
-          colliderRef: {fileID: 0}
-          colliderVal: {fileID: 0}
-        colorData:
-          colorRef: {fileID: 0}
-          colorVal: {r: 0, g: 0, b: 0, a: 0}
-        floatData:
-          floatRef: {fileID: 0}
-          floatVal: 0
-        gameObjectData:
-          gameObjectRef: {fileID: 0}
-          gameObjectVal: {fileID: 0}
-        integerData:
-          integerRef: {fileID: 0}
-          integerVal: 0
-        materialData:
-          materialRef: {fileID: 0}
-          materialVal: {fileID: 0}
-        matrix4x4Data:
-          matrix4x4Ref: {fileID: 0}
-          matrix4x4Val:
-            e00: 0
-            e01: 0
-            e02: 0
-            e03: 0
-            e10: 0
-            e11: 0
-            e12: 0
-            e13: 0
-            e20: 0
-            e21: 0
-            e22: 0
-            e23: 0
-            e30: 0
-            e31: 0
-            e32: 0
-            e33: 0
-        objectData:
-          objectRef: {fileID: 0}
-          objectVal: {fileID: 0}
-        quaternionData:
-          quaternionRef: {fileID: 0}
-          quaternionVal: {x: 0, y: 0, z: 0, w: 0}
-        rigidbody2DData:
-          rigidbody2DRef: {fileID: 0}
-          rigidbody2DVal: {fileID: 0}
-        rigidbodyData:
-          rigidbodyRef: {fileID: 0}
-          rigidbodyVal: {fileID: 0}
-        spriteData:
-          spriteRef: {fileID: 0}
-          spriteVal: {fileID: 0}
-        stringData:
-          stringRef: {fileID: 0}
-          stringVal: Easy
-        textureData:
-          textureRef: {fileID: 0}
-          textureVal: {fileID: 0}
-        transformData:
-          transformRef: {fileID: 0}
-          transformVal: {fileID: 0}
-        vector2Data:
-          vector2Ref: {fileID: 0}
-          vector2Val: {x: 0, y: 0}
-        vector3Data:
-          vector3Ref: {fileID: 0}
-          vector3Val: {x: 0, y: 0, z: 0}
-        vector4Data:
-          vector4Ref: {fileID: 0}
-          vector4Val: {x: 0, y: 0, z: 0, w: 0}
-  compareOperator: 0
-  anyVar:
-    variable: {fileID: 0}
-    data:
-      animatorData:
-        animatorRef: {fileID: 0}
-        animatorVal: {fileID: 0}
-      audioSourceData:
-        audioSourceRef: {fileID: 0}
-        audioSourceVal: {fileID: 0}
-      booleanData:
-        booleanRef: {fileID: 0}
-        booleanVal: 0
-      collectionData:
-        collectionRef: {fileID: 0}
-        collectionVal: {fileID: 0}
-      collider2DData:
-        collider2DRef: {fileID: 0}
-        collider2DVal: {fileID: 0}
-      colliderData:
-        colliderRef: {fileID: 0}
-        colliderVal: {fileID: 0}
-      colorData:
-        colorRef: {fileID: 0}
-        colorVal: {r: 0, g: 0, b: 0, a: 0}
-      floatData:
-        floatRef: {fileID: 0}
-        floatVal: 0
-      gameObjectData:
-        gameObjectRef: {fileID: 0}
-        gameObjectVal: {fileID: 0}
-      integerData:
-        integerRef: {fileID: 0}
-        integerVal: 0
-      materialData:
-        materialRef: {fileID: 0}
-        materialVal: {fileID: 0}
-      matrix4x4Data:
-        matrix4x4Ref: {fileID: 0}
-        matrix4x4Val:
-          e00: 0
-          e01: 0
-          e02: 0
-          e03: 0
-          e10: 0
-          e11: 0
-          e12: 0
-          e13: 0
-          e20: 0
-          e21: 0
-          e22: 0
-          e23: 0
-          e30: 0
-          e31: 0
-          e32: 0
-          e33: 0
-      objectData:
-        objectRef: {fileID: 0}
-        objectVal: {fileID: 0}
-      quaternionData:
-        quaternionRef: {fileID: 0}
-        quaternionVal: {x: 0, y: 0, z: 0, w: 0}
-      rigidbody2DData:
-        rigidbody2DRef: {fileID: 0}
-        rigidbody2DVal: {fileID: 0}
-      rigidbodyData:
-        rigidbodyRef: {fileID: 0}
-        rigidbodyVal: {fileID: 0}
-      spriteData:
-        spriteRef: {fileID: 0}
-        spriteVal: {fileID: 0}
-      stringData:
-        stringRef: {fileID: 0}
-        stringVal: 
-      textureData:
-        textureRef: {fileID: 0}
-        textureVal: {fileID: 0}
-      transformData:
-        transformRef: {fileID: 0}
-        transformVal: {fileID: 0}
-      vector2Data:
-        vector2Ref: {fileID: 0}
-        vector2Val: {x: 0, y: 0}
-      vector3Data:
-        vector3Ref: {fileID: 0}
-        vector3Val: {x: 0, y: 0, z: 0}
-      vector4Data:
-        vector4Ref: {fileID: 0}
-        vector4Val: {x: 0, y: 0, z: 0, w: 0}
-  variable: {fileID: 0}
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  animatorData:
-    animatorRef: {fileID: 0}
-    animatorVal: {fileID: 0}
-  audioSourceData:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  colorData:
-    colorRef: {fileID: 0}
-    colorVal: {r: 0, g: 0, b: 0, a: 0}
-  gameObjectData:
-    gameObjectRef: {fileID: 0}
-    gameObjectVal: {fileID: 0}
-  materialData:
-    materialRef: {fileID: 0}
-    materialVal: {fileID: 0}
-  objectData:
-    objectRef: {fileID: 0}
-    objectVal: {fileID: 0}
-  rigidbody2DData:
-    rigidbody2DRef: {fileID: 0}
-    rigidbody2DVal: {fileID: 0}
-  spriteData:
-    spriteRef: {fileID: 0}
-    spriteVal: {fileID: 0}
-  textureData:
-    textureRef: {fileID: 0}
-    textureVal: {fileID: 0}
-  transformData:
-    transformRef: {fileID: 0}
-    transformVal: {fileID: 0}
-  vector2Data:
-    vector2Ref: {fileID: 0}
-    vector2Val: {x: 0, y: 0}
-  vector3Data:
-    vector3Ref: {fileID: 0}
-    vector3Val: {x: 0, y: 0, z: 0}
+  parentBlock: {fileID: 79947864}
+  suppressBlockAutoSelect: 0
+  message: D01_NariaHard
 --- !u!114 &79947804
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1682,7 +1424,7 @@ MonoBehaviour:
   itemId: 127
   indentLevel: 0
   targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 79947858}
+  targetBlock: {fileID: 79947852}
   startLabel:
     stringRef: {fileID: 0}
     stringVal: 
@@ -1697,18 +1439,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 126
-  indentLevel: 0
-  targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 79947858}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
-  callMode: 0
+  scope: 0
+  key: CharacterName
+  value: 0
 --- !u!114 &79947806
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1721,7 +1457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d03ae0919f04264b018681ed534177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 125
+  itemId: 394
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
@@ -1737,17 +1473,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 124
+  itemId: 436
   indentLevel: 0
-  duration: 1
-  targetAlpha: 1
-  waitUntilFinished: 1
-  fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeTexture: {fileID: 0}
-  fadeTweenType: 4
+  textID: Dialogue.Lulian.0034
+  description: 
 --- !u!114 &79947808
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1757,24 +1489,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 104
+  itemId: 224
   indentLevel: 0
-  storyText: "\uC88B\uC544\uC694, \uADF8\uB7FC \uB2E4\uC74C\uC5D0 \uBD10\uC694."
+  textID: Dialogue.naria.0041
   description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947809
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1784,24 +1505,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 103
+  itemId: 223
   indentLevel: 0
-  storyText: "... \uC544\uB2C8\uC694."
+  textID: Dialogue.naria.0040
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947810
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1811,24 +1521,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 102
+  itemId: 222
   indentLevel: 0
-  storyText: "\uB354 \uD558\uC2DC\uACE0 \uC2F6\uC73C\uC2E0 \uB9D0\uC774 \uC788\uB098\uC694?"
+  textID: Dialogue.naria.0039
   description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947811
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1838,12 +1537,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: StoryNumb
-  value: 
+  key: StoryRound
+  value: 0
 --- !u!114 &79947812
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1853,25 +1552,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 101
+  itemId: 221
   indentLevel: 0
-  storyText: "... \uC81C\uAC00 \uB108\uBB34 \uC5F4 \uC62C\uB838\uC8E0... {wc}\uB9CC\uD654
-    \uC598\uAE30\uB9CC \uB098\uC624\uBA74 \uC774\uB7EC\uB354\uB77C\uAD6C\uC694. \uD558\uD558..\r.\n\r{wc}..."
+  textID: Dialogue.naria.0038
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947813
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1881,24 +1568,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 100
+  itemId: 220
   indentLevel: 0
-  storyText: "\uADF8... \uADF8\uB807\uAD70\uC694. \uBA4B\uC9C4 \uBD84\uC774\uC2DC\uB124\uC694."
+  textID: Dialogue.naria.0037
   description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947814
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1963,7 +1639,7 @@ MonoBehaviour:
       intValue: 0
       boolValue: 0
       floatValue: 0
-      stringValue: D01_NariaGame2
+      stringValue: D01_NariaHard
       colorValue: {r: 0, g: 0, b: 0, a: 0}
       gameObjectValue: {fileID: 0}
       materialValue: {fileID: 0}
@@ -1987,76 +1663,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 37
+  itemId: 219
   indentLevel: 0
+  textID: Dialogue.naria.0036
   description: 
-  targetObject: {fileID: 1707319390}
-  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: DialogExtra
-  targetMethod: RestartPuzzle
-  targetMethodText: 'RestartPuzzle (String, Int32, String): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.String
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: yellow
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  - objValue:
-      typeAssemblyname: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Int32
-      intValue: -1
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  - objValue:
-      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.String
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: D01_NariaGame2
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
 --- !u!114 &79947816
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2141,18 +1754,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 41
+  itemId: 218
   indentLevel: 0
-  _targetGameObject:
-    gameObjectRef: {fileID: 0}
-    gameObjectVal: {fileID: 1838729676}
-  activeState:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  targetGameObjectOLD: {fileID: 0}
+  textID: Dialogue.naria.0035
+  description: 
 --- !u!114 &79947821
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2162,25 +1770,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 99
+  itemId: 217
   indentLevel: 0
-  storyText: "{size=70}\uBE44\uB85D \uC791\uC5C5\uC2E4\uC5D0 \uC880\uBE44\uAC00 \uC2B5\uACA9\uD588\uC744\uB54C\uB3C4
-    \uC791\uC5C5\uC740 \uACC4\uC18D\uD574\uC11C \uC644\uACB0\uB3C4 \uB0B4\uC168\uACE0...!{/size}{punch=10,0.5}"
+  textID: Dialogue.naria.0034
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947822
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2224,24 +1820,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 48
+  itemId: 170
   indentLevel: 0
-  storyText: "\uAE30\uB2E4\uB9AC\uB294 \uAC8C \uC81C \uC0B6\uC758 \uB099 \uC911 \uD558\uB098\uC608\uC694."
+  textID: Dialogue.naria.0017
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947825
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2268,24 +1853,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 46
+  itemId: 169
   indentLevel: 0
-  storyText: "\uB124\uC5D0."
+  textID: Dialogue.naria.0016
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947827
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2312,26 +1886,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 51
+  itemId: 168
   indentLevel: 0
-  storyText: '...
-
-'
+  textID: Dialogue.naria.0015
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947829
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2349,6 +1910,22 @@ MonoBehaviour:
   spriteRenderers:
   - {fileID: 881511822}
   sprite: {fileID: 21300000, guid: 9fb094b57c285d24ebda54ce6cec4352, type: 3}
+--- !u!114 &79947830
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 167
+  indentLevel: 0
+  textID: Dialogue.naria.0014
+  description: 
 --- !u!114 &79947831
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2392,26 +1969,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 55
+  itemId: 166
   indentLevel: 0
-  storyText: '...
-
-'
+  textID: Dialogue.naria.0013
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947834
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2421,24 +1985,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 54
+  itemId: 165
   indentLevel: 0
-  storyText: ...
+  textID: Dialogue.naria.0012
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947835
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2448,24 +2001,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 53
+  itemId: 164
   indentLevel: 0
-  storyText: "\uADF8\uB7EC\uAC8C\uC694!"
+  textID: Dialogue.naria.0011
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947836
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2492,26 +2034,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 60
+  itemId: 216
   indentLevel: 0
-  storyText: "\uB9DE\uC544\uC694, \uC5B4\uC11C \uBE68\uB9AC \uC18C\uC2DD\uC774 \uB098\uC624\uBA74
-    \uC88B\uACA0\uC5B4\uC694! {wc}\n\uC5B4\uB5BB\uAC8C \uC804\uC791\uACFC \uC774\uC5B4\uC9C8\uC9C0
-    \uB108\uBB34 \uAD81\uAE08\uD574\uC694!"
+  textID: Dialogue.naria.0033
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947838
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2521,14 +2050,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 59
+  itemId: 215
   indentLevel: 0
-  spriteRenderers:
-  - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
+  textID: Dialogue.naria.0032
+  description: 
 --- !u!114 &79947839
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2555,14 +2083,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 61
+  itemId: 214
   indentLevel: 0
-  spriteRenderers:
-  - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
+  textID: Dialogue.naria.0031
+  description: 
 --- !u!114 &79947841
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2572,25 +2099,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 129
+  itemId: 213
   indentLevel: 0
-  storyText: "\uCC28\uAE30\uC791 \uC18C\uC2DD\uB3C4 \uB098\uC654\uC5C8\uC73C\uB2C8\uAE4C
-    \uC544\uBB34 \uBB38\uC81C \uC5C6\uC73C\uC2DC\uB2E4\uAD6C\uC694..."
+  textID: Dialogue.naria.0030
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947842
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2600,26 +2115,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 68
+  itemId: 212
   indentLevel: 0
-  storyText: "\uC544\uB2C8\uC694! \uC544\uBB34\uB7F0 \uBB38\uC81C\uB3C4 \uC5C6\uC5B4\uC694.
-    \uD558\uD558\r.{wc}\n\uC65C \uADF8\uB807\uAC8C \uC0DD\uAC01\uD558\uC2DC\uB294
-    \uAC70\uC8E0?"
+  textID: Dialogue.naria.0029
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947843
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2629,24 +2131,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 67
+  itemId: 211
   indentLevel: 0
-  storyText: "\uBB34\uC2A8 \uBB38\uC81C\uC694?"
+  textID: Dialogue.naria.0027
   description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
 --- !u!114 &79947844
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2724,144 +2215,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBlock: {fileID: 79947861}
-  suppressBlockAutoSelect: 0
-  message: D01_NariaGame2
+  itemId: 397
+  indentLevel: 0
+  key: CharacterName
+  variable: {fileID: 79947805}
 --- !u!114 &79947849
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 114
-  indentLevel: 1
-  targetFlowchart: {fileID: 79947778}
-  targetBlock: {fileID: 79947878}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
-  callMode: 0
---- !u!114 &79947850
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 116
-  indentLevel: 1
-  targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 79947864}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
-  callMode: 0
---- !u!114 &79947851
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa968f01a7f9496bb50e13dfe16760d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 115
-  indentLevel: 0
---- !u!114 &79947852
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 117
-  indentLevel: 0
---- !u!114 &79947853
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 119
-  indentLevel: 0
-  spriteRenderers:
-  - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: bdc4e082d97af9143bab025962eef0f8, type: 3}
---- !u!114 &79947854
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 118
-  indentLevel: 0
-  storyText: "\uB2E4\uC74C\uC5D0 \uB610 \uBD48\uBA74 \uC88B\uACA0\uC5B4\uC694."
-  description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &79947855
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 120
-  indentLevel: 0
-  spriteRenderers:
-  - {fileID: 881511822}
-  sprite: {fileID: 21300000, guid: dd2efe709838ac9419b0e38b9da4b41c, type: 3}
---- !u!114 &79947856
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2873,11 +2234,267 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bef7966140464bd5a3ef4da2ff236b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 123
+  itemId: 240
   indentLevel: 0
-  key: StoryNumb
+  key: CharacterName
+  variable: {fileID: 79947805}
+--- !u!114 &79947850
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bef7966140464bd5a3ef4da2ff236b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 239
+  indentLevel: 0
+  key: StoryRound
   variable: {fileID: 79947811}
+--- !u!114 &79947851
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 238
+  indentLevel: 0
+  duration: 1
+  targetAlpha: 1
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
+  fadeTweenType: 4
+--- !u!114 &79947852
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 1008.3966
+    y: 100.59587
+    width: 121.42851
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 393
+  blockName: ToNextScene
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 79947851}
+  - {fileID: 79947850}
+  - {fileID: 79947849}
+  - {fileID: 79947806}
+  suppressAllAutoSelections: 0
+--- !u!114 &79947853
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 396
+  indentLevel: 0
+  key: StoryRound
+  variable: {fileID: 79947811}
+--- !u!114 &79947854
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 435
+  indentLevel: 0
+  textID: Dialogue.Lulian.0035
+  description: 
+--- !u!114 &79947855
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 434
+  indentLevel: 0
+  textID: Dialogue.Lulian.0036
+  description: 
+--- !u!114 &79947856
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 433
+  indentLevel: 0
+  textID: Dialogue.Lulian.0037
+  description: 
 --- !u!114 &79947857
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 432
+  indentLevel: 0
+  textID: Dialogue.Lulian.0038
+  description: 
+--- !u!114 &79947858
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 430
+  indentLevel: 0
+  textID: Dialogue.Lulian.0033
+  description: 
+--- !u!114 &79947859
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 79947877}
+  suppressBlockAutoSelect: 0
+  message: D01_LulianGame
+--- !u!114 &79947860
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 429
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 1707319390}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: RestartPuzzle
+  targetMethodText: 'RestartPuzzle (String, Int32, String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: blue
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  - objValue:
+      typeAssemblyname: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.Int32
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: D01_LulianNormal
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &79947861
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2889,10 +2506,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 122
+  itemId: 428
   indentLevel: 0
   anyVar:
-    variable: {fileID: 79947811}
+    variable: {fileID: 79947780}
     data:
       animatorData:
         animatorRef: {fileID: 0}
@@ -2923,7 +2540,7 @@ MonoBehaviour:
         gameObjectVal: {fileID: 0}
       integerData:
         integerRef: {fileID: 0}
-        integerVal: 0
+        integerVal: -1
       materialData:
         materialRef: {fileID: 0}
         materialVal: {fileID: 0}
@@ -2963,7 +2580,7 @@ MonoBehaviour:
         spriteVal: {fileID: 0}
       stringData:
         stringRef: {fileID: 0}
-        stringVal: D01_NariaAfter
+        stringVal: Normal
       textureData:
         textureRef: {fileID: 0}
         textureVal: {fileID: 0}
@@ -3029,108 +2646,6 @@ MonoBehaviour:
   vector3Data:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
---- !u!114 &79947858
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 1040.7026
-    y: -41.64894
-    width: 123.46933
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 121
-  blockName: D01_Naria_End
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 79947857}
-  - {fileID: 79947856}
-  - {fileID: 79947807}
-  - {fileID: 79947806}
-  suppressAllAutoSelections: 0
---- !u!114 &79947859
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 72
-  indentLevel: 0
-  _targetGameObject:
-    gameObjectRef: {fileID: 0}
-    gameObjectVal: {fileID: 1838729676}
-  activeState:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  targetGameObjectOLD: {fileID: 0}
---- !u!114 &79947860
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 71
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 2
-  durationOLD: 0
---- !u!114 &79947861
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 641.2135
-    y: -41.240803
-    width: 137.75504
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 21
-  blockName: D01_NariaGame2
-  description: 
-  eventHandler: {fileID: 79947848}
-  commandList:
-  - {fileID: 79947860}
-  - {fileID: 79947859}
-  - {fileID: 79947803}
-  - {fileID: 79947849}
-  - {fileID: 79947851}
-  - {fileID: 79947850}
-  - {fileID: 79947852}
-  suppressAllAutoSelections: 0
 --- !u!114 &79947862
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3184,8 +2699,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 833.04974
-    y: 1.6163096
+    x: 620.805
+    y: -108.5877
     width: 135.71422
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -3193,23 +2708,23 @@ MonoBehaviour:
   itemId: 111
   blockName: D01_Naria2_Hard
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 79947803}
   commandList:
   - {fileID: 79947863}
   - {fileID: 79947862}
-  - {fileID: 79947821}
+  - {fileID: 79947837}
   - {fileID: 79947865}
-  - {fileID: 79947841}
-  - {fileID: 79947813}
+  - {fileID: 79947821}
+  - {fileID: 79947820}
   - {fileID: 79947839}
-  - {fileID: 79947812}
-  - {fileID: 79947810}
+  - {fileID: 79947815}
+  - {fileID: 79947813}
   - {fileID: 79947869}
-  - {fileID: 79947809}
+  - {fileID: 79947812}
   - {fileID: 79947870}
-  - {fileID: 79947868}
+  - {fileID: 79947810}
   - {fileID: 79947867}
-  - {fileID: 79947866}
+  - {fileID: 79947809}
   - {fileID: 79947808}
   - {fileID: 79947804}
   suppressAllAutoSelections: 0
@@ -3239,25 +2754,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 135
-  indentLevel: 0
-  storyText: "\uC120\uC0DD\uB2D8, \uB2E4\uC74C\uC5D0 \uC62C \uB550 \uB9CC\uD654\uCC45
-    \uAC00\uC838\uC62C\uD14C\uB2C8 \uD55C \uBC88 \uBD10\uBCF4\uC2E4\uB798\uC694?"
-  description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
+  parentBlock: {fileID: 79947794}
+  suppressBlockAutoSelect: 0
+  message: D01_NariaNormal
 --- !u!114 &79947867
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3284,25 +2786,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 133
+  itemId: 236
   indentLevel: 0
-  storyText: "\uB2E4 \uC798 \uB4E4\uC5B4\uC8FC\uC154\uC11C \uB9CC\uC871\uC2A4\uB7FD\uB124\uC694!\r\n{wc}\uD68C\uC0AC\uC5D0
-    \uB3C4\uC6C0\uC774 \uB420 \uC218\uC788\uC5B4\uC11C \uB354 \uAE30\uC058\uAD6C\uC694."
-  description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1838729676}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  targetGameObjectOLD: {fileID: 0}
 --- !u!114 &79947869
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3346,103 +2841,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 90
-  indentLevel: 0
-  storyText: "\uB124. \uADF8\uB7FC, \uADF8 \uB54C \uBD48\uC5B4\uC694!"
-  description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &79947874
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 87
-  indentLevel: 0
-  storyText: "\uADF8\uB807\uAC8C \uB9D0\uC500\uD574\uC8FC\uC2DC\uB2C8 \uAE30\uC058\uB124\uC694.
-    \uB2E4\uC74C\uC5D0 \uC624\uC2E4 \uB54C\uB3C4, \uC800\uB97C \uCC3E\uC73C\uC2DC\uBA74
-    \uC788\uC744 \uAC70\uC608\uC694."
-  description: 
-  character: {fileID: 546148635}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &79947875
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 86
-  indentLevel: 0
-  storyText: "\uC774\uC57C\uAE30 \uB4E4\uC5B4\uC8FC\uC154\uC11C \uAC10\uC0AC\uD574\uC694.
-    \uB2E4 \uC598\uAE30\uD558\uACE0 \uB098\uB2C8 \uD6C4\uB828\uD558\uB124\uC694!"
-  description: 
-  character: {fileID: 1162301555}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &79947876
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 85
+  itemId: 427
   indentLevel: 0
   _targetGameObject:
     gameObjectRef: {fileID: 0}
     gameObjectVal: {fileID: 1838729676}
   activeState:
     booleanRef: {fileID: 0}
-    booleanVal: 0
+    booleanVal: 1
   targetGameObjectOLD: {fileID: 0}
---- !u!114 &79947877
+--- !u!114 &79947872
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3454,13 +2865,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 84
+  itemId: 235
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
     floatVal: 2
   durationOLD: 0
---- !u!114 &79947878
+--- !u!114 &79947873
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 402
+  indentLevel: 0
+  textID: Dialogue.Lulian.0032
+  description: 
+--- !u!114 &79947874
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 401
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 4ac261588f5c66c45ac2fb1c5656b229, type: 3}
+--- !u!114 &79947875
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 400
+  indentLevel: 0
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1838729676}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  targetGameObjectOLD: {fileID: 0}
+--- !u!114 &79947876
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 399
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 2
+  durationOLD: 0
+--- !u!114 &79947877
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3474,26 +2957,1116 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 837.1312
-    y: -75.934654
-    width: 135.71422
+    x: 268.7645
+    y: 104.677444
+    width: 158.16318
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
-  itemId: 110
-  blockName: D01_Naria2_Easy
+  itemId: 451
+  blockName: D01_Lulian_AfterEasy
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 79947859}
   commandList:
-  - {fileID: 79947877}
   - {fileID: 79947876}
   - {fileID: 79947875}
-  - {fileID: 79947853}
-  - {fileID: 79947854}
+  - {fileID: 79947912}
+  - {fileID: 79947873}
   - {fileID: 79947874}
+  - {fileID: 79947858}
+  - {fileID: 79947914}
+  - {fileID: 79947807}
+  - {fileID: 79947913}
+  - {fileID: 79947854}
   - {fileID: 79947855}
+  - {fileID: 79947911}
+  - {fileID: 79947856}
+  - {fileID: 79947857}
   - {fileID: 79947871}
-  - {fileID: 79947805}
+  - {fileID: 79947861}
+  - {fileID: 79947860}
+  suppressAllAutoSelections: 0
+--- !u!114 &79947878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 79947892}
+  suppressBlockAutoSelect: 0
+  message: D01_LulianNormal
+--- !u!114 &79947879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 450
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 1707319390}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: RestartPuzzle
+  targetMethodText: 'RestartPuzzle (String, Int32, String): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: blue
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  - objValue:
+      typeAssemblyname: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.Int32
+      intValue: 1
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  - objValue:
+      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.String
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: D01_LulianHard
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &79947880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 449
+  indentLevel: 0
+  anyVar:
+    variable: {fileID: 79947780}
+    data:
+      animatorData:
+        animatorRef: {fileID: 0}
+        animatorVal: {fileID: 0}
+      audioSourceData:
+        audioSourceRef: {fileID: 0}
+        audioSourceVal: {fileID: 0}
+      booleanData:
+        booleanRef: {fileID: 0}
+        booleanVal: 0
+      collectionData:
+        collectionRef: {fileID: 0}
+        collectionVal: {fileID: 0}
+      collider2DData:
+        collider2DRef: {fileID: 0}
+        collider2DVal: {fileID: 0}
+      colliderData:
+        colliderRef: {fileID: 0}
+        colliderVal: {fileID: 0}
+      colorData:
+        colorRef: {fileID: 0}
+        colorVal: {r: 0, g: 0, b: 0, a: 0}
+      floatData:
+        floatRef: {fileID: 0}
+        floatVal: 0
+      gameObjectData:
+        gameObjectRef: {fileID: 0}
+        gameObjectVal: {fileID: 0}
+      integerData:
+        integerRef: {fileID: 0}
+        integerVal: -1
+      materialData:
+        materialRef: {fileID: 0}
+        materialVal: {fileID: 0}
+      matrix4x4Data:
+        matrix4x4Ref: {fileID: 0}
+        matrix4x4Val:
+          e00: 0
+          e01: 0
+          e02: 0
+          e03: 0
+          e10: 0
+          e11: 0
+          e12: 0
+          e13: 0
+          e20: 0
+          e21: 0
+          e22: 0
+          e23: 0
+          e30: 0
+          e31: 0
+          e32: 0
+          e33: 0
+      objectData:
+        objectRef: {fileID: 0}
+        objectVal: {fileID: 0}
+      quaternionData:
+        quaternionRef: {fileID: 0}
+        quaternionVal: {x: 0, y: 0, z: 0, w: 0}
+      rigidbody2DData:
+        rigidbody2DRef: {fileID: 0}
+        rigidbody2DVal: {fileID: 0}
+      rigidbodyData:
+        rigidbodyRef: {fileID: 0}
+        rigidbodyVal: {fileID: 0}
+      spriteData:
+        spriteRef: {fileID: 0}
+        spriteVal: {fileID: 0}
+      stringData:
+        stringRef: {fileID: 0}
+        stringVal: Hard
+      textureData:
+        textureRef: {fileID: 0}
+        textureVal: {fileID: 0}
+      transformData:
+        transformRef: {fileID: 0}
+        transformVal: {fileID: 0}
+      vector2Data:
+        vector2Ref: {fileID: 0}
+        vector2Val: {x: 0, y: 0}
+      vector3Data:
+        vector3Ref: {fileID: 0}
+        vector3Val: {x: 0, y: 0, z: 0}
+      vector4Data:
+        vector4Ref: {fileID: 0}
+        vector4Val: {x: 0, y: 0, z: 0, w: 0}
+  setOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  animatorData:
+    animatorRef: {fileID: 0}
+    animatorVal: {fileID: 0}
+  audioSourceData:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 0}
+  colorData:
+    colorRef: {fileID: 0}
+    colorVal: {r: 0, g: 0, b: 0, a: 0}
+  gameObjectData:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  materialData:
+    materialRef: {fileID: 0}
+    materialVal: {fileID: 0}
+  objectData:
+    objectRef: {fileID: 0}
+    objectVal: {fileID: 0}
+  rigidbody2DData:
+    rigidbody2DRef: {fileID: 0}
+    rigidbody2DVal: {fileID: 0}
+  spriteData:
+    spriteRef: {fileID: 0}
+    spriteVal: {fileID: 0}
+  textureData:
+    textureRef: {fileID: 0}
+    textureVal: {fileID: 0}
+  transformData:
+    transformRef: {fileID: 0}
+    transformVal: {fileID: 0}
+  vector2Data:
+    vector2Ref: {fileID: 0}
+    vector2Val: {x: 0, y: 0}
+  vector3Data:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 0, y: 0, z: 0}
+--- !u!114 &79947881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 448
+  indentLevel: 0
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1838729676}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  targetGameObjectOLD: {fileID: 0}
+--- !u!114 &79947882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 447
+  indentLevel: 0
+  textID: Dialogue.Lulian.0045
+  description: 
+--- !u!114 &79947883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 446
+  indentLevel: 0
+  textID: Dialogue.Lulian.0044
+  description: 
+--- !u!114 &79947884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 445
+  indentLevel: 0
+  textID: Dialogue.Lulian.0043
+  description: 
+--- !u!114 &79947885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 444
+  indentLevel: 0
+  textID: Dialogue.Lulian.0042
+  description: 
+--- !u!114 &79947886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 443
+  indentLevel: 0
+  textID: Dialogue.Lulian.0041
+  description: 
+--- !u!114 &79947887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 442
+  indentLevel: 0
+  textID: Dialogue.Lulian.0040
+  description: 
+--- !u!114 &79947888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 441
+  indentLevel: 0
+  textID: Dialogue.Lulian.0039
+  description: 
+--- !u!114 &79947889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 440
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 655d2afbb9031c141a0620ba4af27b75, type: 3}
+--- !u!114 &79947890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 439
+  indentLevel: 0
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1838729676}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  targetGameObjectOLD: {fileID: 0}
+--- !u!114 &79947891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 438
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 2
+  durationOLD: 0
+--- !u!114 &79947892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 457.53983
+    y: 106.718285
+    width: 170.40807
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 452
+  blockName: D01_Lulian_AfterNormal
+  description: 
+  eventHandler: {fileID: 79947878}
+  commandList:
+  - {fileID: 79947891}
+  - {fileID: 79947890}
+  - {fileID: 79947889}
+  - {fileID: 79947888}
+  - {fileID: 79947902}
+  - {fileID: 79947887}
+  - {fileID: 79947901}
+  - {fileID: 79947886}
+  - {fileID: 79947900}
+  - {fileID: 79947885}
+  - {fileID: 79947899}
+  - {fileID: 79947884}
+  - {fileID: 79947898}
+  - {fileID: 79947883}
+  - {fileID: 79947897}
+  - {fileID: 79947882}
+  - {fileID: 79947896}
+  - {fileID: 79947910}
+  - {fileID: 79947903}
+  - {fileID: 79947895}
+  - {fileID: 79947904}
+  - {fileID: 79947894}
+  - {fileID: 79947905}
+  - {fileID: 79947893}
+  - {fileID: 79947906}
+  - {fileID: 79947907}
+  - {fileID: 79947908}
+  - {fileID: 79947909}
+  - {fileID: 79947881}
+  - {fileID: 79947880}
+  - {fileID: 79947879}
+  suppressAllAutoSelections: 0
+--- !u!114 &79947893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 474
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 166363b8cb4d9264e969cb04eb428d59, type: 3}
+--- !u!114 &79947894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 473
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 666ce3942617b614cb5e29b96082ef0b, type: 3}
+--- !u!114 &79947895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 472
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: ff628d99204e00347a3828da8f690156, type: 3}
+--- !u!114 &79947896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 471
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 666ce3942617b614cb5e29b96082ef0b, type: 3}
+--- !u!114 &79947897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 470
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 655d2afbb9031c141a0620ba4af27b75, type: 3}
+--- !u!114 &79947898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 469
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 8703da0e5129a4745a8c27d2317b2d4f, type: 3}
+--- !u!114 &79947899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 468
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: ff628d99204e00347a3828da8f690156, type: 3}
+--- !u!114 &79947900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 467
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 4ac261588f5c66c45ac2fb1c5656b229, type: 3}
+--- !u!114 &79947901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 466
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: ff628d99204e00347a3828da8f690156, type: 3}
+--- !u!114 &79947902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 465
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 4ac261588f5c66c45ac2fb1c5656b229, type: 3}
+--- !u!114 &79947903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 464
+  indentLevel: 0
+  textID: Dialogue.Lulian.0047
+  description: 
+--- !u!114 &79947904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 463
+  indentLevel: 0
+  textID: Dialogue.Lulian.0048
+  description: 
+--- !u!114 &79947905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 462
+  indentLevel: 0
+  textID: Dialogue.Lulian.0049
+  description: 
+--- !u!114 &79947906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 461
+  indentLevel: 0
+  textID: Dialogue.Lulian.0050
+  description: 
+--- !u!114 &79947907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 460
+  indentLevel: 0
+  textID: Dialogue.Lulian.0051
+  description: 
+--- !u!114 &79947908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 459
+  indentLevel: 0
+  textID: Dialogue.Lulian.0052
+  description: 
+--- !u!114 &79947909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 458
+  indentLevel: 0
+  textID: Dialogue.Lulian.0053
+  description: 
+--- !u!114 &79947910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 457
+  indentLevel: 0
+  textID: Dialogue.Lulian.0046
+  description: 
+--- !u!114 &79947911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 456
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 666ce3942617b614cb5e29b96082ef0b, type: 3}
+--- !u!114 &79947912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 455
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 655d2afbb9031c141a0620ba4af27b75, type: 3}
+--- !u!114 &79947913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 454
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 4ac261588f5c66c45ac2fb1c5656b229, type: 3}
+--- !u!114 &79947914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 453
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: 8703da0e5129a4745a8c27d2317b2d4f, type: 3}
+--- !u!114 &79947915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 490
+  indentLevel: 0
+  targetFlowchart: {fileID: 79947778}
+  targetBlock: {fileID: 79947852}
+  startLabel:
+    stringRef: {fileID: 0}
+    stringVal: 
+  startIndex: 0
+  callMode: 0
+--- !u!114 &79947916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 79947931}
+  suppressBlockAutoSelect: 0
+  message: D01_LulianHard
+--- !u!114 &79947917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 496
+  indentLevel: 0
+  textID: Dialogue.Lulian.0059
+  description: 
+--- !u!114 &79947918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 495
+  indentLevel: 0
+  textID: Dialogue.Lulian.0056
+  description: 
+--- !u!114 &79947919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 494
+  indentLevel: 0
+  textID: Dialogue.Lulian.0057
+  description: 
+--- !u!114 &79947920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 493
+  indentLevel: 0
+  textID: Dialogue.Lulian.0058
+  description: 
+--- !u!114 &79947921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 492
+  indentLevel: 0
+  textID: Dialogue.Lulian.0055
+  description: 
+--- !u!114 &79947922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897c361b48532004e9c10a932743961a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 491
+  indentLevel: 0
+  textID: Dialogue.Lulian.0054
+  description: 
+--- !u!114 &79947928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bacd6d8da56644cbb2c9a43f96750c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 478
+  indentLevel: 0
+  spriteRenderers:
+  - {fileID: 881511822}
+  sprite: {fileID: 21300000, guid: f02ce1360af8dd141a19b6b7a513c9db, type: 3}
+--- !u!114 &79947929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 477
+  indentLevel: 0
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1838729676}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  targetGameObjectOLD: {fileID: 0}
+--- !u!114 &79947930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 476
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 2
+  durationOLD: 0
+--- !u!114 &79947931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79947774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 655.4988
+    y: 102.63666
+    width: 158.16318
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 451
+  blockName: D01_Lulian_AfterHard
+  description: 
+  eventHandler: {fileID: 79947916}
+  commandList:
+  - {fileID: 79947930}
+  - {fileID: 79947929}
+  - {fileID: 79947928}
+  - {fileID: 79947922}
+  - {fileID: 79947921}
+  - {fileID: 79947918}
+  - {fileID: 79947919}
+  - {fileID: 79947920}
+  - {fileID: 79947917}
+  - {fileID: 79947915}
   suppressAllAutoSelections: 0
 --- !u!1 &117534028
 GameObject:
@@ -7186,17 +7759,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5436555495034971780, guid: 76c709119cb4cc34a94f4baa252794b4, type: 3}
   m_PrefabInstance: {fileID: 1162301553}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1162301555 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5436555495034971781, guid: 76c709119cb4cc34a94f4baa252794b4, type: 3}
-  m_PrefabInstance: {fileID: 1162301553}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1184033440
 GameObject:
   m_ObjectHideFlags: 0

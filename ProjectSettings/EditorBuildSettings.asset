@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/1_Story/Tutorial.unity
     guid: a33420356e54a6f42b5dca6418ec6785
   - enabled: 1
-    path: Assets/Scenes/1_Story/ConselRoom.unity
+    path: Assets/Scenes/1_Story/CounselRoom.unity
     guid: 306a220bc29566d4cb057ab09c343de7
   - enabled: 1
     path: Assets/Scenes/1_Story/LabCorridor.unity

@@ -2,21 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[System.Serializable]
-//public class CharacterChat{
-//    public string name;
-//    public string chat;
+//public enum GameState
+//{
+//    StartMenu,
+//    StoryMode,
+//    MiniGameMode
 //}
-//[System.Serializable]
-//public class myChatList{
-//    public CharacterChat[] characterChat;
-//}
-public enum GameState
-{
-    StartMenu,
-    StoryMode,
-    MiniGameMode
-}
 
 public enum StoryRound
 {
@@ -27,6 +18,7 @@ public enum StoryRound
 }
 public enum CharacterName
 {
+    None = 0,
     Naria,
     Lulian,
     Russel,
@@ -38,19 +30,16 @@ public enum CharacterName
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameState state;
+    //public GameState state;
 
-    private StoryRound currentRound = StoryRound.First;
-    private CharacterName currentCharacter = CharacterName.Naria;
+    //private StoryRound currentRound = StoryRound.First;
+    //private CharacterName currentCharacter = CharacterName.Naria;
 
-    private GameObject fungusManager;
+    //private GameObject fungusManager;
     
     // sound
     public float soundVolumeBGM;
     public float soundVolumeSFX;
-
-    //public TextAsset textJSON;
-    //public myChatList myChatList = new myChatList();
 
     // Start is called before the first frame update
     void Awake()
@@ -61,8 +50,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("inst");
             DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
             instance = this;  
-            //myChatList = JsonUtility.FromJson<myChatList>(textJSON.text);
-            fungusManager = GameObject.Find("FungusManager");
+            //fungusManager = GameObject.Find("FungusManager");
 
         } else if(instance != this) // If there is already an instance and it's not `this` instance
         {
@@ -71,14 +59,14 @@ public class GameManager : MonoBehaviour
     }
 
     #region StoryIndex
-    int CreateStoryIndexInt(int inRound, int inPatient)
+    public int CreateStoryIndex(int inRound, int inPatient)
     {
         return inRound * 100 + inPatient;
     }
     public int CreateStoryIndex(int inRound, string inCharacter)
     {
         CharacterName characterIndex = CharacterName.Naria;
-        for(; characterIndex < CharacterName.Max; characterIndex++)
+        for (; characterIndex < CharacterName.Max; characterIndex++)
         {
             if (inCharacter == characterIndex.ToString())
             {
@@ -88,15 +76,14 @@ public class GameManager : MonoBehaviour
 
         Debug.Assert(0 < inRound && inRound < 3 && characterIndex != CharacterName.Max, "Wrong story round or character name in json file");
 
-        return CreateStoryIndexInt((int)inRound, (int)characterIndex);
+        return CreateStoryIndex(inRound, (int)characterIndex);
     }
-
-    public int GetStoryIndex()
-    {
-        return CreateStoryIndexInt((int)currentRound, (int)currentCharacter);
-    }
-
     #endregion
+
+    static public string GetCharacterName(int characterIndex)
+    {
+        return ((CharacterName)characterIndex).ToString();
+    }
 
     //------------------ Sound Setting ------------------------------
     void SetSoundVolumeBGM() { }

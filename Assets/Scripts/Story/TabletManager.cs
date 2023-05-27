@@ -14,9 +14,17 @@ public class TabletManager : MonoBehaviour
     public void IncreaseSurveyCnt(int n) { surveyCnt += n; }
 
     public void FinishSurvey(){
+        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+
+        int varStoryRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
+        int varCharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
+
+        string characterName = GameManager.GetCharacterName(varCharacterIndex);
+        string message = "D"+varStoryRound+"_"+characterName+"Survey";
+
         if(surveyCnt >= 4) {
             surveyCnt = 0;
-            Fungus.Flowchart.BroadcastFungusMessage(fungusMessage);
+            Fungus.Flowchart.BroadcastFungusMessage(message);
         }
     }
 

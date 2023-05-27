@@ -8,10 +8,18 @@ public class DialogExtra : MonoBehaviour
 {
     private int razPoint;
 
-    public void GoToScene(string sceneName)
+    //public void GoToScene(string sceneName)
+    //{
+    //    SceneManager.LoadScene(sceneName);
+    //}    
+
+    public void TransferSceneWithFungus(string SceneName)
     {
-        SceneManager.LoadScene(sceneName);
-    }    
+        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+        flowchart.SetStringVariable("NextScene", SceneName);
+
+        flowchart.SendFungusMessage("ToNextScene");
+    }
 
     public void SetCharacterName(string nameText_, Fungus.Character player){        
         player.SetStandardText(nameText_);
@@ -47,18 +55,18 @@ public class DialogExtra : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void LoadPlayerPrefs()
-    {
-        if (!PlayerPrefs.HasKey("LoadData") || PlayerPrefs.GetInt("LoadData") == 0)
-            return;
+    //public void LoadPlayerPrefs()
+    //{
+    //    if (!PlayerPrefs.HasKey("LoadData") || PlayerPrefs.GetInt("LoadData") == 0)
+    //        return;
 
-        PlayerPrefs.SetInt("LoadData", 0);
+    //    PlayerPrefs.SetInt("LoadData", 0);
 
-        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+    //    Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
 
-        flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("PlayerName"));
-        flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("StoryNumb"));
-    }
+    //    flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("PlayerName"));
+    //    flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("StoryNumb"));
+    //}
 
     #region LoveEnding
     public void StartRazEnding()
@@ -88,7 +96,12 @@ public class DialogExtra : MonoBehaviour
     #region Diary
     public void SetDiaryText(Text diaryText)
     {
-        int storyIndex = GameManager.instance.GetStoryIndex();
+        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+
+        int varStoryRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
+        int varCharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
+
+        int storyIndex = GameManager.instance.CreateStoryIndex(varStoryRound, varCharacterIndex);
         diaryText.text = DiaryDialogReader.GetDialogData(storyIndex);
     }
     #endregion

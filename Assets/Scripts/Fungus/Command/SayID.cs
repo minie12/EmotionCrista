@@ -62,30 +62,6 @@ namespace Fungus
             
             character = GameObject.Find(data.character).GetComponent<Character>();
             storyText = data.dialog;
-            
-            #region Method: SetSprite
-
-            if (data.spriteName != null)
-            {
-                for (int i = 0; i < data.spriteName.Length; i++)
-                {
-                    string spritePath = "Character/" + data.spriteName[i];
-                    Sprite tempSprite = Resources.Load<Sprite>(spritePath);
-
-                    SpriteRenderer spritePosition = GameObject.Find("Position" + data.spritePosition[i]).GetComponent<SpriteRenderer>();
-                    if (spritePosition == null)
-                    {
-                        Debug.LogError("(SayID.cs) " + textID + ": Wrong sprite position name");
-                        continue;
-                    }
-
-                    spritePosition.sprite = tempSprite;
-                }
-            }
-
-
-            #endregion
-        
 
             #region Method: Say
             if (!showAlways && executionCount >= showCount)
@@ -119,7 +95,7 @@ namespace Fungus
             sayDialog.SetActive(true);
 
             sayDialog.SetCharacter(character);
-            sayDialog.SetCharacterImage(portrait);
+            // sayDialog.SetCharacterImage(portrait);
 
             string displayText = storyText;
 
