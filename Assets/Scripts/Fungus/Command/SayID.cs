@@ -14,10 +14,13 @@ namespace Fungus
     {
         [SerializeField] protected string textID = "";
 
+        [Tooltip("Notes about the option text for other authors, localization, etc.")]
+        [TextArea()]
+        [SerializeField] protected string description = "";
+
         #region Variable: Say
 
         protected string storyText = "";
-        protected string description = "";
         protected Character character;
         protected Sprite portrait;
         protected AudioClip voiceOverClip;
@@ -55,33 +58,10 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            DialogData data = DialogDataManager.GetDialogData(textID);
+            DialogData data = StoryDialogReader.GetDialogData(textID);
             
             character = GameObject.Find(data.character).GetComponent<Character>();
             storyText = data.dialog;
-
-            #region Method: SetSprite
-
-            if (data.spriteName != null)
-            {
-                for (int i = 0; i < data.spriteName.Length; i++)
-                {
-                    string spritePath = "Character/" + data.spriteName[i];
-                    Sprite tempSprite = Resources.Load<Sprite>(spritePath);
-
-                    SpriteRenderer spritePosition = GameObject.Find("Position" + data.spritePosition[i]).GetComponent<SpriteRenderer>();
-                    if (spritePosition == null)
-                    {
-                        Debug.LogError("(SayID.cs) " + textID + ": Wrong sprite position name");
-                        continue;
-                    }
-
-                    spritePosition.sprite = tempSprite;
-                }
-            }
-
-
-            #endregion
 
             #region Method: Say
             if (!showAlways && executionCount >= showCount)
@@ -115,7 +95,7 @@ namespace Fungus
             sayDialog.SetActive(true);
 
             sayDialog.SetCharacter(character);
-            sayDialog.SetCharacterImage(portrait);
+            // sayDialog.SetCharacterImage(portrait);
 
             string displayText = storyText;
 
@@ -145,9 +125,9 @@ namespace Fungus
             {
                 namePrefix += textID + ": ";
             }
-            if (character != null)
+            if (description != null)
             {
-                namePrefix += character.NameText + " ";
+                namePrefix += description + " ";
             }
 
             return namePrefix;
