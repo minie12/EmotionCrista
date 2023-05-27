@@ -5898,7 +5898,7 @@ SpriteRenderer:
   m_Size: {x: 6.35, y: 18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &881511823
@@ -6316,6 +6316,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a51298549a2dd2d4e9a9d8459a7fa461, type: 3}
   animator: {fileID: 157930646}
   pattern: {fileID: 2142439448}
+  patternLevel: 0
   fungusMessage: D01_NariaGame
 --- !u!4 &925114810
 Transform:
@@ -7391,6 +7392,8 @@ MonoBehaviour:
   rotateTime: 0.1
   dropTime: 0.1
   boardAUD: {fileID: 1184631180}
+  defaultAUD: {fileID: 8300000, guid: f55e481ca80746b44a30f3cfbf4d9af6, type: 3}
+  beep: {fileID: 8300000, guid: bc0d9c9d0a703474a8cbddb55fd32d0b, type: 3}
   goalInfo: {fileID: 1184631179}
   goalGemCnt: 3
 --- !u!212 &1184631178

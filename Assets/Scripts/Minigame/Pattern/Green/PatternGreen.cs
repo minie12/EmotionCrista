@@ -11,6 +11,11 @@ public class PatternGreen : PatternManager
     private float rotateSpeed = 0.5f;
     private float bugInterval = 20f;
 
+    private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
+    private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+
+    private bool[,] area = new bool[11, 6];
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,6 +32,10 @@ public class PatternGreen : PatternManager
         if (gimmick == 0) 
         {
             InvokeRepeating("GreenGimmick0", 1f, bugInterval); 
+        } 
+        else if (gimmick == 1)
+        {
+            Invoke("GreenGimmick1", 1f);
         }
     }
 
@@ -36,6 +45,10 @@ public class PatternGreen : PatternManager
         if (gimmick == 0) 
         {
             InvokeRepeating("GreenGimmick0", 1f, bugInterval);
+        }
+        else if (gimmick == 1)
+        {
+            Invoke("GreenGimmick1", 1f);
         }
 
     }
@@ -234,5 +247,103 @@ public class PatternGreen : PatternManager
 
         // move bug
         StartCoroutine(MoveBug(history, bug));
+    }
+
+    // -------------------------------------------------------- //
+
+    public bool IsInArea(int col_, int row_)
+    {
+        if (col_ >= 11 || row_ >= 6 || col_ < 0 || row_ < 0)
+        {
+            return false;
+        }
+        return area[col_, row_];
+    }
+
+
+    void ClearArea()
+    {
+        for(int i = 0; i < 11; i++)
+        {
+            for(int j = 0; j < 6; j++)
+            {
+                area[i, j] = false;
+            }
+        }
+    }
+
+    void SetColor()
+    {
+        for(int i = 0; i < 11; i++)
+        {
+            for(int j = 0; j < 6; j++)
+            {
+                if (area[i, j])
+                {
+                    GemInfo gem = board.GetGem(i, j);
+                    gem?.SetBackgroundColor(255f, 255f, 0f, 255f);
+                }
+                else
+                {
+                    GemInfo gem = board.GetGem(i, j);
+                    gem?.SetBackgroundColor(255f, 255f, 255f, 255f);
+                }
+            }
+        }
+    }
+
+
+    void SetAreas(int col_, int row_, int level_)
+    {
+        area[col_, row_] = true;
+
+        // choose direction vector about even or odd column
+        int[,] direction = new int[6, 2];
+        if (col_ % 2 == 0) // even
+        {
+            direction = aroundGem_e;
+        }
+        else // odd
+        {
+            direction = aroundGem_o;
+        }
+
+        for(int i = 0; i < 6; i++)
+        {
+            int new_col = col_ + direction[i, 0];
+            int new_row = row_ + direction[i, 1];
+            if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0)
+            {
+                continue;
+            }
+            area[new_col, new_row] = true;
+            GemInfo gem = board.GetGem(new_col, new_row);
+            if (gem != null && level_ > 1)
+            {
+                SetAreas(new_col, new_row, level_ - 1);
+            }
+        }
+    }
+
+    public void SetAreaAgain()
+    {
+        ClearArea();
+        GemInfo gem = mini.GetRandomGem();
+        int level_ = 1;
+        if (level == (int)LevelType.EASY1 || level == (int)LevelType.EASY2)
+        {
+            level_ = 2;
+        }
+        SetAreas(gem.GetColumn(), gem.GetRow(), level_);
+    }
+
+    void GreenGimmick1()
+    {
+        SetAreaAgain();
+    }
+
+    private void Update()
+    {
+        SetColor();
     }
 }

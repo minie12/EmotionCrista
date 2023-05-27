@@ -9,7 +9,8 @@ public class PatternManager : MonoBehaviour
     // Pattern
     protected GameObject UICanvas;
     protected Text chatTXT;
-    protected MiniManager mini; 
+    protected MiniManager mini;
+    protected BoardManager board;
     protected int gimmick = 0;
     protected int level = (int)LevelType.EASY1; // difficulty
 
@@ -21,6 +22,7 @@ public class PatternManager : MonoBehaviour
         UICanvas = GameObject.Find("PatternCanvas");
         chatTXT = GameObject.Find("UIText").GetComponent<Text>();
         mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
+        board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
     virtual public void StartPattern(int gimmick_, int level_){}

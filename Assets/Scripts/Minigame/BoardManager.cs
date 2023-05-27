@@ -30,6 +30,7 @@ public class BoardManager : MonoBehaviour
     public float rotateTime = 0.1f;
     public float dropTime = 0.1f;
     public AudioSource boardAUD;
+    public AudioClip defaultAUD, beep;
     
     // goal state
     public GoalInfo goalInfo;
@@ -246,6 +247,7 @@ public class BoardManager : MonoBehaviour
             else mini.AddFever(goalGemCnt);
 
             // Delete gems
+            boardAUD.clip = defaultAUD;
             boardAUD.Play();
             goalInfo.EraseGems(column, row, true);
 
@@ -687,6 +689,7 @@ public class BoardManager : MonoBehaviour
     }
 
     public void FeverClick(int column_, int row_){
+        boardAUD.clip = defaultAUD;
         boardAUD.Play();
         mini.AddScore(1);
         DelGem(column_, row_);
@@ -694,5 +697,11 @@ public class BoardManager : MonoBehaviour
         // in case player clicks all gem before Fever ends
         feverCnt++;
         if(feverCnt > 59) mini.EndFever();
+    }
+
+    public void BeepPlay()
+    {
+        boardAUD.clip = beep;
+        boardAUD.Play();
     }
 }

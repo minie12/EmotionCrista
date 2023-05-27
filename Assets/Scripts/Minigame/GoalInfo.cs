@@ -6,6 +6,7 @@ using UnityEngine.UI; // ERASE!
 public class GoalInfo : MonoBehaviour
 {
     private BoardManager board;
+    private MiniManager mini;
 
     // ui, sprite
     public SpriteRenderer goalSprite;
@@ -54,6 +55,7 @@ public class GoalInfo : MonoBehaviour
 
     void Start(){
         board = gameObject.GetComponent<BoardManager>();
+        mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
     }
 
     public void GoalChange(){
@@ -93,8 +95,25 @@ public class GoalInfo : MonoBehaviour
                 int column2 = column + goal2_e[goalIdx, 0];
                 if (board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
                 {
-                    crushedGems.Add(new List<int> { column2, row2 });
-                    return true;
+                    bool result = false;
+                    if (mini.GetComponent<PatternGreen>())
+                    {
+                        board.BeepPlay();
+                        if (mini.GetComponent<PatternGreen>().IsInArea(column, row) && mini.GetComponent<PatternGreen>().IsInArea(column2, row2))
+                        {
+                            result = true;
+                        }
+                    }
+                    else
+                    {
+                        result = true;
+                    }
+                    if (result)
+                    {
+                        crushedGems.Add(new List<int> { column2, row2 });
+                        mini.GetComponent<PatternGreen>()?.SetAreaAgain();
+                        return true;
+                    }
                 }
             }
             else{
@@ -102,17 +121,41 @@ public class GoalInfo : MonoBehaviour
                 int column2 = column + goal2_o[goalIdx, 0];
                 if(board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
                 {
-                    crushedGems.Add(new List<int> { column2, row2 });
-                    return true;
+                    bool result = false;
+                    if (mini.GetComponent<PatternGreen>())
+                    {
+                        board.BeepPlay();
+                        if (mini.GetComponent<PatternGreen>().IsInArea(column, row) && mini.GetComponent<PatternGreen>().IsInArea(column2, row2))
+                        {
+                            result = true;
+                        }
+                    }
+                    else
+                    {
+                        result = true;
+                    }
+                    if (result)
+                    {
+                        crushedGems.Add(new List<int> { column2, row2 });
+                        mini.GetComponent<PatternGreen>()?.SetAreaAgain();
+                        return true;
+                    }
                 }
             }
         } 
         else if(goalGemCnt == 3){
+            bool isCrushed = true;
+            bool result = true;
             if(column%2 == 0){
                 for(int i = 0; i < goal3_e.GetLength(1); i++){
                     int row2 = row + goal3_e[goalIdx, i, 1];
                     int column2 = column + goal3_e[goalIdx, i, 0];
-                    if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
+                    if (mini.GetComponent<PatternGreen>() && !mini.GetComponent<PatternGreen>().IsInArea(column2, row2)) result = false;
+                    if (board.GetGemColor(column, row) != board.GetGemColor(column2, row2))
+                    {
+                        result = false;
+                        isCrushed = false;
+                    }
                     crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
@@ -120,13 +163,25 @@ public class GoalInfo : MonoBehaviour
                 for(int i = 0; i < goal3_o.GetLength(1); i++){
                     int row2 = row + goal3_o[goalIdx, i, 1];
                     int column2 = column + goal3_o[goalIdx, i, 0];
-                    if(board.GetGemColor(column, row) != board.GetGemColor(column2, row2)) return false;
+                    if (mini.GetComponent<PatternGreen>() && !mini.GetComponent<PatternGreen>().IsInArea(column2, row2)) result = false;
+                    if (board.GetGemColor(column, row) != board.GetGemColor(column2, row2))
+                    {
+                        result = false;
+                        isCrushed = false;
+                    }
                     crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
-            return true;
+            if (isCrushed && !result)
+            {
+                board.BeepPlay();
+            }
+            if (result)
+            {
+                mini.GetComponent<PatternGreen>()?.SetAreaAgain();
+            }
+            return result;
         }
-
         return false;
     } 
 
