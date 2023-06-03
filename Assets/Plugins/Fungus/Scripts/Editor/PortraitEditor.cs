@@ -25,6 +25,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty waitUntilFinishedProp;
         protected SerializedProperty moveProp;
         protected SerializedProperty shiftIntoPlaceProp;
+        protected SerializedProperty dimPortraitProp;
 
         public override void OnEnable()
         {
@@ -46,6 +47,7 @@ namespace Fungus.EditorUtils
             waitUntilFinishedProp = serializedObject.FindProperty("waitUntilFinished");
             moveProp = serializedObject.FindProperty("move");
             shiftIntoPlaceProp = serializedObject.FindProperty("shiftIntoPlace");
+            dimPortraitProp = serializedObject.FindProperty("dimPortrait");
         }
         
         public override void DrawCommandGUI() 
@@ -108,13 +110,13 @@ namespace Fungus.EditorUtils
                     showOptionalFields = false; 
                 }
             }
-            if (t.Display != DisplayType.None && t._Character != null && showOptionalFields) 
+            if (t.Display != DisplayType.None && t._Character != null && showOptionalFields)
             {
-                if (t.Display != DisplayType.Hide && t.Display != DisplayType.MoveToFront) 
+                if (t.Display != DisplayType.Hide && t.Display != DisplayType.MoveToFront)
                 {
                     // PORTRAIT
-                    CommandEditor.ObjectField<Sprite>(portraitProp, 
-                                                      new GUIContent("Portrait", "Portrait representing character"), 
+                    CommandEditor.ObjectField<Sprite>(portraitProp,
+                                                      new GUIContent("Portrait", "Portrait representing character"),
                                                       new GUIContent("<Previous>"),
                                                       t._Character.Portraits);
                     if (t._Character.PortraitsFace != FacingDirection.None)
@@ -147,7 +149,7 @@ namespace Fungus.EditorUtils
                 }
                 if (t.Move)
                 {
-                    if (t.Display != DisplayType.Hide) 
+                    if (t.Display != DisplayType.Hide)
                     {
                         // START FROM OFFSET
                         EditorGUILayout.PropertyField(shiftIntoPlaceProp);
@@ -155,22 +157,22 @@ namespace Fungus.EditorUtils
                 }
                 if (t.Move)
                 {
-                    if (t.Display != DisplayType.Hide) 
+                    if (t.Display != DisplayType.Hide)
                     {
                         if (t.ShiftIntoPlace)
                         {
                             t.FromPosition = null;
                             // OFFSET
                             // Format Enum names
-                            string[] offsetLabels = StringFormatter.FormatEnumNames(t.Offset,"<Previous>");
+                            string[] offsetLabels = StringFormatter.FormatEnumNames(t.Offset, "<Previous>");
                             offsetProp.enumValueIndex = EditorGUILayout.Popup("From Offset", (int)offsetProp.enumValueIndex, offsetLabels);
                         }
                         else
                         {
                             t.Offset = PositionOffset.None;
                             // FROM POSITION
-                            CommandEditor.ObjectField<RectTransform>(fromPositionProp, 
-                                                                     new GUIContent("From Position", "Move the portrait to this position"), 
+                            CommandEditor.ObjectField<RectTransform>(fromPositionProp,
+                                                                     new GUIContent("From Position", "Move the portrait to this position"),
                                                                      new GUIContent("<Previous>"),
                                                                      s.Positions);
                         }
@@ -183,11 +185,11 @@ namespace Fungus.EditorUtils
                     t.FromPosition = null;
                     toPositionPrefix = "At ";
                 }
-                if (t.Display == DisplayType.Show || (t.Display == DisplayType.Hide && t.Move) )
+                if (t.Display == DisplayType.Show || (t.Display == DisplayType.Hide && t.Move))
                 {
                     // TO POSITION
-                    CommandEditor.ObjectField<RectTransform>(toPositionProp, 
-                                                             new GUIContent(toPositionPrefix+"Position", "Move the portrait to this position"), 
+                    CommandEditor.ObjectField<RectTransform>(toPositionProp,
+                                                             new GUIContent(toPositionPrefix + "Position", "Move the portrait to this position"),
                                                              new GUIContent("<Previous>"),
                                                              s.Positions);
                 }
@@ -195,6 +197,14 @@ namespace Fungus.EditorUtils
                 {
                     t.ToPosition = null;
                 }
+
+                // LEJ -----------------------------------------------------------
+                if (t.Display == DisplayType.Show)
+                {
+                    EditorGUILayout.PropertyField(dimPortraitProp);
+                }
+                // LEJ ------------------------------------------------------------
+
                 if (!t.Move && t.Display != DisplayType.MoveToFront)
                 {
                     // MOVE

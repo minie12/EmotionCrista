@@ -49,6 +49,11 @@ namespace Fungus
         [Tooltip("Shift Offset")]
         [SerializeField] protected Vector2 shiftOffset;
 
+        // LEJ -----------------------------------------------------
+        [Tooltip("Dim portrait")]
+        [SerializeField] protected bool dimPortrait = false;
+        // LEJ -----------------------------------------------------
+
         [Tooltip("Move portrait into new position")]
         [SerializeField] protected bool move;
 
@@ -110,6 +115,11 @@ namespace Fungus
         /// </summary>
         public virtual bool ShiftIntoPlace { get { return shiftIntoPlace; } set { shiftIntoPlace = value; } }
 
+        /// <summary>
+        /// Dim single portrait.
+        /// </summary>
+        public virtual bool DimPortrait { get { return dimPortrait; } set { dimPortrait = value; } }
+
         public override void OnEnter()
         {
             // Selected "use default Portrait Stage"
@@ -152,7 +162,9 @@ namespace Fungus
             options.waitUntilFinished = waitUntilFinished;
 
             stage.RunPortraitCommand(options, Continue);
-            
+
+            // LEJ - Dim portrait
+            stage.SetDimmed(character, dimPortrait);
         }
         
         public override string GetSummary()

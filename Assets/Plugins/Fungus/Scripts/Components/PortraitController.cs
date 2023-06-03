@@ -275,22 +275,23 @@ namespace Fungus
 
             SetRectTransform(options.character.State.holder, options.fromPosition);
 
+            float transformScale = 2.3f;
             if (options.character.State.facing != options.character.PortraitsFace)
             {
-                options.character.State.holder.localScale = new Vector3(-1f, 1f, 1f);
+                options.character.State.holder.localScale = new Vector3(-transformScale, transformScale, 1f);
             }
             else
             {
-                options.character.State.holder.localScale = new Vector3(1f, 1f, 1f);
+                options.character.State.holder.localScale = new Vector3(transformScale, transformScale, 1f);
             }
 
             if (options.facing != options.character.PortraitsFace)
             {
-                options.character.State.holder.localScale = new Vector3(-1f, 1f, 1f);
+                options.character.State.holder.localScale = new Vector3(-transformScale, transformScale, 1f);
             }
             else
             {
-                options.character.State.holder.localScale = new Vector3(1f, 1f, 1f);
+                options.character.State.holder.localScale = new Vector3(transformScale, transformScale, 1f);
             }
         }
 
@@ -515,10 +516,10 @@ namespace Fungus
         /// </summary>
         public virtual void SetDimmed(Character character, bool dimmedState)
         {
-            if (character.State.dimmed == dimmedState)
-            {
-                return;
-            }
+            //if (character.State.dimmed == dimmedState)
+            //{
+            //    return;
+            //}
 
             character.State.dimmed = dimmedState;
 

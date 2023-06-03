@@ -341,9 +341,10 @@ namespace Fungus
             }
             else
             {
-                var prevSpeakingCharacter = speakingCharacter;
+                //var prevSpeakingCharacter = speakingCharacter;
                 speakingCharacter = character;
 
+                /*
                 // Dim portraits of non-speaking characters
                 var activeStages = Stage.ActiveStages;
                 for (int i = 0; i < activeStages.Count; i++)
@@ -369,7 +370,7 @@ namespace Fungus
                         }
                     }
                 }
-
+                */
                 string characterName = character.NameText;
 
                 if (characterName == "")

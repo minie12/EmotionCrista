@@ -4,18 +4,17 @@ import os
 import sys
 
 currentDir = os.getcwd()
-fileName = ["DataDemo.xlsx", "DialogTutorial.xlsx"]
-sheetName = [["Worksheet"],
-             ["Tutorial", "Worksheet2"]]
+fileName = ["E.xlsx"]
+sheetName = [["Tutorial", "Worksheet2", "Worksheet3"]]
 
-excelData = pandas.DataFrame(columns = ["Id", "Character", "SpriteName", "SpritePosition", "Dialog", "Desc"])
+excelData = pandas.DataFrame(columns = ["id", "character", "spriteName", "spritePosition", "dialog", "desc"])
 
 for i in range(len(fileName)):
     excelPath = os.path.join(currentDir, fileName[i])
     
     for j in range(len(sheetName[i])):
         # Read data from excel file
-        excelData = excelData.concat(pandas.read_excel(excelPath, sheet_name=sheetName[i][j]), ignore_index = True)
+        excelData = pandas.concat([excelData, pandas.read_excel(excelPath, sheet_name=sheetName[i][j])], ignore_index = True)
 
 # Change excel data to Json and Write to file
 outputName = "FullDialog.json"

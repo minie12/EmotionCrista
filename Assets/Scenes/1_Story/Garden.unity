@@ -251,9 +251,7 @@ GameObject:
   - component: {fileID: 272716275}
   - component: {fileID: 272716274}
   - component: {fileID: 272716261}
-  - component: {fileID: 272716276}
   - component: {fileID: 272716249}
-  - component: {fileID: 272716257}
   - component: {fileID: 272716256}
   - component: {fileID: 272716255}
   - component: {fileID: 272716254}
@@ -477,6 +475,11 @@ GameObject:
   - component: {fileID: 272716477}
   - component: {fileID: 272716452}
   - component: {fileID: 272716258}
+  - component: {fileID: 272716469}
+  - component: {fileID: 272716276}
+  - component: {fileID: 272716478}
+  - component: {fileID: 272716257}
+  - component: {fileID: 272716479}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -526,8 +529,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -5.5594664
-    y: 142.0327
+    x: -164.60501
+    y: 237.45999
     width: 81.80912
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -538,11 +541,12 @@ MonoBehaviour:
   eventHandler: {fileID: 272716259}
   commandList:
   - {fileID: 272716452}
-  - {fileID: 272716257}
   - {fileID: 272716256}
+  - {fileID: 272716478}
+  - {fileID: 272716257}
+  - {fileID: 272716474}
   - {fileID: 272716248}
   - {fileID: 272716255}
-  - {fileID: 272716474}
   - {fileID: 272716254}
   - {fileID: 272716253}
   - {fileID: 272716284}
@@ -667,7 +671,7 @@ MonoBehaviour:
   conditions:
   - compareOperator: 0
     anyVar:
-      variable: {fileID: 272716276}
+      variable: {fileID: 0}
       data:
         animatorData:
           animatorRef: {fileID: 0}
@@ -940,13 +944,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 28
+  itemId: 380
   indentLevel: 0
-  key: StoryNumb
+  key: CharacterName
   variable: {fileID: 272716276}
 --- !u!114 &272716258
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1348,12 +1352,15 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 272716370}
-  selectedCommands: []
+  - {fileID: 272716249}
+  selectedCommands:
+  - {fileID: 272716248}
   variables:
   - {fileID: 272716261}
+  - {fileID: 272716469}
   - {fileID: 272716276}
   - {fileID: 272716272}
+  - {fileID: 272716479}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -1387,12 +1394,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 272716247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: StoryNumb
-  value: D02_RazEnding_1
+  key: CharacterName
+  value: 0
 --- !u!114 &272716277
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1625,7 +1632,7 @@ MonoBehaviour:
   conditions:
   - compareOperator: 0
     anyVar:
-      variable: {fileID: 272716276}
+      variable: {fileID: 0}
       data:
         animatorData:
           animatorRef: {fileID: 0}
@@ -9349,7 +9356,7 @@ MonoBehaviour:
     vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &272716452
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9824,6 +9831,21 @@ MonoBehaviour:
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
   fadeTweenType: 4
+--- !u!114 &272716469
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272716247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: StoryRound
+  value: 0
 --- !u!114 &272716470
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -10018,6 +10040,37 @@ MonoBehaviour:
     floatRef: {fileID: 0}
     floatVal: 2
   durationOLD: 0
+--- !u!114 &272716478
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272716247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 379
+  indentLevel: 0
+  key: StoryRound
+  variable: {fileID: 272716469}
+--- !u!114 &272716479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272716247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: RoutineCount
+  value: 0
 --- !u!1 &286320981
 GameObject:
   m_ObjectHideFlags: 0
@@ -11718,7 +11771,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1805875742

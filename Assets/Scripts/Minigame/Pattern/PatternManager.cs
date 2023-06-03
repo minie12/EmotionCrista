@@ -31,13 +31,9 @@ public class PatternManager : MonoBehaviour
 
     public void OrganizeCharacterChat(){
         chatTextIdx = 0;
-        foreach(CharacterChat myChat in GameManager.Instance.myChatList.characterChat){
-            if(myChat.name == mini.GetFungusMessage())
-            {
-                chatTextInfo = myChat.chat.Split('\r');
-                break;
-            }
-        }
+
+        string storyIndex = mini.GetFungusMessage();
+        chatTextInfo = MinigameDialogReader.GetDialogData(storyIndex);
 
         if(chatTextInfo.GetLength(0)!=0) SetUIText();
     }
