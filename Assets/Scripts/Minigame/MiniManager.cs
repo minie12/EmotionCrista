@@ -64,7 +64,7 @@ public class MiniManager : MonoBehaviour
     public PatternManager pattern;
     int patternIdx = (int)PatternType.GREEN;
     int patternGimmick = 1;
-    int patternLevel = (int)LevelType.NORMAL1;
+    int patternLevel = (int)LevelType.HARD1;
 
     // game mode
     private bool bPuzzleMode = true;

@@ -66,6 +66,31 @@ public class GoalInfo : MonoBehaviour
         SetGoal(goalGemCnt);
     }
 
+    public int[,] GetGoal()
+    {
+        int[,] result = new int[2,2];
+        if(goalGemCnt == 2)
+        {
+            result[0,0] = goal2_e[goalIdx,0];
+            result[0, 1] = goal2_e[goalIdx, 1];
+            result[1,0] = goal2_o[goalIdx,0];
+            result[1, 1] = goal2_o[goalIdx, 1];
+        }
+        else if(goalGemCnt == 3)
+        {
+            result = new int[2, 4];
+            result[0, 0] = goal3_e[goalIdx, 0, 0];
+            result[0, 1] = goal3_e[goalIdx, 0, 1];
+            result[0, 2] = goal3_e[goalIdx, 1, 0];
+            result[0, 3] = goal3_e[goalIdx,1,1];
+            result[1, 0] = goal3_o[goalIdx, 0, 0];
+            result[1, 1] = goal3_o[goalIdx, 0, 1];
+            result[1, 2] = goal3_o[goalIdx, 1, 0];
+            result[1, 3] = goal3_o[goalIdx, 1, 1];
+        }
+        return result;
+    }
+
     public void SetGoal(int unit){
         goalGemCnt = unit;
         if(unit == 2) {

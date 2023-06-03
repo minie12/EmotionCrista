@@ -15,6 +15,7 @@ public class PatternGreen : PatternManager
     private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
     private bool[,] area = new bool[11, 6];
+    private bool isPlaying = false; // manage gimmick start & end
 
     protected override void Awake()
     {
@@ -249,7 +250,7 @@ public class PatternGreen : PatternManager
         StartCoroutine(MoveBug(history, bug));
     }
 
-    // -------------------------------------------------------- //
+    // Green Gimmick 1 (Area) -------------------------------------------------------- //
 
     public bool IsInArea(int col_, int row_)
     {
@@ -281,12 +282,12 @@ public class PatternGreen : PatternManager
                 if (area[i, j])
                 {
                     GemInfo gem = board.GetGem(i, j);
-                    gem?.SetBackgroundColor(255f, 255f, 0f, 255f);
+                    gem?.SetBackgroundColor(255f, 255f, 255f, 255f);
                 }
                 else
                 {
                     GemInfo gem = board.GetGem(i, j);
-                    gem?.SetBackgroundColor(255f, 255f, 255f, 255f);
+                    gem?.SetBackgroundColor(100f, 100f, 100f, 100f);
                 }
             }
         }
@@ -297,8 +298,28 @@ public class PatternGreen : PatternManager
     {
         area[col_, row_] = true;
 
+        // hard mode
+        if(level == (int)LevelType.HARD1 || level == (int)LevelType.HARD2)
+        {
+            int idx = col_ % 2;
+            int[,] goal_area = GameObject.Find("Board").GetComponent<GoalInfo>().GetGoal();
+            for(int i=0;i<goal_area.GetLength(1); i+=2)
+            {
+                int new_col = col_ + goal_area[idx, i];
+                int new_row = row_ + goal_area[idx, i + 1];
+                if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0 || (new_col % 2 == 0 && new_row > 4))
+                {
+                    Debug.Log("영역 범위 넘어서 Area 재설정");
+                    SetAreaAgain();
+                    break;
+                }
+                area[new_col, new_row] = true;
+            }
+            return;
+        }
+
         // choose direction vector about even or odd column
-        int[,] direction = new int[6, 2];
+        int[,] direction;
         if (col_ % 2 == 0) // even
         {
             direction = aroundGem_e;
@@ -312,9 +333,11 @@ public class PatternGreen : PatternManager
         {
             int new_col = col_ + direction[i, 0];
             int new_row = row_ + direction[i, 1];
-            if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0)
+            if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0 || (new_col % 2 == 0 && new_row > 4))
             {
-                continue;
+                Debug.Log("영역 범위 넘어서 Area 재설정");
+                SetAreaAgain();
+                break;
             }
             area[new_col, new_row] = true;
             GemInfo gem = board.GetGem(new_col, new_row);
@@ -339,11 +362,15 @@ public class PatternGreen : PatternManager
 
     void GreenGimmick1()
     {
+        isPlaying = true;
         SetAreaAgain();
     }
 
     private void Update()
     {
-        SetColor();
+        if (isPlaying)
+        {
+            SetColor();
+        }
     }
 }
