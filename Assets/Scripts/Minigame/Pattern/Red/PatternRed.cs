@@ -208,7 +208,7 @@ public class PatternRed : PatternManager
     private void StartFireRoad()
     {
         // get random gem
-        startGem = mini.GetPatternGemRandom();
+        startGem = board.GetPatternGemRandom();
         startGem.FireGem(true);
         fireCheck[startGem.GetColumn(), startGem.GetRow()] = true;
 

@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public enum PatternType{
     YELLOW,
@@ -37,13 +34,14 @@ public class MiniManager : MonoBehaviour
     [SerializeField] private const float fullPlayTime = 50f;
     private float playTime;
     [SerializeField] private const float fullFeverTime = 10f;
-    private float feverTime; // 10f
+    private float feverTime;
 
     // board related
     private BoardManager board;
     public SpriteRenderer boardImg;
     public Sprite[] puzzleBoardSP;
-    private int goalGemCnt = 3;
+    public GoalInfo goalInfo;
+    public int goalUnit = 3; // goal gem count
 
     // score
     public float fullScore;
@@ -62,9 +60,9 @@ public class MiniManager : MonoBehaviour
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.GREEN;
-    int patternGimmick = 1;
-    int patternLevel = (int)LevelType.HARD1;
+    public int patternIdx = (int)PatternType.PURPLE;
+    public int patternGimmick = 0;
+    public int patternLevel = (int)LevelType.EASY1;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -74,26 +72,28 @@ public class MiniManager : MonoBehaviour
     public string GetFungusMessage() { return fungusMessage; }
     // ---------------------------------------------------------------
 
-    void Start(){
-        playTime = fullPlayTime; score = 0; fever = 0;
+    private void Start()
+    {
+        playTime = fullPlayTime; 
+        score = 0; 
+        fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
-        // temp
-        board.goalColor = patternIdx;
 
         // ui
         scoreFill.fillAmount = 0;
         timerFill.fillAmount = 0;
         feverFillIMG.fillAmount = 0;
 
-        if(PlayerPrefs.HasKey("goalUnit")) goalGemCnt = PlayerPrefs.GetInt("goalUnit");
-        board.SetGoal(goalGemCnt);
+        // set goal
+        if(PlayerPrefs.HasKey("goalUnit")) goalUnit = PlayerPrefs.GetInt("goalUnit");
+        goalInfo.SetGoal(goalUnit);
 
         // pattern
         pattern = SpawnPattern(patternIdx);
         pattern.StartPattern(patternGimmick, patternLevel);
     }
 
-    public PatternManager SpawnPattern(int patternIdx)
+    private PatternManager SpawnPattern(int patternIdx)
     {
         if (patternIdx == (int)PatternType.YELLOW)
         { // YELLOW
@@ -131,9 +131,8 @@ public class MiniManager : MonoBehaviour
     }
 
 
-    void Update(){
+    private void Update(){
         if(bPuzzleMode){
-            // timerFill.fillAmount = Mathf.InverseLerp(0, fullPlayTime, playTime);
             timerFill.fillAmount = playTime/fullPlayTime;
             playTime -= Time.deltaTime;
 
@@ -178,11 +177,11 @@ public class MiniManager : MonoBehaviour
         if(scorePercent >= 100 && bPuzzleMode) {
             bPuzzleMode = false; // disable playTime count
             board.SetGemMovable(false);
-            Invoke("StartStoryMode",0.6f);
+            Invoke(nameof(StartStoryMode), 0.6f);
         }
     }
 
-    void SetScoreUI(){
+    private void SetScoreUI(){
         int scorePercent = (int)((score/fullScore)*100);
         if(scorePercent > 100) scorePercent = 100;
         scoreTXT.text = (scorePercent).ToString() + " %";
@@ -232,17 +231,17 @@ public class MiniManager : MonoBehaviour
         if(bPuzzleMode && score < fullScore) pattern.RestartPattern();
     }
 
-    void GameOver(){
+    private void GameOver(){
         bPuzzleMode = false;
 
         board.ClearBoard();
 
         pattern.ClearPattern();
-        Invoke("GameOver_", 0.6f);
+        Invoke(nameof(GameOver_), 0.6f);
     }
-    void GameOver_(){ UIGameOver.SetActive(true);}
+    private void GameOver_(){ UIGameOver.SetActive(true);}
 
-    void StartStoryMode(){
+    private void StartStoryMode(){
         bPuzzleMode = false;
         // if game ended in fever mode
         if(bFeverOn) EndFever();
@@ -294,168 +293,5 @@ public class MiniManager : MonoBehaviour
         bPuzzleMode = true;
 
         pattern.RestartPattern();
-    }
-
-    // PATTERN RELATED
-    public GemInfo GetRandomGem(){
-        // TODO: Does not check whether the gem is already filled with water
-
-        int column_ = Random.Range(0, 11);
-        int row_ = Random.Range(0, 6);
-        GemInfo gem = board.GetGem(column_, row_);
-        while(gem == null){
-            column_ = Random.Range(0, 11);
-            row_ = Random.Range(0, 6);
-            gem = board.GetGem(column_, row_);
-        }
-        return gem;
-    }
-
-    public GemInfo GetPatternGemRandom()
-    {
-        while (true)
-        {
-            GemInfo randGem = GetRandomGem();
-            if (randGem.GetColor() == patternIdx)
-            {
-                return randGem;
-            }
-        }
-    }
-
-    public GemInfo GetRandomGemOnWay(int current_c, int current_r)
-    {
-        GemInfo gem = null;
-        while(gem == null)
-        {
-            // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
-            int direction = Random.Range(0, 6);
-            int distance = Random.Range(0, 10);
-            int odd = current_c % 2;
-            int column_ = current_c, row_ = current_r;
-            switch (direction)
-            {
-                case 0:
-                    row_ += distance;
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 1:
-                    column_ += distance; row_ += ((odd == 1) ? distance/2 : (distance+1)/2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 2:
-                    column_ += distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 3: // down
-                    row_ -= distance;
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 4:
-                    column_ -= distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 5:
-                    column_ -= distance; row_ += ((odd == 1) ? distance / 2 : (distance + 1) / 2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                default:
-                    break;
-            }
-        }
-        return gem;
-    }
-
-    // get 6 direction around gem list
-    public List<List<GemInfo>> GetAroundGemList(int current_c, int current_r)
-    {
-        List<List<GemInfo>> aroundGemList = new List<List<GemInfo>>();
-        int odd = current_c % 2;
-
-        // init 6 direction
-        // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
-        for (int i = 0; i < 6; i++) // direction
-        {
-            List<GemInfo> temp = new List<GemInfo>();
-            for(int j = 1; j < 10; j++) // distance
-            {
-                int column_ = current_c, row_ = current_r;
-                GemInfo gem = null;
-                switch (i)
-                {
-                    case 0:
-                        row_ += j;
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 1:
-                        column_ += j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 2:
-                        column_ += j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 3: // down
-                        row_ -= j;
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 4:
-                        column_ -= j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 5:
-                        column_ -= j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    default:
-                        break;
-                }
-                if (gem == null)
-                {
-                    break;
-                }
-                temp.Add(gem);
-            }
-            aroundGemList.Add(temp);
-        }
-        return aroundGemList;
-    }
-
-
-    public GemInfo[] GetRandomGems(int cnt)
-    {
-        // TODO: Does not check whether the gem is already filled with water
-        GemInfo[] gems = new GemInfo[cnt];
-        int[,] pickedCoordinates = new int[cnt, 2];
-
-        for (int i = 0; i < cnt; i++)
-        {
-            GemInfo gem; int column_, row_;
-            bool bPicked;
-            do
-            {
-                bPicked = false;
-                column_ = Random.Range(0, 11);
-                row_ = Random.Range(0, 6);
-                gem = board.GetGem(column_, row_);
-
-                // check if this gem is already picked
-                for (int j = 0; j < i; j++)
-                {
-                    if (pickedCoordinates[j,0] == column_ && pickedCoordinates[j, 1] == row_)
-                    {
-                        bPicked = true;
-                        break;
-                    }
-                }
-            } while (gem == null || gem.bPatternApplied || bPicked);
-
-            pickedCoordinates[i, 0] = column_;
-            pickedCoordinates[i, 1] = row_;
-
-            gems[i] = gem;
-        }
-        
-        return gems;
     }
 }

@@ -58,7 +58,7 @@ public class PatternGreen : PatternManager
     {
         while (true)
         {
-            GemInfo randGem = mini.GetRandomGemOnWay(standard_c, standard_r);
+            GemInfo randGem = board.GetRandomGemOnWay(standard_c, standard_r);
             int column_ = randGem.GetColumn();
             int row_ = randGem.GetRow();
             if (check[column_, row_])
@@ -79,7 +79,7 @@ public class PatternGreen : PatternManager
         int prev_c = start_c, prev_r = start_r;
         for (int i = 0; i < cnt;)
         {
-            GemInfo randGem = mini.GetRandomGemOnWay(prev_c, prev_r);
+            GemInfo randGem = board.GetRandomGemOnWay(prev_c, prev_r);
             int new_c = randGem.GetColumn();
             int new_r = randGem.GetRow();
 
@@ -98,7 +98,7 @@ public class PatternGreen : PatternManager
     GameObject CreateBug()
     {
         // get green gem random
-        GemInfo greenGem = mini.GetPatternGemRandom();
+        GemInfo greenGem = board.GetPatternGemRandom();
         int prevColumn = greenGem.GetColumn();
         int prevRow = greenGem.GetRow();
         check[prevColumn, prevRow] = true;
@@ -351,7 +351,7 @@ public class PatternGreen : PatternManager
     public void SetAreaAgain()
     {
         ClearArea();
-        GemInfo gem = mini.GetRandomGem();
+        GemInfo gem = board.GetRandomGem();
         int level_ = 1;
         if (level == (int)LevelType.EASY1 || level == (int)LevelType.EASY2)
         {

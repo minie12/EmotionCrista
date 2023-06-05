@@ -93,7 +93,7 @@ public class PatternPurple : PatternManager
     void PurpleGimmick0()
     {
         // get random purple gem
-        GemInfo purpleGem = mini.GetPatternGemRandom();
+        GemInfo purpleGem = board.GetPatternGemRandom();
         purpleGem.ChangeSpecialGem();
         purpleGem.FadeIn();
 

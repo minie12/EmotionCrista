@@ -72,7 +72,7 @@ public class PatternBlue : PatternManager
                 break;
         }
 
-        GemInfo[] gems = mini.GetRandomGems(waterGemCnt);
+        GemInfo[] gems = board.GetRandomGems(waterGemCnt);
         for (int i = 0; i < waterGemCnt; i++)
         {
             gems[i].FillWaterInHex();

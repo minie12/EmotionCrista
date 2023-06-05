@@ -4052,7 +4052,7 @@ MonoBehaviour:
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
-  itemId: 451
+  itemId: 497
   blockName: D01_Lulian_AfterHard
   description: 
   eventHandler: {fileID: 79947916}
@@ -6453,7 +6453,7 @@ SpriteRenderer:
   m_Size: {x: 18.75, y: 25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &881511823
@@ -6858,6 +6858,8 @@ MonoBehaviour:
   puzzleBoardSP:
   - {fileID: 21300000, guid: c8af3e2b972cd4c4282289fe80334d78, type: 3}
   - {fileID: 21300000, guid: c083f8499ddeceb4e923e65619248e17, type: 3}
+  goalInfo: {fileID: 1184631179}
+  goalUnit: 3
   fullScore: 30
   feverFillIMG: {fileID: 157930644}
   feverIMG: {fileID: 1144650190}
@@ -6871,6 +6873,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a51298549a2dd2d4e9a9d8459a7fa461, type: 3}
   animator: {fileID: 157930646}
   pattern: {fileID: 2142439448}
+  patternIdx: 4
+  patternGimmick: 0
   patternLevel: 0
   fungusMessage: D01_NariaGame
 --- !u!4 &925114810
@@ -7929,7 +7933,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mini: {fileID: 925114809}
-  goalColor: 2
   gemPF: {fileID: 8180331941094223346, guid: 41e5d453e606fb74f9bbba3ecbe5356b, type: 3}
   dropPos: []
   clickEffect: {fileID: 1088655649}
@@ -7939,7 +7942,6 @@ MonoBehaviour:
   defaultAUD: {fileID: 8300000, guid: f55e481ca80746b44a30f3cfbf4d9af6, type: 3}
   beep: {fileID: 8300000, guid: bc0d9c9d0a703474a8cbddb55fd32d0b, type: 3}
   goalInfo: {fileID: 1184631179}
-  goalGemCnt: 3
 --- !u!212 &1184631178
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9870,7 +9872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11628957bbd7b5409a0015096c0b258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
   soundVolumeBGM: 0
   soundVolumeSFX: 0
 --- !u!4 &1699835179
