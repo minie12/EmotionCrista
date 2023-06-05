@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PatternPurple : PatternManager
 {
-    private int chainCnt = 3;
-    private float interval = 30f;
+    private const int chainCnt = 3;
+    private const float interval = 30f;
 
     private bool isPlaying = false;
 
@@ -24,7 +24,8 @@ public class PatternPurple : PatternManager
         // give term before choose gem because board init
         if (gimmick == 0)
         {
-            InvokeRepeating("PurpleGimmick0", 1f, interval);
+            Invoke(nameof(PurpleGimmick0), 1f);
+            // InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
         }
     }
 
@@ -39,7 +40,7 @@ public class PatternPurple : PatternManager
         isPlaying = true;
         if (gimmick == 0)
         {
-            InvokeRepeating("PurpleGimmick0", 1f, interval);
+            InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
         }
 
     }
@@ -79,12 +80,12 @@ public class PatternPurple : PatternManager
 
         while (cnt-- > 0)
         {
-            gem.FadeOut(1f / fadeTime);
+            gem.FadeOut(fadeTime);
             yield return new WaitForSeconds(fadeTime);
-            gem.FadeIn(1f / fadeTime);
+            gem.FadeIn(fadeTime);
             yield return new WaitForSeconds(fadeTime);
         }
-        gem.ChangeGemColor((int)PatternType.PURPLE);
+        gem.ChangeGemColor(mini.patternIdx);
         gem.FadeIn();
         BlockAroundGem(gem);
     }

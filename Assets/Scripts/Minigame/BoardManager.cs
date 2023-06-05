@@ -247,21 +247,21 @@ public class BoardManager : MonoBehaviour
             goalInfo.EraseGems(column, row, true);
 
             // red gimmick
-            if (mini.patternIdx == 2 && currentGemColor == 2 && GameObject.Find("MiniManager").GetComponent<PatternRed>().GetIsPlaying())
+            if (mini.patternIdx == 2 && currentGemColor == 2 && mini.GetComponent<PatternRed>().GetIsPlaying())
             {
                 Debug.Log("red gimmick");
-                GameObject.Find("MiniManager").GetComponent<PatternRed>().InvokeExplosion();
+                mini.GetComponent<PatternRed>().InvokeExplosion();
                 return;
             }
 
             // purple gimmick
-            if (mini.patternIdx == (int)PatternType.PURPLE && GameObject.Find("MiniManager").GetComponent<PatternPurple>().GetIsPlaying())
+            if (mini.patternIdx == (int)PatternType.PURPLE && mini.GetComponent<PatternPurple>().GetIsPlaying())
             {
                 List<GemInfo> aroundChainGems = CheckExitChainAround();
                 
                 for(int i = 0; i < aroundChainGems.Count; i++)
                 {
-                    Debug.Log(aroundChainGems[i]);
+                    Debug.Log("주변 사슬" + aroundChainGems[i].GetColumn() + ", " + aroundChainGems[i].GetRow());
                     int extraChain = aroundChainGems[i].MinusChainCnt();
 
                     // end chain
@@ -306,14 +306,14 @@ public class BoardManager : MonoBehaviour
         for(int i = 0; i < aroundGems.Count; i++)
         {
             bool isChain = IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
-            Debug.Log("주변 광물 " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", 사슬 유무: "+ isChain);
+            Debug.Log("사슬 해제한 주변 광물 " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", 사슬 유무: "+ isChain);
             if (isChain)
             {
-                gem.bRotateAble = false;
+                aroundGems[i].bRotateAble = false;
             }
             else
             {
-                gem.bRotateAble = true;
+                aroundGems[i].bRotateAble = true;
             }
         }
         
@@ -326,8 +326,7 @@ public class BoardManager : MonoBehaviour
         List<GemInfo> result = new List<GemInfo>();
         bool[,] check = new bool[11, 6];
 
-        List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
-        Debug.Log("크러쉬된 광물 개수: "+ crushedGems.Count);
+        List<List<int>> crushedGems = goalInfo.crushedGems;
 
         for(int i = 0; i < crushedGems.Count; i++)
         {
@@ -353,6 +352,7 @@ public class BoardManager : MonoBehaviour
     bool IsExitChainAround(int col, int r)
     {
         List<GemInfo> aroundGems = GetAroundGems(col, r);
+        aroundGems.Add(GetGem(col, r));
 
         for (int j = 0; j < aroundGems.Count; j++)
         {
