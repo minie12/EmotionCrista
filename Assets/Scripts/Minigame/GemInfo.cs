@@ -216,7 +216,6 @@ public class GemInfo : MonoBehaviour
 
     public void DestroyGem()
     {
-        GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine("DestroyGemC");
     }
@@ -335,7 +334,6 @@ public class GemInfo : MonoBehaviour
     // gem explode (red gimmick 0)
     public void ExplosionGem()
     {
-        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
         gameObject.GetComponent<Collider2D>().enabled = false;
 
         if (isFired)

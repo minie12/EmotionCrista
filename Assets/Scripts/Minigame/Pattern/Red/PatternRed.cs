@@ -5,20 +5,16 @@ using UnityEngine;
 public class PatternRed : PatternManager
 {
     // red around gems direction vector (odd/even standard: col)
-    private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
-    private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+    private readonly int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
+    private readonly int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
     private bool isPlaying = false; // manage gimmick start & end
-
-    // check exist fire
-    private bool[,] fireCheck = new bool[11, 6];
     private GemInfo startGem;
 
     protected override void Awake()
     {
         base.Awake();
     }
-
 
     // Setting gimmick
     override public void StartPattern(int gimmick_, int level_)
@@ -27,7 +23,7 @@ public class PatternRed : PatternManager
         level = level_;
         isPlaying = true;
         OrganizeCharacterChat();
-        Invoke("StartFireRoad", 1f);
+        Invoke(nameof(StartFireRoad), 1f);
     }
 
     override public void StopPattern() 
@@ -40,7 +36,7 @@ public class PatternRed : PatternManager
     {
         isPlaying = true;
         OrganizeCharacterChat();
-        Invoke("StartFireRoad", 1f);
+        Invoke(nameof(StartFireRoad), 1f);
     }
 
     public bool GetIsPlaying()
@@ -201,7 +197,7 @@ public class PatternRed : PatternManager
     // Red gimmick 0
     public void InvokeExplosion()
     {
-        Invoke("ExplosionAroundGems", 0.2f);
+        Invoke(nameof(ExplosionAroundGems), 0.2f);
     }
 
     // Red gimmick 1 (fire road)
@@ -210,38 +206,20 @@ public class PatternRed : PatternManager
         // get random gem
         startGem = board.GetPatternGemRandom();
         startGem.FireGem(true);
-        fireCheck[startGem.GetColumn(), startGem.GetRow()] = true;
 
         StartCoroutine(SpreadFire(3f));
-        //StartCoroutine(StopFire(startGem));
     }
 
     private IEnumerator AfterExplode(float previousTime, GemInfo gem)
     {
         yield return new WaitForSeconds(previousTime);
 
-        if (fireCheck[gem.GetColumn(), gem.GetRow()] == true && gem)
+        if (gem != null)
         {
-            fireCheck[gem.GetColumn(), gem.GetRow()] = false;
             gem.ExplosionGem();
             yield return new WaitForSeconds(0.1f); // wait for gem crush
             GameObject.Find("Board").GetComponent<BoardManager>().RefillBoardOut();
         }
-    }
-
-    public void SetFireCheckFalse(int col, int row)
-    {
-        fireCheck[col, row] = false;
-    }
-
-    public bool GetFireCheck(int col, int row)
-    {
-        return fireCheck[col, row];
-    }
-
-    public void SetFireCheckTrue(int col, int row)
-    {
-        fireCheck[col, row] = true;
     }
 
     public IEnumerator InitFire()
@@ -249,7 +227,6 @@ public class PatternRed : PatternManager
         Debug.Log("init gem fired");
 
         yield return null;
-        // yield return new WaitForSeconds(0.3f); // wait for gem crush
 
         // stop coroutine
         StopAllCoroutines();
@@ -263,16 +240,12 @@ public class PatternRed : PatternManager
                 {
                     break;
                 }
-                if (fireCheck[i, j] == false)
+                GemInfo gem = board.GetGem(i, j);
+                if (gem == null || gem.isFired == false)
                 {
                     continue;
                 }
-                fireCheck[i, j] = false;
-                GemInfo temp = GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j);
-                if (temp != null)
-                {
-                    temp.StopFireGem();
-                }
+                gem.StopFireGem();
             }
         }
     }
@@ -294,7 +267,8 @@ public class PatternRed : PatternManager
                     {
                         break;
                     }
-                    if (fireCheck[i, j])
+                    GemInfo gem = board.GetGem(i, j);
+                    if (gem != null && gem.isFired)
                     {
                         gemList.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
                     }
@@ -335,7 +309,8 @@ public class PatternRed : PatternManager
                         continue;
                     }
                     // if around already fired then continue
-                    if (fireCheck[new_col, new_row])
+                    GemInfo gem = board.GetGem(new_col, new_row);
+                    if (gem.isFired)
                     {
                         continue;
                     }
@@ -366,12 +341,10 @@ public class PatternRed : PatternManager
             {
                 int rand = Random.Range(0, aroundGems.Count);
                 GemInfo temp = aroundGems[rand];
-                if (fireCheck[temp.GetColumn(), temp.GetRow()])
+                if (temp.isFired)
                 {
                     continue;
                 }
-
-                fireCheck[temp.GetColumn(), temp.GetRow()] = true;
                 temp.FireGem();
                 StartCoroutine(AfterExplode(6f, temp));
                 i++;
