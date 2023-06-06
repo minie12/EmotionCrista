@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PatternPurple : PatternManager
 {
-    private const int chainCnt = 3;
+    private const int chainCnt = 1;
     private const float interval = 30f;
 
     private bool isPlaying = false;
@@ -57,18 +57,18 @@ public class PatternPurple : PatternManager
         List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(gem.GetColumn(), gem.GetRow());
 
         // block rotate gems
-        gem.bRotateAble = false;
+        board.SetRotate(gem.GetColumn(), gem.GetRow(), true);
         // fix location gems
         gem.bLocationFixed = true;
         for (int i = 0; i < aroundGems.Count; i++)
         {
-            aroundGems[i].bRotateAble = false;
+            board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), true);
             aroundGems[i].bLocationFixed = true;
             aroundGems[i].SetChainGem(chainCnt);
             List<GemInfo> aroundGemsTemp = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
             for(int j = 0; j < aroundGemsTemp.Count; j++)
             {
-                aroundGemsTemp[j].bRotateAble = false;
+                board.SetRotate(aroundGemsTemp[j].GetColumn(), aroundGemsTemp[j].GetRow(), true);
             }
         }
     }

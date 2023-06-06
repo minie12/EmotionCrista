@@ -119,10 +119,10 @@ public class PatternGreen : PatternManager
         List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(prevColumn, prevRow);
 
         // block rotate gems
-        greenGem.bRotateAble = false;
+        board.SetRotate(greenGem.GetColumn(), greenGem.GetRow(), true);
         for (int i = 0; i < aroundGems.Count; i++)
         {
-            aroundGems[i].bRotateAble = false;
+            board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), true);
         }
         return specialGem;
     }
@@ -153,13 +153,13 @@ public class PatternGreen : PatternManager
     {
         yield return new WaitForSeconds(1f);
 
-        previousGem.bRotateAble = true;
+        board.SetRotate(previousGem.GetColumn(), previousGem.GetRow(), false);
 
         // get around gems
         List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(previousGem.GetColumn(), previousGem.GetRow());
         for (int i = 0; i < aroundGems.Count; i++)
         {
-            aroundGems[i].bRotateAble = true;
+            board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), false);
         }
     }
 

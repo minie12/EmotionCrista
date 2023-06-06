@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PatternType{
+public enum PatternType
+{
     YELLOW,
     BLUE,
     RED,
@@ -21,7 +22,7 @@ public enum LevelType
 }
 
 public class MiniManager : MonoBehaviour
-{    
+{
     // UI
     public Image timerFill;
     public Image scoreFill;
@@ -52,16 +53,16 @@ public class MiniManager : MonoBehaviour
     public Image feverFillIMG;
     public Image feverIMG;
     public Button feverBTN;
-    [HideInInspector]public bool bFeverOn = false;
+    [HideInInspector] public bool bFeverOn = false;
     public Sprite[] feverSP;
     public Sprite[] feverFillSP;
     public Animator animator;
 
     // pattern
     public PatternManager pattern;
-    public int patternIdx = (int)PatternType.PURPLE;
-    public int patternGimmick = 0;
-    public int patternLevel = (int)LevelType.EASY1;
+    [HideInInspector] public int patternIdx;
+    [HideInInspector] public int patternGimmick;
+    [HideInInspector] public int patternLevel;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -73,8 +74,8 @@ public class MiniManager : MonoBehaviour
 
     private void Start()
     {
-        playTime = fullPlayTime; 
-        score = 0; 
+        playTime = fullPlayTime;
+        score = 0;
         fever = 0;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
 
@@ -84,8 +85,13 @@ public class MiniManager : MonoBehaviour
         feverFillIMG.fillAmount = 0;
 
         // set goal
-        if(PlayerPrefs.HasKey("goalUnit")) goalUnit = PlayerPrefs.GetInt("goalUnit");
+        if (PlayerPrefs.HasKey("goalUnit")) goalUnit = PlayerPrefs.GetInt("goalUnit");
         goalInfo.SetGoal(goalUnit);
+
+        // set pattern
+        patternIdx = (int)PatternType.PURPLE;
+        patternGimmick = 0;
+        patternLevel = (int)LevelType.EASY1;
 
         // pattern
         pattern = SpawnPattern(patternIdx);
@@ -130,69 +136,80 @@ public class MiniManager : MonoBehaviour
     }
 
 
-    private void Update(){
-        if(bPuzzleMode){
-            timerFill.fillAmount = playTime/fullPlayTime;
+    private void Update()
+    {
+        if (bPuzzleMode)
+        {
+            timerFill.fillAmount = playTime / fullPlayTime;
             playTime -= Time.deltaTime;
 
-            if(playTime <= 0){
+            if (playTime <= 0)
+            {
                 GameOver();
             }
 
-            if(bFeverOn){
+            if (bFeverOn)
+            {
                 feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFeverTime, feverTime);
                 feverTime -= Time.deltaTime;
-                if(feverTime <= 0) EndFever();
+                if (feverTime <= 0) EndFever();
             }
         }
     }
 
-    public float TimeLeft(){
+    public float TimeLeft()
+    {
         return fullPlayTime - playTime;
     }
 
-    public void AddScore(int n){
+    public void AddScore(int n)
+    {
         score += n;
         SetScoreUI();
-        int scorePercent = (int)((score/fullScore)*100);
-        if(scorePercent > 100) scorePercent = 100;
+        int scorePercent = (int)((score / fullScore) * 100);
+        if (scorePercent > 100) scorePercent = 100;
         // scoreTXT.text = (scorePercent).ToString() + " %";
         // scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
 
-        if(!bFeverOn) {
+        if (!bFeverOn)
+        {
             playTime += 0.5f;
             AddFever(n);
         }
-        
-        // setting UI chatbox of character
-        int prevScorePercent = (int)((score-n)/fullScore*100);
-        if(prevScorePercent < 30 && scorePercent >= 30) pattern.SetUIText();
-        else if(prevScorePercent < 35 && scorePercent >= 35) pattern.SetUIText();
-        else if(prevScorePercent < 40 && scorePercent >= 40) pattern.SetUIText();
-        else if(prevScorePercent < 60 && scorePercent >= 60) pattern.SetUIText();
-        else if(prevScorePercent < 65 && scorePercent >= 65) pattern.SetUIText();
-        else if(prevScorePercent < 80 && scorePercent >= 80) pattern.SetUIText();
 
-        if(scorePercent >= 100 && bPuzzleMode) {
+        // setting UI chatbox of character
+        int prevScorePercent = (int)((score - n) / fullScore * 100);
+        if (prevScorePercent < 30 && scorePercent >= 30) pattern.SetUIText();
+        else if (prevScorePercent < 35 && scorePercent >= 35) pattern.SetUIText();
+        else if (prevScorePercent < 40 && scorePercent >= 40) pattern.SetUIText();
+        else if (prevScorePercent < 60 && scorePercent >= 60) pattern.SetUIText();
+        else if (prevScorePercent < 65 && scorePercent >= 65) pattern.SetUIText();
+        else if (prevScorePercent < 80 && scorePercent >= 80) pattern.SetUIText();
+
+        if (scorePercent >= 100 && bPuzzleMode)
+        {
             bPuzzleMode = false; // disable playTime count
             board.SetGemMovable(false);
             Invoke(nameof(StartStoryMode), 0.6f);
         }
     }
 
-    private void SetScoreUI(){
-        int scorePercent = (int)((score/fullScore)*100);
-        if(scorePercent > 100) scorePercent = 100;
+    private void SetScoreUI()
+    {
+        int scorePercent = (int)((score / fullScore) * 100);
+        if (scorePercent > 100) scorePercent = 100;
         scoreTXT.text = (scorePercent).ToString() + " %";
         scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
     }
 
-    public void AddFever(int n){
+    public void AddFever(int n)
+    {
         playTime += 0.5f;
         fever += n;
         feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
-        if(fever > fullFever && !bFeverOn && !animator.GetBool("bFeverOn")){
+        if (fever > fullFever && !bFeverOn && !animator.GetBool("bFeverOn"))
+        {
             animator.SetBool("bFeverOn", true);
             feverFillIMG.sprite = feverFillSP[1];
             feverIMG.sprite = feverSP[1];
@@ -200,7 +217,8 @@ public class MiniManager : MonoBehaviour
         }
     }
 
-    public void StartFever(){
+    public void StartFever()
+    {
         // reset
         bFeverOn = true;
         feverTime = fullFeverTime;
@@ -213,7 +231,8 @@ public class MiniManager : MonoBehaviour
         feverBTN.enabled = false;
     }
 
-    public void EndFever(){
+    public void EndFever()
+    {
         animator.SetBool("bFeverOn", false);
 
         feverBTN.enabled = false;
@@ -224,13 +243,14 @@ public class MiniManager : MonoBehaviour
         fever = 0; feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
         bFeverOn = false;
-        if(bPuzzleMode && score < fullScore) board.EndFever();
+        if (bPuzzleMode && score < fullScore) board.EndFever();
 
         // restart pattern
-        if(bPuzzleMode && score < fullScore) pattern.RestartPattern();
+        if (bPuzzleMode && score < fullScore) pattern.RestartPattern();
     }
 
-    private void GameOver(){
+    private void GameOver()
+    {
         bPuzzleMode = false;
 
         board.ClearBoard();
@@ -238,16 +258,17 @@ public class MiniManager : MonoBehaviour
         pattern.ClearPattern();
         Invoke(nameof(GameOver_), 0.6f);
     }
-    private void GameOver_(){ UIGameOver.SetActive(true);}
+    private void GameOver_() { UIGameOver.SetActive(true); }
 
-    private void StartStoryMode(){
+    private void StartStoryMode()
+    {
         bPuzzleMode = false;
         // if game ended in fever mode
-        if(bFeverOn) EndFever();
+        if (bFeverOn) EndFever();
 
         // clear board sprites
         pattern.StopPattern();
-        if(fever != 0) AddFever(-fever);
+        if (fever != 0) AddFever(-fever);
         UIScore.SetActive(false);
         board.ClearBoard();
 
@@ -263,9 +284,10 @@ public class MiniManager : MonoBehaviour
     }
 
     // after dialogue with client
-    public void RestartGame(string color, int gimmick_, string message){
+    public void RestartGame(string color, int gimmick_, string message)
+    {
         fungusMessage = message;
-        
+
         score = 0; SetScoreUI();
         EndFever();
         playTime = fullPlayTime;
@@ -277,14 +299,16 @@ public class MiniManager : MonoBehaviour
     }
 
     // after game over
-    public void RestartGameOver(){
+    public void RestartGameOver()
+    {
         UIGameOver.SetActive(false);
 
         score = 0; SetScoreUI();
         EndFever();
         playTime = fullPlayTime;
         UIScore.SetActive(true);
-        if(bFeverOn){
+        if (bFeverOn)
+        {
             bFeverOn = false;
             EndFever();
         }

@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class GemInfo : MonoBehaviour
 {
+    // board
     private BoardManager board;
     private int column, row;
 
+    // gem sprite
     private PatternType color;
     public Sprite[] gemSprites;
     public Sprite[] special_gem_sprites;
 
+    // change gem effect
+    private SpriteRenderer spriteRenderer;
+
+    // outline
     public SpriteRenderer gemOutline;
     public Sprite gemClickSP;
     public Sprite gemSideSP;
 
+    // animation
     public Animator sparkleANIM;
     public Animator patternANIM;
     public Animator gemANIM;
@@ -22,30 +29,19 @@ public class GemInfo : MonoBehaviour
     public Animator explosionANIM;
     public GameObject chainAnimObj;
 
+    // pattern
     public bool bPatternApplied;
+    private int chainCnt; // purple gimmick
+    [HideInInspector] public bool bLocationFixed = false; // manage location fixed
+    [HideInInspector] public bool isFired = false; // check fire road
 
-    // purple gimmick
-    private int chainCnt;
-
-    // change gem effect
-    private SpriteRenderer spriteRenderer;
-
-    // manage rotate
-    [HideInInspector] public bool bRotateAble = true;
-
-    // manage location fixed
-    [HideInInspector] public bool bLocationFixed = false;
-
-    // check fire road
-    [HideInInspector] public bool isFired = false;
-
-    void Awake()
+    private void Awake()
     {
         // get gem sprite renderer
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
-    void Start()
+    private void Start()
     {
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
@@ -53,7 +49,6 @@ public class GemInfo : MonoBehaviour
     public void InitGem(int column_, int row_, int color_)
     {
         bPatternApplied = false;
-        bRotateAble = true;
         bLocationFixed = false;
         column = column_; row = row_;
         SetColor_(color_);
@@ -83,7 +78,7 @@ public class GemInfo : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void OnMouseUp()
+    private void OnMouseUp()
     {
         if (board.CheckFever())
         {
@@ -113,7 +108,7 @@ public class GemInfo : MonoBehaviour
         SetColor_(now);
     }
 
-    void SetColor_(int color_)
+    private void SetColor_(int color_)
     {
         if (color_ == (int)PatternType.YELLOW) color = PatternType.YELLOW;
         else if (color_ == (int)PatternType.BLUE) color = PatternType.BLUE;
@@ -163,32 +158,6 @@ public class GemInfo : MonoBehaviour
         return row;
     }
 
-    public int GetChainCnt()
-    {
-        return chainCnt;
-    }
-
-    // purple gimmick chain
-    public int MinusChainCnt()
-    {
-        if (chainCnt > 0)
-        {
-            chainCnt--;
-
-            // play animation
-            StartCoroutine(ChainGemC(chainCnt));
-        }
-        return chainCnt;
-    }
-
-    IEnumerator ChainGemC(int cnt)
-    {
-        GameObject temp = chainAnimObj.transform.GetChild(cnt).gameObject;
-        temp.GetComponent<Animator>().Play("gem_chain_purple", 0, 0.0f);
-        yield return new WaitForSeconds(0.9f);
-        temp.SetActive(false);
-    }
-
     // change special gem
     public void ChangeSpecialGem()
     {
@@ -234,73 +203,6 @@ public class GemInfo : MonoBehaviour
         }
     }
 
-    // hearbeat gem (use in yellow gimmick 2)
-    public void GemHeartBeat(float prevTime, float amount, float time)
-    {
-        StartCoroutine(GemBeatRoutine(prevTime, amount, time));
-    }
-
-    private IEnumerator GemBeatRoutine(float prevTime, float amount, float time)
-    {
-        yield return new WaitForSeconds(prevTime);
-
-        float originX = transform.GetChild(0).localScale.x;
-
-        float maxScale = originX * amount;
-        float midScale = originX * amount * 0.9f;
-        float minScale = originX * 0.9f;
-        float[] scaleList = { minScale, midScale, originX, maxScale, originX };
-        float[] timeList = { time * 0.025f, time * 0.175f, time * 0.11f, time * 0.11f, time * 0.34f };
-        float[] intervalList = { time * 0.025f, time * 0.175f, time * 0.11f, time * 0.35f, time * 0.34f };
-
-        for (int i = 0; i < scaleList.Length; i++)
-        {
-            transform.GetChild(0).DOScale(new Vector3(scaleList[i], scaleList[i]), timeList[i]);
-            yield return new WaitForSeconds(intervalList[i]);
-        }
-    }
-
-    // shake gem effect
-    public void GemShake(float prevTime, float amount, float time, bool keepAmount = true)
-    {
-        StartCoroutine(GemShakeRoutine(prevTime, amount, time, keepAmount));
-    }
-
-    private IEnumerator GemShakeRoutine(float prevTime, float amount, float time, bool keepAmount)
-    {
-        yield return new WaitForSeconds(prevTime);
-
-        Vector3 originPosition = transform.position;
-        for (float t = time; t >= 0; t -= Time.deltaTime)
-        {
-            Vector3 rand = new Vector3(0, Random.insideUnitCircle.y, 0) * (keepAmount ? amount : Mathf.Lerp(amount, 0, 1 - t / time));
-            transform.position = originPosition + rand;
-            yield return null;
-        }
-        transform.position = originPosition;
-    }
-
-    // gem fire
-    public void FireGem(bool isStart = false)
-    {
-        isFired = true;
-        fireANIM.gameObject.SetActive(true);
-        if (isStart)
-        {
-            fireANIM.Play("gem_fire_red_start", 0, 0.0f);
-        }
-        else
-        {
-            fireANIM.Play("gem_fire_red", 0, 0.0f);
-        }
-    }
-
-    public void StopFireGem()
-    {
-        isFired = false;
-        fireANIM.gameObject.SetActive(false);
-    }
-
     public void OnlyDestroyGem(float prevTime = 0f)
     {
         StartCoroutine(OnlyDestroyGemC(prevTime));
@@ -333,63 +235,6 @@ public class GemInfo : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void ExplosionGem()
-    {
-        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
-        gameObject.GetComponent<Collider2D>().enabled = false;
-
-        if (isFired)
-        {
-            GameObject.Find("Board").GetComponent<BoardManager>().SetGemClicked(false);
-            Debug.Log("clear gem clicked!");
-        }
-
-        StartCoroutine("ExplosionGemC");
-    }
-
-    IEnumerator ExplosionGemC()
-    {
-        gemANIM.enabled = true;
-
-        explosionANIM.Play("gem_explosion_red", 0, 0.0f);
-        yield return new WaitForSeconds(0.3f);
-        Destroy(gameObject);
-    }
-
-    public void SetChainGem(int cnt)
-    {
-        chainCnt = cnt;
-
-        // turn chain obj active true
-        chainAnimObj.SetActive(true);
-        for (int i = 0; i < cnt; i++)
-        {
-            chainAnimObj.transform.GetChild(i).gameObject.SetActive(true);
-        }
-    }
-
-    public void FillWaterInHex()
-    {
-        bPatternApplied = true;  // so that this gem does not get selected at GetRandomGem()
-        patternANIM.Play("gem_fill_water", 0, 0.0f);
-        StartCoroutine("FillWaterInHexC");
-    }
-
-    IEnumerator FillWaterInHexC()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        // check whether gem_fill_water animation is done or not
-        while (!patternANIM.GetCurrentAnimatorStateInfo(0).IsTag("changeColor"))
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        SetColor(); // change color of gem
-        bPatternApplied = false;
-        patternANIM.SetBool("bWaterFilled", true);
-    }
-
     // just change row, column. Actually move action in BoardManager's RotateGem func.
     public void MoveGem(int column_, int row_, float time)
     {
@@ -414,5 +259,159 @@ public class GemInfo : MonoBehaviour
         transform.position = endPos;
 
         gameObject.GetComponent<Collider2D>().enabled = true;
+    }
+
+    // ================================= pattern ============================================ //
+
+    // hearbeat gem (yellow gimmick 2)
+    public void GemHeartBeat(float prevTime, float amount, float time)
+    {
+        StartCoroutine(GemBeatRoutine(prevTime, amount, time));
+    }
+
+    private IEnumerator GemBeatRoutine(float prevTime, float amount, float time)
+    {
+        yield return new WaitForSeconds(prevTime);
+
+        float originX = transform.GetChild(0).localScale.x;
+
+        float maxScale = originX * amount;
+        float midScale = originX * amount * 0.9f;
+        float minScale = originX * 0.9f;
+        float[] scaleList = { minScale, midScale, originX, maxScale, originX };
+        float[] timeList = { time * 0.025f, time * 0.175f, time * 0.11f, time * 0.11f, time * 0.34f };
+        float[] intervalList = { time * 0.025f, time * 0.175f, time * 0.11f, time * 0.35f, time * 0.34f };
+
+        for (int i = 0; i < scaleList.Length; i++)
+        {
+            transform.GetChild(0).DOScale(new Vector3(scaleList[i], scaleList[i]), timeList[i]);
+            yield return new WaitForSeconds(intervalList[i]);
+        }
+    }
+
+    // shake gem effect (yellow gimmick 2)
+    public void GemShake(float prevTime, float amount, float time, bool keepAmount = true)
+    {
+        StartCoroutine(GemShakeRoutine(prevTime, amount, time, keepAmount));
+    }
+
+    private IEnumerator GemShakeRoutine(float prevTime, float amount, float time, bool keepAmount)
+    {
+        yield return new WaitForSeconds(prevTime);
+
+        Vector3 originPosition = transform.position;
+        for (float t = time; t >= 0; t -= Time.deltaTime)
+        {
+            Vector3 rand = new Vector3(0, Random.insideUnitCircle.y, 0) * (keepAmount ? amount : Mathf.Lerp(amount, 0, 1 - t / time));
+            transform.position = originPosition + rand;
+            yield return null;
+        }
+        transform.position = originPosition;
+    }
+
+    // fill water (blue gimmick 0)
+    public void FillWaterInHex()
+    {
+        bPatternApplied = true;  // so that this gem does not get selected at GetRandomGem()
+        patternANIM.Play("gem_fill_water", 0, 0.0f);
+        StartCoroutine("FillWaterInHexC");
+    }
+
+    IEnumerator FillWaterInHexC()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        // check whether gem_fill_water animation is done or not
+        while (!patternANIM.GetCurrentAnimatorStateInfo(0).IsTag("changeColor"))
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        SetColor(); // change color of gem
+        bPatternApplied = false;
+        patternANIM.SetBool("bWaterFilled", true);
+    }
+
+    // gem explode (red gimmick 0)
+    public void ExplosionGem()
+    {
+        GameObject.Find("MiniManager").GetComponent<PatternRed>().SetFireCheckFalse(column, row);
+        gameObject.GetComponent<Collider2D>().enabled = false;
+
+        if (isFired)
+        {
+            GameObject.Find("Board").GetComponent<BoardManager>().SetGemClicked(false);
+            Debug.Log("clear gem clicked!");
+        }
+
+        StartCoroutine("ExplosionGemC");
+    }
+
+    IEnumerator ExplosionGemC()
+    {
+        gemANIM.enabled = true;
+
+        explosionANIM.Play("gem_explosion_red", 0, 0.0f);
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
+    }
+
+    // gem fire (red gimmick 1)
+    public void FireGem(bool isStart = false)
+    {
+        isFired = true;
+        fireANIM.gameObject.SetActive(true);
+        if (isStart)
+        {
+            fireANIM.Play("gem_fire_red_start", 0, 0.0f);
+        }
+        else
+        {
+            fireANIM.Play("gem_fire_red", 0, 0.0f);
+        }
+    }
+
+    public void StopFireGem()
+    {
+        isFired = false;
+        fireANIM.gameObject.SetActive(false);
+    }
+
+    // chain (purple gimmick 0)
+    public int GetChainCnt()
+    {
+        return chainCnt;
+    }
+
+    public void SetChainGem(int cnt)
+    {
+        chainCnt = cnt;
+
+        // turn chain obj active true
+        chainAnimObj.SetActive(true);
+        for (int i = 0; i < cnt; i++)
+        {
+            chainAnimObj.transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
+    public int MinusChainCnt()
+    {
+        if (chainCnt > 0)
+        {
+            chainCnt--;
+
+            // play animation
+            StartCoroutine(ChainGemC(chainCnt));
+        }
+        return chainCnt;
+    }
+
+    IEnumerator ChainGemC(int cnt)
+    {
+        GameObject temp = chainAnimObj.transform.GetChild(cnt).gameObject;
+        temp.GetComponent<Animator>().Play("gem_chain_purple", 0, 0.0f);
+        yield return new WaitForSeconds(0.9f);
+        temp.SetActive(false);
     }
 }

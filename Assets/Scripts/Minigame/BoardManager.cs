@@ -15,6 +15,7 @@ public class BoardManager : MonoBehaviour
     public GameObject clickEffect;
     private GemInfo[,] gems;
     private Vector3[,] boardTiles;
+    private bool[,] isLockRotate = new bool[11, 6]; // pattern related
 
     // wait for rotate time
     private bool bGemMovable = false;
@@ -44,7 +45,7 @@ public class BoardManager : MonoBehaviour
     }
 
     private void Update(){
-        if (bGemClicked && bGemMovable && gems[column, row].bRotateAble)
+        if (bGemClicked && bGemMovable && !isLockRotate[column, row])
         {
             if (Input.GetKeyDown(KeyCode.A)) RotateGem('a');
             else if (Input.GetKeyDown(KeyCode.D)) RotateGem('d');
@@ -141,24 +142,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    // rotate gem's rotateAble value (opposite direction with update gem array)
-    private void RotateGemRotateAble(int[,] d, int direction)
-    {
-        int idx = 0;
-        bool temp = gems[column + d[idx, 0], row + d[idx, 1]].bRotateAble;
-        while (true)
-        {
-            int prevIdx = idx;
-            idx = (idx + direction + 6) % 6;
-            if (idx == 0)
-            {
-                gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].bRotateAble = temp;
-                break;
-            }
-            gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].bRotateAble = gems[column + d[idx, 0], row + d[idx, 1]].bRotateAble;
-        }
-    }
-
     private void RotateGem(char key){
         bGemMovable = false;
 
@@ -173,9 +156,6 @@ public class BoardManager : MonoBehaviour
 
             // update gems array
             RotateUpdateGemInfo(d, 1);
-
-            // return bRotateAble value
-            RotateGemRotateAble(d, -1);
         } 
         
         // turn CW
@@ -185,9 +165,6 @@ public class BoardManager : MonoBehaviour
 
             // update gems array
             RotateUpdateGemInfo(d, -1);
-
-            // return bRotateAble value
-            RotateGemRotateAble(d, 1);
         }
     }
 
@@ -286,9 +263,6 @@ public class BoardManager : MonoBehaviour
 
             // show that gem has been clicked
             ChangeGemOutline();
-            //gems[column, row].SetOutline("click");
-            clickEffect.transform.position = boardTiles[column, row];
-            clickEffect.SetActive(true);
         }
     }
 
@@ -309,12 +283,13 @@ public class BoardManager : MonoBehaviour
             Debug.Log("사슬 해제한 주변 광물 " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", 사슬 유무: "+ isChain);
             if (isChain)
             {
-                aroundGems[i].bRotateAble = false;
+                isLockRotate[aroundGems[i].GetColumn(), aroundGems[i].GetRow()] = true;
             }
             else
             {
-                aroundGems[i].bRotateAble = true;
+                isLockRotate[aroundGems[i].GetColumn(), aroundGems[i].GetRow()] = false;
             }
+            aroundGems[i].bLocationFixed = false;
         }
         
     }
@@ -387,9 +362,15 @@ public class BoardManager : MonoBehaviour
     }
 
     private void ChangeGemOutline(){
+        EraseGemOutline(); // disable previous gems
+
+        if (isLockRotate[column, row])
+        {
+            return;
+        }
+
         int eo;
         
-        EraseGemOutline(); // disable previous gems
       
         eo = (column%2 == 0)?1:0;
 
@@ -403,6 +384,9 @@ public class BoardManager : MonoBehaviour
         gems[column, row+1].SetOutline("side");
 
         bGemClicked = true;
+
+        clickEffect.transform.position = boardTiles[column, row];
+        clickEffect.SetActive(true);
     }
 
     private bool CheckGemExist(int column_, int row_){
@@ -512,11 +496,11 @@ public class BoardManager : MonoBehaviour
             // 주변에 사슬 있다면 회전 막기
             if (IsExitChainAround(i, j))
             {
-                gems[i, j].bRotateAble = false;
+                isLockRotate[i, j] = true;
             }
             else
             {
-                gems[i, j].bRotateAble = true;
+                isLockRotate[i, j] = false;
             }
         }
 
@@ -554,6 +538,11 @@ public class BoardManager : MonoBehaviour
     public GemInfo GetGem(int column_, int row_){
         if(!CheckGemExist(column_, row_)) return null;
         return gems[column_, row_];
+    }
+
+    public void SetRotate(int column_, int row_, bool value)
+    {
+        isLockRotate[column_, row_] = value;
     }
 
     private void EnableGemMovable() { bGemMovable = true; }
