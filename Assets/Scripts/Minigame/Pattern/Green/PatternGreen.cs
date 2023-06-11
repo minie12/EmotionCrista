@@ -9,7 +9,7 @@ public class PatternGreen : PatternManager
 
     private float bugSpeed = 3f;
     private float rotateSpeed = 0.5f;
-    private float bugInterval = 20f;
+    private float bugInterval = 60f;
 
     private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
     private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
@@ -351,7 +351,7 @@ public class PatternGreen : PatternManager
     public void SetAreaAgain()
     {
         ClearArea();
-        GemInfo gem = board.GetRandomGem();
+        GemInfo gem = board.GetRandomGemArea();
         int level_ = 1;
         if (level == (int)LevelType.EASY1 || level == (int)LevelType.EASY2)
         {

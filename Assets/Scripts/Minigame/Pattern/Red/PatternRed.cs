@@ -23,7 +23,10 @@ public class PatternRed : PatternManager
         level = level_;
         isPlaying = true;
         OrganizeCharacterChat();
-        Invoke(nameof(StartFireRoad), 1f);
+        if(gimmick == 1)
+        {
+            Invoke(nameof(StartFireRoad), 1f);
+        }
     }
 
     override public void StopPattern() 
@@ -36,7 +39,10 @@ public class PatternRed : PatternManager
     {
         isPlaying = true;
         OrganizeCharacterChat();
-        Invoke(nameof(StartFireRoad), 1f);
+        if(gimmick == 1)
+        {
+            Invoke(nameof(StartFireRoad), 1f);
+        }
     }
 
     public bool GetIsPlaying()

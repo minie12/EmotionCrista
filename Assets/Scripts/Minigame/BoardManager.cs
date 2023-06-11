@@ -551,6 +551,22 @@ public class BoardManager : MonoBehaviour
         return gem;
     }
 
+    public GemInfo GetRandomGemArea()
+    {
+        // TODO: Does not check whether the gem is already filled with water
+
+        int column_ = Random.Range(2, 9);
+        int row_ = Random.Range(2, 4);
+        GemInfo gem = GetGem(column_, row_);
+        while (gem == null)
+        {
+            column_ = Random.Range(2, 9);
+            row_ = Random.Range(2, 4);
+            gem = GetGem(column_, row_);
+        }
+        return gem;
+    }
+
     public GemInfo GetPatternGemRandom()
     {
         while (true)

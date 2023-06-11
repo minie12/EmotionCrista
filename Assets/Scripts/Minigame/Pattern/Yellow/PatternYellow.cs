@@ -67,7 +67,7 @@ public class PatternYellow : PatternManager
         }
         else if(gimmick == 2)
         {
-            Invoke("Y_HeartBeat", fullSpawnTime);
+            InvokeRepeating("Y_HeartBeat", fullSpawnTime, 60f);
         }
     }
 
