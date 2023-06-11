@@ -30,7 +30,7 @@ public class MiniManager : MonoBehaviour
     public Text scoreTXT;
     public GameObject UIScore;
     public GameObject UIGameOver;
-    public Image timer;
+    public GameObject timer;
     public Sprite timerOrigin, timerRed;
 
     // timer
@@ -177,9 +177,9 @@ public class MiniManager : MonoBehaviour
     {
         while (true)
         {
-            timer.sprite = timerRed;
+            timer.GetComponent<Image>().sprite = timerRed;
             yield return new WaitForSeconds(0.5f);
-            timer.sprite = timerOrigin;
+            timer.GetComponent<Image>().sprite = timerOrigin;
             yield return new WaitForSeconds(0.5f);
         }
     }
@@ -279,11 +279,12 @@ public class MiniManager : MonoBehaviour
     private void GameOver()
     {
         bPuzzleMode = false;
+        StopCoroutine("TwinkleTimer");
 
+        timer.GetComponent<Animator>().Play("mini_game_over", 0, 0.0f);
         board.ClearBoard();
-
         pattern.ClearPattern();
-        Invoke(nameof(GameOver_), 0.6f);
+        Invoke(nameof(GameOver_), 2.0f);
     }
     private void GameOver_() { UIGameOver.SetActive(true); }
 
