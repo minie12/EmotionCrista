@@ -89,8 +89,8 @@ public class MiniManager : MonoBehaviour
         goalInfo.SetGoal(goalUnit);
 
         // set pattern
-        patternIdx = (int)PatternType.RED;
-        patternGimmick = 1;
+        patternIdx = (int)PatternType.PURPLE;
+        patternGimmick = 0;
         patternLevel = (int)LevelType.EASY1;
 
         // pattern

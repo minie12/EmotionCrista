@@ -136,7 +136,7 @@ public class BoardManager : MonoBehaviour
     // return around gems
     public List<GemInfo> GetAroundGems(int column_, int row_)
     {
-        int[,] direction = (column % 2 == 0) ? aroundGem_e : aroundGem_o;
+        int[,] direction = (column_ % 2 == 0) ? aroundGem_e : aroundGem_o;
         List<GemInfo> result = new List<GemInfo>();
         for (int i = 0; i < 6; i++)
         {
@@ -153,7 +153,7 @@ public class BoardManager : MonoBehaviour
 
     public void StartRefilBoardFever()
     {
-        StartCoroutine("RefillBoardFever");
+        StartCoroutine(nameof(RefillBoardFever));
     }
 
     public void GemClick(int column_, int row_)
@@ -170,8 +170,6 @@ public class BoardManager : MonoBehaviour
             bGemClicked = false;
             clickEffect.SetActive(false);
 
-            Debug.Log(mini.patternIdx);
-
             // add score if gem color is the goal color
             if (currentGemColor == mini.patternIdx) mini.AddScore(mini.goalUnit);
             else mini.AddFever(mini.goalUnit);
@@ -182,9 +180,8 @@ public class BoardManager : MonoBehaviour
             goalInfo.EraseGems(column, row, true);
 
             // red gimmick
-            if (mini.patternIdx == 2 && currentGemColor == 2 && mini.GetComponent<PatternRed>().GetIsPlaying())
+            if (mini.patternIdx == (int)PatternType.RED && currentGemColor == 2 && mini.GetComponent<PatternRed>().GetIsPlaying())
             {
-                Debug.Log("red gimmick");
                 mini.GetComponent<PatternRed>().InvokeExplosion();
                 return;
             }
@@ -192,31 +189,17 @@ public class BoardManager : MonoBehaviour
             // purple gimmick
             if (mini.patternIdx == (int)PatternType.PURPLE && mini.GetComponent<PatternPurple>().GetIsPlaying())
             {
-                List<GemInfo> aroundChainGems = CheckExitChainAround();
-
-                for (int i = 0; i < aroundChainGems.Count; i++)
-                {
-                    Debug.Log("주변 사슬" + aroundChainGems[i].GetColumn() + ", " + aroundChainGems[i].GetRow());
-                    int extraChain = aroundChainGems[i].MinusChainCnt();
-
-                    // end chain
-                    if (extraChain == 0)
-                    {
-                        float fadeTime = 1f;
-                        aroundChainGems[i].FadeOut(fadeTime, 5);
-                        StartCoroutine(DeleteChain(fadeTime, aroundChainGems[i]));
-                    }
-
-                }
+                mini.GetComponent<PatternPurple>().CheckAfterCrush();
             }
 
-            StartCoroutine("RefillBoard");
+            StartCoroutine(nameof(RefillBoard));
         }
         else
         {
             // do not enable click when user clicks the boundary of board
             if (column_ == 10 || column_ == 0 || row_ == 5 || row_ == 0) return;
             if (row_ == 4 && column_ % 2 == 0) return;
+            if (isLockRotate[column_, row_]) return;
 
             SaveGemCooridnate(column_, row_);
 
@@ -224,81 +207,6 @@ public class BoardManager : MonoBehaviour
             ChangeGemOutline();
         }
     }
-
-    IEnumerator DeleteChain(float fadeTime, GemInfo gem)
-    {
-        yield return new WaitForSeconds(fadeTime); // term fade out 
-
-        gem.chainAnimObj.SetActive(false);
-        gem.bLocationFixed = false;
-
-
-        List<GemInfo> aroundGems = GetAroundGems(gem.GetColumn(), gem.GetRow());
-        aroundGems.Add(gem);
-
-        for (int i = 0; i < aroundGems.Count; i++)
-        {
-            bool isChain = IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
-            Debug.Log("사슬 해제한 주변 광물 " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", 사슬 유무: " + isChain);
-            if (isChain)
-            {
-                isLockRotate[aroundGems[i].GetColumn(), aroundGems[i].GetRow()] = true;
-            }
-            else
-            {
-                isLockRotate[aroundGems[i].GetColumn(), aroundGems[i].GetRow()] = false;
-            }
-            aroundGems[i].bLocationFixed = false;
-        }
-
-    }
-
-
-    // check exit chain around gem
-    List<GemInfo> CheckExitChainAround()
-    {
-        List<GemInfo> result = new List<GemInfo>();
-        bool[,] check = new bool[11, 6];
-
-        List<List<int>> crushedGems = goalInfo.crushedGems;
-
-        for (int i = 0; i < crushedGems.Count; i++)
-        {
-            List<GemInfo> aroundGems = GetAroundGems(crushedGems[i][0], crushedGems[i][1]);
-
-            for (int j = 0; j < aroundGems.Count; j++)
-            {
-                // exit chain
-                int column_ = aroundGems[j].GetColumn();
-                int row_ = aroundGems[j].GetRow();
-                if (aroundGems[j].GetChainCnt() > 0 && !check[column_, row_])
-                {
-                    result.Add(aroundGems[j]);
-                    check[column_, row_] = true;
-                }
-            }
-        }
-
-        return result;
-    }
-
-
-    bool IsExitChainAround(int col, int r)
-    {
-        List<GemInfo> aroundGems = GetAroundGems(col, r);
-        aroundGems.Add(GetGem(col, r));
-
-        for (int j = 0; j < aroundGems.Count; j++)
-        {
-            // exit chain
-            if (aroundGems[j].GetChainCnt() > 0)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     // used in ChangeGemOutline()
     // erase outline of gem if other gem is clicked
@@ -325,11 +233,6 @@ public class BoardManager : MonoBehaviour
     private void ChangeGemOutline()
     {
         EraseGemOutline(); // disable previous gems
-
-        if (isLockRotate[column, row])
-        {
-            return;
-        }
 
         int eo;
 
@@ -444,18 +347,7 @@ public class BoardManager : MonoBehaviour
                 gems[i, j] = gemTemp.GetComponent<GemInfo>();
                 gems[i, j].MoveGem(i, j, dropTime);
             }
-
-            // 주변에 사슬 있다면 회전 막기
-            if (IsExitChainAround(i, j))
-            {
-                isLockRotate[i, j] = true;
-            }
-            else
-            {
-                isLockRotate[i, j] = false;
-            }
         }
-
 
         // wait for gems to fall down then allow clicks
         yield return new WaitForSeconds(dropTime);
