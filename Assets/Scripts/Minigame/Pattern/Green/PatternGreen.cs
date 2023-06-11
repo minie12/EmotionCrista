@@ -294,7 +294,7 @@ public class PatternGreen : PatternManager
     }
 
 
-    void SetAreas(int col_, int row_, int level_)
+    bool SetAreas(int col_, int row_, int level_)
     {
         area[col_, row_] = true;
 
@@ -311,11 +311,11 @@ public class PatternGreen : PatternManager
                 {
                     Debug.Log("영역 범위 넘어서 Area 재설정");
                     SetAreaAgain();
-                    break;
+                    return false;
                 }
                 area[new_col, new_row] = true;
             }
-            return;
+            return true;
         }
 
         // choose direction vector about even or odd column
@@ -337,15 +337,20 @@ public class PatternGreen : PatternManager
             {
                 Debug.Log("영역 범위 넘어서 Area 재설정");
                 SetAreaAgain();
-                break;
+                return false;
             }
             area[new_col, new_row] = true;
             GemInfo gem = board.GetGem(new_col, new_row);
             if (gem != null && level_ > 1)
             {
-                SetAreas(new_col, new_row, level_ - 1);
+                bool result = SetAreas(new_col, new_row, level_ - 1);
+                if (!result)
+                {
+                    return false;
+                }
             }
         }
+        return true;
     }
 
     public void SetAreaAgain()

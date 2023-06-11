@@ -115,7 +115,7 @@ public class PatternRed : PatternManager
             i++;
 
             // check start gem
-            if (startGem.GetColumn() == column_ && startGem.GetRow() == row_)
+            if (gimmick == 1 && startGem.GetColumn() == column_ && startGem.GetRow() == row_)
             {
                 StartCoroutine(InitFire());
             }
@@ -138,7 +138,7 @@ public class PatternRed : PatternManager
             crushedCheck[cur_col, cur_row] = true;
 
             // check start gem
-            if (startGem.GetColumn() == cur_col && startGem.GetRow() == cur_row)
+            if (gimmick == 1 && startGem.GetColumn() == cur_col && startGem.GetRow() == cur_row)
             {
                 StartCoroutine(InitFire());
             }

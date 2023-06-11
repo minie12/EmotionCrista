@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,12 +30,15 @@ public class MiniManager : MonoBehaviour
     public Text scoreTXT;
     public GameObject UIScore;
     public GameObject UIGameOver;
+    public Image timer;
+    public Sprite timerOrigin, timerRed;
 
     // timer
     [SerializeField] private const float fullPlayTime = 50f;
     private float playTime;
     [SerializeField] private const float fullFeverTime = 10f;
     private float feverTime;
+    private bool isTwinkle;
 
     // board related
     private BoardManager board;
@@ -74,9 +78,10 @@ public class MiniManager : MonoBehaviour
 
     private void Start()
     {
-        playTime = fullPlayTime;
+        playTime = 0;
         score = 0;
         fever = 0;
+        isTwinkle = false;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
 
         // ui
@@ -141,11 +146,22 @@ public class MiniManager : MonoBehaviour
         if (bPuzzleMode)
         {
             timerFill.fillAmount = playTime / fullPlayTime;
-            playTime -= Time.deltaTime;
+            playTime += Time.deltaTime;
 
-            if (playTime <= 0)
+            if (playTime >= fullPlayTime)
             {
                 GameOver();
+            }
+
+            if (playTime >= fullPlayTime * 0.8f && isTwinkle == false)
+            {
+                isTwinkle = true;
+                StartCoroutine("TwinkleTimer");
+            }
+            else if (playTime < fullPlayTime * 0.8f && isTwinkle == true)
+            {
+                isTwinkle = false;
+                StopCoroutine("TwinkleTimer");
             }
 
             if (bFeverOn)
@@ -157,9 +173,20 @@ public class MiniManager : MonoBehaviour
         }
     }
 
+    IEnumerator TwinkleTimer()
+    {
+        while (true)
+        {
+            timer.sprite = timerRed;
+            yield return new WaitForSeconds(0.5f);
+            timer.sprite = timerOrigin;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     public float TimeLeft()
     {
-        return fullPlayTime - playTime;
+        return playTime;
     }
 
     public void AddScore(int n)
@@ -173,7 +200,7 @@ public class MiniManager : MonoBehaviour
 
         if (!bFeverOn)
         {
-            playTime += 0.5f;
+            playTime -= 0.5f;
             AddFever(n);
         }
 
@@ -204,7 +231,7 @@ public class MiniManager : MonoBehaviour
 
     public void AddFever(int n)
     {
-        playTime += 0.5f;
+        playTime -= 0.5f;
         fever += n;
         feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
@@ -290,7 +317,7 @@ public class MiniManager : MonoBehaviour
 
         score = 0; SetScoreUI();
         EndFever();
-        playTime = fullPlayTime;
+        playTime = 0;
         UIScore.SetActive(true);
         board.InitBoard();
         bPuzzleMode = true;
@@ -305,7 +332,7 @@ public class MiniManager : MonoBehaviour
 
         score = 0; SetScoreUI();
         EndFever();
-        playTime = fullPlayTime;
+        playTime = 0;
         UIScore.SetActive(true);
         if (bFeverOn)
         {
