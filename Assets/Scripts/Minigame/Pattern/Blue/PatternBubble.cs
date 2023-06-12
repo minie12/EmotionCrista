@@ -25,7 +25,7 @@ public class PatternBubble : MonoBehaviour
         if (r_transform.anchoredPosition.y + half_height > 1080) this.gameObject.SetActive(false);
     }
 
-    public void onClickBubble()
+    public void OnClickBubble()
     {
         Destroy(this.gameObject);
     }

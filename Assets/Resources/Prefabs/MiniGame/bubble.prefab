@@ -60,16 +60,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6666667}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3486989359755460732, guid: 5108ec9048c3fbe4394f3005e25df6cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f019ce642c9a7074092f4a038316a9fa, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1835120359384789538}
         m_TargetAssemblyTypeName: PatternBubble, Assembly-CSharp
-        m_MethodName: onClickBubble
+        m_MethodName: OnClickBubble
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
