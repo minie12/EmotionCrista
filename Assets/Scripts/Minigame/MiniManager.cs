@@ -281,7 +281,8 @@ public class MiniManager : MonoBehaviour
         bPuzzleMode = false;
         StopCoroutine("TwinkleTimer");
 
-        timer.GetComponent<Animator>().Play("mini_game_over", 0, 0.0f);
+        timer.transform.GetChild(1).gameObject.SetActive(true);
+
         board.ClearBoard();
         pattern.ClearPattern();
         Invoke(nameof(GameOver_), 2.0f);
