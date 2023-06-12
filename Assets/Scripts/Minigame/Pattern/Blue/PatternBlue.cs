@@ -83,11 +83,11 @@ public class PatternBlue : PatternManager
     void B_StartBubble()
     {
         // create object
-        GameObject temp = Instantiate(bubble_PF, new Vector3(0, 0, 0), Quaternion.identity, UICanvas.transform);
+        GameObject temp = Instantiate(bubble_PF, new Vector3(0, 0, 0), Quaternion.identity);
         temp.SetActive(false);
 
         // set position
-        Vector3 rand_pos = new Vector3(Random.Range(0f, 1920.0f), 0f, 5);
+        Vector3 rand_pos = new Vector3(Random.Range(800.0f, 1600.0f), 0f, 5);
 
         // location object in screen
         temp.transform.position = Camera.main.ScreenToWorldPoint(rand_pos);
