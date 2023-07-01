@@ -21,24 +21,52 @@ public class DialogExtra : MonoBehaviour
         flowchart.SendFungusMessage("ToNextScene");
     }
 
-    public void SetCharacterName(string nameText_, Fungus.Character player){        
+    public void SetCharacterName(string nameText_, Fungus.Character player) {
         player.SetStandardText(nameText_);
     }
 
-    public void RestartPuzzle(string color, int gimmick, string message){
-        GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGame(color, gimmick, message);
-    }
+    //public void StartSaveData(){
+    //    GameObject.Find("SaveLoadManager").GetComponent<SaveLoadManager>().SetSaveData();
+    //}
 
-    public void StartSaveData(){
-        GameObject.Find("SaveLoadManager").GetComponent<SaveLoadManager>().SetSaveData();
-    }
-
-    public void ExitGame(){
+    public void ExitGame() {
         Application.Quit();
     }
 
-    public void AlterActive(GameObject go){
+    public void AlterActive(GameObject go) {
         go.SetActive(!go.activeSelf);
+    }
+
+    public void ChangeParent(Transform parent, GameObject obj)
+    {
+        //Instantiate(clickableObj, location);
+        obj.transform.SetParent(parent, false);
+    }
+    //public void EraseClickable(GameObject location)
+    //{
+    //    foreach (Transform children in location.transform)
+    //    {
+    //        GameObject.Destroy(children.gameObject);
+    //    }
+    //}
+
+    //public void LoadPlayerPrefs()
+    //{
+    //    if (!PlayerPrefs.HasKey("LoadData") || PlayerPrefs.GetInt("LoadData") == 0)
+    //        return;
+
+    //    PlayerPrefs.SetInt("LoadData", 0);
+
+    //    Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+
+    //    flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("PlayerName"));
+    //    flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("StoryNumb"));
+    //}
+
+    #region Minigame
+    public void RestartPuzzle(string color, int gimmick, string message)
+    {
+        GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGame(color, gimmick, message);
     }
 
     // minigame option (pause)
@@ -54,19 +82,7 @@ public class DialogExtra : MonoBehaviour
         GameObject.Find("PauseOptions").SetActive(false);
         Time.timeScale = 1;
     }
-
-    //public void LoadPlayerPrefs()
-    //{
-    //    if (!PlayerPrefs.HasKey("LoadData") || PlayerPrefs.GetInt("LoadData") == 0)
-    //        return;
-
-    //    PlayerPrefs.SetInt("LoadData", 0);
-
-    //    Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-
-    //    flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("PlayerName"));
-    //    flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("StoryNumb"));
-    //}
+    #endregion
 
     #region LoveEnding
     public void StartRazEnding()
