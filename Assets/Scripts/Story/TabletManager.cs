@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TabletManager : MonoBehaviour
 {
     public int surveyCnt;
-    private string fungusMessage = "D01_NariaSurvey";
+    private string fungusMessage = "D1_NariaSurvey";
 
     // contents
     public GameObject[] contents;
@@ -19,9 +19,15 @@ public class TabletManager : MonoBehaviour
         int varStoryRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
         int varCharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
 
-        string characterName = GameManager.GetCharacterName(varCharacterIndex);
-        string message = "D"+varStoryRound+"_"+characterName+"Survey";
-
+        string message = fungusMessage;
+        
+        if (varCharacterIndex != 1)
+        {
+            //string characterName = GameManager.GetCharacterName(varCharacterIndex);
+            //message = "D" + varStoryRound + "_" + characterName + "Survey";
+            message = "D1_LulianSurvey";
+        }
+        
         if(surveyCnt >= 4) {
             surveyCnt = 0;
             Fungus.Flowchart.BroadcastFungusMessage(message);

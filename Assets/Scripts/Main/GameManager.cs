@@ -23,7 +23,7 @@ public enum CharacterName
     Lulian,
     Russel,
     Nish,
-    Ilac,
+    Ilrak,
     Max
 }
 
