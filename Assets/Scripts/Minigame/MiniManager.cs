@@ -97,6 +97,11 @@ public class MiniManager : MonoBehaviour
         patternIdx = TestLoadMini.patternIdx;
         patternGimmick = TestLoadMini.patternGimmick;
         patternLevel = TestLoadMini.patternLevel;
+        //Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+        //Debug.Log("Æã°Å½º Á¤º¸ "+ flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value);
+        //patternIdx = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value - 1;
+        //patternGimmick = 0;
+        //patternLevel = flowchart.GetVariable<Fungus.IntegerVariable>("Level").Value;
 
         // pattern
         pattern = SpawnPattern(patternIdx);

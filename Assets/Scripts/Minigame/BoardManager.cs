@@ -371,6 +371,10 @@ public class BoardManager : MonoBehaviour
     {
         return boardTiles[column_, row_];
     }
+    public Vector3 GetDropPosition(int column_)
+    {
+        return dropPos[column_];
+    }
     public int GetGemColor(int column_, int row_)
     {
         if (!CheckGemExist(column_, row_) || gems[column_, row_].bLocationFixed) return -1;

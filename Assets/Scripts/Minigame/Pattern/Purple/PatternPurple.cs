@@ -135,7 +135,7 @@ public class PatternPurple : PatternManager
             // end chain
             if (extraChain == 0)
             {
-                float fadeTime = 1f;
+                float fadeTime = 0.5f;
                 aroundChainGems[i].FadeOut(fadeTime, 5);
                 StartCoroutine(DeleteChain(fadeTime, aroundChainGems[i]));
             }
