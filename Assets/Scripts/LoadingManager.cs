@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour
 {
-    private int[] PosX = { 0, 185, 375, 565, 750, 935 };
+    private int[] PosX = { 0, 0, 185, 375, 565, 750, 935 }; // first 0 is None. This is because CharacterIndex starts with 1
     [SerializeField]
     private Sprite [] times;
     [SerializeField]
     private Sprite[] colors;
 
+    private int CharacterIndex;
 
     private GameObject boxObj, timeObj, colorObj;
     private float twinklingTime = 0.5f;
@@ -31,6 +32,32 @@ public class LoadingManager : MonoBehaviour
     {
         //LoadScene("LabCorridor");
         //StartCoroutine(TwinklingChangeObj(timeObj, times[1]));
+
+        
+        //CharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
+
+        CharacterIndex = PosX.Length;
+
+        GameObject FlowchartObj = GameObject.Find("Flowchart");
+        if (FlowchartObj)
+        {
+            Fungus.Flowchart flowchart = FlowchartObj.GetComponent<Fungus.Flowchart>();
+            string prefsKey = Fungus.SetSaveProfile.SaveProfile + "_" + flowchart.SubstituteVariables("CharacterIndex");
+            bool validKey = PlayerPrefs.HasKey(prefsKey);
+
+            if (true == validKey)
+            {
+                CharacterIndex = PlayerPrefs.GetInt(prefsKey);
+            }
+        }
+
+        if (CharacterIndex < 1 || PosX.Length <= CharacterIndex)
+        {
+            Debug.LogError("Loading Scene: Invalid CharacterIndex " + CharacterIndex);
+            CharacterIndex = 1;
+        }
+
+        boxObj.transform.position = new Vector3(PosX[CharacterIndex-1] * 0.01f, 0, 0);
         StartCoroutine(TwinklingChangeObj(timeObj, times[1]));
     }
 
@@ -39,63 +66,6 @@ public class LoadingManager : MonoBehaviour
         timeObj.SetActive(activeBool);
         activeBool = !activeBool;
     }
-    /*public void LoadScene(string sceneName)
-    {
-        //gameObject.SetActive(true);
-        SceneManager.sceneLoaded += LoadSceneEnd;
-        loadSceneName = sceneName;
-        StartCoroutine(TwinkleWhileLoad(sceneName));
-    }
-
-    private void LoadSceneEnd(Scene scene, LoadSceneMode loadSceneMode)
-    {
-        if (scene.name == loadSceneName)
-        {
-            StartCoroutine(Fade(false));
-            SceneManager.sceneLoaded -= LoadSceneEnd;
-        }
-    }
-    private IEnumerator Fade(bool isFadeIn)
-    {
-        float timer = 0f;
-        while (timer <= 1f)
-        {
-            yield return null;
-            timer += Time.unscaledDeltaTime * 2f;
-            sceneLoaderCanvasGroup.alpha = Mathf.Lerp(isFadeIn ? 0 : 1, isFadeIn ? 1 : 0, timer);
-        }
-        if (!isFadeIn)
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
-    IEnumerator TwinkleWhileLoad(string sceneName)
-    {
-        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
-        op.allowSceneActivation = false;
-
-        float timer = 0.0f;
-        int twinkleCnt = 0;
-        while (!op.isDone)
-        {
-            timer += Time.unscaledDeltaTime;
-
-            if (op.progress < 0.9f || twinkleCnt < minTwinkleCnt)
-            {
-                StartCoroutine(TwinklingObj(timeObj));
-                twinkleCnt++;
-                yield return new AsyncOperation;
-            }
-            else
-            {
-                StartCoroutine(TwinklingChangeObj(timeObj, times[1]));
-                yield break;
-            }
-
-            yield return null;
-        }
-    }*/
 
     IEnumerator TwinklingObj(GameObject obj)
     {
@@ -115,7 +85,7 @@ public class LoadingManager : MonoBehaviour
         obj.SetActive(false);
 
         Vector3 startPos = boxObj.transform.position;
-        Vector3 endPos = new Vector3(PosX[1] * 0.01f, 0, 0);
+        Vector3 endPos = new Vector3(PosX[CharacterIndex] * 0.01f, 0, 0);
 
         for (float t = 0; t <= 1 * twinklingTime; t += Time.deltaTime)
         {

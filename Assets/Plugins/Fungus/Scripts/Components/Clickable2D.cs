@@ -46,13 +46,23 @@ namespace Fungus
 
         protected virtual void DoPointerEnter()
         {
-            ChangeCursor(hoverCursor);
+            //ChangeCursor(hoverCursor);
+            SpriteRenderer spriteRenderer = this.GetComponent<SpriteRenderer>();
+            if (spriteRenderer)
+            {
+                spriteRenderer.color = new Color(0.8f, 0.8f, 0.8f);
+            }
         }
 
         protected virtual void DoPointerExit()
         {
             // Always reset the mouse cursor to be on the safe side
-            SetMouseCursor.ResetMouseCursor();
+            // SetMouseCursor.ResetMouseCursor();
+            SpriteRenderer spriteRenderer = this.GetComponent<SpriteRenderer>();
+            if (spriteRenderer)
+            {
+                spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+            }
         }
 
         #region Legacy OnMouseX methods
