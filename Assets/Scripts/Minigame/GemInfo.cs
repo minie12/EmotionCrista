@@ -29,6 +29,9 @@ public class GemInfo : MonoBehaviour
     public Animator explosionANIM;
     public GameObject chainAnimObj;
 
+    // film
+    public GameObject filmObj;
+
     // pattern
     public bool bPatternApplied;
     private int chainCnt; // purple gimmick
@@ -411,5 +414,16 @@ public class GemInfo : MonoBehaviour
         temp.GetComponent<Animator>().Play("gem_chain_purple", 0, 0.0f);
         yield return new WaitForSeconds(0.9f);
         temp.SetActive(false);
+    }
+
+    // gem film
+    public void SetFilm()
+    {
+        filmObj.SetActive(true);
+    }
+
+    public void DeleteFilm()
+    {
+        filmObj.SetActive(false);
     }
 }

@@ -52,6 +52,33 @@ public class BoardManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A)) RotateGem('a');
             else if (Input.GetKeyDown(KeyCode.D)) RotateGem('d');
         }
+
+        // locked gem
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0) continue;
+                if (i == 0 || i == 10 || j == 0 || j == 5 || (j == 4 && i % 2 == 0))
+                {
+                    isLockRotate[i, j] = true;
+                }
+
+                if (gems[i, j] == null)
+                {
+                    continue;
+                }
+
+                if (isLockRotate[i, j] && gems[i,j].GetChainCnt() == 0)
+                {
+                    gems[i, j].SetFilm();
+                }
+                else
+                {
+                    gems[i, j].DeleteFilm();
+                }
+            }
+        }
     }
 
     // initialize board

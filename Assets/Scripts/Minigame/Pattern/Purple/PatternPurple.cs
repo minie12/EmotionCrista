@@ -166,12 +166,28 @@ public class PatternPurple : PatternManager
             {
                 board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), false);
             }
-            aroundGems[i].bLocationFixed = false;
         }
 
     }
 
     void BlockAroundGem(GemInfo gem)
+    {
+        // get around gems
+        List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(gem.GetColumn(), gem.GetRow());
+
+        for (int i = 0; i < aroundGems.Count; i++)
+        {
+            aroundGems[i].bLocationFixed = true;
+            aroundGems[i].SetChainGem(chainCnt);
+            List<GemInfo> aroundGemsTemp = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
+            for(int j = 0; j < aroundGemsTemp.Count; j++)
+            {
+                board.SetRotate(aroundGemsTemp[j].GetColumn(), aroundGemsTemp[j].GetRow(), true);
+            }
+        }
+    }
+
+    void BlockInitGem(GemInfo gem)
     {
         // get around gems
         List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(gem.GetColumn(), gem.GetRow());
@@ -183,13 +199,6 @@ public class PatternPurple : PatternManager
         for (int i = 0; i < aroundGems.Count; i++)
         {
             board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), true);
-            aroundGems[i].bLocationFixed = true;
-            aroundGems[i].SetChainGem(chainCnt);
-            List<GemInfo> aroundGemsTemp = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
-            for(int j = 0; j < aroundGemsTemp.Count; j++)
-            {
-                board.SetRotate(aroundGemsTemp[j].GetColumn(), aroundGemsTemp[j].GetRow(), true);
-            }
         }
     }
 
@@ -208,7 +217,6 @@ public class PatternPurple : PatternManager
         gem.ChangeGemColor(mini.patternIdx);
         gem.FadeIn();
         BlockAroundGem(gem);
-        board.SetGemMovable(true);
     }
 
 
@@ -218,7 +226,7 @@ public class PatternPurple : PatternManager
         GemInfo purpleGem = board.GetPatternGemRandom();
         purpleGem.ChangeSpecialGem();
         purpleGem.FadeIn();
-        board.SetGemMovable(false);
+        BlockInitGem(purpleGem);
 
         // twinkle purple gem & block around gems
         StartCoroutine(TwinkleEyes(purpleGem, 2, 0.5f));
