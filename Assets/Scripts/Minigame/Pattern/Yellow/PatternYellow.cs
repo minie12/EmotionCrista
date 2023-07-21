@@ -67,7 +67,7 @@ public class PatternYellow : PatternManager
         }
         else if(gimmick == 2)
         {
-            Invoke("Y_HeartBeat", fullSpawnTime);
+            InvokeRepeating("Y_HeartBeat", fullSpawnTime, 60f);
         }
     }
 
@@ -207,7 +207,7 @@ public class PatternYellow : PatternManager
     void Y_HeartBeat()
     {
         // get yellow gem random
-        GemInfo gem = mini.GetPatternGemRandom();
+        GemInfo gem = board.GetPatternGemRandom();
         SetGemFeature(gem, fadeTime, 1.5f);
         gem.FadeIn(fadeTime);
 
@@ -218,7 +218,7 @@ public class PatternYellow : PatternManager
         temp.SetSpriteColor(188f, 188f, 188f, 110f);
 
         // get around gem list
-        List<List<GemInfo>> aroundGemList = mini.GetAroundGemList(gem.GetColumn(), gem.GetRow());
+        List<List<GemInfo>> aroundGemList = board.GetAroundGemList(gem.GetColumn(), gem.GetRow());
 
         // around gems vibration
         AroundGemShake(aroundGemList);

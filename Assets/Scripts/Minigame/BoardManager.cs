@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System.Linq;
+using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    // common
     public MiniManager mini;
-    public int goalColor; // 0 yellow, 1 blue, 2 red, 3 green, 4 purple
-    private int totalGemTypeCnt = System.Enum.GetNames(typeof(PatternType)).Length-1;
+    private readonly int totalGemTypeCnt = System.Enum.GetNames(typeof(PatternType)).Length - 1;
 
+    // gem
     public GameObject gemPF;
     public Vector3[] dropPos;
     public GameObject clickEffect;
     private GemInfo[,] gems;
     private Vector3[,] boardTiles;
+    private bool[,] isLockRotate; // pattern related
 
     // wait for rotate time
     private bool bGemMovable = false;
@@ -30,35 +30,64 @@ public class BoardManager : MonoBehaviour
     public float rotateTime = 0.1f;
     public float dropTime = 0.1f;
     public AudioSource boardAUD;
-    
+    public AudioClip defaultAUD, beep;
+
     // goal state
     public GoalInfo goalInfo;
-    public int goalGemCnt = 3;
 
-    // around gems direction vector (odd/even standard: col)
+    // around gems direction vector (odd/even standard: column)
     // up&left, up, up&right, down&right, down, down&left
-    private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
-    private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+    private readonly int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
+    private readonly int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
-    void Start(){   
+    private void Start()
+    {
         InitBoard();
-        // for testing purpose ERASE BELOW
-        goalInfo.SetGoal(goalGemCnt);
     }
 
-    void Update(){
-        if (bGemClicked && bGemMovable && gems[column, row].bRotateAble)
+    private void Update()
+    {
+        if (bGemClicked && bGemMovable && !isLockRotate[column, row])
         {
-            Debug.Log("column row : " + column + " " + row + " " + gems[column, row].bRotateAble);
             if (Input.GetKeyDown(KeyCode.A)) RotateGem('a');
             else if (Input.GetKeyDown(KeyCode.D)) RotateGem('d');
         }
+
+        // locked gem
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0) continue;
+                if (i == 0 || i == 10 || j == 0 || j == 5 || (j == 4 && i % 2 == 0))
+                {
+                    isLockRotate[i, j] = true;
+                }
+
+                if (gems[i, j] == null)
+                {
+                    continue;
+                }
+
+                if (isLockRotate[i, j] && gems[i,j].GetChainCnt() == 0)
+                {
+                    gems[i, j].SetFilm();
+                }
+                else
+                {
+                    gems[i, j].DeleteFilm();
+                }
+            }
+        }
     }
 
-    public void InitBoard(){
+    // initialize board
+    public void InitBoard()
+    {
         boardTiles = new Vector3[11, 6];
         gems = new GemInfo[11, 6];
         dropPos = new Vector3[11];
+        isLockRotate = new bool[11, 6];
 
         // create 66 gems on correct location
         float diffX = 0.75f;
@@ -66,49 +95,33 @@ public class BoardManager : MonoBehaviour
         float transY = 3.35f;
 
         // set board tile (hexagon tile)
-        for(int i = 0; i < 11; i++){
-            for(int j = 0; j < 6; j++){
-                if(j == 5 && i % 2 == 0) continue; 
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0) continue;
 
-                boardTiles[i, j] = new Vector3(-1.2f + i * diffX, -1.7f + (i%2)*(-0.45f) + j * diffY, 0);
+                boardTiles[i, j] = new Vector3(-1.2f + i * diffX, -1.7f + (i % 2) * (-0.45f) + j * diffY, 0);
 
                 int color = Random.Range(0, totalGemTypeCnt);
-                GameObject gemTemp = Instantiate(gemPF, boardTiles[i,j], Quaternion.identity, this.transform);
+                GameObject gemTemp = Instantiate(gemPF, boardTiles[i, j], Quaternion.identity, this.transform);
                 gemTemp.GetComponent<GemInfo>().InitGem(i, j, color);
                 gems[i, j] = gemTemp.GetComponent<GemInfo>();
-
             }
-
             dropPos[i] = new Vector2(-1.1f + i * diffX, transY);
         }
-
         bGemMovable = true;
     }
 
     // used to change outline of gem that is previously clicked
-    void SaveGemCooridnate(int column_, int row_){      
+    private void SaveGemCooridnate(int column_, int row_)
+    {
         prevRow = row; prevColumn = column;
         row = row_; column = column_;
     }
 
-    // rotate move gems (direction: 1 (cw), -1 (ccw))
-    void RotateMoveGem(int[,] d, int direction)
-    {
-        int idx = 0;
-        while(true)
-        {
-            int prevIdx = idx;
-            idx = (idx + direction + 6) % 6;
-            gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].MoveGem(column + d[idx, 0], row + d[idx, 1], rotateTime);
-            if (idx == 0)
-            {
-                break;
-            }
-        }
-    }
-
-    // rotate gems info (direction: -1 (cw), 1 (ccw))
-    void RotateUpdateGemInfo(int[,] d, int direction)
+    // rotate move gems & update info (direction: -1 (cw), 1 (ccw))
+    private void RotateMoveUpdateGem(int[,] d, int direction)
     {
         int idx = 0;
         GemInfo gTemp = gems[column + d[idx, 0], row + d[idx, 1]];
@@ -118,103 +131,46 @@ public class BoardManager : MonoBehaviour
             idx = (idx + direction + 6) % 6;
             if (idx == 0)
             {
-                //gTemp.SetColumn(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetColumn());
-                //gTemp.SetRow(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetRow());
+                gTemp.MoveGem(column + d[prevIdx, 0], row + d[prevIdx, 1], rotateTime);
                 gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gTemp;
-                if (gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].isFired)
-                {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
-                }
-                else
-                {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
-                }
                 break;
             }
-            //gems[column + d[idx, 0], row + d[idx, 1]].SetColumn(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetColumn());
-            //gems[column + d[idx, 0], row + d[idx, 1]].SetRow(gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].GetRow());
+            gems[column + d[idx, 0], row + d[idx, 1]].MoveGem(column + d[prevIdx, 0], row + d[prevIdx, 1], rotateTime);
             gems[column + d[prevIdx, 0], row + d[prevIdx, 1]] = gems[column + d[idx, 0], row + d[idx, 1]];
-            if (gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].isFired)
-            {
-                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(column + d[prevIdx, 0], row + d[prevIdx, 1]);
-            }
-            else
-            {
-                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(column + d[prevIdx, 0], row + d[prevIdx, 1]);
-            }
         }
     }
 
-    // rotate gem's rotateAble value (opposite direction with update gem array)
-    void RotateGemRotateAble(int[,] d, int direction)
+    private void RotateGem(char key)
     {
-        int idx = 0;
-        bool temp = gems[column + d[idx, 0], row + d[idx, 1]].bRotateAble;
-        while (true)
-        {
-            int prevIdx = idx;
-            idx = (idx + direction + 6) % 6;
-            if (idx == 0)
-            {
-                gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].bRotateAble = temp;
-                break;
-            }
-            gems[column + d[prevIdx, 0], row + d[prevIdx, 1]].bRotateAble = gems[column + d[idx, 0], row + d[idx, 1]].bRotateAble;
-        }
-    }
-
-    void RotateGem(char key){
         bGemMovable = false;
+        Invoke(nameof(EnableGemMovable), rotateTime);
 
         int[,] d = (column % 2 == 0) ? aroundGem_e : aroundGem_o;
-
-        Invoke("EnableGemMovable", rotateTime);
-
         // turn CCW
-        if(key == 'a'){
-            // rotate gameobjects
-            RotateMoveGem(d, -1);
-
-            // update gems array
-            RotateUpdateGemInfo(d, 1);
-
-            // return bRotateAble value
-            RotateGemRotateAble(d, -1);
-        } 
-        
+        if (key == 'a')
+        {
+            // rotate gem & update info
+            RotateMoveUpdateGem(d, 1);
+        }
         // turn CW
-        else{
-            // rotate gameobjects
-            RotateMoveGem(d, 1);
-
-            // update gems array
-            RotateUpdateGemInfo(d, -1);
-
-            // return bRotateAble value
-            RotateGemRotateAble(d, 1);
+        else
+        {
+            // rotate gem & update info
+            RotateMoveUpdateGem(d, -1);
         }
     }
 
     // return around gems
     public List<GemInfo> GetAroundGems(int column_, int row_)
     {
-        int[,] direction = new int[6,2];
-        if(column_ % 2 == 0)
-        {
-            direction = aroundGem_e;
-        }
-        else
-        {
-            direction = aroundGem_o;
-        }
-
+        int[,] direction = (column_ % 2 == 0) ? aroundGem_e : aroundGem_o;
         List<GemInfo> result = new List<GemInfo>();
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
-            int newC = column_ + direction[i,0];
-            int newR = row_ + direction[i,1];
+            int newC = column_ + direction[i, 0];
+            int newR = row_ + direction[i, 1];
 
-            if(CheckGemExist(newC, newR))
+            if (CheckGemExist(newC, newR))
             {
                 result.Add(gems[newC, newR]);
             }
@@ -224,196 +180,112 @@ public class BoardManager : MonoBehaviour
 
     public void StartRefilBoardFever()
     {
-        StartCoroutine("RefillBoardFever");
+        StartCoroutine(nameof(RefillBoardFever));
     }
 
-    public void GemClick(int column_, int row_){
+    public void GemClick(int column_, int row_)
+    {
         // current clicked gem color
         int currentGemColor = gems[column_, row_].GetColor();
-        
+
         // check if goal is met
-        if (goalInfo.CheckGoal(column_, row_)){
+        if (goalInfo.CheckGoal(column_, row_))
+        {
             SaveGemCooridnate(column_, row_);
 
             EraseGemOutline();
             bGemClicked = false;
             clickEffect.SetActive(false);
 
-            Debug.Log(goalColor);
-
             // add score if gem color is the goal color
-            if (currentGemColor == goalColor) mini.AddScore(goalGemCnt);
-            else mini.AddFever(goalGemCnt);
+            if (currentGemColor == mini.patternIdx) mini.AddScore(mini.goalUnit);
+            else mini.AddFever(mini.goalUnit);
 
             // Delete gems
+            boardAUD.clip = defaultAUD;
             boardAUD.Play();
             goalInfo.EraseGems(column, row, true);
 
             // red gimmick
-            if (goalColor == 2 && currentGemColor == 2 && GameObject.Find("MiniManager").GetComponent<PatternRed>().GetIsPlaying())
+            if (mini.patternIdx == (int)PatternType.RED && currentGemColor == 2 && mini.GetComponent<PatternRed>().GetIsPlaying())
             {
-                Debug.Log("red gimmick");
-                GameObject.Find("MiniManager").GetComponent<PatternRed>().InvokeExplosion();
+                mini.GetComponent<PatternRed>().InvokeExplosion();
                 return;
             }
 
             // purple gimmick
-            if (goalColor == (int)PatternType.PURPLE && GameObject.Find("MiniManager").GetComponent<PatternPurple>().GetIsPlaying())
+            if (mini.patternIdx == (int)PatternType.PURPLE && mini.GetComponent<PatternPurple>().GetIsPlaying())
             {
-                List<GemInfo> aroundChainGems = CheckExitChainAround();
-                
-                for(int i = 0; i < aroundChainGems.Count; i++)
-                {
-                    Debug.Log(aroundChainGems[i]);
-                    int extraChain = aroundChainGems[i].MinusChainCnt();
-
-                    // end chain
-                    if(extraChain == 0)
-                    {
-                        float fadeTime = 1f;
-                        aroundChainGems[i].FadeOut(fadeTime, 5);
-                        StartCoroutine(DeleteChain(fadeTime, aroundChainGems[i]));
-                    }
-
-                }
+                mini.GetComponent<PatternPurple>().CheckAfterCrush();
             }
 
-            StartCoroutine("RefillBoard");
+            StartCoroutine(nameof(RefillBoard));
         }
-        else{
+        else
+        {
             // do not enable click when user clicks the boundary of board
-            if(column_ == 10 || column_ == 0 || row_ == 5 || row_ == 0) return;
-            if(row_ == 4 && column_ % 2 == 0) return;
+            if (column_ == 10 || column_ == 0 || row_ == 5 || row_ == 0) return;
+            if (row_ == 4 && column_ % 2 == 0) return;
+            if (isLockRotate[column_, row_]) return;
 
             SaveGemCooridnate(column_, row_);
 
             // show that gem has been clicked
             ChangeGemOutline();
-            //gems[column, row].SetOutline("click");
-            clickEffect.transform.position = boardTiles[column, row];
-            clickEffect.SetActive(true);
         }
     }
-
-    IEnumerator DeleteChain(float fadeTime, GemInfo gem)
-    {
-        yield return new WaitForSeconds(fadeTime); // term fade out 
-
-        gem.chainAnimObj.SetActive(false);
-        gem.bLocationFixed = false;
-
-
-        List<GemInfo> aroundGems = GetAroundGems(gem.GetColumn(), gem.GetRow());
-        aroundGems.Add(gem);
-
-        for(int i = 0; i < aroundGems.Count; i++)
-        {
-            bool isChain = IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
-            Debug.Log("주변 광물 " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", 사슬 유무: "+ isChain);
-            if (isChain)
-            {
-                gem.bRotateAble = false;
-            }
-            else
-            {
-                gem.bRotateAble = true;
-            }
-        }
-        
-    }
-
-
-    // check exit chain around gem
-    List<GemInfo> CheckExitChainAround()
-    {
-        List<GemInfo> result = new List<GemInfo>();
-        bool[,] check = new bool[11, 6];
-
-        List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
-        Debug.Log("크러쉬된 광물 개수: "+ crushedGems.Count);
-
-        for(int i = 0; i < crushedGems.Count; i++)
-        {
-            List<GemInfo> aroundGems = GetAroundGems(crushedGems[i][0], crushedGems[i][1]);
-
-            for (int j = 0; j < aroundGems.Count; j++)
-            {
-                // exit chain
-                int column_ = aroundGems[j].GetColumn();
-                int row_ = aroundGems[j].GetRow();
-                if (aroundGems[j].GetChainCnt() > 0 && !check[column_,row_])
-                {
-                    result.Add(aroundGems[j]);
-                    check[column_, row_] = true;
-                }
-            }
-        }
-        
-        return result;
-    }
-
-
-    bool IsExitChainAround(int col, int r)
-    {
-        List<GemInfo> aroundGems = GetAroundGems(col, r);
-
-        for (int j = 0; j < aroundGems.Count; j++)
-        {
-            // exit chain
-            int column_ = aroundGems[j].GetColumn();
-            int row_ = aroundGems[j].GetRow();
-            if(aroundGems[j].GetChainCnt() > 0)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     // used in ChangeGemOutline()
     // erase outline of gem if other gem is clicked
-    void EraseGemOutline(){
-        if(bGemClicked){
-            Debug.Log("prev coordinate"+ prevColumn+ prevRow);
-            int eo = (prevColumn%2 == 0)?1:0;
+    private void EraseGemOutline()
+    {
+        if (bGemClicked)
+        {
+            Debug.Log("prev coordinate" + prevColumn + prevRow);
+            int eo = (prevColumn % 2 == 0) ? 1 : 0;
 
             gems[prevColumn, prevRow].SetOutline("undo");
 
-            gems[prevColumn-1, prevRow+eo].SetOutline("undo");
-            gems[prevColumn-1, prevRow-1+eo].SetOutline("undo");
-            gems[prevColumn, prevRow-1].SetOutline("undo");
-            gems[prevColumn+1, prevRow-1+eo].SetOutline("undo");
-            gems[prevColumn+1, prevRow+eo].SetOutline("undo");
-            gems[prevColumn, prevRow+1].SetOutline("undo");
+            gems[prevColumn - 1, prevRow + eo].SetOutline("undo");
+            gems[prevColumn - 1, prevRow - 1 + eo].SetOutline("undo");
+            gems[prevColumn, prevRow - 1].SetOutline("undo");
+            gems[prevColumn + 1, prevRow - 1 + eo].SetOutline("undo");
+            gems[prevColumn + 1, prevRow + eo].SetOutline("undo");
+            gems[prevColumn, prevRow + 1].SetOutline("undo");
 
             clickEffect.SetActive(false);
         }
     }
 
-    void ChangeGemOutline(){
-        int eo;
-        
+    private void ChangeGemOutline()
+    {
         EraseGemOutline(); // disable previous gems
-      
-        eo = (column%2 == 0)?1:0;
+
+        int eo;
+
+
+        eo = (column % 2 == 0) ? 1 : 0;
 
         gems[column, row].SetOutline("click");
 
-        gems[column-1, row+eo].SetOutline("side");
-        gems[column-1, row-1+eo].SetOutline("side");
-        gems[column, row-1].SetOutline("side");
-        gems[column+1, row-1+eo].SetOutline("side");
-        gems[column+1, row+eo].SetOutline("side");
-        gems[column, row+1].SetOutline("side");
+        gems[column - 1, row + eo].SetOutline("side");
+        gems[column - 1, row - 1 + eo].SetOutline("side");
+        gems[column, row - 1].SetOutline("side");
+        gems[column + 1, row - 1 + eo].SetOutline("side");
+        gems[column + 1, row + eo].SetOutline("side");
+        gems[column, row + 1].SetOutline("side");
 
         bGemClicked = true;
+
+        clickEffect.transform.position = boardTiles[column, row];
+        clickEffect.SetActive(true);
     }
 
-    bool CheckGemExist(int column_, int row_){
-        if(column_ < 0 || column_ > 10 || row_ > 5 || row_ < 0) return false;
-        if(column_ % 2 == 0 && row_ > 4) return false;
-        if(gems[column_, row_] == null) return false;
+    private bool CheckGemExist(int column_, int row_)
+    {
+        if (column_ < 0 || column_ > 10 || row_ > 5 || row_ < 0) return false;
+        if (column_ % 2 == 0 && row_ > 4) return false;
+        if (gems[column_, row_] == null) return false;
         return true;
     }
 
@@ -426,12 +298,12 @@ public class BoardManager : MonoBehaviour
         // sort row increasing -> column increasing
         List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
         Debug.Log("보드 채우기 크러쉬된 광물 개수: " + crushedGems.Count);
-        
+
         crushedGems = crushedGems.OrderBy(x => x[1]).ThenBy(y => y[0]).ToList();
 
         Debug.Log("정렬 후 " + crushedGems.Count);
 
-        while(crushedGems.Count > 0)
+        while (crushedGems.Count > 0)
         {
             List<int> cur = crushedGems[0];
             crushedGems.RemoveAt(0);
@@ -482,20 +354,9 @@ public class BoardManager : MonoBehaviour
                 Debug.Log("채운 광물 : " + newColumn + ", " + newRow);
 
                 // drop the gem on top to bottom
-                //gems[newColumn, newRow].SetColumn(i);
-                //gems[newColumn, newRow].SetRow(j);
                 gems[i, j] = gems[newColumn, newRow];
                 gems[newColumn, newRow] = null;
                 gems[i, j].MoveGem(i, j, dropTime);
-                if (gems[i, j].isFired)
-                {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(i, j);
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(newColumn, newRow);
-                }
-                else
-                {
-                    GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(i, j);
-                }
                 crushedGems.Add(new List<int> { newColumn, newRow });
                 filled = true;
                 break;
@@ -513,18 +374,7 @@ public class BoardManager : MonoBehaviour
                 gems[i, j] = gemTemp.GetComponent<GemInfo>();
                 gems[i, j].MoveGem(i, j, dropTime);
             }
-
-            // 주변에 사슬 있다면 회전 막기
-            if (IsExitChainAround(i, j))
-            {
-                gems[i, j].bRotateAble = false;
-            }
-            else
-            {
-                gems[i, j].bRotateAble = true;
-            }
         }
-
 
         // wait for gems to fall down then allow clicks
         yield return new WaitForSeconds(dropTime);
@@ -533,11 +383,9 @@ public class BoardManager : MonoBehaviour
 
     // used to communicate with other classes ---------------------------------------------------
     public int GetGemTypeCnt() { return totalGemTypeCnt; }
-    public void SetGoal(int unit){
-        goalGemCnt = unit;
-        goalInfo.SetGoal(unit);
-    }
-    public void DelGem(int column_, int row_){
+
+    public void DelGem(int column_, int row_)
+    {
         gems[column_, row_].DestroyGem();
         gems[column_, row_] = null;
     }
@@ -546,11 +394,17 @@ public class BoardManager : MonoBehaviour
         gems[column_, row_].ExplosionGem();
         gems[column_, row_] = null;
     }
-    public Vector3 GetGemPosition(int column_, int row_){
+    public Vector3 GetGemPosition(int column_, int row_)
+    {
         return boardTiles[column_, row_];
     }
-    public int GetGemColor(int column_, int row_){
-        if(!CheckGemExist(column_, row_) || gems[column_, row_].bLocationFixed) return -1;
+    public Vector3 GetDropPosition(int column_)
+    {
+        return dropPos[column_];
+    }
+    public int GetGemColor(int column_, int row_)
+    {
+        if (!CheckGemExist(column_, row_) || gems[column_, row_].bLocationFixed) return -1;
         return gems[column_, row_].GetColor();
     }
 
@@ -559,17 +413,23 @@ public class BoardManager : MonoBehaviour
         gems[column_, row_] = gem;
     }
 
-    public GemInfo GetGem(int column_, int row_){
-        if(!CheckGemExist(column_, row_)) return null;
+    public GemInfo GetGem(int column_, int row_)
+    {
+        if (!CheckGemExist(column_, row_)) return null;
         return gems[column_, row_];
     }
 
-    void EnableGemMovable() { bGemMovable = true; }
+    public void SetRotate(int column_, int row_, bool value)
+    {
+        isLockRotate[column_, row_] = value;
+    }
+
+    private void EnableGemMovable() { bGemMovable = true; }
     public bool GetGemMovable() { return bGemMovable; }
     public void SetGemMovable(bool movable) { bGemMovable = movable; }
 
     public void SetGemClicked(bool clicked)
-    {   
+    {
         if (!clicked)
         {
             SaveGemCooridnate(column, row);
@@ -578,11 +438,12 @@ public class BoardManager : MonoBehaviour
         bGemClicked = clicked;
     }
 
-    public bool CheckFever(){
+    public bool CheckFever()
+    {
         return mini.bFeverOn;
     }
 
-    void ClearBoardInit()
+    private void ClearBoardInit()
     {
         bGemMovable = false;
         clickEffect.SetActive(false);
@@ -603,19 +464,22 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void ClearBoard(){
+    public void ClearBoard()
+    {
         ClearBoardInit();
-        foreach (GemInfo gem in gems){
-            if(gem != null) gem.DestroyGem();
+        foreach (GemInfo gem in gems)
+        {
+            if (gem != null) gem.DestroyGem();
         }
     }
 
-// FEVER ---------------------------------------------------------------------------
-    public void StartFever(){
+    // FEVER ---------------------------------------------------------------------------
+    public void StartFever()
+    {
         feverCnt = 0;
         clickEffect.SetActive(false);
         bGemClicked = false;
-        if (goalColor == 2)
+        if (mini.patternIdx == 2)
         {
             StartCoroutine(mini.GetComponent<PatternRed>().InitFire());
         }
@@ -626,44 +490,40 @@ public class BoardManager : MonoBehaviour
         StartCoroutine(RefillBoardFever());
     }
 
-    IEnumerator RefillBoardFever(){
+    IEnumerator RefillBoardFever()
+    {
         bGemMovable = false;
 
         yield return new WaitForSeconds(0.3f); // wait for gem crush
-        
-        for(int i = 0; i < 11; i++){
-            for(int j = 0; j < 6; j++){
-                if(i % 2 == 0 && j == 5) break; 
-                
-                if(!CheckGemExist(i, j)){
+
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (i % 2 == 0 && j == 5) break;
+
+                if (!CheckGemExist(i, j))
+                {
                     bool filled = false;
                     // check if there is gem on top
-                    for(int k = j; k < 6; k++){
-                        if(i % 2 == 0 && k == 5) break; 
+                    for (int k = j; k < 6; k++)
+                    {
+                        if (i % 2 == 0 && k == 5) break;
 
-                        if(CheckGemExist(i, k)){
+                        if (CheckGemExist(i, k))
+                        {
                             // drop the gem on top to bottom
-                            //gems[i, k].SetColumn(i);
-                            //gems[i, k].SetRow(j);
-                            gems[i, j] = gems[i,k];
+                            gems[i, j] = gems[i, k];
                             gems[i, k] = null;
                             gems[i, j].MoveGem(i, j, dropTime);
-                            if (gems[i, j].isFired)
-                            {
-                                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckTrue(i, j);
-                                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(i, k);
-                            }
-                            else
-                            {
-                                GameObject.Find("MiniManager").GetComponent<PatternRed>()?.SetFireCheckFalse(i, j);
-                            }
                             filled = true;
                             break;
                         }
                     }
 
-                    // // if there was no gem on top
-                    if(!filled){
+                    // if there was no gem on top
+                    if (!filled)
+                    {
                         // fill with new gem
                         int color = Random.Range(0, totalGemTypeCnt);
                         GameObject gemTemp = Instantiate(gemPF, dropPos[i], Quaternion.identity, this.transform);
@@ -681,18 +541,208 @@ public class BoardManager : MonoBehaviour
         bGemMovable = true;
     }
 
-    public void EndFever(){
+    public void EndFever()
+    {
         StartCoroutine("RefillBoardFever");
         // Invoke("RefillBoardFever",0.5f);
     }
 
-    public void FeverClick(int column_, int row_){
+    public void FeverClick(int column_, int row_)
+    {
+        boardAUD.clip = defaultAUD;
         boardAUD.Play();
         mini.AddScore(1);
         DelGem(column_, row_);
 
         // in case player clicks all gem before Fever ends
         feverCnt++;
-        if(feverCnt > 59) mini.EndFever();
+        if (feverCnt > 59) mini.EndFever();
+    }
+
+    public void BeepPlay()
+    {
+        boardAUD.clip = beep;
+        boardAUD.Play();
+    }
+
+    // PATTERN RELATED
+    public GemInfo GetRandomGem()
+    {
+        // TODO: Does not check whether the gem is already filled with water
+
+        int column_ = Random.Range(0, 11);
+        int row_ = Random.Range(0, 6);
+        GemInfo gem = GetGem(column_, row_);
+        while (gem == null)
+        {
+            column_ = Random.Range(0, 11);
+            row_ = Random.Range(0, 6);
+            gem = GetGem(column_, row_);
+        }
+        return gem;
+    }
+
+    public GemInfo GetRandomGemArea()
+    {
+        // TODO: Does not check whether the gem is already filled with water
+
+        int column_ = Random.Range(2, 9);
+        int row_ = Random.Range(2, 4);
+        GemInfo gem = GetGem(column_, row_);
+        while (gem == null)
+        {
+            column_ = Random.Range(2, 9);
+            row_ = Random.Range(2, 4);
+            gem = GetGem(column_, row_);
+        }
+        return gem;
+    }
+
+    public GemInfo GetPatternGemRandom()
+    {
+        while (true)
+        {
+            GemInfo randGem = GetRandomGem();
+            if (randGem.GetColor() == mini.patternIdx)
+            {
+                return randGem;
+            }
+        }
+    }
+
+    public GemInfo GetRandomGemOnWay(int current_c, int current_r)
+    {
+        GemInfo gem = null;
+        while (gem == null)
+        {
+            // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+            int direction = Random.Range(0, 6);
+            int distance = Random.Range(0, 10);
+            int odd = current_c % 2;
+            int column_ = current_c, row_ = current_r;
+            switch (direction)
+            {
+                case 0:
+                    row_ += distance;
+                    gem = GetGem(column_, row_);
+                    break;
+                case 1:
+                    column_ += distance; row_ += ((odd == 1) ? distance / 2 : (distance + 1) / 2);
+                    gem = GetGem(column_, row_);
+                    break;
+                case 2:
+                    column_ += distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = GetGem(column_, row_);
+                    break;
+                case 3: // down
+                    row_ -= distance;
+                    gem = GetGem(column_, row_);
+                    break;
+                case 4:
+                    column_ -= distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
+                    gem = GetGem(column_, row_);
+                    break;
+                case 5:
+                    column_ -= distance; row_ += ((odd == 1) ? distance / 2 : (distance + 1) / 2);
+                    gem = GetGem(column_, row_);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return gem;
+    }
+
+    // get 6 direction around gem list
+    public List<List<GemInfo>> GetAroundGemList(int current_c, int current_r)
+    {
+        List<List<GemInfo>> aroundGemList = new List<List<GemInfo>>();
+        int odd = current_c % 2;
+
+        // init 6 direction
+        // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+        for (int i = 0; i < 6; i++) // direction
+        {
+            List<GemInfo> temp = new List<GemInfo>();
+            for (int j = 1; j < 10; j++) // distance
+            {
+                int column_ = current_c, row_ = current_r;
+                GemInfo gem = null;
+                switch (i)
+                {
+                    case 0:
+                        row_ += j;
+                        gem = GetGem(column_, row_);
+                        break;
+                    case 1:
+                        column_ += j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
+                        gem = GetGem(column_, row_);
+                        break;
+                    case 2:
+                        column_ += j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
+                        gem = GetGem(column_, row_);
+                        break;
+                    case 3: // down
+                        row_ -= j;
+                        gem = GetGem(column_, row_);
+                        break;
+                    case 4:
+                        column_ -= j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
+                        gem = GetGem(column_, row_);
+                        break;
+                    case 5:
+                        column_ -= j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
+                        gem = GetGem(column_, row_);
+                        break;
+                    default:
+                        break;
+                }
+                if (gem == null)
+                {
+                    break;
+                }
+                temp.Add(gem);
+            }
+            aroundGemList.Add(temp);
+        }
+        return aroundGemList;
+    }
+
+
+    public GemInfo[] GetRandomGems(int cnt)
+    {
+        // TODO: Does not check whether the gem is already filled with water
+        GemInfo[] gems = new GemInfo[cnt];
+        int[,] pickedCoordinates = new int[cnt, 2];
+
+        for (int i = 0; i < cnt; i++)
+        {
+            GemInfo gem; int column_, row_;
+            bool bPicked;
+            do
+            {
+                bPicked = false;
+                column_ = Random.Range(0, 11);
+                row_ = Random.Range(0, 6);
+                gem = GetGem(column_, row_);
+
+                // check if this gem is already picked
+                for (int j = 0; j < i; j++)
+                {
+                    if (pickedCoordinates[j, 0] == column_ && pickedCoordinates[j, 1] == row_)
+                    {
+                        bPicked = true;
+                        break;
+                    }
+                }
+            } while (gem == null || gem.bPatternApplied || bPicked);
+
+            pickedCoordinates[i, 0] = column_;
+            pickedCoordinates[i, 1] = row_;
+
+            gems[i] = gem;
+        }
+
+        return gems;
     }
 }

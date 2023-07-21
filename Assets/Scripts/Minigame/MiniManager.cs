@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public enum PatternType{
+public enum PatternType
+{
     YELLOW,
     BLUE,
     RED,
@@ -25,25 +23,29 @@ public enum LevelType
 }
 
 public class MiniManager : MonoBehaviour
-{    
+{
     // UI
     public Image timerFill;
     public Image scoreFill;
     public Text scoreTXT;
     public GameObject UIScore;
     public GameObject UIGameOver;
+    public GameObject timer;
+    public Sprite timerOrigin, timerRed;
 
     // timer
     [SerializeField] private const float fullPlayTime = 50f;
     private float playTime;
     [SerializeField] private const float fullFeverTime = 10f;
-    private float feverTime; // 10f
+    private float feverTime;
+    private bool isTwinkle;
 
     // board related
     private BoardManager board;
     public SpriteRenderer boardImg;
     public Sprite[] puzzleBoardSP;
-    private int goalGemCnt = 3;
+    public GoalInfo goalInfo;
+    public int goalUnit = 3; // goal gem count
 
     // score
     public float fullScore;
@@ -55,16 +57,16 @@ public class MiniManager : MonoBehaviour
     public Image feverFillIMG;
     public Image feverIMG;
     public Button feverBTN;
-    [HideInInspector]public bool bFeverOn = false;
+    [HideInInspector] public bool bFeverOn = false;
     public Sprite[] feverSP;
     public Sprite[] feverFillSP;
     public Animator animator;
 
     // pattern
     public PatternManager pattern;
-    int patternIdx = (int)PatternType.PURPLE;
-    int patternGimmick = 0;
-    int patternLevel = (int)LevelType.EASY1;
+    [HideInInspector] public int patternIdx;
+    [HideInInspector] public int patternGimmick;
+    [HideInInspector] public int patternLevel;
 
     // game mode
     private bool bPuzzleMode = true;
@@ -74,26 +76,39 @@ public class MiniManager : MonoBehaviour
     public string GetFungusMessage() { return fungusMessage; }
     // ---------------------------------------------------------------
 
-    void Start(){
-        playTime = fullPlayTime; score = 0; fever = 0;
+    private void Start()
+    {
+        playTime = 0;
+        score = 0;
+        fever = 0;
+        isTwinkle = false;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
-        // temp
-        board.goalColor = patternIdx;
 
         // ui
         scoreFill.fillAmount = 0;
         timerFill.fillAmount = 0;
         feverFillIMG.fillAmount = 0;
 
-        if(PlayerPrefs.HasKey("goalUnit")) goalGemCnt = PlayerPrefs.GetInt("goalUnit");
-        board.SetGoal(goalGemCnt);
+        // set goal
+        if (PlayerPrefs.HasKey("goalUnit")) goalUnit = PlayerPrefs.GetInt("goalUnit");
+        goalInfo.SetGoal(goalUnit);
+
+        // set pattern
+        patternIdx = TestLoadMini.patternIdx;
+        patternGimmick = TestLoadMini.patternGimmick;
+        patternLevel = TestLoadMini.patternLevel;
+        //Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+        //patternIdx = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
+        //patternGimmick = 0;
+        //patternLevel = 0;
+        //patternLevel = flowchart.GetVariable<Fungus.IntegerVariable>("Level").Value;
 
         // pattern
         pattern = SpawnPattern(patternIdx);
         pattern.StartPattern(patternGimmick, patternLevel);
     }
 
-    public PatternManager SpawnPattern(int patternIdx)
+    private PatternManager SpawnPattern(int patternIdx)
     {
         if (patternIdx == (int)PatternType.YELLOW)
         { // YELLOW
@@ -131,70 +146,102 @@ public class MiniManager : MonoBehaviour
     }
 
 
-    void Update(){
-        if(bPuzzleMode){
-            // timerFill.fillAmount = Mathf.InverseLerp(0, fullPlayTime, playTime);
-            timerFill.fillAmount = playTime/fullPlayTime;
-            playTime -= Time.deltaTime;
+    private void Update()
+    {
+        if (bPuzzleMode)
+        {
+            timerFill.fillAmount = playTime / fullPlayTime;
+            playTime += Time.deltaTime;
 
-            if(playTime <= 0){
+            if (playTime >= fullPlayTime)
+            {
                 GameOver();
             }
 
-            if(bFeverOn){
+            if (playTime >= fullPlayTime * 0.8f && isTwinkle == false)
+            {
+                isTwinkle = true;
+                StartCoroutine("TwinkleTimer");
+            }
+            else if (playTime < fullPlayTime * 0.8f && isTwinkle == true)
+            {
+                isTwinkle = false;
+                StopCoroutine("TwinkleTimer");
+            }
+
+            if (bFeverOn)
+            {
                 feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFeverTime, feverTime);
                 feverTime -= Time.deltaTime;
-                if(feverTime <= 0) EndFever();
+                if (feverTime <= 0) EndFever();
             }
         }
     }
 
-    public float TimeLeft(){
-        return fullPlayTime - playTime;
+    IEnumerator TwinkleTimer()
+    {
+        while (true)
+        {
+            timer.GetComponent<Image>().sprite = timerRed;
+            yield return new WaitForSeconds(0.5f);
+            timer.GetComponent<Image>().sprite = timerOrigin;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
-    public void AddScore(int n){
+    public float TimeLeft()
+    {
+        return playTime;
+    }
+
+    public void AddScore(int n)
+    {
         score += n;
         SetScoreUI();
-        int scorePercent = (int)((score/fullScore)*100);
-        if(scorePercent > 100) scorePercent = 100;
+        int scorePercent = (int)((score / fullScore) * 100);
+        if (scorePercent > 100) scorePercent = 100;
         // scoreTXT.text = (scorePercent).ToString() + " %";
         // scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
 
-        if(!bFeverOn) {
-            playTime += 0.5f;
+        if (!bFeverOn)
+        {
+            playTime -= 0.5f;
             AddFever(n);
         }
-        
-        // setting UI chatbox of character
-        int prevScorePercent = (int)((score-n)/fullScore*100);
-        if(prevScorePercent < 30 && scorePercent >= 30) pattern.SetUIText();
-        else if(prevScorePercent < 35 && scorePercent >= 35) pattern.SetUIText();
-        else if(prevScorePercent < 40 && scorePercent >= 40) pattern.SetUIText();
-        else if(prevScorePercent < 60 && scorePercent >= 60) pattern.SetUIText();
-        else if(prevScorePercent < 65 && scorePercent >= 65) pattern.SetUIText();
-        else if(prevScorePercent < 80 && scorePercent >= 80) pattern.SetUIText();
 
-        if(scorePercent >= 100 && bPuzzleMode) {
+        // setting UI chatbox of character
+        int prevScorePercent = (int)((score - n) / fullScore * 100);
+        if (prevScorePercent < 30 && scorePercent >= 30) pattern.SetUIText();
+        else if (prevScorePercent < 35 && scorePercent >= 35) pattern.SetUIText();
+        else if (prevScorePercent < 40 && scorePercent >= 40) pattern.SetUIText();
+        else if (prevScorePercent < 60 && scorePercent >= 60) pattern.SetUIText();
+        else if (prevScorePercent < 65 && scorePercent >= 65) pattern.SetUIText();
+        else if (prevScorePercent < 80 && scorePercent >= 80) pattern.SetUIText();
+
+        if (scorePercent >= 100 && bPuzzleMode)
+        {
             bPuzzleMode = false; // disable playTime count
             board.SetGemMovable(false);
-            Invoke("StartStoryMode",0.6f);
+            Invoke(nameof(StartStoryMode), 0.6f);
         }
     }
 
-    void SetScoreUI(){
-        int scorePercent = (int)((score/fullScore)*100);
-        if(scorePercent > 100) scorePercent = 100;
+    private void SetScoreUI()
+    {
+        int scorePercent = (int)((score / fullScore) * 100);
+        if (scorePercent > 100) scorePercent = 100;
         scoreTXT.text = (scorePercent).ToString() + " %";
         scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
     }
 
-    public void AddFever(int n){
-        playTime += 0.5f;
+    public void AddFever(int n)
+    {
+        playTime -= 0.5f;
         fever += n;
         feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
-        if(fever > fullFever && !bFeverOn && !animator.GetBool("bFeverOn")){
+        if (fever > fullFever && !bFeverOn && !animator.GetBool("bFeverOn"))
+        {
             animator.SetBool("bFeverOn", true);
             feverFillIMG.sprite = feverFillSP[1];
             feverIMG.sprite = feverSP[1];
@@ -202,7 +249,8 @@ public class MiniManager : MonoBehaviour
         }
     }
 
-    public void StartFever(){
+    public void StartFever()
+    {
         // reset
         bFeverOn = true;
         feverTime = fullFeverTime;
@@ -215,7 +263,8 @@ public class MiniManager : MonoBehaviour
         feverBTN.enabled = false;
     }
 
-    public void EndFever(){
+    public void EndFever()
+    {
         animator.SetBool("bFeverOn", false);
 
         feverBTN.enabled = false;
@@ -226,30 +275,34 @@ public class MiniManager : MonoBehaviour
         fever = 0; feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
         bFeverOn = false;
-        if(bPuzzleMode && score < fullScore) board.EndFever();
+        if (bPuzzleMode && score < fullScore) board.EndFever();
 
         // restart pattern
-        if(bPuzzleMode && score < fullScore) pattern.RestartPattern();
+        if (bPuzzleMode && score < fullScore) pattern.RestartPattern();
     }
 
-    void GameOver(){
+    private void GameOver()
+    {
         bPuzzleMode = false;
+        StopCoroutine("TwinkleTimer");
+
+        timer.transform.GetChild(1).gameObject.SetActive(true);
 
         board.ClearBoard();
-
         pattern.ClearPattern();
-        Invoke("GameOver_", 0.6f);
+        Invoke(nameof(GameOver_), 2.0f);
     }
-    void GameOver_(){ UIGameOver.SetActive(true);}
+    private void GameOver_() { UIGameOver.SetActive(true); }
 
-    void StartStoryMode(){
+    private void StartStoryMode()
+    {
         bPuzzleMode = false;
         // if game ended in fever mode
-        if(bFeverOn) EndFever();
+        if (bFeverOn) EndFever();
 
         // clear board sprites
         pattern.StopPattern();
-        if(fever != 0) AddFever(-fever);
+        if (fever != 0) AddFever(-fever);
         UIScore.SetActive(false);
         board.ClearBoard();
 
@@ -265,12 +318,13 @@ public class MiniManager : MonoBehaviour
     }
 
     // after dialogue with client
-    public void RestartGame(string color, int gimmick_, string message){
+    public void RestartGame(string color, int gimmick_, string message)
+    {
         fungusMessage = message;
-        
+
         score = 0; SetScoreUI();
         EndFever();
-        playTime = fullPlayTime;
+        playTime = 0;
         UIScore.SetActive(true);
         board.InitBoard();
         bPuzzleMode = true;
@@ -279,14 +333,16 @@ public class MiniManager : MonoBehaviour
     }
 
     // after game over
-    public void RestartGameOver(){
+    public void RestartGameOver()
+    {
         UIGameOver.SetActive(false);
 
         score = 0; SetScoreUI();
         EndFever();
-        playTime = fullPlayTime;
+        playTime = 0;
         UIScore.SetActive(true);
-        if(bFeverOn){
+        if (bFeverOn)
+        {
             bFeverOn = false;
             EndFever();
         }
@@ -294,168 +350,5 @@ public class MiniManager : MonoBehaviour
         bPuzzleMode = true;
 
         pattern.RestartPattern();
-    }
-
-    // PATTERN RELATED
-    public GemInfo GetRandomGem(){
-        // TODO: Does not check whether the gem is already filled with water
-
-        int column_ = Random.Range(0, 11);
-        int row_ = Random.Range(0, 6);
-        GemInfo gem = board.GetGem(column_, row_);
-        while(gem == null){
-            column_ = Random.Range(0, 11);
-            row_ = Random.Range(0, 6);
-            gem = board.GetGem(column_, row_);
-        }
-        return gem;
-    }
-
-    public GemInfo GetPatternGemRandom()
-    {
-        while (true)
-        {
-            GemInfo randGem = GetRandomGem();
-            if (randGem.GetColor() == patternIdx)
-            {
-                return randGem;
-            }
-        }
-    }
-
-    public GemInfo GetRandomGemOnWay(int current_c, int current_r)
-    {
-        GemInfo gem = null;
-        while(gem == null)
-        {
-            // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
-            int direction = Random.Range(0, 6);
-            int distance = Random.Range(0, 10);
-            int odd = current_c % 2;
-            int column_ = current_c, row_ = current_r;
-            switch (direction)
-            {
-                case 0:
-                    row_ += distance;
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 1:
-                    column_ += distance; row_ += ((odd == 1) ? distance/2 : (distance+1)/2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 2:
-                    column_ += distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 3: // down
-                    row_ -= distance;
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 4:
-                    column_ -= distance; row_ -= ((odd == 0) ? distance / 2 : (distance + 1) / 2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                case 5:
-                    column_ -= distance; row_ += ((odd == 1) ? distance / 2 : (distance + 1) / 2);
-                    gem = board.GetGem(column_, row_);
-                    break;
-                default:
-                    break;
-            }
-        }
-        return gem;
-    }
-
-    // get 6 direction around gem list
-    public List<List<GemInfo>> GetAroundGemList(int current_c, int current_r)
-    {
-        List<List<GemInfo>> aroundGemList = new List<List<GemInfo>>();
-        int odd = current_c % 2;
-
-        // init 6 direction
-        // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
-        for (int i = 0; i < 6; i++) // direction
-        {
-            List<GemInfo> temp = new List<GemInfo>();
-            for(int j = 1; j < 10; j++) // distance
-            {
-                int column_ = current_c, row_ = current_r;
-                GemInfo gem = null;
-                switch (i)
-                {
-                    case 0:
-                        row_ += j;
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 1:
-                        column_ += j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 2:
-                        column_ += j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 3: // down
-                        row_ -= j;
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 4:
-                        column_ -= j; row_ -= ((odd == 0) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    case 5:
-                        column_ -= j; row_ += ((odd == 1) ? j / 2 : (j + 1) / 2);
-                        gem = board.GetGem(column_, row_);
-                        break;
-                    default:
-                        break;
-                }
-                if (gem == null)
-                {
-                    break;
-                }
-                temp.Add(gem);
-            }
-            aroundGemList.Add(temp);
-        }
-        return aroundGemList;
-    }
-
-
-    public GemInfo[] GetRandomGems(int cnt)
-    {
-        // TODO: Does not check whether the gem is already filled with water
-        GemInfo[] gems = new GemInfo[cnt];
-        int[,] pickedCoordinates = new int[cnt, 2];
-
-        for (int i = 0; i < cnt; i++)
-        {
-            GemInfo gem; int column_, row_;
-            bool bPicked;
-            do
-            {
-                bPicked = false;
-                column_ = Random.Range(0, 11);
-                row_ = Random.Range(0, 6);
-                gem = board.GetGem(column_, row_);
-
-                // check if this gem is already picked
-                for (int j = 0; j < i; j++)
-                {
-                    if (pickedCoordinates[j,0] == column_ && pickedCoordinates[j, 1] == row_)
-                    {
-                        bPicked = true;
-                        break;
-                    }
-                }
-            } while (gem == null || gem.bPatternApplied || bPicked);
-
-            pickedCoordinates[i, 0] = column_;
-            pickedCoordinates[i, 1] = row_;
-
-            gems[i] = gem;
-        }
-        
-        return gems;
     }
 }
