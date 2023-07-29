@@ -247,13 +247,44 @@ public class PatternRed : PatternManager
                     break;
                 }
                 GemInfo gem = board.GetGem(i, j);
-                if (gem == null || gem.isFired == false)
+                if (gem == null || gem.isFired == 0)
                 {
                     continue;
                 }
                 gem.StopFireGem();
             }
         }
+    }
+
+    private List<int> FindStartFire()
+    {
+        List<int> startFire = new List<int>();
+        for(int i = 0; i <= 10; i++)
+        {
+            for(int j = 0; j <= 5; j++)
+            {
+                // outside board
+                if (j == 5 && i % 2 == 0)
+                {
+                    continue;
+                }
+                GemInfo gem = board.GetGem(i, j);
+                if(gem == null)
+                {
+                    continue;
+                }
+                gem.isChecked = false;
+                // find start fire
+                if (gem.isFired == 1)
+                {
+                    int col = gem.GetColumn();
+                    int row = gem.GetRow();
+                    startFire.Add(col);
+                    startFire.Add(row);
+                }
+            }
+        }
+        return startFire;
     }
 
     private IEnumerator SpreadFire(float interval)
@@ -264,22 +295,59 @@ public class PatternRed : PatternManager
 
             // 0. get fire gem list
             List<GemInfo> gemList = new List<GemInfo>();
-            for (int i = 0; i <= 10; i++)
+            List<List<int>> queueList = new List<List<int>>();
+           
+            queueList.Add(FindStartFire());
+            while(queueList.Count > 0)
             {
-                for (int j = 0; j <= 5; j++)
+                List<int> cur = queueList[0]; // 0:column, 1:row
+                queueList.RemoveAt(0);
+
+                int col = cur[0];
+                int row = cur[1];
+                GemInfo gem = board.GetGem(col, row);
+                if (gem != null)
                 {
-                    // outside board
-                    if (j == 5 && i % 2 == 0)
+                    gem.isChecked = true;
+                }
+                int[,] dir = col % 2 == 0 ? aroundGem_e : aroundGem_o;
+                bool chk = false;
+                for(int i = 0; i < 6; i++)
+                {
+                    int newCol = col + dir[i, 0];
+                    int newRow = row + dir[i, 1];
+                    GemInfo tempGem = board.GetGem(newCol, newRow);
+                    if(tempGem != null && tempGem.isChecked == false && tempGem.isFired > 0)
                     {
-                        break;
-                    }
-                    GemInfo gem = board.GetGem(i, j);
-                    if (gem != null && gem.isFired)
-                    {
-                        gemList.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
-                    }
+                        chk = true;
+                        tempGem.isChecked = true;
+                        List<int> temp = new List<int>();
+                        temp.Add(newCol);
+                        temp.Add(newRow);
+                        queueList.Add(temp);
+                    } 
+                }
+                if (!chk)
+                {
+                    gemList.Add(gem);
                 }
             }
+            //for (int i = 0; i <= 10; i++)
+            //{
+            //    for (int j = 0; j <= 5; j++)
+            //    {
+            //        // outside board
+            //        if (j == 5 && i % 2 == 0)
+            //        {
+            //            break;
+            //        }
+            //        GemInfo gem = board.GetGem(i, j);
+            //        if (gem != null && gem.isFired > 0)
+            //        {
+            //            gemList.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
+            //        }
+            //    }
+            //}
             if(gemList.Count == 0)
             {
                 break;
@@ -316,7 +384,7 @@ public class PatternRed : PatternManager
                     }
                     // if around already fired then continue
                     GemInfo gem = board.GetGem(new_col, new_row);
-                    if (gem.isFired)
+                    if (gem.isFired > 0)
                     {
                         continue;
                     }
@@ -347,7 +415,7 @@ public class PatternRed : PatternManager
             {
                 int rand = Random.Range(0, aroundGems.Count);
                 GemInfo temp = aroundGems[rand];
-                if (temp.isFired)
+                if (temp.isFired > 0)
                 {
                     continue;
                 }
