@@ -94,14 +94,27 @@ public class MiniManager : MonoBehaviour
         goalInfo.SetGoal(goalUnit);
 
         // set pattern
-        patternIdx = TestLoadMini.patternIdx;
-        patternGimmick = TestLoadMini.patternGimmick;
-        patternLevel = TestLoadMini.patternLevel;
-        //Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-        //patternIdx = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
-        //patternGimmick = 0;
-        //patternLevel = 0;
-        //patternLevel = flowchart.GetVariable<Fungus.IntegerVariable>("Level").Value;
+        //patternIdx = TestLoadMini.patternIdx;
+        //patternGimmick = TestLoadMini.patternGimmick;
+        //patternLevel = TestLoadMini.patternLevel;
+        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+        int storyRound = 0;
+        int level = 0;
+        if (flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex") != null)
+        {
+            patternIdx = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
+        }
+        if (flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound") != null)
+        {
+            storyRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
+        }
+        if (flowchart.GetVariable<Fungus.IntegerVariable>("Level") != null)
+        {
+            level = flowchart.GetVariable<Fungus.IntegerVariable>("Level").Value;
+        }
+        patternLevel = storyRound * level;
+        patternGimmick = 0;
+
 
         // pattern
         pattern = SpawnPattern(patternIdx);
