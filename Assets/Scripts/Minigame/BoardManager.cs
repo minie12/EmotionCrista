@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour
     private GemInfo[,] gems;
     private Vector3[,] boardTiles;
     private bool[,] isLockRotate; // pattern related
+    private int[,] isClickedGem; // gem click
 
     // wait for rotate time
     private bool bGemMovable = false;
@@ -53,12 +54,17 @@ public class BoardManager : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.D)) RotateGem('d');
         }
 
-        // locked gem
+        // locked gem + gem clicked
         for (int i = 0; i < 11; i++)
         {
             for (int j = 0; j < 6; j++)
             {
                 if (j == 5 && i % 2 == 0) continue;
+                if(gems[i,j] != null)
+                {
+                    gems[i, j].SetOutline("undo");
+                }
+
                 if (i == 0 || i == 10 || j == 0 || j == 5 || (j == 4 && i % 2 == 0))
                 {
                     isLockRotate[i, j] = true;
@@ -77,6 +83,15 @@ public class BoardManager : MonoBehaviour
                 {
                     gems[i, j].DeleteFilm();
                 }
+
+                if(isClickedGem[i,j] == 1)
+                {
+                    gems[i, j].SetOutline("side");
+                }
+                else if(isClickedGem[i,j] == 2)
+                {
+                    gems[i, j].SetOutline("click");
+                }
             }
         }
     }
@@ -88,6 +103,7 @@ public class BoardManager : MonoBehaviour
         gems = new GemInfo[11, 6];
         dropPos = new Vector3[11];
         isLockRotate = new bool[11, 6];
+        isClickedGem = new int[11, 6];
 
         // create 66 gems on correct location
         float diffX = 0.75f;
@@ -245,13 +261,20 @@ public class BoardManager : MonoBehaviour
             int eo = (prevColumn % 2 == 0) ? 1 : 0;
 
             gems[prevColumn, prevRow].SetOutline("undo");
-
             gems[prevColumn - 1, prevRow + eo].SetOutline("undo");
             gems[prevColumn - 1, prevRow - 1 + eo].SetOutline("undo");
             gems[prevColumn, prevRow - 1].SetOutline("undo");
             gems[prevColumn + 1, prevRow - 1 + eo].SetOutline("undo");
             gems[prevColumn + 1, prevRow + eo].SetOutline("undo");
             gems[prevColumn, prevRow + 1].SetOutline("undo");
+
+            isClickedGem[prevColumn, prevRow] = 0;
+            isClickedGem[prevColumn - 1, prevRow + eo] = 0;
+            isClickedGem[prevColumn - 1, prevRow - 1 + eo] = 0;
+            isClickedGem[prevColumn, prevRow - 1] = 0;
+            isClickedGem[prevColumn + 1, prevRow - 1 + eo] = 0;
+            isClickedGem[prevColumn + 1, prevRow + eo] = 0;
+            isClickedGem[prevColumn, prevRow + 1] = 0;
 
             clickEffect.SetActive(false);
         }
@@ -274,6 +297,15 @@ public class BoardManager : MonoBehaviour
         gems[column + 1, row - 1 + eo].SetOutline("side");
         gems[column + 1, row + eo].SetOutline("side");
         gems[column, row + 1].SetOutline("side");
+
+        isClickedGem[column, row] = 2;
+
+        isClickedGem[column - 1, row + eo] = 1;
+        isClickedGem[column - 1, row - 1 + eo] = 1;
+        isClickedGem[column, row - 1] = 1;
+        isClickedGem[column + 1, row - 1 + eo] = 1;
+        isClickedGem[column + 1, row + eo] = 1;
+        isClickedGem[column, row + 1] = 1;
 
         bGemClicked = true;
 

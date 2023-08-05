@@ -289,16 +289,20 @@ public class PatternRed : PatternManager
 
     private IEnumerator SpreadFire(float interval)
     {
-        while (true)
+        while (isPlaying)
         {
             yield return new WaitForSeconds(interval);
 
             // 0. get fire gem list
             List<GemInfo> gemList = new List<GemInfo>();
             List<List<int>> queueList = new List<List<int>>();
+            List<int> startFire = FindStartFire();
            
-            queueList.Add(FindStartFire());
-            while(queueList.Count > 0)
+            if (startFire.Count == 2)
+            {
+                queueList.Add(FindStartFire());
+            }
+            while (queueList.Count > 0)
             {
                 List<int> cur = queueList[0]; // 0:column, 1:row
                 queueList.RemoveAt(0);
@@ -424,5 +428,6 @@ public class PatternRed : PatternManager
                 i++;
             }
         }
+        yield return null;
     }
 }

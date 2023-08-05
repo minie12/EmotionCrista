@@ -340,7 +340,7 @@ public class GemInfo : MonoBehaviour
     {
         gameObject.GetComponent<Collider2D>().enabled = false;
 
-        if (isFired > 0)
+        if (isFired > 0 && gemOutline.sprite != null)
         {
             GameObject.Find("Board").GetComponent<BoardManager>().SetGemClicked(false);
             Debug.Log("clear gem clicked!");
