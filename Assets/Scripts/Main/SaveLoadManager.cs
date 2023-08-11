@@ -21,8 +21,6 @@ public class SaveLoadManager : MonoBehaviour
     public Text MenuPlaceText;
     public Text MenuModeText;
 
-    SaveLoadData gameData;
-
     public void SetActiveSaveLoadMenu(bool bSave_)
     {
         bSave = bSave_;
@@ -41,7 +39,7 @@ public class SaveLoadManager : MonoBehaviour
     {
         if (bSave)
         {
-            SetSaveData();
+            StartSaveData();
         }
         else // load
         {
@@ -49,110 +47,62 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
-    public void SetSaveData() {
-        gameData.Initialize();
+    public void StartSaveData() {
+        EmoSaveData gameData = EmoSaveData.CreateSaveData();
 
-        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-
-        gameData.SceneName = SceneManager.GetActiveScene().name;
-        gameData.PlayerName = flowchart.GetVariable("PlayerName").GetValue() as string;
-        gameData.StoryNumb = flowchart.GetVariable("StoryNumb").GetValue() as string;
-
-        if (gameData.SceneName == "" || gameData.PlayerName == "" || gameData.StoryNumb == "")
-        {
-            Debug.Log("ERROR(SaveLoadManager): Save data info is missing (" + gameData.SceneName + ", " + gameData.PlayerName + ", " + gameData.StoryNumb + ")");
-            return;
-        }
-
-        Debug.Log(gameData.StoryNumb.Substring(1));
-        string[] temp = gameData.StoryNumb.Substring(1).Split('_');
-        foreach(string a in temp){
-            Debug.Log(a);
-        }
-        MenuDayText.text = temp[0];
+        MenuDayText.text = gameData.StoryRound.ToString();
         MenuPlayerText.text = gameData.PlayerName;
         MenuPlaceText.text = gameData.SceneName;
 
-        SaveToFile_();
-    }
+        // Save To File
+        BinaryFormatter formatter = new BinaryFormatter();
+        string savePath = Application.persistentDataPath + "/" + directoryName + ".bin";
 
-    private void SaveToFile_(){
-        if(!Directory.Exists(directoryName))
-            Directory.CreateDirectory(directoryName);
+        FileStream stream = new FileStream(savePath, FileMode.Create);
 
-        BinaryFormatter binFormatter = new BinaryFormatter();
-        FileStream saveStream = File.Create(directoryName + "/" + fileIndex + ".bin");
-
-        binFormatter.Serialize(saveStream, gameData);
+        formatter.Serialize(stream, gameData);
+        stream.Close();
 
         Debug.Log("Saved Data at: " + directoryName + "/" + fileIndex + ".bin");
-
-        saveStream.Close();
     }
 
     public void StartLoadData(){
         bSave = false;
 
-        gameData.Initialize();
-        //LoadFromFile();
-        LoadTesting();
-
-        // check if all is loaded well
-        if(gameData.SceneName == "" || gameData.PlayerName == "" || gameData.StoryNumb == "")
+        EmoSaveData loadedData = LoadFromFile();
+        if (false == loadedData.ValidateData())
         {
-            Debug.Log("ERROR(SaveLoadManager): Load data info is missing (" + gameData.SceneName + ", " + gameData.PlayerName + ", " + gameData.StoryNumb + ")");
+            Debug.Log("ERROR(SaveLoadManager): Load data info is missing");
             return;
         }
 
         //string prefsKey = Fungus.SetSaveProfile.SaveProfile + "_" + Fungus.GetFlowchart().SubstituteVariables("player_name");
 
-        PlayerPrefs.SetInt("LoadData", 1); // flag for checking if scene is loaded from load menu
-        PlayerPrefs.SetString("PlayerName", gameData.PlayerName);
-        PlayerPrefs.SetString("StoryNumb", gameData.StoryNumb);
-
-        SceneManager.LoadScene(gameData.SceneName, LoadSceneMode.Single);
-    }
-
-    private void LoadFromFile(){
-        BinaryFormatter binFormatter = new BinaryFormatter();
-        string path = directoryName + "/" + fileIndex + ".bin";
-        if (!Directory.Exists(path))
+        GameObject flowchartObj = GameObject.Find("Flowchart");
+        if (null != flowchartObj)
         {
-            Debug.Log("ERROR(SaveLoadManager): Load file path not found. ");
-            return; 
+            Fungus.Flowchart flowchart = flowchartObj.GetComponent<Fungus.Flowchart>();
+
         }
 
-        FileStream load_stream = File.Open(path, FileMode.Open);
-
-        gameData = (SaveLoadData)binFormatter.Deserialize(load_stream);
-
-        load_stream.Close();
-    }
-    private void LoadTesting()
-    {
-        gameData.SceneName = "Garden";
-        gameData.PlayerName = "SaRangHe";
-        gameData.StoryNumb = "D02_RazEnding_1";
-    }
-}
-
-[System.Serializable]
-public struct SaveLoadData
-{
-    public string SceneName;
-    public string PlayerName;
-    public string StoryNumb;
-
-    public SaveLoadData(string sname_ = "", string pname_ = "", string story_ = ""){
-        SceneName = sname_;
-        PlayerName = pname_;
-        StoryNumb = story_;
+        SceneManager.LoadScene(loadedData.SceneName, LoadSceneMode.Single);
     }
 
-    public void Initialize()
-    {
-        SceneName = "";
-        PlayerName = "";
-        StoryNumb = "";
+    private EmoSaveData LoadFromFile(){
+        string loadPath = Application.persistentDataPath + "/" + directoryName + ".bin";
+
+        if (File.Exists(loadPath))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(loadPath, FileMode.Open);
+
+            EmoSaveData data = formatter.Deserialize(stream) as EmoSaveData;
+
+            stream.Close();
+
+            return data;
+        }
+
+        return null;
     }
 }
