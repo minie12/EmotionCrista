@@ -16,25 +16,31 @@ public class PatternBlue : PatternManager
         bubble_PF = Resources.Load<GameObject>("Prefabs/MiniGame/bubble");
     }
 
-    override public void StartPattern(int gimmick_, int level_){
-        gimmick = gimmick_;
+    override public void StartPattern(int level_){
         level = level_;
         OrganizeCharacterChat();
 
-        if(gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
-        if(gimmick == 1)
-        {
-            InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
-        }
+        //if(gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
+        //if(gimmick == 1)
+        //{
+        //    InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
+        //}
     }
 
-    override public void StopPattern(){ CancelInvoke(); }
+    public override void StopPattern()
+    {
+        base.StopPattern();
+        CancelInvoke();
+    }
+
+
+    override public void StopGimmick(int gimmick_){ CancelInvoke(); }
     override public void RestartPattern(){
-        if (gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
-        if (gimmick == 1)
-        {
-            InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
-        }
+        //if (gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
+        //if (gimmick == 1)
+        //{
+        //    InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
+        //}
     }
 
     // B1 -----------------------------------------------

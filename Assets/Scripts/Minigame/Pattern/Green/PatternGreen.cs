@@ -26,34 +26,40 @@ public class PatternGreen : PatternManager
         bugPF = Resources.Load<GameObject>("Prefabs/MiniGame/bug");
     }
 
-    override public void StartPattern(int gimmick_, int level_)
+    override public void StartPattern(int level_)
     {
-        gimmick = gimmick_;
         level = level_;
         OrganizeCharacterChat();
 
-        // give term before choose gem because board init
-        if (gimmick == 0) 
-        {
-            InvokeRepeating("GreenGimmick0", 1f, bugInterval); 
-        } 
-        else if (gimmick == 1)
-        {
-            Invoke("GreenGimmick1", 1f);
-        }
+        //// give term before choose gem because board init
+        //if (gimmick == 0) 
+        //{
+        //    InvokeRepeating("GreenGimmick0", 1f, bugInterval); 
+        //} 
+        //else if (gimmick == 1)
+        //{
+        //    Invoke("GreenGimmick1", 1f);
+        //}
     }
 
-    override public void StopPattern() { CancelInvoke(); }
+    public override void StopPattern()
+    {
+        base.StopPattern();
+        CancelInvoke();
+    }
+
+
+    override public void StopGimmick(int gimmick_) { CancelInvoke(); }
     override public void RestartPattern()
     {
-        if (gimmick == 0) 
-        {
-            InvokeRepeating("GreenGimmick0", 1f, bugInterval);
-        }
-        else if (gimmick == 1)
-        {
-            Invoke("GreenGimmick1", 1f);
-        }
+        //if (gimmick == 0) 
+        //{
+        //    InvokeRepeating("GreenGimmick0", 1f, bugInterval);
+        //}
+        //else if (gimmick == 1)
+        //{
+        //    Invoke("GreenGimmick1", 1f);
+        //}
 
     }
 

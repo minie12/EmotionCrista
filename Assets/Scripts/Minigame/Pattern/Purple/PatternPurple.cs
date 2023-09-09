@@ -14,37 +14,44 @@ public class PatternPurple : PatternManager
         base.Awake();
     }
 
-    override public void StartPattern(int gimmick_, int level_)
+    override public void StartPattern(int level_)
     {
-        gimmick = gimmick_;
         level = level_;
         isPlaying = true;
         OrganizeCharacterChat();
 
-        // give term before choose gem because board init
-        if (gimmick == 0)
-        {
-            // Invoke(nameof(PurpleGimmick0), 1f);
-            switch (level)
-            {
-                case 0:
-                    chainCnt = 1;
-                    interval = 120f;
-                    break;
-                case 1:
-                    chainCnt = 2;
-                    interval = 100f;
-                    break;
-                case 2:
-                    chainCnt = 3;
-                    interval = 120f;
-                    break;
-            }
-            InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
-        }
+        //// give term before choose gem because board init
+        //if (gimmick == 0)
+        //{
+        //    // Invoke(nameof(PurpleGimmick0), 1f);
+        //    switch (level)
+        //    {
+        //        case 0:
+        //            chainCnt = 1;
+        //            interval = 120f;
+        //            break;
+        //        case 1:
+        //            chainCnt = 2;
+        //            interval = 100f;
+        //            break;
+        //        case 2:
+        //            chainCnt = 3;
+        //            interval = 120f;
+        //            break;
+        //    }
+        //    InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
+        //}
     }
 
-    override public void StopPattern() 
+    public override void StopPattern()
+    {
+        base.StopPattern();
+        isPlaying = false;
+        CancelInvoke();
+    }
+
+
+    override public void StopGimmick(int gimmick_) 
     {
         isPlaying = false;
         CancelInvoke(); 
@@ -53,25 +60,25 @@ public class PatternPurple : PatternManager
     override public void RestartPattern()
     {
         isPlaying = true;
-        if (gimmick == 0)
-        {
-            switch (level)
-            {
-                case 0:
-                    chainCnt = 1;
-                    interval = 120f;
-                    break;
-                case 1:
-                    chainCnt = 2;
-                    interval = 100f;
-                    break;
-                case 2:
-                    chainCnt = 3;
-                    interval = 120f;
-                    break;
-            }
-            InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
-        }
+        //if (gimmick == 0)
+        //{
+        //    switch (level)
+        //    {
+        //        case 0:
+        //            chainCnt = 1;
+        //            interval = 120f;
+        //            break;
+        //        case 1:
+        //            chainCnt = 2;
+        //            interval = 100f;
+        //            break;
+        //        case 2:
+        //            chainCnt = 3;
+        //            interval = 120f;
+        //            break;
+        //    }
+        //    InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
+        //}
 
     }
 

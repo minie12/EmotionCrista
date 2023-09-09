@@ -34,7 +34,7 @@ public class MiniManager : MonoBehaviour
     public Sprite timerOrigin, timerRed;
 
     // timer
-    [SerializeField] private const float fullPlayTime = 50f;
+    [SerializeField] private const float fullPlayTime = 500f; // default: 50f
     private float playTime;
     [SerializeField] private const float fullFeverTime = 10f;
     private float feverTime;
@@ -65,7 +65,7 @@ public class MiniManager : MonoBehaviour
     // pattern
     public PatternManager pattern;
     [HideInInspector] public int patternIdx;
-    [HideInInspector] public int patternGimmick;
+    [HideInInspector] public bool[] patternGimmick;
     [HideInInspector] public int patternLevel;
 
     // game mode
@@ -93,32 +93,26 @@ public class MiniManager : MonoBehaviour
         if (PlayerPrefs.HasKey("goalUnit")) goalUnit = PlayerPrefs.GetInt("goalUnit");
         goalInfo.SetGoal(goalUnit);
 
-        // set pattern
-        //patternIdx = TestLoadMini.patternIdx;
-        //patternGimmick = TestLoadMini.patternGimmick;
-        //patternLevel = TestLoadMini.patternLevel;
+        // get variable about story from Fungus
         Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-        int storyRound = 0;
-        int level = 0;
-        if (flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex") != null)
-        {
-            patternIdx = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
-        }
-        if (flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound") != null)
-        {
-            storyRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
-        }
-        if (flowchart.GetVariable<Fungus.IntegerVariable>("Level") != null)
-        {
-            level = flowchart.GetVariable<Fungus.IntegerVariable>("Level").Value;
-        }
+        int storyRound = GetFungusVariable(flowchart, "StoryRound");
+        int level = GetFungusVariable(flowchart, "CharacterIndex");
+        patternIdx = GetFungusVariable(flowchart, "Level");
         patternLevel = storyRound * level;
-        patternGimmick = 0;
-
 
         // pattern
         pattern = SpawnPattern(patternIdx);
-        pattern.StartPattern(patternGimmick, patternLevel);
+        pattern.StartPattern(patternLevel);
+    }
+
+    // get fungus variable (check null)
+    int GetFungusVariable(Fungus.Flowchart flowchart, string variableName)
+    {
+        if (flowchart.GetVariable<Fungus.IntegerVariable>(variableName) != null)
+        {
+            return flowchart.GetVariable<Fungus.IntegerVariable>(variableName).Value;
+        }
+        return 0;
     }
 
     private PatternManager SpawnPattern(int patternIdx)
@@ -319,7 +313,11 @@ public class MiniManager : MonoBehaviour
         UIScore.SetActive(false);
         board.ClearBoard();
 
-        Fungus.Flowchart.BroadcastFungusMessage(fungusMessage);
+        // D0N_내담자이름_난이도
+        string[] characterName = { "Naria", "", "", "", "" };
+        string[] levelName = { "Easy1", "", "", "", "" };
+        string message = "D" + string.Format("{0:D2}", patternIdx) + characterName[patternIdx] + levelName[patternLevel];
+        Fungus.Flowchart.BroadcastFungusMessage(message);
     }
 
     public void RestartGamePause()
@@ -342,7 +340,7 @@ public class MiniManager : MonoBehaviour
         board.InitBoard();
         bPuzzleMode = true;
 
-        pattern.StartPattern(gimmick_, patternLevel);
+        pattern.StartPattern(patternLevel);
     }
 
     // after game over

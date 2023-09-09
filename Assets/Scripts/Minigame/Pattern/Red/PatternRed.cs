@@ -17,19 +17,26 @@ public class PatternRed : PatternManager
     }
 
     // Setting gimmick
-    override public void StartPattern(int gimmick_, int level_)
+    override public void StartPattern(int level_)
     {
-        gimmick = gimmick_;
         level = level_;
         isPlaying = true;
         OrganizeCharacterChat();
-        if(gimmick == 1)
-        {
-            Invoke(nameof(StartFireRoad), 1f);
-        }
+        //if(gimmick == 1)
+        //{
+        //    Invoke(nameof(StartFireRoad), 1f);
+        //}
     }
 
-    override public void StopPattern() 
+    public override void StopPattern()
+    {
+        base.StopPattern();
+        isPlaying = false;
+        CancelInvoke();
+    }
+
+
+    override public void StopGimmick(int gimmick_) 
     {
         isPlaying = false;
         CancelInvoke();
@@ -39,10 +46,10 @@ public class PatternRed : PatternManager
     {
         isPlaying = true;
         OrganizeCharacterChat();
-        if(gimmick == 1)
-        {
-            Invoke(nameof(StartFireRoad), 1f);
-        }
+        //if(gimmick == 1)
+        //{
+        //    Invoke(nameof(StartFireRoad), 1f);
+        //}
     }
 
     public bool GetIsPlaying()
@@ -115,7 +122,7 @@ public class PatternRed : PatternManager
             i++;
 
             // check start gem
-            if (gimmick == 1 && startGem.GetColumn() == column_ && startGem.GetRow() == row_)
+            if (gimmick[1] && startGem.GetColumn() == column_ && startGem.GetRow() == row_)
             {
                 StartCoroutine(InitFire());
             }
@@ -138,7 +145,7 @@ public class PatternRed : PatternManager
             crushedCheck[cur_col, cur_row] = true;
 
             // check start gem
-            if (gimmick == 1 && startGem.GetColumn() == cur_col && startGem.GetRow() == cur_row)
+            if (gimmick[1] && startGem.GetColumn() == cur_col && startGem.GetRow() == cur_row)
             {
                 StartCoroutine(InitFire());
             }
