@@ -20,6 +20,7 @@ public class PatternBlue : PatternManager
     {
         base.StartPattern(level_);
 
+        mini.patternGimmick = new bool[2];
         gimmick = new bool[2];
         level = level_;
         OrganizeCharacterChat();
@@ -57,6 +58,7 @@ public class PatternBlue : PatternManager
     public override void StartGimmick(int gimmick_)
     {
         base.StartGimmick(gimmick_);
+        mini.patternGimmick[gimmick_] = true;
         gimmick[gimmick_] = true;
 
         switch (gimmick_)
@@ -73,6 +75,7 @@ public class PatternBlue : PatternManager
     public override void StopGimmick(int gimmick_)
     {
         base.StopGimmick(gimmick_);
+        mini.patternGimmick[gimmick_] = false;
         gimmick[gimmick_] = false;
 
         switch (gimmick_)

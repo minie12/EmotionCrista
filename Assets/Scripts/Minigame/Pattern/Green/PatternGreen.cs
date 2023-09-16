@@ -26,20 +26,37 @@ public class PatternGreen : PatternManager
         bugPF = Resources.Load<GameObject>("Prefabs/MiniGame/bug");
     }
 
-    override public void StartPattern(int level_)
+    public override void StartPattern(int level_)
     {
+        base.StartPattern(level_);
+
+        mini.patternGimmick = new bool[2];
+        gimmick = new bool[2];
         level = level_;
         OrganizeCharacterChat();
 
-        //// give term before choose gem because board init
-        //if (gimmick == 0) 
-        //{
-        //    InvokeRepeating("GreenGimmick0", 1f, bugInterval); 
-        //} 
-        //else if (gimmick == 1)
-        //{
-        //    Invoke("GreenGimmick1", 1f);
-        //}
+        // [TODO] ±‚»π
+        switch (level)
+        {
+            case 0:
+                StartGimmick(0);
+                break;
+            case 1:
+                StartGimmick(1);
+                break;
+            case 2:
+                StartGimmick(0);
+                break;
+            case 3:
+                StartGimmick(1);
+                break;
+            case 4:
+                StartGimmick(0);
+                break;
+            case 5:
+                StartGimmick(1);
+                break;
+        }
     }
 
     public override void StopPattern()
@@ -48,19 +65,44 @@ public class PatternGreen : PatternManager
         CancelInvoke();
     }
 
-
-    override public void StopGimmick(int gimmick_) { CancelInvoke(); }
-    override public void RestartPattern()
+    public override void StartGimmick(int gimmick_)
     {
-        //if (gimmick == 0) 
-        //{
-        //    InvokeRepeating("GreenGimmick0", 1f, bugInterval);
-        //}
-        //else if (gimmick == 1)
-        //{
-        //    Invoke("GreenGimmick1", 1f);
-        //}
+        base.StartGimmick(gimmick_);
+        gimmick[gimmick_] = true;
+        mini.patternGimmick[gimmick_] = true;
 
+        switch (gimmick_)
+        {
+            case 0:
+                InvokeRepeating("GreenGimmick0", 1f, bugInterval);
+                break;
+            case 1:
+                Invoke("GreenGimmick1", 1f);
+                break;
+        }
+    }
+
+    public override void StopGimmick(int gimmick_)
+    {
+        base.StopGimmick(gimmick_);
+        gimmick[gimmick_] = false;
+        mini.patternGimmick[gimmick_] = false;
+
+        switch (gimmick_)
+        {
+            case 0:
+                CancelInvoke("GreenGimmick0");
+                break;
+            case 1:
+                CancelInvoke("GreenGimmick1");
+                break;
+        }
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+        StartPattern(level);
     }
 
     GemInfo GetNotGreenGemRandom(int standard_c, int standard_r)
@@ -285,38 +327,14 @@ public class PatternGreen : PatternManager
     void SetColor()
     {
         // init bugs
-        for(int i = 0; i < bugs.Count; i++)
+        for (int i = 0; i < bugs.Count; i++)
         {
             Destroy(bugs[i]);
         }
-        // set bugs (extends area)
-        List<int> bugC = new List<int>();
-        List<int> bugR = new List<int>();
-        for(int i = 0; i < 11; i++)
-        {
-            for(int j = 0; j < 6; j++)
-            {
-                if (j == 5 && i % 2 == 0)
-                {
-                    continue;
-                }
-                if (area[i, j])
-                {
-                    bugC.Add(i);
-                    bugR.Add(j);
-                }
-            }
-        }
-        int midIndex = (bugC.Count) / 2;
-        Vector3 gemPos = board.GetGemPosition(bugC[midIndex], bugR[midIndex]);
-        GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
-        bug.transform.localScale = new Vector3(6f, 6f, 0f);
-        Color origin = bug.GetComponent<SpriteRenderer>().color;
-        bug.GetComponent<SpriteRenderer>().color = new Color(origin.r, origin.g, origin.b, 0.3f);
-        bug.GetComponent<PatternAreaBug>().FadeIn(0.5f);
-        bugs.Add(bug);
 
-
+        //// set bugs (extends area)
+        //List<int> bugC = new List<int>();
+        //List<int> bugR = new List<int>();
         //for(int i = 0; i < 11; i++)
         //{
         //    for(int j = 0; j < 6; j++)
@@ -325,28 +343,53 @@ public class PatternGreen : PatternManager
         //        {
         //            continue;
         //        }
-
-        //        if (!area[i, j])
+        //        if (area[i, j])
         //        {
-        //            Vector3 gemPos = board.GetGemPosition(i, j);
-
-        //            for(int k = 0; k < 2; k++)
-        //            {
-        //                GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
-        //                Vector3 originPos = bug.transform.position;
-        //                float interval = 0.3f;
-        //                Vector3 newPos = new Vector3(originPos.x + Random.Range(-interval, interval), originPos.y + Random.Range(-interval, interval), originPos.z);
-        //                bug.GetComponent<PatternAreaBug>().SetBugPos(newPos);
-        //                bug.transform.localEulerAngles = new Vector3(0f, 0f, Random.Range(0f, 360f));
-        //                bug.transform.position = board.GetDropPosition(i);
-        //                bug.GetComponent<PatternAreaBug>().FallBug();
-        //                //bug.transform.position = newPos;
-        //                //bug.GetComponent<PatternAreaBug>().SizeDown();
-        //                bugs.Add(bug);
-        //            }
+        //            bugC.Add(i);
+        //            bugR.Add(j);
         //        }
         //    }
         //}
+        //int midIndex = (bugC.Count) / 2;
+        //Vector3 gemPos = board.GetGemPosition(bugC[midIndex], bugR[midIndex]);
+        //GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
+        //bug.transform.localScale = new Vector3(6f, 6f, 0f);
+        //Color origin = bug.GetComponent<SpriteRenderer>().color;
+        //bug.GetComponent<SpriteRenderer>().color = new Color(origin.r, origin.g, origin.b, 0.3f);
+        //bug.GetComponent<PatternAreaBug>().FadeIn(0.5f);
+        //bugs.Add(bug);
+
+
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0)
+                {
+                    continue;
+                }
+
+                if (!area[i, j])
+                {
+                    Vector3 gemPos = board.GetGemPosition(i, j);
+
+                    for (int k = 0; k < 2; k++)
+                    {
+                        GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
+                        Vector3 originPos = bug.transform.position;
+                        float interval = 0.3f;
+                        Vector3 newPos = new Vector3(originPos.x + Random.Range(-interval, interval), originPos.y + Random.Range(-interval, interval), originPos.z);
+                        //bug.GetComponent<PatternAreaBug>().SetBugPos(newPos);
+                        //bug.transform.localEulerAngles = new Vector3(0f, 0f, Random.Range(0f, 360f));
+                        //bug.transform.position = board.GetDropPosition(i);
+                        //bug.GetComponent<PatternAreaBug>().FallBug();
+                        bug.transform.position = newPos;
+                        bug.GetComponent<PatternAreaBug>().SizeDown();
+                        bugs.Add(bug);
+                    }
+                }
+            }
+        }
     }
 
 
