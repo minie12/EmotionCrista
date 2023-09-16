@@ -96,9 +96,9 @@ public class MiniManager : MonoBehaviour
         // get variable about story from Fungus
         Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
         int storyRound = GetFungusVariable(flowchart, "StoryRound");
-        int level = GetFungusVariable(flowchart, "CharacterIndex");
-        patternIdx = GetFungusVariable(flowchart, "Level");
-        patternLevel = storyRound * level;
+        int level = GetFungusVariable(flowchart, "Level");
+        patternIdx = GetFungusVariable(flowchart, "CharacterIndex");
+        patternLevel = (storyRound + 1) * level;
 
         // pattern
         pattern = SpawnPattern(patternIdx);

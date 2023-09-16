@@ -46,13 +46,13 @@ public class PatternYellow : PatternManager
         switch (level)
         {
             case 0:
-                //StartGimmick(0);
+                StartGimmick(0);
                 break;
             case 1:
                 StartGimmick(1);
                 break;
             case 2:
-                StartGimmick(0);
+                StartGimmick(2);
                 break;
             case 3:
                 StartGimmick(1);
@@ -61,7 +61,7 @@ public class PatternYellow : PatternManager
                 StartGimmick(0);
                 break;
             case 5:
-                StartGimmick(1);
+                StartGimmick(2);
                 break;
         }
     }

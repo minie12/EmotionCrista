@@ -16,15 +16,36 @@ public class PatternBlue : PatternManager
         bubble_PF = Resources.Load<GameObject>("Prefabs/MiniGame/bubble");
     }
 
-    override public void StartPattern(int level_){
+    public override void StartPattern(int level_)
+    {
+        base.StartPattern(level_);
+
+        gimmick = new bool[2];
         level = level_;
         OrganizeCharacterChat();
 
-        //if(gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
-        //if(gimmick == 1)
-        //{
-        //    InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
-        //}
+        // [TODO] ±‚»π
+        switch (level)
+        {
+            case 0:
+                StartGimmick(0);
+                break;
+            case 1:
+                StartGimmick(1);
+                break;
+            case 2:
+                StartGimmick(0);
+                break;
+            case 3:
+                StartGimmick(1);
+                break;
+            case 4:
+                StartGimmick(0);
+                break;
+            case 5:
+                StartGimmick(1);
+                break;
+        }
     }
 
     public override void StopPattern()
@@ -33,14 +54,42 @@ public class PatternBlue : PatternManager
         CancelInvoke();
     }
 
+    public override void StartGimmick(int gimmick_)
+    {
+        base.StartGimmick(gimmick_);
+        gimmick[gimmick_] = true;
 
-    override public void StopGimmick(int gimmick_){ CancelInvoke(); }
-    override public void RestartPattern(){
-        //if (gimmick == 0) InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
-        //if (gimmick == 1)
-        //{
-        //    InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
-        //}
+        switch (gimmick_)
+        {
+            case 0:
+                InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
+                break;
+            case 1:
+                InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
+                break;
+        }
+    }
+
+    public override void StopGimmick(int gimmick_)
+    {
+        base.StopGimmick(gimmick_);
+        gimmick[gimmick_] = false;
+
+        switch (gimmick_)
+        {
+            case 0:
+                CancelInvoke("B_StartWaterFill");
+                break;
+            case 1:
+                CancelInvoke("B_StartBubble");
+                break;
+        }
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+        StartPattern(level);
     }
 
     // B1 -----------------------------------------------
@@ -84,7 +133,6 @@ public class PatternBlue : PatternManager
             gems[i].FillWaterInHex();
         }
     }
-
 
     void B_StartBubble()
     {
