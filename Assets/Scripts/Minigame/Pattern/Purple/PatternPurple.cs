@@ -7,84 +7,101 @@ public class PatternPurple : PatternManager
     private int chainCnt = 1;
     private float interval = 30f;
 
-    private bool isPlaying = false;
-
     protected override void Awake()
     {
         base.Awake();
     }
 
-    override public void StartPattern(int level_)
+    public override void StartPattern(int level_)
     {
+        base.StartPattern(level_);
         level = level_;
-        isPlaying = true;
+        gimmick = new bool[1];
+        mini.patternGimmick = new bool[1];
         OrganizeCharacterChat();
 
-        //// give term before choose gem because board init
-        //if (gimmick == 0)
-        //{
-        //    // Invoke(nameof(PurpleGimmick0), 1f);
-        //    switch (level)
-        //    {
-        //        case 0:
-        //            chainCnt = 1;
-        //            interval = 120f;
-        //            break;
-        //        case 1:
-        //            chainCnt = 2;
-        //            interval = 100f;
-        //            break;
-        //        case 2:
-        //            chainCnt = 3;
-        //            interval = 120f;
-        //            break;
-        //    }
-        //    InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
-        //}
+        // [TODO] ±‚»π
+        switch (level)
+        {
+            case 0:
+                StartGimmick(0);
+                break;
+            case 1:
+                StartGimmick(0);
+                break;
+            case 2:
+                StartGimmick(0);
+                break;
+            case 3:
+                StartGimmick(0);
+                break;
+            case 4:
+                StartGimmick(0);
+                break;
+            case 5:
+                StartGimmick(0);
+                break;
+        }
     }
 
     public override void StopPattern()
     {
         base.StopPattern();
-        isPlaying = false;
         CancelInvoke();
+        for (int i = 0; i < gimmick.GetLength(0); i++)
+        {
+            gimmick[i] = false;
+            mini.patternGimmick[i] = false;
+        }
     }
 
-
-    override public void StopGimmick(int gimmick_) 
+    public override void StartGimmick(int gimmick_)
     {
-        isPlaying = false;
-        CancelInvoke(); 
+        base.StartGimmick(gimmick_);
+        gimmick[gimmick_] = true;
+        mini.patternGimmick[gimmick_] = true;
+
+        switch (gimmick_)
+        {
+            case 0:
+                switch (level)
+                {
+                    case 0:
+                        chainCnt = 1;
+                        interval = 120f;
+                        break;
+                    case 1:
+                        chainCnt = 2;
+                        interval = 100f;
+                        break;
+                    default:
+                        chainCnt = 3;
+                        interval = 120f;
+                        break;
+                }
+                InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
+                break;
+        }
     }
 
-    override public void RestartPattern()
+    public override void StopGimmick(int gimmick_)
     {
-        isPlaying = true;
-        //if (gimmick == 0)
-        //{
-        //    switch (level)
-        //    {
-        //        case 0:
-        //            chainCnt = 1;
-        //            interval = 120f;
-        //            break;
-        //        case 1:
-        //            chainCnt = 2;
-        //            interval = 100f;
-        //            break;
-        //        case 2:
-        //            chainCnt = 3;
-        //            interval = 120f;
-        //            break;
-        //    }
-        //    InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
-        //}
+        base.StopGimmick(gimmick_);
+        gimmick[gimmick_] = false;
+        mini.patternGimmick[gimmick_] = false;
 
+        switch (gimmick_)
+        {
+            case 0:
+                CancelInvoke(nameof(PurpleGimmick0));
+                break;
+        }
     }
 
-    public bool GetIsPlaying()
+    public override void RestartPattern()
     {
-        return isPlaying;
+        base.RestartPattern();
+        StartPattern(level);
     }
 
     // check exit chain around gem

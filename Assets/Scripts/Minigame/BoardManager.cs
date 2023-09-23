@@ -230,7 +230,7 @@ public class BoardManager : MonoBehaviour
             }
 
             // purple gimmick
-            if (mini.patternIdx == (int)PatternType.PURPLE && mini.GetComponent<PatternPurple>().GetIsPlaying())
+            if (mini.patternIdx == (int)PatternType.PURPLE && mini.patternGimmick[0])
             {
                 mini.GetComponent<PatternPurple>().CheckAfterCrush();
             }
