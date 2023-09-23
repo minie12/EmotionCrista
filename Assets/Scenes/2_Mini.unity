@@ -489,7 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 79947781}
   suppressBlockAutoSelect: 0
-  message: D01_NariaGame
+  message: D01_NariaEasy
 --- !u!114 &79947777
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -506,7 +506,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 68.04082
     y: 16.938812
-    width: 109.1781
+    width: 112.545456
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -535,11 +535,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 524.3628, y: 149.82735}
+  scrollPos: {x: 926.50446, y: 200.039}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 551
-  zoom: 0.72999984
+  zoom: 0.55
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -547,7 +547,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 79947781}
+  - {fileID: 79947794}
   selectedCommands: []
   variables:
   - {fileID: 79947785}
@@ -612,7 +612,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 287.55093
     y: -103.979485
-    width: 165.06851
+    width: 169.27274
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1107,7 +1107,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 447.30612
     y: -107.49056
-    width: 179.3151
+    width: 182.36363
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: CharacterIndex
-  value: 4
+  value: 0
 --- !u!114 &79947806
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2299,7 +2299,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1008.3966
     y: 100.59587
-    width: 123.424675
+    width: 130
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2425,7 +2425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 79947877}
   suppressBlockAutoSelect: 0
-  message: D01_LulianGame
+  message: D01_LulianEasy
 --- !u!114 &79947860
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2712,7 +2712,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 620.805
     y: -108.5877
-    width: 145.3425
+    width: 147.45454
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2970,7 +2970,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 268.7645
     y: 104.677444
-    width: 168.3562
+    width: 173.63635
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3448,7 +3448,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 457.53983
     y: 106.718285
-    width: 182.60277
+    width: 186.72728
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4272,7 +4272,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 655.4988
     y: 102.63666
-    width: 169.45209
+    width: 173.63635
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0

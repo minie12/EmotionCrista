@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -68,6 +69,9 @@ public class MiniManager : MonoBehaviour
     [HideInInspector] public bool[] patternGimmick;
     [HideInInspector] public int patternLevel;
 
+    private int storyRound = 0;
+    private int miniGameLevel = 0;
+
     // game mode
     private bool bPuzzleMode = true;
     public string fungusMessage = "D01_NariaGame"; // used to get chat texts in pattern manager
@@ -95,10 +99,10 @@ public class MiniManager : MonoBehaviour
 
         // get variable about story from Fungus
         Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-        int storyRound = GetFungusVariable(flowchart, "StoryRound");
-        int level = GetFungusVariable(flowchart, "Level");
+        miniGameLevel = GetFungusVariable(flowchart, "Level"); // 0: easy, 1: normal, 2: hard
+        storyRound = GetFungusVariable(flowchart, "StoryRound"); // 0: 1회차, 1: 다회차
         patternIdx = GetFungusVariable(flowchart, "CharacterIndex");
-        patternLevel = (storyRound + 1) * level;
+        patternLevel = (storyRound) * 3 + miniGameLevel;
 
         // pattern
         pattern = SpawnPattern(patternIdx);
@@ -313,11 +317,12 @@ public class MiniManager : MonoBehaviour
         UIScore.SetActive(false);
         board.ClearBoard();
 
-        // D0N_내담자이름_난이도
-        string[] characterName = { "Naria", "", "", "", "" };
-        string[] levelName = { "Easy1", "", "", "", "" };
-        string message = "D" + string.Format("{0:D2}", patternIdx) + characterName[patternIdx] + levelName[patternLevel];
+        // D0회차_내담자이름난이도
+        string characterName = Enum.GetName(typeof(CharacterName), patternIdx + 1);
+        string[] levelName = { "Easy", "Normal", "Hard" };
+        string message = "D" + string.Format("{0:D2}", storyRound + 1) + "_" + characterName + levelName[miniGameLevel];
         Fungus.Flowchart.BroadcastFungusMessage(message);
+        Debug.Log(message);
     }
 
     public void RestartGamePause()
