@@ -15,7 +15,6 @@ public class PatternGreen : PatternManager
     private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
     private bool[,] area = new bool[11, 6];
-    private bool isPlaying = false; // manage gimmick start & end
 
     private List<GameObject> bugs = new List<GameObject>();
 
@@ -63,6 +62,11 @@ public class PatternGreen : PatternManager
     {
         base.StopPattern();
         CancelInvoke();
+        for (int i = 0; i < gimmick.GetLength(0); i++)
+        {
+            gimmick[i] = false;
+            mini.patternGimmick[i] = false;
+        }
     }
 
     public override void StartGimmick(int gimmick_)
@@ -467,7 +471,6 @@ public class PatternGreen : PatternManager
 
     void GreenGimmick1()
     {
-        isPlaying = true;
         SetAreaAgain();
     }
 }

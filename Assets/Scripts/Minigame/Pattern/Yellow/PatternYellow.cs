@@ -71,6 +71,11 @@ public class PatternYellow : PatternManager
     {
         base.StopPattern();
         CancelInvoke();
+        for (int i = 0; i < gimmick.GetLength(0); i++)
+        {
+            gimmick[i] = false;
+            mini.patternGimmick[i] = false;
+        }
     }
 
     public override void StartGimmick(int gimmick_)

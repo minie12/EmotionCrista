@@ -223,7 +223,7 @@ public class BoardManager : MonoBehaviour
             goalInfo.EraseGems(column, row, true);
 
             // red gimmick
-            if (mini.patternIdx == (int)PatternType.RED && currentGemColor == 2 && mini.GetComponent<PatternRed>().GetIsPlaying())
+            if (mini.patternIdx == (int)PatternType.RED && currentGemColor == 2 && mini.patternGimmick[0])
             {
                 mini.GetComponent<PatternRed>().InvokeExplosion();
                 return;

@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: CharacterIndex
-  value: 1
+  value: 2
 --- !u!114 &79947806
 MonoBehaviour:
   m_ObjectHideFlags: 2

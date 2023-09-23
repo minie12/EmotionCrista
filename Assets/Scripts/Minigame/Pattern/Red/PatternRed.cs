@@ -8,7 +8,6 @@ public class PatternRed : PatternManager
     private readonly int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
     private readonly int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
-    private bool isPlaying = false; // manage gimmick start & end
     private GemInfo startGem;
 
     protected override void Awake()
@@ -17,44 +16,81 @@ public class PatternRed : PatternManager
     }
 
     // Setting gimmick
-    override public void StartPattern(int level_)
+    public override void StartPattern(int level_)
     {
+        base.StartPattern(level_);
+
+        mini.patternGimmick = new bool[2];
+        gimmick = new bool[2];
         level = level_;
-        isPlaying = true;
+        mini.patternGimmick[0] = true;
+        gimmick[0] = true;
         OrganizeCharacterChat();
-        //if(gimmick == 1)
-        //{
-        //    Invoke(nameof(StartFireRoad), 1f);
-        //}
+
+        // [TODO] ±‚»π
+        switch (level)
+        {
+            case 0:
+                break;
+            case 1:
+                StartGimmick(1);
+                break;
+            case 2:
+                break;
+            case 3:
+                StartGimmick(1);
+                break;
+            case 4:
+                break;
+            case 5:
+                StartGimmick(1);
+                break;
+        }
     }
 
     public override void StopPattern()
     {
         base.StopPattern();
-        isPlaying = false;
         CancelInvoke();
+        for(int i = 0; i < gimmick.GetLength(0); i++)
+        {
+            gimmick[i] = false;
+            mini.patternGimmick[i] = false;
+        }
     }
 
-
-    override public void StopGimmick(int gimmick_) 
+    public override void StartGimmick(int gimmick_)
     {
-        isPlaying = false;
-        CancelInvoke();
+        base.StartGimmick(gimmick_);
+        gimmick[gimmick_] = true;
+        mini.patternGimmick[gimmick_] = true;
+
+        switch (gimmick_)
+        {
+            case 1:
+                Invoke(nameof(StartFireRoad), 1f);
+                break;
+        }
     }
 
-    override public void RestartPattern() 
+    public override void StopGimmick(int gimmick_)
     {
-        isPlaying = true;
-        OrganizeCharacterChat();
-        //if(gimmick == 1)
-        //{
-        //    Invoke(nameof(StartFireRoad), 1f);
-        //}
+        base.StopGimmick(gimmick_);
+        gimmick[gimmick_] = false;
+        mini.patternGimmick[gimmick_] = false;
+
+        switch (gimmick_)
+        {
+            case 1:
+                CancelInvoke(nameof(StartFireRoad));
+                break;
+        }
     }
 
-    public bool GetIsPlaying()
+    public override void RestartPattern()
     {
-        return isPlaying;
+        base.RestartPattern();
+        StartPattern(level);
     }
 
     // get explosion gem cnt on percentage
@@ -296,7 +332,7 @@ public class PatternRed : PatternManager
 
     private IEnumerator SpreadFire(float interval)
     {
-        while (isPlaying)
+        while (gimmick[1])
         {
             yield return new WaitForSeconds(interval);
 
