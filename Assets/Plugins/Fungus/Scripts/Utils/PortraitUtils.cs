@@ -28,6 +28,7 @@ namespace Fungus
         public bool move; //sets to position to be the same as from
         public bool shiftIntoPlace;
         public bool waitUntilFinished;
+        public bool dim; // LEJ - dim portrait
         public System.Action onComplete;
 
         public PortraitOptions(bool useDefaultSettings = true)
@@ -44,6 +45,7 @@ namespace Fungus
             move = false;
             shiftIntoPlace = false;
             waitUntilFinished = false;
+            dim = false; // LEJ - dim portrait
             onComplete = null;
 
             // Special values that can be overridden
@@ -53,6 +55,7 @@ namespace Fungus
         }
     }
 
+    [System.Serializable]
     /// <summary>
     /// Represents the current state of a character portrait on the stage.
     /// </summary>

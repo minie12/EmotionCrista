@@ -159,12 +159,13 @@ namespace Fungus
             options.shiftOffset = shiftOffset;
             options.move = move;
             options.shiftIntoPlace = shiftIntoPlace;
+            options.dim = dimPortrait; // LEJ - Dim portrait
             options.waitUntilFinished = waitUntilFinished;
 
             stage.RunPortraitCommand(options, Continue);
 
             // LEJ - Dim portrait
-            stage.SetDimmed(character, dimPortrait);
+            //stage.SetDimmed(character, dimPortrait);
         }
         
         public override string GetSummary()

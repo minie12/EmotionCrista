@@ -467,6 +467,8 @@ namespace Fungus
             options.character.State.display = DisplayType.Show;
             options.character.State.facing = options.facing;
             options.character.State.position = options.toPosition;
+
+            SetDimmed(options.character, options.dim); // LEJ - dim portrait
         }
 
         protected virtual void HidePortrait(RectTransform rectTransform, float duration)
@@ -516,10 +518,10 @@ namespace Fungus
         /// </summary>
         public virtual void SetDimmed(Character character, bool dimmedState)
         {
-            //if (character.State.dimmed == dimmedState)
-            //{
-            //    return;
-            //}
+            if (character.State.dimmed == dimmedState)
+            {
+                return;
+            }
 
             character.State.dimmed = dimmedState;
 

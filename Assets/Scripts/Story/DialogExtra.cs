@@ -13,16 +13,44 @@ public class DialogExtra : MonoBehaviour
     //    SceneManager.LoadScene(sceneName);
     //}    
 
+    private Fungus.Flowchart GetFlowchartOnScene()
+    {
+        GameObject flowchartObj = GameObject.Find("Flowchart");
+        if (null != flowchartObj)
+        {
+            Fungus.Flowchart flowchart = flowchartObj.GetComponent<Fungus.Flowchart>();
+            return flowchart;
+        }
+
+        return null;
+    }
+
     public void TransferSceneWithFungus(string SceneName)
     {
-        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-        flowchart.SetStringVariable("NextScene", SceneName);
+        Fungus.Flowchart flowchart = GetFlowchartOnScene();
 
-        flowchart.SendFungusMessage("ToNextScene");
+        if (null != flowchart)
+        {
+            flowchart.SetStringVariable("NextScene", SceneName);
+
+            flowchart.SendFungusMessage("ToNextScene");
+        }
     }
 
     public void SetCharacterName(string nameText_, Fungus.Character player) {
         player.SetStandardText(nameText_);
+    }
+
+    public void InitializeScene(Fungus.Flowchart flowchart)
+    {
+        if (null != flowchart)
+        {
+            // Load Save Data if has one
+            {
+                GameManager gameManager = GameManager.Get();
+                gameManager.TryLoadData(flowchart);
+            }
+        }
     }
 
     //public void StartSaveData(){
