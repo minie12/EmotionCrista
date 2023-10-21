@@ -1,23 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class PatternPurple : PatternManager
 {
+    // manage chain gimmick
     private int chainCnt = 1;
     private float interval = 30f;
+
+    // related flashlight gimmick
+    private GameObject globalLightObj; // get global light object
+    private GameObject lightPrefab;
+    private GameObject eyePrefab;
+    private List<GameObject> eyeObjs = new List<GameObject>();
+
 
     protected override void Awake()
     {
         base.Awake();
+        globalLightObj = GameObject.Find("GlobalLight");
+        lightPrefab = Resources.Load<GameObject>("Prefabs/MiniGame/flashLight");
+        eyePrefab = Resources.Load<GameObject>("Prefabs/MiniGame/temp");
     }
 
     public override void StartPattern(int level_)
     {
         base.StartPattern(level_);
         level = level_;
-        gimmick = new bool[1];
-        mini.patternGimmick = new bool[1];
+        gimmick = new bool[2];
+        mini.patternGimmick = new bool[2];
         OrganizeCharacterChat();
 
         // [TODO] ±âÈ¹
@@ -27,19 +39,19 @@ public class PatternPurple : PatternManager
                 StartGimmick(0);
                 break;
             case 1:
-                StartGimmick(0);
+                StartGimmick(1);
                 break;
             case 2:
                 StartGimmick(0);
                 break;
             case 3:
-                StartGimmick(0);
+                StartGimmick(1);
                 break;
             case 4:
                 StartGimmick(0);
                 break;
             case 5:
-                StartGimmick(0);
+                StartGimmick(1);
                 break;
         }
     }
@@ -80,6 +92,9 @@ public class PatternPurple : PatternManager
                         break;
                 }
                 InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
+                break;
+            case 1:
+                PurpleGimmick1();
                 break;
         }
     }
@@ -254,5 +269,55 @@ public class PatternPurple : PatternManager
 
         // twinkle purple gem & block around gems
         StartCoroutine(TwinkleEyes(purpleGem, 2, 0.5f));
+    }
+
+    // =============== gimmick 1 (flash light) ================== //
+    public void DeleteEye(int index)
+    {
+        eyeObjs.RemoveAt(index);
+    }
+
+    public void AddEye()
+    {
+        createEye();
+    }
+
+    public bool IsMatchGimmick(int index, GameObject obj)
+    {
+        if(index >= eyeObjs.Count)
+        {
+            return false;
+        }
+        return eyeObjs[index] == obj;
+    }
+
+
+    void createEye()
+    {
+        GameObject eyeParent = GameObject.Find("EyeParent");
+        GameObject eyeObj = Instantiate(eyePrefab, eyeParent.transform);
+        eyeObj.GetComponent<Transform>().localScale = new Vector2(0.2f, 0.2f);
+
+        float randX = Random.Range(0f, 6f); // 0f ~ 6f
+        float randY = Random.Range(-3f, 3f); // -3f ~ 3f
+        eyeObj.GetComponent<Transform>().localPosition = new Vector2(randX, randY);
+
+        eyeObjs.Add(eyeObj);
+    }
+
+
+    void PurpleGimmick1()
+    {
+        // set light
+        globalLightObj.GetComponent<Light2D>().intensity = 0.2f;
+        GameObject parentCanvas = GameObject.Find("OtherCanvas");
+        GameObject flashLight = Instantiate(lightPrefab, parentCanvas.transform);
+
+        // create init eyes
+        int eyeCnt = 3;
+        for (int i = 0; i < eyeCnt; i++)
+        {
+            createEye();
+        }
     }
 }
