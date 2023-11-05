@@ -21,7 +21,7 @@ public class PatternPurple : PatternManager
         base.Awake();
         globalLightObj = GameObject.Find("GlobalLight");
         lightPrefab = Resources.Load<GameObject>("Prefabs/MiniGame/flashLight");
-        eyePrefab = Resources.Load<GameObject>("Prefabs/MiniGame/temp");
+        eyePrefab = Resources.Load<GameObject>("Prefabs/MiniGame/eye");
     }
 
     public override void StartPattern(int level_)
