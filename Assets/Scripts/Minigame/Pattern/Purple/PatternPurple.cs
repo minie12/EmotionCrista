@@ -279,7 +279,14 @@ public class PatternPurple : PatternManager
 
     public void AddEye()
     {
-        createEye();
+        GameObject eye = CreateEye();
+        eyeObjs.Add(eye);
+    }
+
+    public void UpdateEye(int index)
+    {
+        GameObject eye = CreateEye();
+        eyeObjs[index] = eye;
     }
 
     public bool IsMatchGimmick(int index, GameObject obj)
@@ -292,7 +299,7 @@ public class PatternPurple : PatternManager
     }
 
 
-    void createEye()
+    GameObject CreateEye()
     {
         GameObject eyeParent = GameObject.Find("EyeParent");
         GameObject eyeObj = Instantiate(eyePrefab, eyeParent.transform);
@@ -302,9 +309,17 @@ public class PatternPurple : PatternManager
         float randY = Random.Range(-3f, 3f); // -3f ~ 3f
         eyeObj.GetComponent<Transform>().localPosition = new Vector2(randX, randY);
 
-        eyeObjs.Add(eyeObj);
+        return eyeObj;
     }
 
+    void InitEyes()
+    {
+        int eyeCnt = 3;
+        for (int i = 0; i < eyeCnt; i++)
+        {
+            AddEye();
+        }
+    }
 
     void PurpleGimmick1()
     {
@@ -314,10 +329,6 @@ public class PatternPurple : PatternManager
         GameObject flashLight = Instantiate(lightPrefab, parentCanvas.transform);
 
         // create init eyes
-        int eyeCnt = 3;
-        for (int i = 0; i < eyeCnt; i++)
-        {
-            createEye();
-        }
+        Invoke(nameof(InitEyes), 0.5f);
     }
 }

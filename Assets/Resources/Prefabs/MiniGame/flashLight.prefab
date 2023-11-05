@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 1203727399613363436}
   - component: {fileID: 1203727399613363439}
   - component: {fileID: 2507108274883863991}
-  - component: {fileID: -3874365347587021734}
   - component: {fileID: 1203727399613363437}
-  - component: {fileID: -171783976256255048}
+  - component: {fileID: 1085586267347480732}
   m_Layer: 0
   m_Name: flashLight
-  m_TagString: Untagged
+  m_TagString: FlashLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,29 +104,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2, y: 3.2}
+  m_Size: {x: 1.6, y: 1.6}
   m_EdgeRadius: 0
---- !u!50 &-3874365347587021734
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203727399613363438}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1203727399613363437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604b0483e1df75542b50f22c229f8242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-171783976256255048
+--- !u!114 &1085586267347480732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
