@@ -10,12 +10,12 @@ public class PatternEye : MonoBehaviour
         int index2 = collision.gameObject.transform.GetSiblingIndex();
         PatternPurple scripts = GameObject.Find("MiniManager").GetComponent<PatternPurple>();
 
-        //if (collision.tag == "Gimmick" && index > index2)
-        //{
-        //    Debug.Log("collision eye!");
-        //    scripts.DeleteEye(index);
-        //    scripts.AddEye();
-        //    Destroy(this.gameObject);
-        //}
+        if (collision.tag == "Gimmick" && index > index2)
+        {
+            Debug.Log("collision eye!");
+            scripts.DeleteEye(index);
+            scripts.AddEye();
+            Destroy(this.gameObject);
+        }
     }
 }

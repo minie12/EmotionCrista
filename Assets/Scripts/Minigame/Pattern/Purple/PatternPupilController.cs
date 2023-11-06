@@ -7,23 +7,30 @@ public class PatternPupilController : MonoBehaviour
     public Transform MidLocation;
     public EdgeCollider2D BoundaryCollider;
 
-    private Transform PreviousPosition;
+    private int targetLayerMask;
+
+    private void Start()
+    {
+        // get PurpleEye layer !!!! 
+        targetLayerMask = LayerMask.GetMask("PurpleEye");
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 EyeballPosition = this.transform.localPosition;
+        Vector3 EyeballPosition = this.transform.position;
 
         Vector2 MouseLocation = Input.mousePosition;
         MouseLocation = Camera.main.ScreenToWorldPoint(MouseLocation);
 
-        Vector2 MidLocation2D = new Vector2(MidLocation.localPosition.x, MidLocation.localPosition.y);
+        Vector2 MidLocation2D = new Vector2(MidLocation.position.x, MidLocation.position.y);
         Vector2 MouseToMid = MidLocation2D - MouseLocation;
         float MouseDistance = MouseToMid.magnitude;
         MouseToMid.Normalize();
 
         //Debug.Log("Mouse Pos: (" + MouseLocation.x + ", " + MouseLocation.y + ")");
-        RaycastHit2D hit = Physics2D.Raycast(MouseLocation, MouseToMid);
+        RaycastHit2D hit = Physics2D.Raycast(MouseLocation, MouseToMid, Mathf.Infinity, targetLayerMask);
+        //Debug.DrawRay(MouseLocation, MouseToMid, Color.red, 0f, false);
         int count = 0;
         while (null != hit.collider && count < 10)
         {
@@ -44,11 +51,12 @@ public class PatternPupilController : MonoBehaviour
                 break;
             }
 
+            // for smoothing (mouse pointer in pupil)
             Vector2 NewLocation = hit.point + (MouseToMid * 0.1f);
             hit = Physics2D.Raycast(NewLocation, MouseToMid);
             count++;
         }
 
-        this.transform.localPosition = EyeballPosition;
+        this.transform.position = EyeballPosition;
     }
 }
