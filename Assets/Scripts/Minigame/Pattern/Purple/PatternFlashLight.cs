@@ -13,7 +13,7 @@ public class PatternFlashLight : MonoBehaviour
             Debug.Log("Ãæµ¹!" + index);
 
             // collision fade out
-            StartCoroutine(FadeOut(collision.gameObject.GetComponent<SpriteRenderer>(), 1f));
+            collision.gameObject.GetComponent<PatternEye>().AllChildrenFadeOut();
 
             // collision destroy
             scripts.DeleteEye(index);
@@ -22,15 +22,6 @@ public class PatternFlashLight : MonoBehaviour
 
             // collision recreate
             Invoke(nameof(AddEye), 5f);
-        }
-    }
-
-    private IEnumerator FadeOut(SpriteRenderer sr, float time)
-    {
-        while (sr.color.a >= 0f)
-        {
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a - Time.deltaTime / time);
-            yield return null;
         }
     }
 

@@ -185,7 +185,8 @@ GameObject:
   - component: {fileID: 2260921600319819692}
   - component: {fileID: 6589849061322797998}
   - component: {fileID: -7371165790453130080}
-  - component: {fileID: 4635945293195765848}
+  - component: {fileID: 7716487183423471360}
+  - component: {fileID: 3008875544186399147}
   m_Layer: 6
   m_Name: eye
   m_TagString: Gimmick
@@ -310,7 +311,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4635945293195765848
+--- !u!95 &7716487183423471360
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2260921600319819693}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18e419802b4cd714fa12ec9680c33b86, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3008875544186399147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

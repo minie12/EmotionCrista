@@ -13,7 +13,15 @@ public class PatternPurple : PatternManager
     private GameObject globalLightObj; // get global light object
     private GameObject lightPrefab;
     private GameObject eyePrefab;
-    private List<GameObject> eyeObjs = new List<GameObject>();
+    private GameObject flashLight;
+    private readonly List<GameObject> eyeObjs = new List<GameObject>();
+    private readonly List<List<int>> eyeObjsErea = new List<List<int>>();
+
+    private readonly float eyeFirstTime = 0.5f;
+    private readonly float[] eyeEreaX = { 0f, 2f, 4f, 6f };
+    private readonly float[] eyeEreaY = { -3f, -1f, 1f, 3f };
+    private int[,] eyeEreaCheck = new int[3, 3];
+    private readonly float eyeScale = 0.2f;
 
 
     protected override void Awake()
@@ -109,6 +117,14 @@ public class PatternPurple : PatternManager
         {
             case 0:
                 CancelInvoke(nameof(PurpleGimmick0));
+                break;
+            case 1:
+                Destroy(flashLight);
+                for (int i = 0; i < eyeObjs.Count; i++)
+                {
+                    Destroy(eyeObjs[0]);
+                    DeleteEye(0);
+                }
                 break;
         }
     }
@@ -274,7 +290,12 @@ public class PatternPurple : PatternManager
     // =============== gimmick 1 (flash light) ================== //
     public void DeleteEye(int index)
     {
+        List<int> erea = eyeObjsErea[index];
+
         eyeObjs.RemoveAt(index);
+        eyeObjsErea.RemoveAt(index);
+
+        eyeEreaCheck[erea[0], erea[1]] = 0;
     }
 
     public void AddEye()
@@ -303,10 +324,27 @@ public class PatternPurple : PatternManager
     {
         GameObject eyeParent = GameObject.Find("EyeParent");
         GameObject eyeObj = Instantiate(eyePrefab, eyeParent.transform);
-        eyeObj.GetComponent<Transform>().localScale = new Vector2(0.2f, 0.2f);
+        eyeObj.GetComponent<Transform>().localScale = new Vector2(eyeScale, eyeScale);
 
-        float randX = Random.Range(0f, 6f); // 0f ~ 6f
-        float randY = Random.Range(-3f, 3f); // -3f ~ 3f
+        int randXIdx = Random.Range(0, 3);
+        int randYIdx = Random.Range(0, 3);
+        while (eyeEreaCheck[randXIdx, randYIdx] != 0)
+        {
+            randXIdx = Random.Range(0, 3);
+            randYIdx = Random.Range(0, 3);
+        }
+
+        eyeEreaCheck[randXIdx, randYIdx] = eyeObjs.Count + 1;
+
+        List<int> erea = new List<int>
+        {
+            randXIdx,
+            randYIdx
+        };
+        eyeObjsErea.Add(erea);
+
+        float randX = Random.Range(eyeEreaX[randXIdx], eyeEreaX[randXIdx + 1]);
+        float randY = Random.Range(eyeEreaY[randYIdx], eyeEreaY[randYIdx + 1]);
         eyeObj.GetComponent<Transform>().localPosition = new Vector2(randX, randY);
 
         return eyeObj;
@@ -326,9 +364,9 @@ public class PatternPurple : PatternManager
         // set light
         globalLightObj.GetComponent<Light2D>().intensity = 0.2f;
         GameObject parentCanvas = GameObject.Find("OtherCanvas");
-        GameObject flashLight = Instantiate(lightPrefab, parentCanvas.transform);
+        flashLight = Instantiate(lightPrefab, parentCanvas.transform);
 
         // create init eyes
-        Invoke(nameof(InitEyes), 0.5f);
+        Invoke(nameof(InitEyes), eyeFirstTime);
     }
 }
