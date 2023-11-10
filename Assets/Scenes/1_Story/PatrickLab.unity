@@ -1352,6 +1352,7 @@ GameObject:
   - component: {fileID: 281614101}
   - component: {fileID: 281614082}
   - component: {fileID: 281614081}
+  - component: {fileID: 281614102}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1813,6 +1814,7 @@ MonoBehaviour:
   description: Tutorial Start
   eventHandler: {fileID: 281614008}
   commandList:
+  - {fileID: 281614102}
   - {fileID: 281614007}
   - {fileID: 281614018}
   - {fileID: 281614035}
@@ -1853,7 +1855,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 281614011}
   selectedCommands:
-  - {fileID: 281614003}
+  - {fileID: 281614102}
   variables:
   - {fileID: 281614009}
   - {fileID: 281614034}
@@ -4410,6 +4412,51 @@ MonoBehaviour:
   vector3Data:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
+--- !u!114 &281614102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281613999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 584
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 496237892}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: InitializeScene
+  targetMethodText: 'InitializeScene (Flowchart): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: Fungus.Flowchart, Fungus, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: Fungus.Flowchart
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 281614012}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!114 &281614108
 MonoBehaviour:
   m_ObjectHideFlags: 2
