@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class OptionMenuManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class OptionMenuManager : MonoBehaviour
 {
     private Vector2 centerPosition;
     private float mouseAngle;
@@ -15,13 +15,12 @@ public class OptionMenuManager : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public GameObject[] menuSlots;
 
-
     // Start is called before the first frame update
     void Start()
     {
         mouseAngle = 0.0f;
         //centerPosition = new Vector2(1920*0.5f, 1080*0.5f);
-        centerPosition = new Vector2(950.0f, 475.0f);
+        centerPosition = new Vector2(940.0f, 485.0f);
         anglePerSlot = 360 * 0.2f;
         previousIdx = -1;
         bInMenuBox = false;
@@ -30,14 +29,28 @@ public class OptionMenuManager : MonoBehaviour, IPointerEnterHandler, IPointerEx
     // Update is called once per frame
     void Update()
     {
-        mouseAngle = -(Mathf.Atan2(Input.mousePosition.y - centerPosition.y, Input.mousePosition.x - centerPosition.x) * Mathf.Rad2Deg - 90.0f);
-        if (mouseAngle < 0.0f)
+        float diffX = Input.mousePosition.x - centerPosition.x;
+        float diffY = Input.mousePosition.y - centerPosition.y;
+
+        if (42000.0f < diffX * diffX + diffY * diffY)
         {
-            mouseAngle = 180.0f + (180.0f + mouseAngle);
+            if (0 <= previousIdx && previousIdx < menuSlots.Length)
+            {
+                menuSlots[previousIdx].SetActive(false);
+                previousIdx = -1;
+            }
+
+            return;
         }
 
-        if (true == bInMenuBox)
+        if (diffX * diffX + diffY * diffY < 38000.0f)
         {
+            mouseAngle = -(Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg - 90.0f);
+            if (mouseAngle < 0.0f)
+            {
+                mouseAngle = 180.0f + (180.0f + mouseAngle);
+            }
+
             int activateIdx = 0;
 
             if (0.0f < mouseAngle && mouseAngle <= anglePerSlot)
@@ -74,19 +87,6 @@ public class OptionMenuManager : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 }
             }
         }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        bInMenuBox = true;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        menuSlots[previousIdx].SetActive(false);
-        previousIdx = -1;
-
-        bInMenuBox = false;
     }
 }
  

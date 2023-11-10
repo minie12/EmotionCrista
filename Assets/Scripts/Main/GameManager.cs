@@ -11,7 +11,7 @@ using UnityEngine;
 
 public enum StoryRound
 {
-    None,
+    None = 0,
     First,
     Second,
     Error

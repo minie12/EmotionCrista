@@ -310,45 +310,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1016838419410369646, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_Text
-      value: "\uC0C1\uB2F4\uC2E4 \uBCF5\uB3C4"
-      objectReference: {fileID: 0}
-    - target: {fileID: 4520606028327542304, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4520606028327542304, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 7702878879267928493, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
       propertyPath: m_Name
       value: GameUICanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8202126893065180571, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8202126893065180571, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8202126893065180571, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Open
-      objectReference: {fileID: 0}
-    - target: {fileID: 8202126893065180571, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CGTUnity.Fungus.SaveSystem.SaveMenu, Fungus
-      objectReference: {fileID: 0}
-    - target: {fileID: 8202126893065180571, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8202126893065180571, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8591889751267675125, guid: acdcbddebb596854dab5264b9b58fcf1, type: 3}
       propertyPath: m_Pivot.x

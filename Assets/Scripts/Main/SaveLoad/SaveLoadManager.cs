@@ -18,6 +18,9 @@ public class SaveLoadManager : MonoBehaviour
 
     public GameObject[] Slots;
 
+    public Sprite EmptySlotImage;
+    public Sprite ActiveSlotImage;
+
     public void Start()
     {
         for (int index = 0; index < Slots.Length; ++index)
@@ -123,10 +126,18 @@ public class SaveLoadManager : MonoBehaviour
             return false;
         }
 
+        GameObject ActiveSlotObj = inSaveSlot.transform.Find("Active").gameObject;
+        if (null == ActiveSlotObj)
+        {
+            return false;
+        }
+
+        ActiveSlotObj.SetActive(true);
+
         bool bDay, bPlayer, bPlace;
         bDay = bPlayer = bPlace = false;
         {
-            GameObject MenuDay = inSaveSlot.transform.Find("Day").gameObject;
+            GameObject MenuDay = ActiveSlotObj.transform.Find("Day").gameObject;
             if (null != MenuDay)
             {
                 GameObject MenuDayTextObj = MenuDay.transform.Find("Number").gameObject;
@@ -143,7 +154,7 @@ public class SaveLoadManager : MonoBehaviour
         }
 
         {
-            GameObject MenuPlayer = inSaveSlot.transform.Find("PlayerName").gameObject;
+            GameObject MenuPlayer = ActiveSlotObj.transform.Find("PlayerName").gameObject;
             if (null != MenuPlayer)
             {
                 GameObject MenuPlayerTextObj = MenuPlayer.transform.Find("Name").gameObject;
@@ -160,7 +171,7 @@ public class SaveLoadManager : MonoBehaviour
         }
 
         {
-            GameObject MenuPlace = inSaveSlot.transform.Find("PlaceInfo").gameObject;
+            GameObject MenuPlace = ActiveSlotObj.transform.Find("PlaceInfo").gameObject;
             if (null != MenuPlace)
             {
                 GameObject MenuPlaceTextObj = MenuPlace.transform.Find("Scene").gameObject;
@@ -178,10 +189,10 @@ public class SaveLoadManager : MonoBehaviour
 
         if (bDay && bPlayer && bPlace)
         {
-            GameObject MenuEmpty = inSaveSlot.transform.Find("Empty").gameObject;
-            if (null != MenuEmpty)
+            Image SlotImage = inSaveSlot.GetComponent<Image>();
+            if (null != SlotImage)
             {
-                MenuEmpty.SetActive(false);
+                SlotImage.sprite = ActiveSlotImage;
             }
 
             return true;
