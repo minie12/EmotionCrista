@@ -50,7 +50,7 @@ public class DiaryDialogReader : MonoBehaviour
 
             for (int i = 0; i < RawDialogList.diaryDialog.Length; i++)
             {
-                int keyValue = GameManager.instance.CreateStoryIndex(RawDialogList.diaryDialog[i].round, RawDialogList.diaryDialog[i].characterName);
+                int keyValue = OldGameManager.instance.CreateStoryIndex(RawDialogList.diaryDialog[i].round, RawDialogList.diaryDialog[i].characterName);
                 DialogList.Add(keyValue, RawDialogList.diaryDialog[i].dialog);
             }
         }

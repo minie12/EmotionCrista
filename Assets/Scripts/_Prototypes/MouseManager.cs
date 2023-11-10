@@ -14,20 +14,16 @@ public class MouseManager : MonoBehaviour
     [SerializeField]
     private CursorMode cursorMode = CursorMode.Auto;
 
-    private bool bClicked = false;
-
     public void Update()
     { 
         if(Input.GetMouseButtonUp(0))
             {
                 Cursor.SetCursor(defaultState, hotspot, cursorMode);
-                bClicked = true;
             }
         
         if (Input.GetMouseButtonDown(0))
             {
                 Cursor.SetCursor(clickedState, hotspot, cursorMode);
-                bClicked = false;
             }
         
     }

@@ -47,7 +47,7 @@ public class DialogExtra : MonoBehaviour
         {
             // Load Save Data if has one
             {
-                GameManager gameManager = GameManager.Get();
+                OldGameManager gameManager = OldGameManager.Get();
                 gameManager.TryLoadData(flowchart);
             }
         }
@@ -145,7 +145,7 @@ public class DialogExtra : MonoBehaviour
         int varStoryRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
         int varCharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
 
-        int storyIndex = GameManager.instance.CreateStoryIndex(varStoryRound, varCharacterIndex);
+        int storyIndex = OldGameManager.instance.CreateStoryIndex(varStoryRound, varCharacterIndex);
         diaryText.text = DiaryDialogReader.GetDialogData(storyIndex);
     }
     #endregion

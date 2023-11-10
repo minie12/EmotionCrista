@@ -1,96 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-//public enum GameState
-//{
-//    StartMenu,
-//    StoryMode,
-//    MiniGameMode
-//}
-
-public enum StoryRound
+public class LoadManager : MonoBehaviour
 {
-    None = 0,
-    First,
-    Second,
-    Error
-}
-public enum CharacterName
-{
-    None = 0,
-    Naria,
-    Lulian,
-    Russel,
-    Nish,
-    Ilrak,
-    Max
-}
-
-public class GameManager : MonoBehaviour
-{
-    public static GameManager instance;
-    //public GameState state;
-
-    //private StoryRound currentRound = StoryRound.First;
-    //private CharacterName currentCharacter = CharacterName.Naria;
-
-    //private GameObject fungusManager;
-    
-    // sound
-    public float soundVolumeBGM;
-    public float soundVolumeSFX;
-
-    // SaveData
     private EmoSaveData loadEmoSaveData;
+    public EmoSaveData LoadEmoSaveData { set { loadEmoSaveData = value; } }
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Screen.SetResolution(1920, 1080, true);
-        if(instance == null) // If there is no instance already
-        {
-            Debug.Log("inst");
-            DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
-            instance = this;  
-            //fungusManager = GameObject.Find("FungusManager");
-
-        } else if(instance != this) // If there is already an instance and it's not `this` instance
-        {
-            Destroy(gameObject); // Destroy the GameObject, this component is attached to
-        }
-    }
-
-    #region StoryIndex
-    public int CreateStoryIndex(int inRound, int inPatient)
-    {
-        return inRound * 100 + inPatient;
-    }
-    public int CreateStoryIndex(int inRound, string inCharacter)
-    {
-        CharacterName characterIndex = CharacterName.Naria;
-        for (; characterIndex < CharacterName.Max; characterIndex++)
-        {
-            if (inCharacter == characterIndex.ToString())
-            {
-                break;
-            }
-        }
-
-        Debug.Assert(0 < inRound && inRound < 3 && characterIndex != CharacterName.Max, "Wrong story round or character name in json file");
-
-        return CreateStoryIndex(inRound, (int)characterIndex);
-    }
-    #endregion
-
-    public virtual EmoSaveData LoadEmoSaveData { set { loadEmoSaveData = value; } }
-
-    public bool TryLoadData(Fungus.Flowchart inFlowchart)
+    public bool LoadGameData()
     {
         if (null == loadEmoSaveData)
         {
+            Debug.Log("SceneLoaded : No game data to be loaded");
+
+            // No data to be loaded.
             return true;
         }
+
+        GameObject GO_flowchart = GameObject.Find("Flowchart");
+        if (null == GO_flowchart) return false;
+
+        Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
+        if (null == flowchart) return false;
+
+        flowchart.StopAllBlocks();
 
         // Screen Info
         {
@@ -145,7 +79,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        
+
 
         // Dialogue
         {
@@ -164,10 +98,10 @@ public class GameManager : MonoBehaviour
 
         // Fungus Variable
         {
-            inFlowchart.SetStringVariable("PlayerName", loadEmoSaveData.playerName);
-            inFlowchart.SetIntegerVariable("StoryRound", loadEmoSaveData.storyRound);
-            inFlowchart.SetIntegerVariable("CharacterIndex", loadEmoSaveData.characterIndex);
-            inFlowchart.SetBooleanVariable("AfterCounsel", loadEmoSaveData.afterCounsel);
+            flowchart.SetStringVariable("PlayerName", loadEmoSaveData.playerName);
+            flowchart.SetIntegerVariable("StoryRound", loadEmoSaveData.storyRound);
+            flowchart.SetIntegerVariable("CharacterIndex", loadEmoSaveData.characterIndex);
+            flowchart.SetBooleanVariable("AfterCounsel", loadEmoSaveData.afterCounsel);
         }
 
         // Fungus Command
@@ -181,7 +115,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Fungus.Block executeBlock = inFlowchart.FindBlock(blockName);
+                Fungus.Block executeBlock = flowchart.FindBlock(blockName);
                 if (null != executeBlock)
                 {
                     if (true == executeBlock.IsExecuting())
@@ -189,7 +123,7 @@ public class GameManager : MonoBehaviour
                         executeBlock.Stop();
                     }
 
-                    inFlowchart.ExecuteBlock(executeBlock, commandId);
+                    flowchart.ExecuteBlock(executeBlock, commandId);
                 }
             }
         }
@@ -200,13 +134,5 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    static public GameManager Get()
-    {
-        return instance;
-    }
 
-    static public string GetCharacterName(int characterIndex)
-    {
-        return ((CharacterName)characterIndex).ToString();
-    }
 }

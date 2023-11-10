@@ -220,7 +220,7 @@ public class SaveLoadManager : MonoBehaviour
                 return;
             }
 
-            GameManager gameManager = GameManager.Get();
+            OldGameManager gameManager = OldGameManager.Get();
             if (null != gameManager)
             {
                 gameManager.LoadEmoSaveData = loadedData;

@@ -388,8 +388,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5197354369245054771, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
-        m_TargetAssemblyTypeName: DialogExtra, Assembly-CSharp
+      - m_Target: {fileID: 1527818721412972708}
+        m_TargetAssemblyTypeName: UICanvasManager, Assembly-CSharp
         m_MethodName: AlterActive
         m_Mode: 2
         m_Arguments:
@@ -1386,9 +1386,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5197354369245054771, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
-        m_TargetAssemblyTypeName: DialogExtra, Assembly-CSharp
-        m_MethodName: TransferSceneWithFungus
+      - m_Target: {fileID: 1527818721412972708}
+        m_TargetAssemblyTypeName: UICanvasManager, Assembly-CSharp
+        m_MethodName: TransferScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3540,8 +3540,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5197354369245054771, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
-        m_TargetAssemblyTypeName: DialogExtra, Assembly-CSharp
+      - m_Target: {fileID: 1527818721412972708}
+        m_TargetAssemblyTypeName: UICanvasManager, Assembly-CSharp
         m_MethodName: AlterActive
         m_Mode: 2
         m_Arguments:
@@ -4588,16 +4588,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5197354369245054771, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
-        m_TargetAssemblyTypeName: DialogExtra, Assembly-CSharp
-        m_MethodName: TransferSceneWithFungus
+      - m_Target: {fileID: 1527818721412972708}
+        m_TargetAssemblyTypeName: UICanvasManager, Assembly-CSharp
+        m_MethodName: TransferScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PatrickLab
+          m_StringArgument: PatrickLab_Report
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &5632024669271434725
@@ -6252,6 +6252,7 @@ GameObject:
   - component: {fileID: 2837595289395441265}
   - component: {fileID: 4261127028795361862}
   - component: {fileID: 6929311684920813841}
+  - component: {fileID: 1527818721412972708}
   m_Layer: 5
   m_Name: GameUICanvas
   m_TagString: Untagged
@@ -6348,6 +6349,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1527818721412972708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7702878879267928493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675606445a211364ead23563abd178b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationText: {fileID: 1016838419410369646}
+  dayText: {fileID: 845580022088308704}
+  GO_reportButton: {fileID: 5574505031662003474}
 --- !u!1 &7737624184484194922
 GameObject:
   m_ObjectHideFlags: 0
