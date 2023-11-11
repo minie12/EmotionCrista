@@ -12,14 +12,10 @@ public class PatternFlashLight : MonoBehaviour
         {
             Debug.Log("Ãæµ¹!" + index);
 
-            // collision fade out
-            collision.gameObject.GetComponent<PatternEye>().AllChildrenFadeOut();
-
             // collision destroy
             scripts.DeleteEye(index);
             StartCoroutine(CollisionDestroy(collision.gameObject));
             
-
             // collision recreate
             Invoke(nameof(AddEye), 5f);
         }
@@ -27,7 +23,12 @@ public class PatternFlashLight : MonoBehaviour
 
     private IEnumerator CollisionDestroy(GameObject obj)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+
+        // collision fade out
+        obj.gameObject.GetComponent<PatternEye>().AllChildrenFadeOut();
+
+        yield return new WaitForSeconds(1.0f);
 
         Destroy(obj);
     }

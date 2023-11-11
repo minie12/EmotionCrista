@@ -24,13 +24,13 @@ public class PatternPupilController : MonoBehaviour
         MouseLocation = Camera.main.ScreenToWorldPoint(MouseLocation);
 
         Vector2 MidLocation2D = new Vector2(MidLocation.position.x, MidLocation.position.y);
-        Vector2 MouseToMid = MidLocation2D - MouseLocation;
-        float MouseDistance = MouseToMid.magnitude;
-        MouseToMid.Normalize();
+        Vector2 MidToMouse = MouseLocation - MidLocation2D;
+        float MouseDistance = MidToMouse.magnitude;
+        MidToMouse.Normalize();
 
         //Debug.Log("Mouse Pos: (" + MouseLocation.x + ", " + MouseLocation.y + ")");
-        RaycastHit2D hit = Physics2D.Raycast(MouseLocation, MouseToMid, Mathf.Infinity, targetLayerMask);
-        //Debug.DrawRay(MouseLocation, MouseToMid, Color.red, 0f, false);
+        RaycastHit2D hit = Physics2D.Raycast(MidLocation2D, MidToMouse, Mathf.Infinity, targetLayerMask);
+        //Debug.DrawRay(MidLocation2D, MidToMouse, Color.red, 0f, false);
         int count = 0;
         while (null != hit.collider && count < 10)
         {
@@ -47,13 +47,13 @@ public class PatternPupilController : MonoBehaviour
                     EyeballPosition = MouseLocation;
                 }
 
-                //Debug.Log("Mouse: " + MouseToMid.magnitude + ", Collision: " + CollisionToMid.magnitude);
+                //Debug.Log("Mouse: " + MidToMouse.magnitude + ", Collision: " + CollisionToMid.magnitude);
                 break;
             }
 
             // for smoothing (mouse pointer in pupil)
-            Vector2 NewLocation = hit.point + (MouseToMid * 0.1f);
-            hit = Physics2D.Raycast(NewLocation, MouseToMid);
+            Vector2 NewLocation = hit.point + (MidToMouse * -0.1f);
+            hit = Physics2D.Raycast(NewLocation, MidToMouse);
             count++;
         }
 
