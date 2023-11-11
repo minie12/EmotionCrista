@@ -1,83 +1,138 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class PatternPurple : PatternManager
 {
+    // manage chain gimmick
     private int chainCnt = 1;
     private float interval = 30f;
 
-    private bool isPlaying = false;
+    // related flashlight gimmick
+    private GameObject globalLightObj; // get global light object
+    private GameObject lightPrefab;
+    private GameObject eyePrefab;
+    private GameObject flashLight;
+    private readonly List<GameObject> eyeObjs = new List<GameObject>();
+    private readonly List<List<int>> eyeObjsErea = new List<List<int>>();
+
+    private readonly float eyeFirstTime = 0.5f;
+    private readonly float[] eyeEreaX = { 0f, 2f, 4f, 6f };
+    private readonly float[] eyeEreaY = { -3f, -1f, 1f, 3f };
+    private int[,] eyeEreaCheck = new int[3, 3];
+    private readonly float eyeScale = 0.2f;
+
 
     protected override void Awake()
     {
         base.Awake();
+        globalLightObj = GameObject.Find("GlobalLight");
+        lightPrefab = Resources.Load<GameObject>("Prefabs/MiniGame/flashLight");
+        eyePrefab = Resources.Load<GameObject>("Prefabs/MiniGame/eye");
     }
 
-    override public void StartPattern(int gimmick_, int level_)
+    public override void StartPattern(int level_)
     {
-        gimmick = gimmick_;
+        base.StartPattern(level_);
         level = level_;
-        isPlaying = true;
+        gimmick = new bool[2];
+        mini.patternGimmick = new bool[2];
         OrganizeCharacterChat();
 
-        // give term before choose gem because board init
-        if (gimmick == 0)
+        // [TODO] ±‚»π
+        switch (level)
         {
-            // Invoke(nameof(PurpleGimmick0), 1f);
-            switch (level)
-            {
-                case 0:
-                    chainCnt = 1;
-                    interval = 120f;
-                    break;
-                case 1:
-                    chainCnt = 2;
-                    interval = 100f;
-                    break;
-                case 2:
-                    chainCnt = 3;
-                    interval = 120f;
-                    break;
-            }
-            InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
+            case 0:
+                StartGimmick(0);
+                break;
+            case 1:
+                StartGimmick(1);
+                break;
+            case 2:
+                StartGimmick(0);
+                break;
+            case 3:
+                StartGimmick(1);
+                break;
+            case 4:
+                StartGimmick(0);
+                break;
+            case 5:
+                StartGimmick(1);
+                break;
         }
     }
 
-    override public void StopPattern() 
+    public override void StopPattern()
     {
-        isPlaying = false;
-        CancelInvoke(); 
-    }
-
-    override public void RestartPattern()
-    {
-        isPlaying = true;
-        if (gimmick == 0)
+        base.StopPattern();
+        CancelInvoke();
+        for (int i = 0; i < gimmick.GetLength(0); i++)
         {
-            switch (level)
-            {
-                case 0:
-                    chainCnt = 1;
-                    interval = 120f;
-                    break;
-                case 1:
-                    chainCnt = 2;
-                    interval = 100f;
-                    break;
-                case 2:
-                    chainCnt = 3;
-                    interval = 120f;
-                    break;
-            }
-            InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
+            gimmick[i] = false;
+            mini.patternGimmick[i] = false;
         }
-
     }
 
-    public bool GetIsPlaying()
+    public override void StartGimmick(int gimmick_)
     {
-        return isPlaying;
+        base.StartGimmick(gimmick_);
+        gimmick[gimmick_] = true;
+        mini.patternGimmick[gimmick_] = true;
+
+        switch (gimmick_)
+        {
+            case 0:
+                switch (level)
+                {
+                    case 0:
+                        chainCnt = 1;
+                        interval = 120f;
+                        break;
+                    case 1:
+                        chainCnt = 2;
+                        interval = 100f;
+                        break;
+                    default:
+                        chainCnt = 3;
+                        interval = 120f;
+                        break;
+                }
+                InvokeRepeating(nameof(PurpleGimmick0), 1f, interval);
+                break;
+            case 1:
+                PurpleGimmick1();
+                break;
+        }
+    }
+
+    public override void StopGimmick(int gimmick_)
+    {
+        base.StopGimmick(gimmick_);
+        gimmick[gimmick_] = false;
+        mini.patternGimmick[gimmick_] = false;
+
+        switch (gimmick_)
+        {
+            case 0:
+                CancelInvoke(nameof(PurpleGimmick0));
+                break;
+            case 1:
+                Destroy(flashLight);
+                for (int i = 0; i < eyeObjs.Count; i++)
+                {
+                    Destroy(eyeObjs[0]);
+                    DeleteEye(0);
+                }
+                break;
+        }
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+        StartPattern(level);
     }
 
     // check exit chain around gem
@@ -230,5 +285,88 @@ public class PatternPurple : PatternManager
 
         // twinkle purple gem & block around gems
         StartCoroutine(TwinkleEyes(purpleGem, 2, 0.5f));
+    }
+
+    // =============== gimmick 1 (flash light) ================== //
+    public void DeleteEye(int index)
+    {
+        List<int> erea = eyeObjsErea[index];
+
+        eyeObjs.RemoveAt(index);
+        eyeObjsErea.RemoveAt(index);
+
+        eyeEreaCheck[erea[0], erea[1]] = 0;
+    }
+
+    public void AddEye()
+    {
+        GameObject eye = CreateEye();
+        eyeObjs.Add(eye);
+    }
+
+    public void UpdateEye(int index)
+    {
+        GameObject eye = CreateEye();
+        eyeObjs[index] = eye;
+    }
+
+    public bool IsMatchGimmick(int index, GameObject obj)
+    {
+        if(index >= eyeObjs.Count)
+        {
+            return false;
+        }
+        return eyeObjs[index] == obj;
+    }
+
+
+    GameObject CreateEye()
+    {
+        GameObject eyeParent = GameObject.Find("EyeParent");
+        GameObject eyeObj = Instantiate(eyePrefab, eyeParent.transform);
+        eyeObj.GetComponent<Transform>().localScale = new Vector2(eyeScale, eyeScale);
+
+        int randXIdx = Random.Range(0, 3);
+        int randYIdx = Random.Range(0, 3);
+        while (eyeEreaCheck[randXIdx, randYIdx] != 0)
+        {
+            randXIdx = Random.Range(0, 3);
+            randYIdx = Random.Range(0, 3);
+        }
+
+        eyeEreaCheck[randXIdx, randYIdx] = eyeObjs.Count + 1;
+
+        List<int> erea = new List<int>
+        {
+            randXIdx,
+            randYIdx
+        };
+        eyeObjsErea.Add(erea);
+
+        float randX = Random.Range(eyeEreaX[randXIdx], eyeEreaX[randXIdx + 1]);
+        float randY = Random.Range(eyeEreaY[randYIdx], eyeEreaY[randYIdx + 1]);
+        eyeObj.GetComponent<Transform>().localPosition = new Vector2(randX, randY);
+
+        return eyeObj;
+    }
+
+    void InitEyes()
+    {
+        int eyeCnt = 3;
+        for (int i = 0; i < eyeCnt; i++)
+        {
+            AddEye();
+        }
+    }
+
+    void PurpleGimmick1()
+    {
+        // set light
+        globalLightObj.GetComponent<Light2D>().intensity = 0.2f;
+        GameObject parentCanvas = GameObject.Find("OtherCanvas");
+        flashLight = Instantiate(lightPrefab, parentCanvas.transform);
+
+        // create init eyes
+        Invoke(nameof(InitEyes), eyeFirstTime);
     }
 }

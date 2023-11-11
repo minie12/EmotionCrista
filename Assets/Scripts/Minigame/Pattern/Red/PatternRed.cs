@@ -8,7 +8,6 @@ public class PatternRed : PatternManager
     private readonly int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
     private readonly int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
-    private bool isPlaying = false; // manage gimmick start & end
     private GemInfo startGem;
 
     protected override void Awake()
@@ -17,37 +16,81 @@ public class PatternRed : PatternManager
     }
 
     // Setting gimmick
-    override public void StartPattern(int gimmick_, int level_)
+    public override void StartPattern(int level_)
     {
-        gimmick = gimmick_;
+        base.StartPattern(level_);
+
+        mini.patternGimmick = new bool[2];
+        gimmick = new bool[2];
         level = level_;
-        isPlaying = true;
+        mini.patternGimmick[0] = true;
+        gimmick[0] = true;
         OrganizeCharacterChat();
-        if(gimmick == 1)
+
+        // [TODO] ±‚»π
+        switch (level)
         {
-            Invoke(nameof(StartFireRoad), 1f);
+            case 0:
+                break;
+            case 1:
+                StartGimmick(1);
+                break;
+            case 2:
+                break;
+            case 3:
+                StartGimmick(1);
+                break;
+            case 4:
+                break;
+            case 5:
+                StartGimmick(1);
+                break;
         }
     }
 
-    override public void StopPattern() 
+    public override void StopPattern()
     {
-        isPlaying = false;
+        base.StopPattern();
         CancelInvoke();
-    }
-
-    override public void RestartPattern() 
-    {
-        isPlaying = true;
-        OrganizeCharacterChat();
-        if(gimmick == 1)
+        for(int i = 0; i < gimmick.GetLength(0); i++)
         {
-            Invoke(nameof(StartFireRoad), 1f);
+            gimmick[i] = false;
+            mini.patternGimmick[i] = false;
         }
     }
 
-    public bool GetIsPlaying()
+    public override void StartGimmick(int gimmick_)
     {
-        return isPlaying;
+        base.StartGimmick(gimmick_);
+        gimmick[gimmick_] = true;
+        mini.patternGimmick[gimmick_] = true;
+
+        switch (gimmick_)
+        {
+            case 1:
+                Invoke(nameof(StartFireRoad), 1f);
+                break;
+        }
+    }
+
+    public override void StopGimmick(int gimmick_)
+    {
+        base.StopGimmick(gimmick_);
+        gimmick[gimmick_] = false;
+        mini.patternGimmick[gimmick_] = false;
+
+        switch (gimmick_)
+        {
+            case 1:
+                CancelInvoke(nameof(StartFireRoad));
+                break;
+        }
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+        StartPattern(level);
     }
 
     // get explosion gem cnt on percentage
@@ -115,7 +158,7 @@ public class PatternRed : PatternManager
             i++;
 
             // check start gem
-            if (gimmick == 1 && startGem.GetColumn() == column_ && startGem.GetRow() == row_)
+            if (gimmick[1] && startGem.GetColumn() == column_ && startGem.GetRow() == row_)
             {
                 StartCoroutine(InitFire());
             }
@@ -138,7 +181,7 @@ public class PatternRed : PatternManager
             crushedCheck[cur_col, cur_row] = true;
 
             // check start gem
-            if (gimmick == 1 && startGem.GetColumn() == cur_col && startGem.GetRow() == cur_row)
+            if (gimmick[1] && startGem.GetColumn() == cur_col && startGem.GetRow() == cur_row)
             {
                 StartCoroutine(InitFire());
             }
@@ -247,7 +290,7 @@ public class PatternRed : PatternManager
                     break;
                 }
                 GemInfo gem = board.GetGem(i, j);
-                if (gem == null || gem.isFired == false)
+                if (gem == null || gem.isFired == 0)
                 {
                     continue;
                 }
@@ -256,30 +299,102 @@ public class PatternRed : PatternManager
         }
     }
 
+    private List<int> FindStartFire()
+    {
+        List<int> startFire = new List<int>();
+        for(int i = 0; i <= 10; i++)
+        {
+            for(int j = 0; j <= 5; j++)
+            {
+                // outside board
+                if (j == 5 && i % 2 == 0)
+                {
+                    continue;
+                }
+                GemInfo gem = board.GetGem(i, j);
+                if(gem == null)
+                {
+                    continue;
+                }
+                gem.isChecked = false;
+                // find start fire
+                if (gem.isFired == 1)
+                {
+                    int col = gem.GetColumn();
+                    int row = gem.GetRow();
+                    startFire.Add(col);
+                    startFire.Add(row);
+                }
+            }
+        }
+        return startFire;
+    }
+
     private IEnumerator SpreadFire(float interval)
     {
-        while (true)
+        while (gimmick[1])
         {
             yield return new WaitForSeconds(interval);
 
             // 0. get fire gem list
             List<GemInfo> gemList = new List<GemInfo>();
-            for (int i = 0; i <= 10; i++)
+            List<List<int>> queueList = new List<List<int>>();
+            List<int> startFire = FindStartFire();
+           
+            if (startFire.Count == 2)
             {
-                for (int j = 0; j <= 5; j++)
+                queueList.Add(FindStartFire());
+            }
+            while (queueList.Count > 0)
+            {
+                List<int> cur = queueList[0]; // 0:column, 1:row
+                queueList.RemoveAt(0);
+
+                int col = cur[0];
+                int row = cur[1];
+                GemInfo gem = board.GetGem(col, row);
+                if (gem != null)
                 {
-                    // outside board
-                    if (j == 5 && i % 2 == 0)
+                    gem.isChecked = true;
+                }
+                int[,] dir = col % 2 == 0 ? aroundGem_e : aroundGem_o;
+                bool chk = false;
+                for(int i = 0; i < 6; i++)
+                {
+                    int newCol = col + dir[i, 0];
+                    int newRow = row + dir[i, 1];
+                    GemInfo tempGem = board.GetGem(newCol, newRow);
+                    if(tempGem != null && tempGem.isChecked == false && tempGem.isFired > 0)
                     {
-                        break;
-                    }
-                    GemInfo gem = board.GetGem(i, j);
-                    if (gem != null && gem.isFired)
-                    {
-                        gemList.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
-                    }
+                        chk = true;
+                        tempGem.isChecked = true;
+                        List<int> temp = new List<int>();
+                        temp.Add(newCol);
+                        temp.Add(newRow);
+                        queueList.Add(temp);
+                    } 
+                }
+                if (!chk)
+                {
+                    gemList.Add(gem);
                 }
             }
+            //for (int i = 0; i <= 10; i++)
+            //{
+            //    for (int j = 0; j <= 5; j++)
+            //    {
+            //        // outside board
+            //        if (j == 5 && i % 2 == 0)
+            //        {
+            //            break;
+            //        }
+            //        GemInfo gem = board.GetGem(i, j);
+            //        if (gem != null && gem.isFired > 0)
+            //        {
+            //            gemList.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
+            //        }
+            //    }
+            //}
             if(gemList.Count == 0)
             {
                 break;
@@ -316,7 +431,7 @@ public class PatternRed : PatternManager
                     }
                     // if around already fired then continue
                     GemInfo gem = board.GetGem(new_col, new_row);
-                    if (gem.isFired)
+                    if (gem.isFired > 0)
                     {
                         continue;
                     }
@@ -347,7 +462,7 @@ public class PatternRed : PatternManager
             {
                 int rand = Random.Range(0, aroundGems.Count);
                 GemInfo temp = aroundGems[rand];
-                if (temp.isFired)
+                if (temp.isFired > 0)
                 {
                     continue;
                 }
@@ -356,5 +471,6 @@ public class PatternRed : PatternManager
                 i++;
             }
         }
+        yield return null;
     }
 }

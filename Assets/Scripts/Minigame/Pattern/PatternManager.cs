@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class PatternManager : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class PatternManager : MonoBehaviour
     protected Text chatTXT;
     protected MiniManager mini;
     protected BoardManager board;
-    protected int gimmick = 0;
+    protected bool[] gimmick;
     protected int level = (int)LevelType.EASY1; // difficulty
 
     // chat UI 
@@ -25,9 +23,11 @@ public class PatternManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
-    virtual public void StartPattern(int gimmick_, int level_){}
-    virtual public void StopPattern(){}
-    virtual public void RestartPattern(){}
+    virtual public void StartPattern(int level_) { }
+    virtual public void StopPattern() { }
+    virtual public void StartGimmick(int gimmick_){ }
+    virtual public void StopGimmick(int gimmick_){ }
+    virtual public void RestartPattern(){ }
 
     public void OrganizeCharacterChat(){
         chatTextIdx = 0;
