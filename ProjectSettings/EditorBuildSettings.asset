@@ -5,34 +5,49 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/0_Start.unity
+  - enabled: 0
+    path: Assets/Scenes/_Prototypes/0_Start.unity
     guid: d6a5032d0c0a59a499196fdab6bb9f83
-  - enabled: 1
-    path: Assets/Scenes/1_Story/Tutorial.unity
+  - enabled: 0
+    path: Assets/Scenes/_Prototypes/1_Story/OldTutorial.unity
     guid: a33420356e54a6f42b5dca6418ec6785
-  - enabled: 1
-    path: Assets/Scenes/1_Story/CounselRoom.unity
+  - enabled: 0
+    path: Assets/Scenes/_Prototypes/1_Story/OldCounselRoom.unity
     guid: 306a220bc29566d4cb057ab09c343de7
-  - enabled: 1
-    path: Assets/Scenes/1_Story/LabCorridor.unity
+  - enabled: 0
+    path: Assets/Scenes/_Prototypes/1_Story/OldLabCorridor.unity
     guid: 801897d1cf74fab4ea5e9819e6b9ee54
-  - enabled: 1
-    path: Assets/Scenes/1_Story/PatrickLab.unity
+  - enabled: 0
+    path: Assets/Scenes/_Prototypes/1_Story/OldPatrickLab.unity
     guid: b13557c62f6c1214494c70bc02798233
-  - enabled: 1
-    path: Assets/Scenes/1_Story/Dormitory.unity
+  - enabled: 0
+    path: Assets/Scenes/_Prototypes/1_Story/OldDormitory.unity
     guid: 4d80d3017289f9a45bb24df8dd4c491a
-  - enabled: 1
-    path: Assets/Scenes/1_Story/Garden.unity
+  - enabled: 0
+    path: Assets/Scenes/_Prototypes/1_Story/OldGarden.unity
     guid: 7df997fc603102443beaec730b37baaa
   - enabled: 1
     path: Assets/Scenes/2_Mini.unity
     guid: 273a95ff8f881134b960ea29775acad3
   - enabled: 1
-    path: Assets/Scenes/3_LoadingScene.unity
+    path: Assets/Scenes/LoadingScene.unity
     guid: 2ed323576fcb7d04eafaf0308dffbf17
   - enabled: 1
     path: Assets/Scenes/2_MiniTest.unity
     guid: c673984653a5a8840936ec491e99365c
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: e641f01c39ae5724f9109b98132bad2e
+  - enabled: 1
+    path: Assets/Scenes/Map/Dormitory.unity
+    guid: e4f5e8eba2100f5409a0963ce9b5a278
+  - enabled: 1
+    path: Assets/Scenes/Map/LabCorridor.unity
+    guid: 5aeb40f376f8be2418510f5761602689
+  - enabled: 1
+    path: Assets/Scenes/Map/PatrickLab.unity
+    guid: 3d8c698f154f8c84fad181ec49266bc3
+  - enabled: 1
+    path: Assets/Scenes/Map/CounselRoom.unity
+    guid: d6721677b411fd7448bff05a5e7ac304
   m_configObjects: {}
