@@ -369,9 +369,7 @@ GameObject:
   - component: {fileID: 79947775}
   - component: {fileID: 79947781}
   - component: {fileID: 79947784}
-  - component: {fileID: 79947786}
   - component: {fileID: 79947785}
-  - component: {fileID: 79947790}
   - component: {fileID: 79947794}
   - component: {fileID: 79947776}
   - component: {fileID: 79947818}
@@ -443,13 +441,9 @@ GameObject:
   - component: {fileID: 79947803}
   - component: {fileID: 79947852}
   - component: {fileID: 79947851}
-  - component: {fileID: 79947850}
-  - component: {fileID: 79947849}
   - component: {fileID: 79947811}
   - component: {fileID: 79947805}
   - component: {fileID: 79947806}
-  - component: {fileID: 79947853}
-  - component: {fileID: 79947848}
   - component: {fileID: 79947877}
   - component: {fileID: 79947876}
   - component: {fileID: 79947875}
@@ -517,9 +511,8 @@ GameObject:
   - component: {fileID: 79947925}
   - component: {fileID: 79947924}
   - component: {fileID: 79947923}
-  - component: {fileID: 79947927}
-  - component: {fileID: 79947926}
   - component: {fileID: 79947780}
+  - component: {fileID: 79947849}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -578,7 +571,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 68.04082
     y: 16.938812
-    width: 112.545456
+    width: 113.63637
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -589,10 +582,6 @@ MonoBehaviour:
   commandList:
   - {fileID: 79947816}
   - {fileID: 79947775}
-  - {fileID: 79947853}
-  - {fileID: 79947848}
-  - {fileID: 79947786}
-  - {fileID: 79947790}
   suppressAllAutoSelections: 0
 --- !u!114 &79947778
 MonoBehaviour:
@@ -607,7 +596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 926.50446, y: 200.039}
+  scrollPos: {x: 117.413475, y: 243.67538}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 551
@@ -619,8 +608,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 79947794}
-  selectedCommands: []
+  - {fileID: 79947777}
+  selectedCommands:
+  - {fileID: 79947775}
   variables:
   - {fileID: 79947785}
   - {fileID: 79947780}
@@ -684,7 +674,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 287.55093
     y: -103.979485
-    width: 169.27274
+    width: 166.36363
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -790,22 +780,6 @@ MonoBehaviour:
   scope: 0
   key: PlayerName
   value: Debugging
---- !u!114 &79947786
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 6
-  indentLevel: 0
-  key: PlayerName
-  variable: {fileID: 79947785}
 --- !u!114 &79947787
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -917,68 +891,6 @@ MonoBehaviour:
   indentLevel: 0
   textID: Dialogue.naria.0021
   description: 
---- !u!114 &79947790
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 7
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 1707319390}
-  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: DialogExtra
-  targetMethod: SetCharacterName
-  targetMethodText: 'SetCharacterName (String, Character): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.String
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: PlayerName
-  - objValue:
-      typeAssemblyname: Fungus.Character, Fungus, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      typeFullname: Fungus.Character
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 210466875}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
 --- !u!114 &79947791
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1179,7 +1091,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 447.30612
     y: -107.49056
-    width: 182.36363
+    width: 180.90909
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2287,54 +2199,51 @@ MonoBehaviour:
   spriteRenderers:
   - {fileID: 881511822}
   sprite: {fileID: 21300000, guid: 87c10163f83e9fd47a009e9d64b23afe, type: 3}
---- !u!114 &79947848
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 397
-  indentLevel: 0
-  key: CharacterIndex
-  variable: {fileID: 79947805}
 --- !u!114 &79947849
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bef7966140464bd5a3ef4da2ff236b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 240
+  itemId: 500
   indentLevel: 0
-  key: CharacterIndex
-  variable: {fileID: 79947805}
---- !u!114 &79947850
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bef7966140464bd5a3ef4da2ff236b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 239
-  indentLevel: 0
-  key: StoryRound
-  variable: {fileID: 79947811}
+  description: 
+  targetObject: {fileID: 925114808}
+  targetComponentAssemblyName: MiniManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: MiniManager
+  targetMethod: SetAfterCounsel
+  targetMethodText: 'SetAfterCounsel (Boolean): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      typeFullname: System.Boolean
+      intValue: 0
+      boolValue: 1
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!114 &79947851
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2371,7 +2280,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1008.3966
     y: 100.59587
-    width: 130
+    width: 126.36363
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2380,29 +2289,10 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 79947851}
-  - {fileID: 79947850}
   - {fileID: 79947849}
-  - {fileID: 79947926}
-  - {fileID: 79947927}
+  - {fileID: 79947851}
   - {fileID: 79947806}
   suppressAllAutoSelections: 0
---- !u!114 &79947853
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 396
-  indentLevel: 0
-  key: StoryRound
-  variable: {fileID: 79947811}
 --- !u!114 &79947854
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2782,9 +2672,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 620.805
-    y: -108.5877
-    width: 147.45454
+    x: 653.5322
+    y: -103.13315
+    width: 148.18182
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3042,7 +2932,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 268.7645
     y: 104.677444
-    width: 173.63635
+    width: 171.81818
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3520,7 +3410,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 457.53983
     y: 106.718285
-    width: 186.72728
+    width: 186.36363
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4104,174 +3994,6 @@ MonoBehaviour:
   scope: 0
   key: AfterCounsel
   value: 0
---- !u!114 &79947926
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 499
-  indentLevel: 0
-  anyVar:
-    variable: {fileID: 79947925}
-    data:
-      animatorData:
-        animatorRef: {fileID: 0}
-        animatorVal: {fileID: 0}
-      audioSourceData:
-        audioSourceRef: {fileID: 0}
-        audioSourceVal: {fileID: 0}
-      booleanData:
-        booleanRef: {fileID: 0}
-        booleanVal: 1
-      collectionData:
-        collectionRef: {fileID: 0}
-        collectionVal: {fileID: 0}
-      collider2DData:
-        collider2DRef: {fileID: 0}
-        collider2DVal: {fileID: 0}
-      colliderData:
-        colliderRef: {fileID: 0}
-        colliderVal: {fileID: 0}
-      colorData:
-        colorRef: {fileID: 0}
-        colorVal: {r: 0, g: 0, b: 0, a: 0}
-      floatData:
-        floatRef: {fileID: 0}
-        floatVal: 0
-      gameObjectData:
-        gameObjectRef: {fileID: 0}
-        gameObjectVal: {fileID: 0}
-      integerData:
-        integerRef: {fileID: 0}
-        integerVal: 0
-      materialData:
-        materialRef: {fileID: 0}
-        materialVal: {fileID: 0}
-      matrix4x4Data:
-        matrix4x4Ref: {fileID: 0}
-        matrix4x4Val:
-          e00: 0
-          e01: 0
-          e02: 0
-          e03: 0
-          e10: 0
-          e11: 0
-          e12: 0
-          e13: 0
-          e20: 0
-          e21: 0
-          e22: 0
-          e23: 0
-          e30: 0
-          e31: 0
-          e32: 0
-          e33: 0
-      objectData:
-        objectRef: {fileID: 0}
-        objectVal: {fileID: 0}
-      quaternionData:
-        quaternionRef: {fileID: 0}
-        quaternionVal: {x: 0, y: 0, z: 0, w: 0}
-      rigidbody2DData:
-        rigidbody2DRef: {fileID: 0}
-        rigidbody2DVal: {fileID: 0}
-      rigidbodyData:
-        rigidbodyRef: {fileID: 0}
-        rigidbodyVal: {fileID: 0}
-      spriteData:
-        spriteRef: {fileID: 0}
-        spriteVal: {fileID: 0}
-      stringData:
-        stringRef: {fileID: 0}
-        stringVal: 
-      textureData:
-        textureRef: {fileID: 0}
-        textureVal: {fileID: 0}
-      transformData:
-        transformRef: {fileID: 0}
-        transformVal: {fileID: 0}
-      vector2Data:
-        vector2Ref: {fileID: 0}
-        vector2Val: {x: 0, y: 0}
-      vector3Data:
-        vector3Ref: {fileID: 0}
-        vector3Val: {x: 0, y: 0, z: 0}
-      vector4Data:
-        vector4Ref: {fileID: 0}
-        vector4Val: {x: 0, y: 0, z: 0, w: 0}
-  setOperator: 0
-  variable: {fileID: 0}
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  animatorData:
-    animatorRef: {fileID: 0}
-    animatorVal: {fileID: 0}
-  audioSourceData:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  colorData:
-    colorRef: {fileID: 0}
-    colorVal: {r: 0, g: 0, b: 0, a: 0}
-  gameObjectData:
-    gameObjectRef: {fileID: 0}
-    gameObjectVal: {fileID: 0}
-  materialData:
-    materialRef: {fileID: 0}
-    materialVal: {fileID: 0}
-  objectData:
-    objectRef: {fileID: 0}
-    objectVal: {fileID: 0}
-  rigidbody2DData:
-    rigidbody2DRef: {fileID: 0}
-    rigidbody2DVal: {fileID: 0}
-  spriteData:
-    spriteRef: {fileID: 0}
-    spriteVal: {fileID: 0}
-  textureData:
-    textureRef: {fileID: 0}
-    textureVal: {fileID: 0}
-  transformData:
-    transformRef: {fileID: 0}
-    transformVal: {fileID: 0}
-  vector2Data:
-    vector2Ref: {fileID: 0}
-    vector2Val: {x: 0, y: 0}
-  vector3Data:
-    vector3Ref: {fileID: 0}
-    vector3Val: {x: 0, y: 0, z: 0}
---- !u!114 &79947927
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79947774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bef7966140464bd5a3ef4da2ff236b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 498
-  indentLevel: 0
-  key: AfterCounsel
-  variable: {fileID: 79947925}
 --- !u!114 &79947928
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4344,7 +4066,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 655.4988
     y: 102.63666
-    width: 173.63635
+    width: 171.81818
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5054,17 +4776,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba385587e189b144484cddb2b5cdcc63, type: 3}
---- !u!114 &210466875 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3544814869257978407, guid: ba385587e189b144484cddb2b5cdcc63, type: 3}
-  m_PrefabInstance: {fileID: 210466874}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &240488732
 GameObject:
   m_ObjectHideFlags: 0
@@ -7298,8 +7009,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c8af3e2b972cd4c4282289fe80334d78, type: 3}
   - {fileID: 21300000, guid: c083f8499ddeceb4e923e65619248e17, type: 3}
   goalInfo: {fileID: 1184631179}
-  goalUnit: 3
-  fullScore: 30
   feverFillIMG: {fileID: 157930644}
   feverIMG: {fileID: 1144650190}
   feverBTN: {fileID: 1144650192}
@@ -7313,9 +7022,7 @@ MonoBehaviour:
   animator: {fileID: 157930646}
   pattern: {fileID: 2142439448}
   patternIdx: 4
-  patternGimmick: 
   patternLevel: 0
-  fungusMessage: D01_NariaGame
 --- !u!4 &925114810
 Transform:
   m_ObjectHideFlags: 0
@@ -10435,8 +10142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11628957bbd7b5409a0015096c0b258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundVolumeBGM: 0
-  soundVolumeSFX: 0
+  defaultState: {fileID: 0}
+  clickedState: {fileID: 0}
+  hotspot: {x: 0, y: 0}
+  cursorMode: 0
 --- !u!4 &1699835179
 Transform:
   m_ObjectHideFlags: 0

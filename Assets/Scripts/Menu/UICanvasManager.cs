@@ -70,6 +70,9 @@ public class UICanvasManager : MonoBehaviour
             case "Dormitory":
                 locationName = "기숙사";
                 break;
+            case "PatrickLab":
+                locationName = "패트릭 연구실";
+                break;
             default:
                 Debug.LogError("[OnSceneLoaded()] No case found. Add " + inSceneName);
                 break;

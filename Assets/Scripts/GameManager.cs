@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Screen.SetResolution(1920, 1080, true);
-        if(instance == null) // If there is no instance already
+        if (instance == null) // If there is no instance already
         {
             DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
             instance = this;
@@ -70,8 +70,8 @@ public class GameManager : MonoBehaviour
             }
 
             SceneManager.sceneLoaded += OnSceneLoaded;
-        } 
-        else if(instance != this) // If there is already an instance and it's not `this` instance
+        }
+        else if (instance != this) // If there is already an instance and it's not `this` instance
         {
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
         }
@@ -173,5 +173,6 @@ public class GameManager : MonoBehaviour
     public bool IsMultiRound() { return currentPlayInfo.bMultiRound; }
     public int GetDayCount() { return currentPlayInfo.dayCount; }
     public int GetCharacterIndex() { return currentPlayInfo.characterIndex; }
+    public void SetAfterCounsel(bool bInAfterCounsel) { currentPlayInfo.bAfterCounsel = bInAfterCounsel; }
     #endregion
 }

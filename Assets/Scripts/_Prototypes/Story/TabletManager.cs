@@ -18,11 +18,6 @@ public class TabletManager : MonoBehaviour
     }
 
     public void FinishSurvey(){
-        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-
-        int varStoryRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
-        int varCharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
-        
         if(surveyCnt >= 4) {
             surveyCnt = 0;
             Fungus.Flowchart.BroadcastFungusMessage("SurveyEnded");

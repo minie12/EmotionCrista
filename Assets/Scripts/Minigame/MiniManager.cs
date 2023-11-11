@@ -82,7 +82,7 @@ public class MiniManager : MonoBehaviour
     public string GetFungusMessage() 
     {
         // D0회차_내담자이름난이도
-        string characterName = Enum.GetName(typeof(CharacterName), patternIdx + 1);
+        string characterName = Enum.GetName(typeof(CharacterName), patternIdx);
         string[] levelName = { "Easy", "Normal", "Hard" };
         string message = "D" + string.Format("{0:D2}", storyRound + 1) + "_" + characterName + levelName[miniGameLevel];
 
@@ -126,10 +126,13 @@ public class MiniManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
 
         // get variable about story from Fungus
-        Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-        miniGameLevel = GetFungusVariable(flowchart, "Level"); // 0: easy, 1: normal, 2: hard
-        storyRound = GetFungusVariable(flowchart, "StoryRound"); // 0: 1회차, 1: 다회차
-        patternIdx = GetFungusVariable(flowchart, "CharacterIndex");
+        miniGameLevel = 2; // TODO
+        storyRound = GameManager.Get().IsMultiRound() ? 1 : 0;
+        patternIdx = GameManager.Get().GetCharacterIndex();
+        //Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
+        //miniGameLevel = GetFungusVariable(flowchart, "Level"); // 0: easy, 1: normal, 2: hard
+        //storyRound = GetFungusVariable(flowchart, "StoryRound"); // 0: 1회차, 1: 다회차
+        //patternIdx = GetFungusVariable(flowchart, "CharacterIndex");
         patternLevel = (storyRound) * 3 + miniGameLevel;
 
         // pattern
@@ -408,5 +411,10 @@ public class MiniManager : MonoBehaviour
         bPuzzleMode = true;
 
         pattern.StartPattern(patternLevel);
+    }
+
+    public void SetAfterCounsel(bool bInAfterCounsel)
+    {
+        GameManager.Get().SetAfterCounsel(bInAfterCounsel);
     }
 }
