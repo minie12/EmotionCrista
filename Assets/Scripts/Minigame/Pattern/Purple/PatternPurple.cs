@@ -35,13 +35,9 @@ public class PatternPurple : PatternManager
     public override void StartPattern(int level_)
     {
         base.StartPattern(level_);
-        level = level_;
-        gimmick = new bool[2];
-        mini.patternGimmick = new bool[2];
-        OrganizeCharacterChat();
 
         // [TODO] ±‚»π
-        switch (level)
+        switch (level_)
         {
             case 0:
                 StartGimmick(0);
@@ -67,24 +63,16 @@ public class PatternPurple : PatternManager
     public override void StopPattern()
     {
         base.StopPattern();
-        CancelInvoke();
-        for (int i = 0; i < gimmick.GetLength(0); i++)
-        {
-            gimmick[i] = false;
-            mini.patternGimmick[i] = false;
-        }
     }
 
     public override void StartGimmick(int gimmick_)
     {
         base.StartGimmick(gimmick_);
-        gimmick[gimmick_] = true;
-        mini.patternGimmick[gimmick_] = true;
 
         switch (gimmick_)
         {
             case 0:
-                switch (level)
+                switch (mini.patternLevel)
                 {
                     case 0:
                         chainCnt = 1;
@@ -110,8 +98,6 @@ public class PatternPurple : PatternManager
     public override void StopGimmick(int gimmick_)
     {
         base.StopGimmick(gimmick_);
-        gimmick[gimmick_] = false;
-        mini.patternGimmick[gimmick_] = false;
 
         switch (gimmick_)
         {
@@ -127,12 +113,6 @@ public class PatternPurple : PatternManager
                 }
                 break;
         }
-    }
-
-    public override void RestartPattern()
-    {
-        base.RestartPattern();
-        StartPattern(level);
     }
 
     // check exit chain around gem
@@ -363,8 +343,7 @@ public class PatternPurple : PatternManager
     {
         // set light
         globalLightObj.GetComponent<Light2D>().intensity = 0.2f;
-        GameObject parentCanvas = GameObject.Find("OtherCanvas");
-        flashLight = Instantiate(lightPrefab, parentCanvas.transform);
+        flashLight = Instantiate(lightPrefab, UICanvas.transform);
 
         // create init eyes
         Invoke(nameof(InitEyes), eyeFirstTime);

@@ -20,15 +20,9 @@ public class PatternRed : PatternManager
     {
         base.StartPattern(level_);
 
-        mini.patternGimmick = new bool[2];
-        gimmick = new bool[2];
-        level = level_;
-        mini.patternGimmick[0] = true;
         gimmick[0] = true;
-        OrganizeCharacterChat();
-
         // [TODO] ±‚»π
-        switch (level)
+        switch (level_)
         {
             case 0:
                 break;
@@ -51,19 +45,11 @@ public class PatternRed : PatternManager
     public override void StopPattern()
     {
         base.StopPattern();
-        CancelInvoke();
-        for(int i = 0; i < gimmick.GetLength(0); i++)
-        {
-            gimmick[i] = false;
-            mini.patternGimmick[i] = false;
-        }
     }
 
     public override void StartGimmick(int gimmick_)
     {
         base.StartGimmick(gimmick_);
-        gimmick[gimmick_] = true;
-        mini.patternGimmick[gimmick_] = true;
 
         switch (gimmick_)
         {
@@ -76,8 +62,6 @@ public class PatternRed : PatternManager
     public override void StopGimmick(int gimmick_)
     {
         base.StopGimmick(gimmick_);
-        gimmick[gimmick_] = false;
-        mini.patternGimmick[gimmick_] = false;
 
         switch (gimmick_)
         {
@@ -85,12 +69,6 @@ public class PatternRed : PatternManager
                 CancelInvoke(nameof(StartFireRoad));
                 break;
         }
-    }
-
-    public override void RestartPattern()
-    {
-        base.RestartPattern();
-        StartPattern(level);
     }
 
     // get explosion gem cnt on percentage
