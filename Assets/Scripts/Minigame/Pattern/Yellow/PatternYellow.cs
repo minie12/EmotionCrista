@@ -8,11 +8,12 @@ public class PatternYellow : PatternManager
 {
     private GameObject chatBoxPF;
     private GameObject[] chatBoxes;
-    private int patternIdx; // is exist minimanager
+    private int chatBoxIdx = 0;
     private int chatBoxCnt = 6;
 
     private GameObject chatFlowPF;
     private GameObject[] chatFlows;
+    private int chatFlowIdx = 0;
     private int chatFlowCnt = 12;
     private int currentChatIdx;
 
@@ -34,57 +35,114 @@ public class PatternYellow : PatternManager
     }
 
 
-    override public void StartPattern(int gimmick_, int level_){
-        patternIdx = 0;
-        chatTextIdx = 0;
-        gimmick = gimmick_; 
+    public override void StartPattern(int level_){
+        base.StartPattern(level_);
+
+        mini.patternGimmick = new bool[3];
+        gimmick = new bool[3];
         level = level_;
         OrganizeCharacterChat();
 
-        if(gimmick == 0){
-            if(UICanvas.transform.childCount == 0){
-                chatBoxes = new GameObject[chatBoxCnt];
-                for(int i = 0; i < chatBoxCnt; i++){
-                    GameObject temp = Instantiate(chatBoxPF, new Vector3(0,0,0), Quaternion.identity, UICanvas.transform);
-                    temp.SetActive(false);
-                    chatBoxes[i] = temp;
-                }
-            }
-
-            Invoke("Y_SpawnChatBox", fullSpawnTime);
-        }
-        else if(gimmick == 1){
-            if(UICanvas.transform.childCount == 0){
-                chatFlows = new GameObject[chatFlowCnt];
-                for(int i = 0; i < chatFlowCnt; i++){
-                    GameObject temp = Instantiate(chatFlowPF, new Vector3(0,0,0), Quaternion.identity, UICanvas.transform);
-                    temp.SetActive(false);
-                    chatFlows[i] = temp;
-                }
-            }
-
-            Invoke("Y_SpawnChatFlow", fullSpawnTime);
-        }
-        else if(gimmick == 2)
+        // [TODO] ±âÈ¹
+        switch (level)
         {
-            InvokeRepeating("Y_HeartBeat", fullSpawnTime, 60f);
+            case 0:
+                StartGimmick(0);
+                break;
+            case 1:
+                StartGimmick(1);
+                break;
+            case 2:
+                StartGimmick(2);
+                break;
+            case 3:
+                StartGimmick(1);
+                break;
+            case 4:
+                StartGimmick(0);
+                break;
+            case 5:
+                StartGimmick(2);
+                break;
         }
     }
 
-
-    
-    override public void StopPattern(){ CancelInvoke(); }
-
-    override public void RestartPattern(){
-        patternIdx = 0; 
-
-        if(gimmick == 0) Invoke("Y_SpawnChatBox", fullSpawnTime);
-        else if(gimmick == 1) Invoke("Y_SpawnChatFlow", fullSpawnTime);
-        else if(gimmick == 2)
+    public override void StopPattern()
+    {
+        base.StopPattern();
+        CancelInvoke();
+        for (int i = 0; i < gimmick.GetLength(0); i++)
         {
-            Invoke("Y_HeartBeat", fullSpawnTime);
+            gimmick[i] = false;
+            mini.patternGimmick[i] = false;
         }
     }
+
+    public override void StartGimmick(int gimmick_)
+    {
+        base.StartGimmick(gimmick_);
+        mini.patternGimmick[gimmick_] = true;
+        gimmick[gimmick_] = true;
+
+        switch (gimmick_)
+        {
+            case 0:
+                chatBoxIdx = 0;
+                chatBoxes = GetChatInitArray(0);
+                Invoke("Y_SpawnChatBox", fullSpawnTime);
+                break;
+            case 1:
+                chatFlowIdx = 0;
+                chatFlows = GetChatInitArray(1);
+                Invoke("Y_SpawnChatFlow", fullSpawnTime);
+                break;
+            case 2:
+                InvokeRepeating("Y_HeartBeat", fullSpawnTime, 60f);
+                break;
+        }
+    }
+
+    public override void StopGimmick(int gimmick_)
+    {
+        base.StopGimmick(gimmick_);
+        mini.patternGimmick[gimmick_] = false;
+        gimmick[gimmick_] = false;
+
+        switch (gimmick_)
+        {
+            case 0:
+                CancelInvoke("Y_SpawnChatBox");
+                break;
+            case 1:
+                CancelInvoke("Y_SpawnChatFlow");
+                break;
+            case 2:
+                CancelInvoke("Y_HeartBeat");
+                break;
+        }
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+        StartPattern(level);
+    }
+
+    GameObject[] GetChatInitArray(int gimmick_)
+    {
+        int cnt = gimmick_ == 0 ? chatBoxCnt : chatFlowCnt;
+        GameObject[] result = new GameObject[cnt];
+
+        for (int i = 0; i < cnt; i++)
+        {
+            GameObject prefab = gimmick_ == 0 ? chatBoxPF : chatFlowPF;
+            GameObject temp = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity, UICanvas.transform);
+            temp.SetActive(false);
+            result[i] = temp;
+        }
+        return result;
+    }
+
 
     float CalcSpawnTime(){
         float decreaseTime = mini.TimeLeft()/15f;
@@ -92,22 +150,24 @@ public class PatternYellow : PatternManager
 
         return fullSpawnTime - decreaseTime;
     }
+
     // Y1 --------------------------------------------------------------------------------------------------------
     void Y_SpawnChatBox(){
         // set position
         Vector3 randPos = new Vector3(Random.Range(800.0f, 1600.0f), Random.Range(220.0f, 850.0f), 5);
-        chatBoxes[patternIdx].transform.position = Camera.main.ScreenToWorldPoint(randPos);
+        chatBoxes[chatBoxIdx].transform.position = Camera.main.ScreenToWorldPoint(randPos);
         float size = Random.Range(0.45f, 1.2f);
 
-        chatBoxes[patternIdx].transform.SetSiblingIndex(chatBoxCnt-1);
+        chatBoxes[chatBoxIdx].transform.SetSiblingIndex(chatBoxCnt-1);
         StartCoroutine(Y_ChatBoxAnim(size));
-        patternIdx = (patternIdx+1)%chatBoxCnt;
+        chatBoxIdx = (chatBoxIdx+1)%chatBoxCnt;
 
-        Invoke("Y_SpawnChatBox", CalcSpawnTime());
+        if (gimmick[0])
+            Invoke("Y_SpawnChatBox", CalcSpawnTime());
     }
 
     IEnumerator Y_ChatBoxAnim(float size){
-        GameObject go = chatBoxes[patternIdx];
+        GameObject go = chatBoxes[chatBoxIdx];
         go.GetComponent<RectTransform>().localScale = new Vector3(size+1f, size+1f, 1);
         go.SetActive(true);
         go.transform.DOScale(new Vector3(size-0.15f, size-0.15f), 0.25f);
@@ -124,12 +184,13 @@ public class PatternYellow : PatternManager
             indexTemp = Random.Range(0, 7); // 7 is length of spawn_positions (at PatternChatFlow)
         }
         currentChatIdx = indexTemp;
-        chatFlows[patternIdx].GetComponent<PatternChatFlow>().index = indexTemp;
-        chatFlows[patternIdx].SetActive(true);
+        chatFlows[chatFlowIdx].GetComponent<PatternChatFlow>().index = indexTemp;
+        chatFlows[chatFlowIdx].SetActive(true);
 
-        patternIdx = (patternIdx+1)%chatFlowCnt;
+        chatFlowIdx = (chatFlowIdx+1)%chatFlowCnt;
 
-        Invoke("Y_SpawnChatFlow", CalcSpawnTime()+0.4f);
+        if (gimmick[1])
+            Invoke("Y_SpawnChatFlow", CalcSpawnTime()+0.4f);
     }
 
     // Y3 --------------------------------------------------------------------------------------------------------

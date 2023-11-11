@@ -36,7 +36,8 @@ public class GemInfo : MonoBehaviour
     public bool bPatternApplied;
     private int chainCnt; // purple gimmick
     [HideInInspector] public bool bLocationFixed = false; // manage location fixed
-    [HideInInspector] public bool isFired = false; // check fire road
+    [HideInInspector] public int isFired = 0; // 0: no fire, 1: init fire, 2: spreaded fire
+    [HideInInspector] public bool isChecked = false; // check (using BFS)
 
     private void Awake()
     {
@@ -339,7 +340,7 @@ public class GemInfo : MonoBehaviour
     {
         gameObject.GetComponent<Collider2D>().enabled = false;
 
-        if (isFired)
+        if (isFired > 0 && gemOutline.sprite != null)
         {
             GameObject.Find("Board").GetComponent<BoardManager>().SetGemClicked(false);
             Debug.Log("clear gem clicked!");
@@ -360,21 +361,22 @@ public class GemInfo : MonoBehaviour
     // gem fire (red gimmick 1)
     public void FireGem(bool isStart = false)
     {
-        isFired = true;
         fireANIM.gameObject.SetActive(true);
         if (isStart)
         {
+            isFired = 1;
             fireANIM.Play("gem_fire_red_start", 0, 0.0f);
         }
         else
         {
+            isFired = 2;
             fireANIM.Play("gem_fire_red", 0, 0.0f);
         }
     }
 
     public void StopFireGem()
     {
-        isFired = false;
+        isFired = 0;
         fireANIM.gameObject.SetActive(false);
     }
 
