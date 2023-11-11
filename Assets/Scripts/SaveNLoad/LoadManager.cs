@@ -98,10 +98,7 @@ public class LoadManager : MonoBehaviour
 
         // Fungus Variable
         {
-            flowchart.SetStringVariable("PlayerName", loadEmoSaveData.playerName);
-            flowchart.SetIntegerVariable("StoryRound", loadEmoSaveData.storyRound);
-            flowchart.SetIntegerVariable("CharacterIndex", loadEmoSaveData.characterIndex);
-            flowchart.SetBooleanVariable("AfterCounsel", loadEmoSaveData.afterCounsel);
+            GameManager.Get().SetPlayInfo(loadEmoSaveData.playInfo);
         }
 
         // Fungus Command

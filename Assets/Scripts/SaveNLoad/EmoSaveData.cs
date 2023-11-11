@@ -24,11 +24,7 @@ public class EmoSaveData
     public int commandId;
 
     // Fungus Variable
-    public string playerName;
-    public int storyRound;
-    public int characterIndex;
-    public bool afterCounsel;
-    public string nextScene;
+    public PlayInfo playInfo;
 
     // Dialogue Text
     public string dialogueNameText;
@@ -41,8 +37,7 @@ public class EmoSaveData
 
     public bool ValidateData()
     {
-        if ((0 < sceneName.Length) && (0 < blockName.Length) && (-1 < commandId)
-            && (0 < playerName.Length) && (-1 < storyRound) && (-1 < characterIndex) && (0 < nextScene.Length))
+        if ((0 < sceneName.Length) && (0 < blockName.Length) && (-1 < commandId) && (0 < playInfo.playerName.Length))
         {
             return true;
         }
@@ -111,10 +106,6 @@ public class EmoSaveData
                     }
                 }
             }
-            else
-            {
-                return null;
-            }
         }
 
         // Dialogue
@@ -135,7 +126,7 @@ public class EmoSaveData
             }
         }
 
-        // Fungus Command & Variable
+        // Fungus Command
         {
             GameObject flowchartObj = GameObject.Find("Flowchart");
             if (null != flowchartObj)
@@ -162,39 +153,6 @@ public class EmoSaveData
                             }
                         }
                     }
-
-                    // Fungus Variable
-                    {
-                        Fungus.StringVariable var_playerName = flowchart.GetVariable<Fungus.StringVariable>("PlayerName");
-                        if (null != var_playerName)
-                        {
-                            gameData.playerName = var_playerName.Value;
-                        }
-
-                        Fungus.IntegerVariable var_storyRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound");
-                        if (null != var_storyRound)
-                        {
-                            gameData.storyRound = var_storyRound.Value;
-                        }
-
-                        Fungus.IntegerVariable var_characterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex");
-                        if (null != var_characterIndex)
-                        {
-                            gameData.characterIndex = var_characterIndex.Value;
-                        }
-
-                        Fungus.BooleanVariable var_afterCounsel = flowchart.GetVariable<Fungus.BooleanVariable>("AfterCounsel");
-                        if (null != var_afterCounsel)
-                        {
-                            gameData.afterCounsel = var_afterCounsel.Value;
-                        }
-
-                        Fungus.StringVariable var_nextScene = flowchart.GetVariable<Fungus.StringVariable>("NextScene");
-                        if (null != var_nextScene)
-                        {
-                            gameData.nextScene = var_nextScene.Value;
-                        }
-                    }
                 }
             }
             else
@@ -202,11 +160,13 @@ public class EmoSaveData
                 return null;
             }
         }
-        
+
+        // PlayInfo
+        GameManager.Get().GetPlayInfo(ref gameData.playInfo);
+
         if (true == gameData.ValidateData())
         {
             return gameData;
-
         }
 
         return null;
@@ -214,15 +174,4 @@ public class EmoSaveData
 
     // Getter Setter
     public string SceneName { get { return sceneName; } set { sceneName = value; } }
-    public string PlayerName { get { return playerName; } set { playerName = value; } }
-    public int CharacterIndex { get { return characterIndex; } set { characterIndex = value; } }
-    public int StoryRound { get { return storyRound; } set { storyRound = value; } }
-
-    /*
-    List<Fungus.Character> activeCharacters;
-    protected string blockName;
-    protected int commandId;
-    protected bool afterCounsel;
-    protected string nextScene;
-    */
 }

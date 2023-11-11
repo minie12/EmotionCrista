@@ -13,6 +13,8 @@ public class UICanvasManager : MonoBehaviour
 
     [SerializeField]
     private GameObject GO_reportButton;
+    [SerializeField]
+    private GameObject GO_mapButton;
 
 
     public void OnSceneLoaded(string inSceneName, int inDayCount, bool bAfterCounsel)
@@ -21,7 +23,16 @@ public class UICanvasManager : MonoBehaviour
 
         dayText.text = "Day " + inDayCount;
 
-        GO_reportButton.SetActive(bAfterCounsel);
+        if (bAfterCounsel != GO_reportButton.activeSelf)
+        {
+            GO_reportButton.SetActive(bAfterCounsel);
+        }
+
+        bool bNeedMapMenu = IsMapMenuNeeded(inSceneName);
+        if (bNeedMapMenu != GO_mapButton.activeSelf)
+        {
+            GO_mapButton.SetActive(bNeedMapMenu);
+        }
     }
 
     public void AlterActive(GameObject inObject)
@@ -50,6 +61,12 @@ public class UICanvasManager : MonoBehaviour
 
         switch (inSceneName)
         {
+            case "LabCorridor":
+                locationName = "상담실 복도";
+                break;
+            case "CounselRoom":
+                locationName = "상담실";
+                break;
             case "Dormitory":
                 locationName = "기숙사";
                 break;
@@ -59,5 +76,19 @@ public class UICanvasManager : MonoBehaviour
         }
 
         locationText.text = locationName;
+    }
+
+    private bool IsMapMenuNeeded(string inSceneName)
+    {
+        switch (inSceneName)
+        {
+            case "CounselRoom":
+                return false;
+                
+            case "Dormitory":
+                return false;
+        }
+
+        return true;
     }
 }

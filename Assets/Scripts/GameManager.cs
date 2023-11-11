@@ -3,18 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-struct PlayInfo
+public enum CharacterName
+{
+    Naria = 0,
+    Lulian,
+    Russel,
+    Nish,
+    Ilrak,
+    Max
+}
+
+[System.Serializable]
+public struct PlayInfo
 {
     public string playerName;
     public bool bMultiRound;
     public int dayCount;
+    public int characterIndex;
     public bool bAfterCounsel;
 
     public void Initialize()
     {
-        playerName = "";
+        playerName = "NoName";
         bMultiRound = true;
         dayCount = 1;
+        characterIndex = (int)CharacterName.Max;
         bAfterCounsel = false;
     }
 }
@@ -37,7 +50,7 @@ public class GameManager : MonoBehaviour
     private CursorMode cursorMode = CursorMode.Auto;
     #endregion
 
-    PlayInfo currentPlayInfo;
+    private PlayInfo currentPlayInfo;
 
     // Start is called before the first frame update
     void Awake()
@@ -84,6 +97,11 @@ public class GameManager : MonoBehaviour
 
     protected void OnSceneLoaded(Scene Scene, LoadSceneMode mode)
     {
+        if (null != loadManager)
+        {
+            loadManager.LoadGameData(); // load game data from saved file
+        }
+
         GameObject GO_flowchart = GameObject.Find("Flowchart");
         if (null != GO_flowchart)
         {
@@ -93,13 +111,19 @@ public class GameManager : MonoBehaviour
                 flowchart.SetStringVariable("PlayerName", currentPlayInfo.playerName);
                 flowchart.SetBooleanVariable("MultiRound", currentPlayInfo.bMultiRound);
                 flowchart.SetIntegerVariable("DayCount", currentPlayInfo.dayCount);
+                flowchart.SetIntegerVariable("CharacterIndex", currentPlayInfo.characterIndex);
                 flowchart.SetBooleanVariable("AfterCounsel", currentPlayInfo.bAfterCounsel);
             }
         }
 
-        if (null != loadManager)
+        GameObject GO_playerCharacter = GameObject.Find("Player");
+        if (null != GO_playerCharacter)
         {
-            loadManager.LoadGameData(); // load game data from saved file
+            Fungus.Character playerCharacter = GO_playerCharacter.GetComponent<Fungus.Character>();
+            if (null != playerCharacter)
+            {
+                playerCharacter.SetStandardText(currentPlayInfo.playerName);
+            }
         }
 
         GameObject GO_UICanvas = GameObject.Find("GameUICanvas");
@@ -114,20 +138,40 @@ public class GameManager : MonoBehaviour
     }
 
     #region PlayInfoFunctions
+    public void GetPlayInfo(ref PlayInfo refPlayInfo)
+    {
+        refPlayInfo.playerName = currentPlayInfo.playerName;
+        refPlayInfo.bMultiRound = currentPlayInfo.bMultiRound;
+        refPlayInfo.dayCount = currentPlayInfo.dayCount;
+        refPlayInfo.characterIndex = currentPlayInfo.characterIndex;
+        refPlayInfo.bAfterCounsel = currentPlayInfo.bAfterCounsel;
+    }
+    public void SetPlayInfo(PlayInfo inPlayInfo)
+    {
+        currentPlayInfo.playerName = inPlayInfo.playerName;
+        currentPlayInfo.bMultiRound = inPlayInfo.bMultiRound;
+        currentPlayInfo.dayCount = inPlayInfo.dayCount;
+        currentPlayInfo.characterIndex = inPlayInfo.characterIndex;
+        currentPlayInfo.bAfterCounsel = inPlayInfo.bAfterCounsel;
+    }
     public void ProceedNextDay()
     {
         currentPlayInfo.dayCount += 1;
+        currentPlayInfo.characterIndex += 1;
         currentPlayInfo.bAfterCounsel = false;
     }
     public void SetFirstRoundPlayInfo()
     {
         currentPlayInfo.bMultiRound = false;
         currentPlayInfo.dayCount = 1;
+        currentPlayInfo.characterIndex = 0;
         currentPlayInfo.bAfterCounsel = false;
     }
     #endregion
 
     #region GetterSetter
+    public bool IsMultiRound() { return currentPlayInfo.bMultiRound; }
     public int GetDayCount() { return currentPlayInfo.dayCount; }
+    public int GetCharacterIndex() { return currentPlayInfo.characterIndex; }
     #endregion
 }

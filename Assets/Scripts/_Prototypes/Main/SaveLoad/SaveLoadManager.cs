@@ -146,7 +146,7 @@ public class SaveLoadManager : MonoBehaviour
                     Text MenuDayText = MenuDayTextObj.GetComponent<Text>();
                     if (null != MenuDayText)
                     {
-                        MenuDayText.text = inSaveData.CharacterIndex.ToString();
+                        //MenuDayText.text = inSaveData.CharacterIndex.ToString();
                         bDay = true;
                     }
                 }
@@ -163,7 +163,7 @@ public class SaveLoadManager : MonoBehaviour
                     Text MenuPlayerText = MenuPlayerTextObj.GetComponent<Text>();
                     if (null != MenuPlayerText)
                     {
-                        MenuPlayerText.text = inSaveData.PlayerName;
+                        //MenuPlayerText.text = inSaveData.PlayerName;
                         bPlayer = true;
                     }
                 }

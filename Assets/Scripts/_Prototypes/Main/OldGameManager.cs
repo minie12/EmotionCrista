@@ -16,7 +16,7 @@ public enum StoryRound
     Second,
     Error
 }
-public enum CharacterName
+public enum OldCharacterName
 {
     None = 0,
     Naria,
@@ -164,10 +164,10 @@ public class OldGameManager : MonoBehaviour
 
         // Fungus Variable
         {
-            inFlowchart.SetStringVariable("PlayerName", loadEmoSaveData.playerName);
-            inFlowchart.SetIntegerVariable("StoryRound", loadEmoSaveData.storyRound);
-            inFlowchart.SetIntegerVariable("CharacterIndex", loadEmoSaveData.characterIndex);
-            inFlowchart.SetBooleanVariable("AfterCounsel", loadEmoSaveData.afterCounsel);
+            //inFlowchart.SetStringVariable("PlayerName", loadEmoSaveData.playerName);
+            //inFlowchart.SetIntegerVariable("StoryRound", loadEmoSaveData.storyRound);
+            //inFlowchart.SetIntegerVariable("CharacterIndex", loadEmoSaveData.characterIndex);
+            //inFlowchart.SetBooleanVariable("AfterCounsel", loadEmoSaveData.afterCounsel);
         }
 
         // Fungus Command

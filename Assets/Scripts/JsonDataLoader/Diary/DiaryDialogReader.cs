@@ -7,7 +7,7 @@ using UnityEngine;
 public class DiaryDialogData
 {
     public int round;
-    public string characterName;
+    public int characterIndex;
     public string dialog;
 }
 [System.Serializable]
@@ -23,6 +23,11 @@ public class DiaryDialogDataList
 public class DiaryDialogReader : MonoBehaviour
 {
     static private Dictionary<int, string> DialogList = new Dictionary<int, string>();
+
+    static int CreateDiaryIndex(int bInMultiRound, int inCharacterIndex)
+    {
+        return bInMultiRound * 10 + inCharacterIndex;
+    }
 
     static void JsonLoad()
     {
@@ -41,30 +46,29 @@ public class DiaryDialogReader : MonoBehaviour
             // Do not load all data at once
             DiaryDialogDataList RawDialogList = DiaryDialogDataList.CreateFromJSON(loadJson);
 
-            if (RawDialogList == null)
-            {
-                Debug.LogError("(DiaryDialogReader.cs) Json file could not be loaded.");
-            }
+            Debug.Assert(RawDialogList == null, "(DiaryDialogReader.cs) Json file could not be loaded.");
 
             DialogList.Clear();
 
             for (int i = 0; i < RawDialogList.diaryDialog.Length; i++)
             {
-                int keyValue = OldGameManager.instance.CreateStoryIndex(RawDialogList.diaryDialog[i].round, RawDialogList.diaryDialog[i].characterName);
+                int keyValue = CreateDiaryIndex(RawDialogList.diaryDialog[i].round, RawDialogList.diaryDialog[i].characterIndex);
                 DialogList.Add(keyValue, RawDialogList.diaryDialog[i].dialog);
             }
         }
     }
-    static public string GetDialogData(int id)
+    static public string GetDialogData(bool bInMultiRound, int inCharacterIndex)
     {
-        if (!DialogList.ContainsKey(id))
+        int diaryIndex = CreateDiaryIndex( (bInMultiRound ? 1 : 0), inCharacterIndex);
+
+        if (!DialogList.ContainsKey(diaryIndex))
         {
             // load next data
             JsonLoad();
         }
 
-        Debug.Assert(DialogList.ContainsKey(id), "CannotLoad: " + id);
+        Debug.Assert(DialogList.ContainsKey(diaryIndex), "CannotLoad: " + diaryIndex);
 
-        return DialogList[id];
+        return DialogList[diaryIndex];
     }
 }

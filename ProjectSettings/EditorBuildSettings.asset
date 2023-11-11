@@ -45,6 +45,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Map/LabCorridor.unity
     guid: 5aeb40f376f8be2418510f5761602689
   - enabled: 1
-    path: Assets/Scenes/Map/PatrickLab_Report.unity
+    path: Assets/Scenes/Map/PatrickLab.unity
     guid: 3d8c698f154f8c84fad181ec49266bc3
+  - enabled: 1
+    path: Assets/Scenes/Map/CounselRoom.unity
+    guid: d6721677b411fd7448bff05a5e7ac304
   m_configObjects: {}

@@ -146,7 +146,7 @@ public class DialogExtra : MonoBehaviour
         int varCharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
 
         int storyIndex = OldGameManager.instance.CreateStoryIndex(varStoryRound, varCharacterIndex);
-        diaryText.text = DiaryDialogReader.GetDialogData(storyIndex);
+        //diaryText.text = DiaryDialogReader.GetDialogData(storyIndex);
     }
     #endregion
 }

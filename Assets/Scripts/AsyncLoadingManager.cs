@@ -61,7 +61,7 @@ public class AsyncLoadingManager : MonoBehaviour
         }
 
         // Start Async Load
-        AsyncOperation oper = SceneManager.LoadSceneAsync("Dormitory");
+        AsyncOperation oper = SceneManager.LoadSceneAsync("LabCorridor");
         oper.allowSceneActivation = false;
 
         // Load Animation
