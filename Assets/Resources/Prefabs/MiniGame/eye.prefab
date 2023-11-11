@@ -132,7 +132,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1.2601844, y: 0.09780145}
+  - {x: -1.2590677, y: 0.097056806}
   - {x: -1.2372937, y: 0.19761658}
   - {x: -1.1840174, y: 0.27640992}
   - {x: -1.1235759, y: 0.35239607}
@@ -168,7 +168,7 @@ EdgeCollider2D:
   - {x: -1.0936005, y: -0.08956593}
   - {x: -1.1957331, y: 0.008472323}
   - {x: -1.2473993, y: 0.065303266}
-  - {x: -1.2559811, y: 0.09780145}
+  - {x: -1.2457455, y: 0.13343126}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -232,7 +232,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -288,7 +288,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11.005136, y: 10.636678}
+  m_Size: {x: 7, y: 7}
   m_EdgeRadius: 0
 --- !u!50 &-7371165790453130080
 Rigidbody2D:
@@ -389,7 +389,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.48650503, y: 0.013494968}
+  - {x: -0.5003545, y: -0.038440585}
   - {x: -0.24811792, y: 0.12386954}
   - {x: 0.008631229, y: 0.23115718}
   - {x: 0.247998, y: 0.30688167}
@@ -409,7 +409,7 @@ EdgeCollider2D:
   - {x: -0.26518703, y: -0.70363045}
   - {x: -0.48856974, y: -0.76651835}
   - {x: -0.633384, y: -0.79045343}
-  - {x: -0.8421674, y: -0.79234433}
+  - {x: -0.8382232, y: -0.78577065}
   - {x: -0.8403325, y: -0.75008106}
   - {x: -0.8118534, y: -0.64567137}
   - {x: -0.76639175, y: -0.53670573}
@@ -472,7 +472,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -565,7 +565,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.5, y: 0}
+  - {x: -0.45360124, y: -0.0126543045}
+  - {x: -0.47724423, y: 0.005051613}
   - {x: -0.24448663, y: 0.08045483}
   - {x: 0.010541737, y: 0.20452237}
   - {x: 0.27737194, y: 0.3341}
@@ -591,7 +592,8 @@ EdgeCollider2D:
   - {x: 0.24216408, y: -0.16424322}
   - {x: 0.059049368, y: -0.13518703}
   - {x: -0.13824517, y: -0.099601746}
-  - {x: -0.48211586, y: -0.00000011920929}
+  - {x: -0.41978046, y: -0.012491584}
+  - {x: -0.42160168, y: 0.019305468}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -647,7 +649,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -826,7 +828,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
