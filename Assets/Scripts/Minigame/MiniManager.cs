@@ -35,26 +35,29 @@ public class MiniManager : MonoBehaviour
     public Sprite timerOrigin, timerRed;
 
     // timer
-    [SerializeField] private const float fullPlayTime = 500f; // default: 50f
-    private float playTime;
-    [SerializeField] private const float fullFeverTime = 10f;
-    private float feverTime;
-    private bool isTwinkle;
+    private float fullPlayTime = 50f; 
+    private float playTimeSpeed = 1f;
+    private float playTime = 0f;
+    private float fullFeverTime = 10f;
+    private float feverTime = 0f;
+    private float crushedGaugeTime = 1f; 
+    private bool isTwinkle = false;
 
     // board related
     private BoardManager board;
     public SpriteRenderer boardImg;
     public Sprite[] puzzleBoardSP;
     public GoalInfo goalInfo;
-    public int goalUnit = 3; // goal gem count
+    private int goalUnit = 3; // goal gem count
 
     // score
-    public float fullScore;
-    private int score;
+    private float fullScore = 100f;
+    private float score = 0f;
+    private float scoreSpeed = 1f;
 
     // fever
-    [SerializeField] private const int fullFever = 20;
-    private int fever;
+    private int fullFever = 20;
+    private int fever = 0;
     public Image feverFillIMG;
     public Image feverIMG;
     public Button feverBTN;
@@ -66,36 +69,61 @@ public class MiniManager : MonoBehaviour
     // pattern
     public PatternManager pattern;
     [HideInInspector] public int patternIdx;
-    [HideInInspector] public bool[] patternGimmick;
     [HideInInspector] public int patternLevel;
+    private int totalCrushedGem = 0;
 
     private int storyRound = 0;
     private int miniGameLevel = 0;
 
     // game mode
     private bool bPuzzleMode = true;
-    public string fungusMessage = "D01_NariaGame"; // used to get chat texts in pattern manager
 
     // Get & Set -----------------------------------------------------
-    public string GetFungusMessage() { return fungusMessage; }
+    public string GetFungusMessage() 
+    {
+        // D0회차_내담자이름난이도
+        string characterName = Enum.GetName(typeof(CharacterName), patternIdx + 1);
+        string[] levelName = { "Easy", "Normal", "Hard" };
+        string message = "D" + string.Format("{0:D2}", storyRound + 1) + "_" + characterName + levelName[miniGameLevel];
+
+        return message;
+    }
+
+    // get fungus variable (check null)
+    int GetFungusVariable(Fungus.Flowchart flowchart, string variableName)
+    {
+        if (flowchart.GetVariable<Fungus.IntegerVariable>(variableName) != null)
+        {
+            return flowchart.GetVariable<Fungus.IntegerVariable>(variableName).Value;
+        }
+        return 0;
+    }
+
+    public int GetTotalCrushedGem()
+    {
+        return this.totalCrushedGem;
+    }
+
+    public int GetGoalUnit()
+    {
+        return this.goalUnit;
+    }
+
+    // set game option by pattern
+    public void SetGameTimeInit(float fullPlayTime, float playTimeSpeed, float crushedGaugeTime, float fullScore, float scoreSpeed, int goalUnit)
+    {
+        this.fullPlayTime = fullPlayTime;
+        this.playTimeSpeed = playTimeSpeed;
+        this.crushedGaugeTime = crushedGaugeTime;
+        this.fullScore = fullScore;
+        this.scoreSpeed = scoreSpeed;
+        this.goalUnit = goalUnit;
+    }
     // ---------------------------------------------------------------
 
     private void Start()
     {
-        playTime = 0;
-        score = 0;
-        fever = 0;
-        isTwinkle = false;
         board = GameObject.Find("Board").GetComponent<BoardManager>();
-
-        // ui
-        scoreFill.fillAmount = 0;
-        timerFill.fillAmount = 0;
-        feverFillIMG.fillAmount = 0;
-
-        // set goal
-        if (PlayerPrefs.HasKey("goalUnit")) goalUnit = PlayerPrefs.GetInt("goalUnit");
-        goalInfo.SetGoal(goalUnit);
 
         // get variable about story from Fungus
         Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
@@ -107,16 +135,29 @@ public class MiniManager : MonoBehaviour
         // pattern
         pattern = SpawnPattern(patternIdx);
         pattern.StartPattern(patternLevel);
+
+        // init board option
+        InitBoardOption();
     }
 
-    // get fungus variable (check null)
-    int GetFungusVariable(Fungus.Flowchart flowchart, string variableName)
+    private void InitBoardOption()
     {
-        if (flowchart.GetVariable<Fungus.IntegerVariable>(variableName) != null)
-        {
-            return flowchart.GetVariable<Fungus.IntegerVariable>(variableName).Value;
-        }
-        return 0;
+        timer.transform.GetChild(1).gameObject.SetActive(false);
+
+        playTime = 0;
+        score = 0;
+        fever = 0;
+        isTwinkle = false;
+        totalCrushedGem = 0;
+        SetScoreUI();
+
+        // ui
+        scoreFill.fillAmount = 0;
+        timerFill.fillAmount = 0;
+        feverFillIMG.fillAmount = 0;
+
+        // set goal
+        goalInfo.SetGoal(goalUnit);
     }
 
     private PatternManager SpawnPattern(int patternIdx)
@@ -161,9 +202,6 @@ public class MiniManager : MonoBehaviour
     {
         if (bPuzzleMode)
         {
-            timerFill.fillAmount = playTime / fullPlayTime;
-            playTime += Time.deltaTime;
-
             if (playTime >= fullPlayTime)
             {
                 GameOver();
@@ -177,6 +215,7 @@ public class MiniManager : MonoBehaviour
             else if (playTime < fullPlayTime * 0.8f && isTwinkle == true)
             {
                 isTwinkle = false;
+                timer.GetComponent<Image>().sprite = timerOrigin;
                 StopCoroutine("TwinkleTimer");
             }
 
@@ -185,6 +224,11 @@ public class MiniManager : MonoBehaviour
                 feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFeverTime, feverTime);
                 feverTime -= Time.deltaTime;
                 if (feverTime <= 0) EndFever();
+            }
+            else
+            {
+                timerFill.fillAmount = playTime / fullPlayTime;
+                playTime += playTimeSpeed * Time.deltaTime;
             }
         }
     }
@@ -207,21 +251,20 @@ public class MiniManager : MonoBehaviour
 
     public void AddScore(int n)
     {
-        score += n;
+        score += (float)n * scoreSpeed;
+        totalCrushedGem += n;
         SetScoreUI();
-        int scorePercent = (int)((score / fullScore) * 100);
-        if (scorePercent > 100) scorePercent = 100;
-        // scoreTXT.text = (scorePercent).ToString() + " %";
-        // scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
 
         if (!bFeverOn)
         {
-            playTime -= 0.5f;
+            playTime -= n * crushedGaugeTime;
             AddFever(n);
         }
 
         // setting UI chatbox of character
-        int prevScorePercent = (int)((score - n) / fullScore * 100);
+        int scorePercent = (int)((score / fullScore) * 100);
+        if (scorePercent > 100) scorePercent = 100;
+        int prevScorePercent = (int)((score - (float)n * scoreSpeed) / fullScore * 100);
         if (prevScorePercent < 30 && scorePercent >= 30) pattern.SetUIText();
         else if (prevScorePercent < 35 && scorePercent >= 35) pattern.SetUIText();
         else if (prevScorePercent < 40 && scorePercent >= 40) pattern.SetUIText();
@@ -241,13 +284,13 @@ public class MiniManager : MonoBehaviour
     {
         int scorePercent = (int)((score / fullScore) * 100);
         if (scorePercent > 100) scorePercent = 100;
-        scoreTXT.text = (scorePercent).ToString() + " %";
+        scoreTXT.text = scorePercent.ToString() + " %";
         scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
     }
 
     public void AddFever(int n)
     {
-        playTime -= 0.5f;
+        playTime -= n * crushedGaugeTime;
         fever += n;
         feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
@@ -268,7 +311,7 @@ public class MiniManager : MonoBehaviour
         boardImg.sprite = puzzleBoardSP[1];
 
         // stop pattern
-        pattern.ClearPattern();
+        pattern.StopPattern();
 
         board.StartFever();
         feverBTN.enabled = false;
@@ -283,13 +326,14 @@ public class MiniManager : MonoBehaviour
         feverFillIMG.sprite = feverFillSP[0];
         feverIMG.sprite = feverSP[0];
 
-        fever = 0; feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
+        fever = 0; 
+        feverFillIMG.fillAmount = Mathf.InverseLerp(0, fullFever, fever);
 
         bFeverOn = false;
         if (bPuzzleMode && score < fullScore) board.EndFever();
 
         // restart pattern
-        if (bPuzzleMode && score < fullScore) pattern.RestartPattern();
+        if (bPuzzleMode && score < fullScore) pattern.StartPattern(patternLevel);
     }
 
     private void GameOver()
@@ -298,12 +342,16 @@ public class MiniManager : MonoBehaviour
         StopCoroutine("TwinkleTimer");
 
         timer.transform.GetChild(1).gameObject.SetActive(true);
+        timer.transform.GetChild(1).gameObject.GetComponent<Animator>().Play("mini_game_over");
 
         board.ClearBoard();
-        pattern.ClearPattern();
+        pattern.StopPattern();
         Invoke(nameof(GameOver_), 2.0f);
     }
-    private void GameOver_() { UIGameOver.SetActive(true); }
+    private void GameOver_() 
+    { 
+        UIGameOver.SetActive(true); 
+    }
 
     private void StartStoryMode()
     {
@@ -317,10 +365,7 @@ public class MiniManager : MonoBehaviour
         UIScore.SetActive(false);
         board.ClearBoard();
 
-        // D0회차_내담자이름난이도
-        string characterName = Enum.GetName(typeof(CharacterName), patternIdx + 1);
-        string[] levelName = { "Easy", "Normal", "Hard" };
-        string message = "D" + string.Format("{0:D2}", storyRound + 1) + "_" + characterName + levelName[miniGameLevel];
+        string message = GetFungusMessage();
         Fungus.Flowchart.BroadcastFungusMessage(message);
         Debug.Log(message);
     }
@@ -329,23 +374,20 @@ public class MiniManager : MonoBehaviour
     {
         bPuzzleMode = false;
         board.ClearBoardWithoutAnim();
-        pattern.ClearPattern();
+        pattern.StopPattern();
         RestartGameOver();
     }
 
     // after dialogue with client
-    public void RestartGame(string color, int gimmick_, string message)
+    public void RestartGame(string color, int gimmick_)
     {
-        fungusMessage = message;
-
-        score = 0; SetScoreUI();
         EndFever();
-        playTime = 0;
         UIScore.SetActive(true);
         board.InitBoard();
         bPuzzleMode = true;
 
         pattern.StartPattern(patternLevel);
+        InitBoardOption();
     }
 
     // after game over
@@ -353,9 +395,9 @@ public class MiniManager : MonoBehaviour
     {
         UIGameOver.SetActive(false);
 
-        score = 0; SetScoreUI();
+        InitBoardOption(); 
+        SetScoreUI();
         EndFever();
-        playTime = 0;
         UIScore.SetActive(true);
         if (bFeverOn)
         {
@@ -365,6 +407,6 @@ public class MiniManager : MonoBehaviour
         board.InitBoard();
         bPuzzleMode = true;
 
-        pattern.RestartPattern();
+        pattern.StartPattern(patternLevel);
     }
 }

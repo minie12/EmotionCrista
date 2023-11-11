@@ -214,8 +214,8 @@ public class BoardManager : MonoBehaviour
             clickEffect.SetActive(false);
 
             // add score if gem color is the goal color
-            if (currentGemColor == mini.patternIdx) mini.AddScore(mini.goalUnit);
-            else mini.AddFever(mini.goalUnit);
+            if (currentGemColor == mini.patternIdx) mini.AddScore(mini.GetGoalUnit());
+            else mini.AddFever(mini.GetGoalUnit());
 
             // Delete gems
             boardAUD.clip = defaultAUD;
@@ -223,14 +223,14 @@ public class BoardManager : MonoBehaviour
             goalInfo.EraseGems(column, row, true);
 
             // red gimmick
-            if (mini.patternIdx == (int)PatternType.RED && currentGemColor == 2 && mini.patternGimmick[0])
+            if (mini.patternIdx == (int)PatternType.RED && currentGemColor == 2 && mini.GetComponent<PatternRed>().IsRunningGimmick(0))
             {
                 mini.GetComponent<PatternRed>().InvokeExplosion();
                 return;
             }
 
             // purple gimmick
-            if (mini.patternIdx == (int)PatternType.PURPLE && mini.patternGimmick[0])
+            if (mini.patternIdx == (int)PatternType.PURPLE && mini.GetComponent<PatternPurple>().IsRunningGimmick(0))
             {
                 mini.GetComponent<PatternPurple>().CheckAfterCrush();
             }

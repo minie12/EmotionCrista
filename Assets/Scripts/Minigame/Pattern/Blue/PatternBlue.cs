@@ -20,31 +20,34 @@ public class PatternBlue : PatternManager
     {
         base.StartPattern(level_);
 
-        mini.patternGimmick = new bool[2];
-        gimmick = new bool[2];
-        level = level_;
-        OrganizeCharacterChat();
-
         // [TODO] ±‚»π
-        switch (level)
+        switch (level_)
         {
             case 0:
                 StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 1:
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 2:
                 StartGimmick(0);
+                StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 3:
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 4:
                 StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 5:
+                StartGimmick(0);
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
         }
     }
@@ -52,19 +55,11 @@ public class PatternBlue : PatternManager
     public override void StopPattern()
     {
         base.StopPattern();
-        CancelInvoke();
-        for (int i = 0; i < gimmick.GetLength(0); i++)
-        {
-            gimmick[i] = false;
-            mini.patternGimmick[i] = false;
-        }
     }
 
     public override void StartGimmick(int gimmick_)
     {
         base.StartGimmick(gimmick_);
-        mini.patternGimmick[gimmick_] = true;
-        gimmick[gimmick_] = true;
 
         switch (gimmick_)
         {
@@ -80,8 +75,6 @@ public class PatternBlue : PatternManager
     public override void StopGimmick(int gimmick_)
     {
         base.StopGimmick(gimmick_);
-        mini.patternGimmick[gimmick_] = false;
-        gimmick[gimmick_] = false;
 
         switch (gimmick_)
         {
@@ -94,17 +87,11 @@ public class PatternBlue : PatternManager
         }
     }
 
-    public override void RestartPattern()
-    {
-        base.RestartPattern();
-        StartPattern(level);
-    }
-
     // B1 -----------------------------------------------
     void B_StartWaterFill(){
         int waterGemCnt = 1;
         float rand = Random.value;
-        switch (level)
+        switch (mini.patternLevel)
         {
             case 0:
                 if (rand <= 0.6f) waterGemCnt = 1;
