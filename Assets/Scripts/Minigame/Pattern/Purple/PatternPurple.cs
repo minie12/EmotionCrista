@@ -32,6 +32,17 @@ public class PatternPurple : PatternManager
         eyePrefab = Resources.Load<GameObject>("Prefabs/MiniGame/eye");
     }
 
+    public override void OnCrushedGem(bool isMatchColor)
+    {
+        base.OnCrushedGem(isMatchColor);
+
+        // purple gimmick
+        if (gimmick[0])
+        {
+            CheckAfterCrush();
+        }
+    }
+
     public override void StartPattern(int level_)
     {
         base.StartPattern(level_);

@@ -222,18 +222,9 @@ public class BoardManager : MonoBehaviour
             boardAUD.Play();
             goalInfo.EraseGems(column, row, true);
 
-            // red gimmick
-            if (mini.patternIdx == (int)PatternType.RED && currentGemColor == 2 && mini.GetComponent<PatternRed>().IsRunningGimmick(0))
-            {
-                mini.GetComponent<PatternRed>().InvokeExplosion();
-                return;
-            }
-
-            // purple gimmick
-            if (mini.patternIdx == (int)PatternType.PURPLE && mini.GetComponent<PatternPurple>().IsRunningGimmick(0))
-            {
-                mini.GetComponent<PatternPurple>().CheckAfterCrush();
-            }
+            // related gimmick
+            mini.SetTotalCrushedGem(mini.GetGoalUnit());
+            mini.OnCrushedGemTrigger(currentGemColor);
 
             StartCoroutine(nameof(RefillBoard));
         }
@@ -511,10 +502,6 @@ public class BoardManager : MonoBehaviour
         feverCnt = 0;
         clickEffect.SetActive(false);
         bGemClicked = false;
-        if (mini.patternIdx == 2)
-        {
-            StartCoroutine(mini.GetComponent<PatternRed>().InitFire());
-        }
     }
 
     public void RefillBoardOut()

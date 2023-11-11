@@ -9,6 +9,10 @@ public class PatternBlue : PatternManager
 
     // bubble
     private GameObject bubble_PF;
+    private readonly float totalTime = 5f;
+    private int crushedBiasCnt = 15;
+    private int crushedGemLast = 0;
+    private bool bubbleShowing = false;
 
     protected override void Awake()
     {
@@ -16,40 +20,33 @@ public class PatternBlue : PatternManager
         bubble_PF = Resources.Load<GameObject>("Prefabs/MiniGame/bubble");
     }
 
+    public override void OnCrushedGem(bool isMatchColor)
+    {
+        base.OnCrushedGem(isMatchColor);
+
+        // buble
+        if (gimmick[1])
+        {
+            Debug.Log("crushed gem cnt" + mini.GetTotalCrushedGem());
+            int cnt = mini.GetTotalCrushedGem() / crushedBiasCnt;
+            Debug.Log("bubble gimmick" + cnt);
+            if(!bubbleShowing && cnt > crushedGemLast)
+            {
+                Debug.Log("bubble ");
+                BlueGimmick1();
+                bubbleShowing = true;
+                crushedGemLast = cnt;
+                StartCoroutine(BubbleTimer());
+            }
+        }
+    }
+
     public override void StartPattern(int level_)
     {
         base.StartPattern(level_);
+        crushedGemLast = 0;
 
-        // [TODO] ±‚»π
-        switch (level_)
-        {
-            case 0:
-                StartGimmick(0);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
-                break;
-            case 1:
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
-                break;
-            case 2:
-                StartGimmick(0);
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
-                break;
-            case 3:
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
-                break;
-            case 4:
-                StartGimmick(0);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
-                break;
-            case 5:
-                StartGimmick(0);
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
-                break;
-        }
+        RestartPattern();
     }
 
     public override void StopPattern()
@@ -64,10 +61,8 @@ public class PatternBlue : PatternManager
         switch (gimmick_)
         {
             case 0:
-                InvokeRepeating("B_StartWaterFill", 0.4f, waterFillTime);
                 break;
             case 1:
-                InvokeRepeating("B_StartBubble", 0.4f, bubbleTime);
                 break;
         }
     }
@@ -86,8 +81,43 @@ public class PatternBlue : PatternManager
                 break;
         }
     }
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
 
-    // B1 -----------------------------------------------
+        // [TODO] ±‚»π
+        switch (mini.patternLevel)
+        {
+            case 0:
+                StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                break;
+            case 1:
+                StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                break;
+            case 2:
+                StartGimmick(0);
+                StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                break;
+            case 3:
+                StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                break;
+            case 4:
+                StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                break;
+            case 5:
+                StartGimmick(0);
+                StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                break;
+        }
+    }
+
+    // B0 -----------------------------------------------
     void B_StartWaterFill(){
         int waterGemCnt = 1;
         float rand = Random.value;
@@ -129,19 +159,50 @@ public class PatternBlue : PatternManager
         }
     }
 
+    // B1 -----------------------------------------------
     void B_StartBubble()
     {
         // create object
-        GameObject temp = Instantiate(bubble_PF, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject temp = Instantiate(bubble_PF, new Vector3(0, 0, 0), Quaternion.identity, UICanvas.transform);
         temp.SetActive(false);
 
         // set position
-        Vector3 rand_pos = new Vector3(Random.Range(800.0f, 1600.0f), 0f, 5);
+        Vector2 rand_pos = new Vector3(Random.Range(800.0f, 1600.0f), 0f);
 
         // location object in screen
         temp.transform.position = Camera.main.ScreenToWorldPoint(rand_pos);
         float size = Random.Range(0.45f, 1.2f);
         temp.GetComponent<RectTransform>().localScale = new Vector3(size, size, 1);
         temp.SetActive(true);
+        Debug.Log(temp);
+    }
+
+    private IEnumerator CreateBubble(int bubbleCnt)
+    {
+        int cnt = 0;
+        while(cnt < bubbleCnt)
+        {
+            B_StartBubble();
+            float time = Random.Range(0.5f, totalTime / bubbleCnt);
+            cnt++;
+            yield return new WaitForSeconds(time);
+        }
+    }
+
+    private IEnumerator BubbleTimer()
+    {
+        float time = 0f;
+        while(time <= totalTime)
+        {
+            time += Time.deltaTime;
+        }
+        bubbleShowing = false;
+        yield return null;
+    }
+
+    private void BlueGimmick1()
+    {
+        int bubbleCnt = Random.Range(2, 10);
+        StartCoroutine(CreateBubble(bubbleCnt));
     }
 }

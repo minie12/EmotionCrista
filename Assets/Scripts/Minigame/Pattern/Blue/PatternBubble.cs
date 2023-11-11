@@ -22,6 +22,7 @@ public class PatternBubble : MonoBehaviour
         clicked = false;
         half_height = LayoutUtility.GetPreferredHeight(r_transform) / 2;
         bubbleId = Random.Range(0, bubbles.Length);
+        speed = Random.Range(0.06f, 0.1f);
         this.GetComponent<SpriteRenderer>().sprite = bubbles[bubbleId];
     }
 
@@ -29,7 +30,11 @@ public class PatternBubble : MonoBehaviour
     {
         transform.Translate(new Vector3(0, speed, 0));
 
-        if (r_transform.anchoredPosition.y + half_height > 10.0f) Destroy(this.gameObject);
+        if (r_transform.anchoredPosition.y + half_height > 10.0f)
+        {
+            GameObject.Find("MiniManager").GetComponent<PatternBlue>().SetFailGaugeMount(1);
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnMouseUp()

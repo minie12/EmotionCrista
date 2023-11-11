@@ -27,7 +27,7 @@ public struct PlayInfo
         playerName = "NoName";
         bMultiRound = true;
         dayCount = 1;
-        characterIndex = (int)CharacterName.Naria;
+        characterIndex = (int)CharacterName.Lulian;
         bAfterCounsel = false;
     }
 }

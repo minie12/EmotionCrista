@@ -33,6 +33,10 @@ public class MiniManager : MonoBehaviour
     public GameObject UIGameOver;
     public GameObject timer;
     public Sprite timerOrigin, timerRed;
+    public Sprite[] Characters;
+
+    // Counselee Color
+    public Color[] counseleeColor;
 
     // timer
     private float fullPlayTime = 50f; 
@@ -119,6 +123,16 @@ public class MiniManager : MonoBehaviour
         this.scoreSpeed = scoreSpeed;
         this.goalUnit = goalUnit;
     }
+
+    public void SetPlayTime(float offset)
+    {
+        playTime += offset;
+    }
+
+    public void SetTotalCrushedGem(int cnt)
+    {
+        totalCrushedGem += cnt;
+    }
     // ---------------------------------------------------------------
 
     private void Start()
@@ -138,6 +152,9 @@ public class MiniManager : MonoBehaviour
         // pattern
         pattern = SpawnPattern(patternIdx);
         pattern.StartPattern(patternLevel);
+        GameObject.Find("Counselee").GetComponent<SpriteRenderer>().sprite = Characters[patternIdx];
+        scoreFill.GetComponent<Image>().color = counseleeColor[patternIdx];
+        scoreFill.transform.GetChild(0).GetComponent<Image>().color = counseleeColor[patternIdx];
 
         // init board option
         InitBoardOption();
@@ -255,7 +272,6 @@ public class MiniManager : MonoBehaviour
     public void AddScore(int n)
     {
         score += (float)n * scoreSpeed;
-        totalCrushedGem += n;
         SetScoreUI();
 
         if (!bFeverOn)
@@ -336,7 +352,7 @@ public class MiniManager : MonoBehaviour
         if (bPuzzleMode && score < fullScore) board.EndFever();
 
         // restart pattern
-        if (bPuzzleMode && score < fullScore) pattern.StartPattern(patternLevel);
+        if (bPuzzleMode && score < fullScore) pattern.RestartPattern();
     }
 
     private void GameOver()
@@ -416,5 +432,10 @@ public class MiniManager : MonoBehaviour
     public void SetAfterCounsel(bool bInAfterCounsel)
     {
         GameManager.Get().SetAfterCounsel(bInAfterCounsel);
+    }
+
+    public void OnCrushedGemTrigger(int color)
+    {
+        this.pattern.OnCrushedGem(color == this.patternIdx);
     }
 }
