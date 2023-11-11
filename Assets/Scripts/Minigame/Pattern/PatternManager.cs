@@ -9,12 +9,13 @@ public class PatternManager : MonoBehaviour
     protected Text chatTXT;
     protected MiniManager mini;
     protected BoardManager board;
-    protected bool[] gimmick;
-    protected int level = (int)LevelType.EASY1; // difficulty
+    protected bool[] gimmick; // manage current running gimmick
 
     // chat UI 
     protected string[] chatTextInfo;
     protected int chatTextIdx = 0;
+
+    private readonly int[] gimmickCnt = new int[5] { 3, 3, 2, 2, 2 };
 
     protected virtual void Awake(){
         UICanvas = GameObject.Find("PatternCanvas");
@@ -23,13 +24,37 @@ public class PatternManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
-    virtual public void StartPattern(int level_) { }
-    virtual public void StopPattern() { }
-    virtual public void StartGimmick(int gimmick_){ }
-    virtual public void StopGimmick(int gimmick_){ }
-    virtual public void RestartPattern(){ }
+    virtual public void StartPattern(int level_) 
+    {
+        mini.patternLevel = level_;
+        gimmick = new bool[gimmickCnt[mini.patternIdx]];
+        OrganizeCharacterChat();
+    }
 
-    public void OrganizeCharacterChat(){
+    virtual public void StopPattern() 
+    {
+        // de-activate all pattern objects
+        foreach (Transform child in UICanvas.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // stop all gimmick
+        for (int i = 0; i < gimmickCnt[mini.patternIdx]; i++)
+        {
+            StopGimmick(i);
+        }
+    }
+    virtual public void StartGimmick(int gimmick_)
+    {
+        this.gimmick[gimmick_] = true;
+    }
+    virtual public void StopGimmick(int gimmick_)
+    {
+        this.gimmick[gimmick_] = false;
+    }
+
+    private void OrganizeCharacterChat(){
         chatTextIdx = 0;
 
         string storyIndex = mini.GetFungusMessage();
@@ -53,11 +78,8 @@ public class PatternManager : MonoBehaviour
         }
     }
 
-    public void ClearPattern(){
-        CancelInvoke(); // stop spawning 
-
-        // de-activate all pattern objects
-        foreach (Transform child in UICanvas.transform)
-            child.gameObject.SetActive(false);
+    public bool IsRunningGimmick(int gimmick_)
+    {
+        return this.gimmick[gimmick_];
     }
 }

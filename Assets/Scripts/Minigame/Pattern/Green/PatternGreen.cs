@@ -29,13 +29,8 @@ public class PatternGreen : PatternManager
     {
         base.StartPattern(level_);
 
-        mini.patternGimmick = new bool[2];
-        gimmick = new bool[2];
-        level = level_;
-        OrganizeCharacterChat();
-
         // [TODO] ±‚»π
-        switch (level)
+        switch (level_)
         {
             case 0:
                 StartGimmick(0);
@@ -61,19 +56,11 @@ public class PatternGreen : PatternManager
     public override void StopPattern()
     {
         base.StopPattern();
-        CancelInvoke();
-        for (int i = 0; i < gimmick.GetLength(0); i++)
-        {
-            gimmick[i] = false;
-            mini.patternGimmick[i] = false;
-        }
     }
 
     public override void StartGimmick(int gimmick_)
     {
         base.StartGimmick(gimmick_);
-        gimmick[gimmick_] = true;
-        mini.patternGimmick[gimmick_] = true;
 
         switch (gimmick_)
         {
@@ -89,8 +76,6 @@ public class PatternGreen : PatternManager
     public override void StopGimmick(int gimmick_)
     {
         base.StopGimmick(gimmick_);
-        gimmick[gimmick_] = false;
-        mini.patternGimmick[gimmick_] = false;
 
         switch (gimmick_)
         {
@@ -101,12 +86,6 @@ public class PatternGreen : PatternManager
                 CancelInvoke("GreenGimmick1");
                 break;
         }
-    }
-
-    public override void RestartPattern()
-    {
-        base.RestartPattern();
-        StartPattern(level);
     }
 
     GemInfo GetNotGreenGemRandom(int standard_c, int standard_r)
@@ -161,7 +140,7 @@ public class PatternGreen : PatternManager
         greenGem.FadeOut(0.5f);
 
         // just create image
-        GameObject specialGem = Instantiate(gemPF, greenGem.GetComponent<Transform>().position, Quaternion.identity, this.transform);
+        GameObject specialGem = Instantiate(gemPF, greenGem.GetComponent<Transform>().position, Quaternion.identity, UICanvas.transform);
         specialGem.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 3;
         GemInfo specialGemInfo = specialGem.GetComponent<GemInfo>();
         specialGemInfo.SetBackgroundColor(255f, 255f, 255f, 0f);
@@ -402,7 +381,7 @@ public class PatternGreen : PatternManager
         area[col_, row_] = true;
 
         // hard mode
-        if(level == (int)LevelType.HARD1 || level == (int)LevelType.HARD2)
+        if(mini.patternLevel == (int)LevelType.HARD1 || mini.patternLevel == (int)LevelType.HARD2)
         {
             int idx = col_ % 2;
             int[,] goal_area = GameObject.Find("Board").GetComponent<GoalInfo>().GetGoal();
@@ -461,7 +440,7 @@ public class PatternGreen : PatternManager
         ClearArea();
         GemInfo gem = board.GetRandomGemArea();
         int level_ = 1;
-        if (level == (int)LevelType.EASY1 || level == (int)LevelType.EASY2)
+        if (mini.patternLevel == (int)LevelType.EASY1 || mini.patternLevel == (int)LevelType.EASY2)
         {
             level_ = 2;
         }

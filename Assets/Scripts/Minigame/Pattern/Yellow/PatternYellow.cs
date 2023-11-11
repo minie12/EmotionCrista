@@ -20,7 +20,7 @@ public class PatternYellow : PatternManager
     private float fadeTime = 1f;
     private float heartbeatTime = 1f;
     private float heartSizeOffset = 0.88f;
-    private float fullSpawnTime = 2;
+    private float fullSpawnTime = 5f;
     private float dropTime = 0.2f;
 
     private GameObject gemPF;
@@ -38,31 +38,36 @@ public class PatternYellow : PatternManager
     public override void StartPattern(int level_){
         base.StartPattern(level_);
 
-        mini.patternGimmick = new bool[3];
-        gimmick = new bool[3];
-        level = level_;
-        OrganizeCharacterChat();
-
         // [TODO] ±‚»π
-        switch (level)
+        switch (level_)
         {
             case 0:
                 StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 1:
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 2:
+                StartGimmick(0);
+                StartGimmick(1);
                 StartGimmick(2);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 3:
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 4:
                 StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 5:
+                StartGimmick(0);
+                StartGimmick(1);
                 StartGimmick(2);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
         }
     }
@@ -70,34 +75,26 @@ public class PatternYellow : PatternManager
     public override void StopPattern()
     {
         base.StopPattern();
-        CancelInvoke();
-        for (int i = 0; i < gimmick.GetLength(0); i++)
-        {
-            gimmick[i] = false;
-            mini.patternGimmick[i] = false;
-        }
     }
 
     public override void StartGimmick(int gimmick_)
     {
         base.StartGimmick(gimmick_);
-        mini.patternGimmick[gimmick_] = true;
-        gimmick[gimmick_] = true;
 
         switch (gimmick_)
         {
             case 0:
                 chatBoxIdx = 0;
                 chatBoxes = GetChatInitArray(0);
-                Invoke("Y_SpawnChatBox", fullSpawnTime);
+                Invoke("Y_SpawnChatBox", Random.Range(1f, fullSpawnTime));
                 break;
             case 1:
                 chatFlowIdx = 0;
                 chatFlows = GetChatInitArray(1);
-                Invoke("Y_SpawnChatFlow", fullSpawnTime);
+                Invoke("Y_SpawnChatFlow", Random.Range(1f, fullSpawnTime));
                 break;
             case 2:
-                InvokeRepeating("Y_HeartBeat", fullSpawnTime, 60f);
+                InvokeRepeating("Y_HeartBeat", Random.Range(1f, fullSpawnTime), 60f);
                 break;
         }
     }
@@ -105,8 +102,6 @@ public class PatternYellow : PatternManager
     public override void StopGimmick(int gimmick_)
     {
         base.StopGimmick(gimmick_);
-        mini.patternGimmick[gimmick_] = false;
-        gimmick[gimmick_] = false;
 
         switch (gimmick_)
         {
@@ -120,12 +115,6 @@ public class PatternYellow : PatternManager
                 CancelInvoke("Y_HeartBeat");
                 break;
         }
-    }
-
-    public override void RestartPattern()
-    {
-        base.RestartPattern();
-        StartPattern(level);
     }
 
     GameObject[] GetChatInitArray(int gimmick_)
@@ -172,7 +161,7 @@ public class PatternYellow : PatternManager
         go.SetActive(true);
         go.transform.DOScale(new Vector3(size-0.15f, size-0.15f), 0.25f);
         yield return new WaitForSeconds(0.2f);
-        go.GetComponent<AudioSource>().Play();
+        go.GetComponent<AudioSource>()?.Play();
         go.transform.DOScale(new Vector3(size, size), 0.1f);
     }
 
@@ -273,7 +262,7 @@ public class PatternYellow : PatternManager
         gem.FadeIn(fadeTime);
 
         // ghost effect
-        GemInfo temp = Instantiate(gemPF, gem.transform.position, Quaternion.identity, this.transform).GetComponent<GemInfo>();
+        GemInfo temp = Instantiate(gemPF, gem.transform.position, Quaternion.identity, UICanvas.transform).GetComponent<GemInfo>();
         SetGemFeature(temp, fadeTime + 0.1f, 1.6f);
         temp.SetBackgroundColor(255f, 255f, 255f, 0f); // background transparency
         temp.SetSpriteColor(188f, 188f, 188f, 110f);

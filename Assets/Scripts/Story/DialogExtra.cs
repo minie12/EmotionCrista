@@ -92,9 +92,9 @@ public class DialogExtra : MonoBehaviour
     //}
 
     #region Minigame
-    public void RestartPuzzle(string color, int gimmick, string message)
+    public void RestartPuzzle(string color, int gimmick)
     {
-        GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGame(color, gimmick, message);
+        GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGame(color, gimmick);
     }
 
     // minigame option (pause)
