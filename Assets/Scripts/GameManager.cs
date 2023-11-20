@@ -27,7 +27,7 @@ public struct PlayInfo
         playerName = "NoName";
         bMultiRound = true;
         dayCount = 1;
-        characterIndex = (int)CharacterName.Lulian;
+        characterIndex = (int)CharacterName.Ilrak;
         bAfterCounsel = false;
     }
 }

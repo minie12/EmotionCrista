@@ -500,6 +500,7 @@ public class BoardManager : MonoBehaviour
     public void StartFever()
     {
         feverCnt = 0;
+        EraseGemOutline();
         clickEffect.SetActive(false);
         bGemClicked = false;
     }
@@ -570,7 +571,8 @@ public class BoardManager : MonoBehaviour
     {
         boardAUD.clip = defaultAUD;
         boardAUD.Play();
-        mini.AddScore(1);
+        if (GetGemColor(column_, row_) == mini.patternIdx) mini.AddScore(1);
+        else mini.AddScore(0.5f);
         DelGem(column_, row_);
 
         // in case player clicks all gem before Fever ends
@@ -617,16 +619,56 @@ public class BoardManager : MonoBehaviour
         return gem;
     }
 
-    public GemInfo GetPatternGemRandom()
+    public List<List<GemInfo>> GetPatternGems()
     {
-        while (true)
+        List<List<GemInfo>> gems = new List<List<GemInfo>>(5) { new List<GemInfo>(), new List<GemInfo>(), new List<GemInfo>(), new List<GemInfo>(), new List<GemInfo>() };
+
+        for(int i = 0; i < 11; i++)
         {
-            GemInfo randGem = GetRandomGem();
-            if (randGem.GetColor() == mini.patternIdx)
+            for(int j = 0; j < 6; j++)
             {
-                return randGem;
+                GemInfo gem = GetGem(i, j);
+                if(gem != null)
+                {
+                    gems[gem.GetColor()].Add(gem);
+                }
             }
         }
+
+        return gems;
+    }
+
+    public GemInfo GetPatternGemRandom()
+    {
+        List<List<GemInfo>> gems = GetPatternGems();
+
+        if(gems[mini.patternIdx].Count == 0)
+        {
+            return null;
+        }
+        int idx = (int)Random.Range(0, gems[mini.patternIdx].Count);
+        return gems[mini.patternIdx][idx];
+    }
+
+    public List<GemInfo> GetPatternGemManyRandom(int cnt)
+    {
+        List<List<GemInfo>> gems = GetPatternGems();
+        Debug.Log("ÆÐÅÏ Áª " + cnt + ", " + gems[mini.patternIdx].Count);
+        cnt = gems[mini.patternIdx].Count < cnt ? gems[mini.patternIdx].Count : cnt;
+
+
+        List<GemInfo> result = new List<GemInfo>();
+        for (int i = 0; i < cnt; )
+        {
+            GemInfo gem = GetPatternGemRandom();
+            if (!result.Contains(gem))
+            {
+                result.Add(gem);
+                i++;
+            }
+        }
+
+        return result;
     }
 
     public GemInfo GetRandomGemOnWay(int current_c, int current_r)

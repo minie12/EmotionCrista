@@ -363,7 +363,7 @@ public class PatternGreen : PatternManager
                         float interval = 0.3f;
                         Vector3 newPos = new Vector3(originPos.x + Random.Range(-interval, interval), originPos.y + Random.Range(-interval, interval), originPos.z);
                         //bug.GetComponent<PatternAreaBug>().SetBugPos(newPos);
-                        //bug.transform.localEulerAngles = new Vector3(0f, 0f, Random.Range(0f, 360f));
+                        bug.transform.localEulerAngles = new Vector3(0f, 0f, Random.Range(0f, 360f));
                         //bug.transform.position = board.GetDropPosition(i);
                         //bug.GetComponent<PatternAreaBug>().FallBug();
                         bug.transform.position = newPos;
