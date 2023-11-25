@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TestLoadMini : MonoBehaviour
 {
-    public static int patternIdx = 3;
+    public static int patternIdx = 4;
     public static int patternGimmick;
-    public static int patternLevel = 1;
+    public static int patternLevel = 5;
 
     public void YellowStamp()
     {

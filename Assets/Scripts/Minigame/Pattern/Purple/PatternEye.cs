@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ public class PatternEye : MonoBehaviour
     private List<GameObject> eyeChildrens = new List<GameObject>();
     private Animator animator;
     private bool check = false;
+    private int flip = 0;
 
     private void Start()
     {
@@ -15,6 +16,13 @@ public class PatternEye : MonoBehaviour
 
         // all children non - activation
         SetObjectActive(false);
+
+        // random flip
+        flip = Random.Range(0, 2);
+        if (flip == 1)
+        {
+            transform.localScale = new Vector3((-1) * transform.localScale.x, transform.localScale.y, 1);
+        }
     }
 
     private void Update()
