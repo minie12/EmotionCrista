@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,26 +29,45 @@ public class PatternGreen : PatternManager
     {
         base.StartPattern(level_);
 
-        // [TODO] ±‚»π
-        switch (level_)
+        // init values
+        check = new bool[11, 6];
+        area = new bool[11, 6];
+
+        RestartPattern();
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+
+        // [TODO] Í∏∞Ìöç
+        switch (mini.patternLevel)
         {
             case 0:
                 StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 1:
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 2:
                 StartGimmick(0);
+                StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 3:
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 4:
                 StartGimmick(0);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 5:
+                StartGimmick(0);
                 StartGimmick(1);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
         }
     }
@@ -315,61 +334,31 @@ public class PatternGreen : PatternManager
             Destroy(bugs[i]);
         }
 
-        //// set bugs (extends area)
-        //List<int> bugC = new List<int>();
-        //List<int> bugR = new List<int>();
-        //for(int i = 0; i < 11; i++)
-        //{
-        //    for(int j = 0; j < 6; j++)
-        //    {
-        //        if (j == 5 && i % 2 == 0)
-        //        {
-        //            continue;
-        //        }
-        //        if (area[i, j])
-        //        {
-        //            bugC.Add(i);
-        //            bugR.Add(j);
-        //        }
-        //    }
-        //}
-        //int midIndex = (bugC.Count) / 2;
-        //Vector3 gemPos = board.GetGemPosition(bugC[midIndex], bugR[midIndex]);
-        //GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
-        //bug.transform.localScale = new Vector3(6f, 6f, 0f);
-        //Color origin = bug.GetComponent<SpriteRenderer>().color;
-        //bug.GetComponent<SpriteRenderer>().color = new Color(origin.r, origin.g, origin.b, 0.3f);
-        //bug.GetComponent<PatternAreaBug>().FadeIn(0.5f);
-        //bugs.Add(bug);
-
-
+        // create bugs (extends area)
         for (int i = 0; i < 11; i++)
         {
             for (int j = 0; j < 6; j++)
             {
-                if (j == 5 && i % 2 == 0)
+                if ((j == 5 && i % 2 == 0) || area[i, j])
                 {
                     continue;
                 }
+               
+                Vector3 gemPos = board.GetGemPosition(i, j);
 
-                if (!area[i, j])
+                for (int k = 0; k < 2; k++)
                 {
-                    Vector3 gemPos = board.GetGemPosition(i, j);
-
-                    for (int k = 0; k < 2; k++)
-                    {
-                        GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
-                        Vector3 originPos = bug.transform.position;
-                        float interval = 0.3f;
-                        Vector3 newPos = new Vector3(originPos.x + Random.Range(-interval, interval), originPos.y + Random.Range(-interval, interval), originPos.z);
-                        //bug.GetComponent<PatternAreaBug>().SetBugPos(newPos);
-                        bug.transform.localEulerAngles = new Vector3(0f, 0f, Random.Range(0f, 360f));
-                        //bug.transform.position = board.GetDropPosition(i);
-                        //bug.GetComponent<PatternAreaBug>().FallBug();
-                        bug.transform.position = newPos;
-                        bug.GetComponent<PatternAreaBug>().SizeDown();
-                        bugs.Add(bug);
-                    }
+                    GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
+                    Vector3 originPos = bug.transform.position;
+                    float interval = 0.2f;
+                    Vector3 newPos = new Vector3(originPos.x + Random.Range(-interval, interval), originPos.y + Random.Range(-interval, interval), originPos.z);
+                    //bug.GetComponent<PatternAreaBug>().SetBugPos(newPos);
+                    bug.transform.localEulerAngles = new Vector3(0f, 0f, Random.Range(0f, 360f));
+                    //bug.transform.position = board.GetDropPosition(i);
+                    //bug.GetComponent<PatternAreaBug>().FallBug();
+                    bug.transform.position = newPos;
+                    bug.GetComponent<PatternAreaBug>().SizeDown();
+                    bugs.Add(bug);
                 }
             }
         }
@@ -391,7 +380,7 @@ public class PatternGreen : PatternManager
                 int new_row = row_ + goal_area[idx, i + 1];
                 if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0 || (new_col % 2 == 0 && new_row > 4))
                 {
-                    Debug.Log("øµø™ π¸¿ß ≥—æÓº≠ Area ¿Áº≥¡§");
+                    Debug.Log("ÏòÅÏó≠ Î≤îÏúÑ ÎÑòÏñ¥ÏÑú Area Ïû¨ÏÑ§Ï†ï");
                     SetAreaAgain();
                     return false;
                 }
@@ -417,7 +406,7 @@ public class PatternGreen : PatternManager
             int new_row = row_ + direction[i, 1];
             if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0 || (new_col % 2 == 0 && new_row > 4))
             {
-                Debug.Log("øµø™ π¸¿ß ≥—æÓº≠ Area ¿Áº≥¡§");
+                Debug.Log("ÏòÅÏó≠ Î≤îÏúÑ ÎÑòÏñ¥ÏÑú Area Ïû¨ÏÑ§Ï†ï");
                 SetAreaAgain();
                 return false;
             }

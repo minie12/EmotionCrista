@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,6 +62,8 @@ public class PatternManager : MonoBehaviour
     {
         this.gimmick[gimmick_] = false;
     }
+    
+    // 이어하기에 가까운 함수 !!
     virtual public void RestartPattern() { }
 
     private void OrganizeCharacterChat(){
