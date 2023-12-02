@@ -15,7 +15,7 @@ namespace Fungus
         [Tooltip("Conditions to execute the block.")]
         [SerializeField] protected int storyRound = 1;
         [SerializeField] protected int characterIndex = 1;
-        [SerializeField] protected bool afterCounsel = false;
+        [SerializeField] protected bool bHaveReport = false;
 
         #region Public members
 
@@ -28,9 +28,9 @@ namespace Fungus
 
             int varStoryRound = flowchart.GetVariable<IntegerVariable>("StoryRound").Value;
             int varCharacterIndex = flowchart.GetVariable<IntegerVariable>("CharacterIndex").Value;
-            bool varAfterCounsel= flowchart.GetVariable<BooleanVariable>("AfterCounsel").Value;
+            bool varHaveReport = flowchart.GetVariable<BooleanVariable>("HaveReport").Value;
             if ((clickableObject == this.clickableObject) &&
-                (varStoryRound == storyRound) && (varCharacterIndex == characterIndex) && (varAfterCounsel == afterCounsel))
+                (varStoryRound == storyRound) && (varCharacterIndex == characterIndex) && (varHaveReport == bHaveReport))
             {
                 StartCoroutine(DoExecuteBlock(waitFrames));
             }

@@ -1,0 +1,91 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
+[System.Serializable]
+struct GameSettingData
+{
+    public bool bFullScreen;
+
+    public bool bMultiRound;
+
+    public void Initialize()
+    {
+        bFullScreen = true; 
+        bMultiRound = false;
+    }
+}
+
+public class SystemManager  : MonoBehaviour
+{
+    public static SystemManager instance;
+    private string gameSettingDataPath;
+
+    private GameSettingData gameSetting;
+
+    void Awake()
+    {
+        gameSettingDataPath = string.Format("{0}/{1}.bin", Application.persistentDataPath, "GS1127");
+
+        if (instance == null) // If there is no instance already
+        {
+            DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
+            instance = this;
+
+            gameSetting.Initialize();
+
+            LoadGameSetting();
+
+            Screen.SetResolution(1920, 1080, gameSetting.bFullScreen);
+        }
+        else if (instance != this) // If there is already an instance and it's not `this` instance
+        {
+            Destroy(gameObject); // Destroy the GameObject, this component is attached to
+        }
+    }
+
+    static public SystemManager Get()
+    {
+        return instance;
+    }
+
+    public void SetMultiRound(bool bInRound) { gameSetting.bMultiRound = bInRound; }
+    public bool IsMultiRound() { return gameSetting.bMultiRound; }
+
+    public void SaveGameSetting()
+    {
+        // Save To File
+        FileStream stream = new FileStream(gameSettingDataPath, FileMode.Create);
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        formatter.Serialize(stream, gameSetting);
+
+        stream.Close();
+    }
+
+    void LoadGameSetting()
+    {
+        if (File.Exists(gameSettingDataPath))
+        {
+            FileStream stream = new FileStream(gameSettingDataPath, FileMode.Open);
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            gameSetting = (GameSettingData)formatter.Deserialize(stream);
+
+            stream.Close();
+        }
+    }
+
+    // DEBUG
+    public void EraseData()
+    {
+        if (File.Exists(gameSettingDataPath))
+        {
+            File.Delete(gameSettingDataPath);
+        }
+
+        gameSetting.Initialize();
+    }
+}

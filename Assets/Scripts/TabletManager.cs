@@ -18,8 +18,9 @@ public class TabletManager : MonoBehaviour
     }
 
     public void FinishSurvey(){
-        if(surveyCnt >= 4) {
+        if(surveyCnt >= 5) {
             surveyCnt = 0;
+            GameManager.Get().SetHaveReport(false);
             Fungus.Flowchart.BroadcastFungusMessage("SurveyEnded");
         }
     }
