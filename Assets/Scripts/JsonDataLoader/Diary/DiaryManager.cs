@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +10,11 @@ public class DiaryManager : MonoBehaviour
 
     public void SetDiaryText()
     {
-        bool bMultiRound = GameManager.Get().IsMultiRound();
+        bool bMultiRound = SystemManager.Get().IsMultiRound();
         int characterIndex = GameManager.Get().GetCharacterIndex();
+        bool bRedButtonPressed = GameManager.Get().IsRedButtonPressed();
 
-        diaryText.text = DiaryDialogReader.GetDialogData(bMultiRound, characterIndex);
+        diaryText.text = DiaryDialogReader.GetDialogData(bMultiRound, characterIndex, bRedButtonPressed);
     }
 
     public void LoadLoadingScene()

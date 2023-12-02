@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,18 +17,24 @@ public enum CharacterName
 public struct PlayInfo
 {
     public string playerName;
-    public bool bMultiRound;
     public int dayCount;
     public int characterIndex;
-    public bool bAfterCounsel;
+
+    public bool bHaveReport;
+    public bool bRedButtonPressed;
+
+    public int endingMode;
 
     public void Initialize()
     {
         playerName = "NoName";
-        bMultiRound = true;
         dayCount = 1;
-        characterIndex = (int)CharacterName.Ilrak;
-        bAfterCounsel = false;
+        characterIndex = (int)CharacterName.Naria;
+
+        bHaveReport = false;
+        bRedButtonPressed = false;
+
+        endingMode = (int)EndingMode.None;
     }
 }
 
@@ -55,7 +61,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Screen.SetResolution(1920, 1080, true);
         if (instance == null) // If there is no instance already
         {
             DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
@@ -64,10 +69,8 @@ public class GameManager : MonoBehaviour
             currentPlayInfo.Initialize();
 
             loadManager = this.GetComponent<LoadManager>();
-            if (null == loadManager)
-            {
-                Debug.LogError("[GameManager] Add 'LoadManager' Script to 'GameManager' gameobject");
-            }
+                
+            Debug.Assert(loadManager != null, "[GameManager] Add 'LoadManager' Script to 'GameManager' gameobject");
 
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -102,20 +105,26 @@ public class GameManager : MonoBehaviour
             loadManager.LoadGameData(); // load game data from saved file
         }
 
+        // Set Fungus variables to PlayInfo
         GameObject GO_flowchart = GameObject.Find("Flowchart");
         if (null != GO_flowchart)
         {
             Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
             if (null != flowchart)
             {
+                flowchart.SetBooleanVariable("MultiRound", SystemManager.Get().IsMultiRound());
+
                 flowchart.SetStringVariable("PlayerName", currentPlayInfo.playerName);
-                flowchart.SetBooleanVariable("MultiRound", currentPlayInfo.bMultiRound);
-                flowchart.SetIntegerVariable("DayCount", currentPlayInfo.dayCount);
                 flowchart.SetIntegerVariable("CharacterIndex", currentPlayInfo.characterIndex);
-                flowchart.SetBooleanVariable("AfterCounsel", currentPlayInfo.bAfterCounsel);
+
+                flowchart.SetBooleanVariable("HaveReport", currentPlayInfo.bHaveReport);
+                // RedButton
+
+                flowchart.SetIntegerVariable("EndingMode", currentPlayInfo.endingMode);
             }
         }
 
+        // Set PlayerName
         GameObject GO_playerCharacter = GameObject.Find("Player");
         if (null != GO_playerCharacter)
         {
@@ -126,13 +135,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Set UI Info
         GameObject GO_UICanvas = GameObject.Find("GameUICanvas");
         if (null != GO_UICanvas)
         {
             UICanvasManager UICanvasManager = GO_UICanvas.GetComponent<UICanvasManager>();
             if (null != UICanvasManager)
             {
-                UICanvasManager.OnSceneLoaded(Scene.name, currentPlayInfo.dayCount, currentPlayInfo.bAfterCounsel);
+                UICanvasManager.OnSceneLoaded(Scene.name, currentPlayInfo.dayCount, currentPlayInfo.bHaveReport);
             }
         }
     }
@@ -141,38 +151,79 @@ public class GameManager : MonoBehaviour
     public void GetPlayInfo(ref PlayInfo refPlayInfo)
     {
         refPlayInfo.playerName = currentPlayInfo.playerName;
-        refPlayInfo.bMultiRound = currentPlayInfo.bMultiRound;
         refPlayInfo.dayCount = currentPlayInfo.dayCount;
         refPlayInfo.characterIndex = currentPlayInfo.characterIndex;
-        refPlayInfo.bAfterCounsel = currentPlayInfo.bAfterCounsel;
+
+        refPlayInfo.bHaveReport = currentPlayInfo.bHaveReport;
+        refPlayInfo.bRedButtonPressed = currentPlayInfo.bRedButtonPressed;
+
+        refPlayInfo.endingMode = currentPlayInfo.endingMode;
     }
     public void SetPlayInfo(PlayInfo inPlayInfo)
     {
         currentPlayInfo.playerName = inPlayInfo.playerName;
-        currentPlayInfo.bMultiRound = inPlayInfo.bMultiRound;
         currentPlayInfo.dayCount = inPlayInfo.dayCount;
         currentPlayInfo.characterIndex = inPlayInfo.characterIndex;
-        currentPlayInfo.bAfterCounsel = inPlayInfo.bAfterCounsel;
+
+        currentPlayInfo.bHaveReport = inPlayInfo.bHaveReport;
+        currentPlayInfo.bRedButtonPressed = inPlayInfo.bRedButtonPressed;
+
+        currentPlayInfo.endingMode = inPlayInfo.endingMode;
     }
     public void ProceedNextDay()
     {
         currentPlayInfo.dayCount += 1;
-        currentPlayInfo.characterIndex += 1;
-        currentPlayInfo.bAfterCounsel = false;
+        currentPlayInfo.characterIndex = GetPatientIndex(currentPlayInfo.dayCount);
+
+        currentPlayInfo.bHaveReport = false;
+        currentPlayInfo.bRedButtonPressed = false;
     }
-    public void SetFirstRoundPlayInfo()
+
+    public void ResetPlayInfo()
     {
-        currentPlayInfo.bMultiRound = false;
+        currentPlayInfo.playerName = "NoName";
         currentPlayInfo.dayCount = 1;
         currentPlayInfo.characterIndex = 0;
-        currentPlayInfo.bAfterCounsel = false;
+
+        currentPlayInfo.bHaveReport = false;
+        currentPlayInfo.bRedButtonPressed = false;
+
+        currentPlayInfo.endingMode = (int)EndingMode.None;
     }
+
+    public void ResetPlayInfoDebug()
+    {
+        ResetPlayInfo();
+
+        currentPlayInfo.dayCount = 3;
+        currentPlayInfo.characterIndex = (int)CharacterName.Russel;
+    }
+
+    public void SetEndingMode(EndingMode inMode) { currentPlayInfo.endingMode = (int)inMode; }
     #endregion
 
+    int GetPatientIndex(int inDayCount)
+    {
+        switch (inDayCount)
+        {
+            case 1:
+                return (int)CharacterName.Naria;
+            case 2:
+                return (int)CharacterName.Lulian;
+            case 3:
+                return (int)CharacterName.Russel;
+            case 4:
+                return (int)CharacterName.Nish;
+            case 5:
+                return (int)CharacterName.Ilrak;
+        }
+        return (int)CharacterName.Max;
+    }
+
     #region GetterSetter
-    public bool IsMultiRound() { return currentPlayInfo.bMultiRound; }
+    public bool IsRedButtonPressed() { return currentPlayInfo.bRedButtonPressed; }
     public int GetDayCount() { return currentPlayInfo.dayCount; }
     public int GetCharacterIndex() { return currentPlayInfo.characterIndex; }
-    public void SetAfterCounsel(bool bInAfterCounsel) { currentPlayInfo.bAfterCounsel = bInAfterCounsel; }
+    public void SetHaveReport(bool bInHaveReport) { currentPlayInfo.bHaveReport = bInHaveReport; }
     #endregion
 }

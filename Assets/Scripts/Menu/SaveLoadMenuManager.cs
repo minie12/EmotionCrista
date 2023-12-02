@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class SaveLoadManager : MonoBehaviour
+public class SaveLoadMenuManager : MonoBehaviour
 {
     string directoryName = "Saves";
 

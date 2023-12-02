@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -85,7 +85,7 @@ public class MiniManager : MonoBehaviour
     // Get & Set -----------------------------------------------------
     public string GetFungusMessage() 
     {
-        // D0È¸Â÷_³»´ãÀÚÀÌ¸§³­ÀÌµµ
+        // D0íšŒì°¨_ë‚´ë‹´ìì´ë¦„ë‚œì´ë„
         string characterName = Enum.GetName(typeof(CharacterName), patternIdx);
         string[] levelName = { "Easy", "Normal", "Hard" };
         string message = "D" + string.Format("{0:D2}", storyRound + 1) + "_" + characterName + levelName[miniGameLevel];
@@ -146,20 +146,15 @@ public class MiniManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
 
         // get variable about story from Fungus
-        //miniGameLevel = 2; // TODO
-        //storyRound = GameManager.Get().IsMultiRound() ? 1 : 0;
-        //patternIdx = GameManager.Get().GetCharacterIndex();
+        miniGameLevel = 2; // TODO
+        storyRound = SystemManager.Get().IsMultiRound() ? 1 : 0;
+        patternIdx = GameManager.Get().GetCharacterIndex();
 
-        //Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-        //miniGameLevel = GetFungusVariable(flowchart, "Level"); // 0: easy, 1: normal, 2: hard
-        //storyRound = GetFungusVariable(flowchart, "StoryRound"); // 0: 1È¸Â÷, 1: ´ÙÈ¸Â÷
-        //patternIdx = GetFungusVariable(flowchart, "CharacterIndex");
-
-        //patternLevel = (storyRound) * 3 + miniGameLevel;
+        patternLevel = (storyRound) * 3 + miniGameLevel;
 
         // for test
-        patternLevel = TestLoadMini.patternLevel;
-        patternIdx = TestLoadMini.patternIdx;
+        //patternLevel = TestLoadMini.patternLevel;
+        //patternIdx = TestLoadMini.patternIdx;
 
         // pattern
         pattern = SpawnPattern(patternIdx);
@@ -441,13 +436,18 @@ public class MiniManager : MonoBehaviour
         pattern.StartPattern(patternLevel);
     }
 
-    public void SetAfterCounsel(bool bInAfterCounsel)
+    public void SetAfterCounsel(bool bInHaveReport)
     {
-        GameManager.Get().SetAfterCounsel(bInAfterCounsel);
+        GameManager.Get().SetHaveReport(bInHaveReport);
     }
 
     public void OnCrushedGemTrigger(int color)
     {
         this.pattern.OnCrushedGem(color == this.patternIdx);
+    }
+
+    public void SkipMinigame()
+    {
+        AddScore(10000);
     }
 }

@@ -11,6 +11,15 @@ TextureImporter:
   - first:
       213: -135665275369439952
     second: Map_2
+  - first:
+      213: 6732742066884364779
+    second: Map_3
+  - first:
+      213: -7324858090283886608
+    second: Map_4
+  - first:
+      213: 4945718543514210754
+    second: Map_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -108,7 +117,7 @@ TextureImporter:
         width: 159
         height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,7 +138,7 @@ TextureImporter:
         width: 157
         height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,7 +159,7 @@ TextureImporter:
         width: 207
         height: 115
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -158,6 +167,69 @@ TextureImporter:
       bones: []
       spriteID: 03dbf3d96250e1ef0800000000000000
       internalID: -135665275369439952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map_3
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 206
+        width: 1156
+        height: 658
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9c8fcfc318f6d50800000000000000
+      internalID: 6732742066884364779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map_4
+      rect:
+        serializedVersion: 2
+        x: 1660
+        y: 866
+        width: 83
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f79b7a2060e85a90800000000000000
+      internalID: -7324858090283886608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map_5
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 471
+        width: 97
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c11a31dfc8b2a440800000000000000
+      internalID: 4945718543514210754
       vertices: []
       indices: 
       edges: []

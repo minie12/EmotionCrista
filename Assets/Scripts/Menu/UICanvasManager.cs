@@ -17,18 +17,27 @@ public class UICanvasManager : MonoBehaviour
     private GameObject GO_mapButton;
 
 
-    public void OnSceneLoaded(string inSceneName, int inDayCount, bool bAfterCounsel)
+    public void OnSceneLoaded(string inSceneName, int inDayCount, bool bHaveReport)
     {
         ChangeLocationName(inSceneName);
 
         dayText.text = "Day " + inDayCount;
 
-        if (bAfterCounsel != GO_reportButton.activeSelf)
-        {
-            GO_reportButton.SetActive(bAfterCounsel);
+        { 
+            if (inSceneName == "PatrickLab")
+            {
+                GO_reportButton.SetActive(false);
+            }
+            else
+            {
+                if (bHaveReport != GO_reportButton.activeSelf)
+                {
+                    GO_reportButton.SetActive(bHaveReport);
+                }
+            }
         }
 
-        bool bNeedMapMenu = IsMapMenuNeeded(inSceneName);
+        bool bNeedMapMenu = IsMapMenuNeeded(inSceneName, bHaveReport);
         if (bNeedMapMenu != GO_mapButton.activeSelf)
         {
             GO_mapButton.SetActive(bNeedMapMenu);
@@ -73,6 +82,12 @@ public class UICanvasManager : MonoBehaviour
             case "PatrickLab":
                 locationName = "패트릭 연구실";
                 break;
+            case "DayEnd":
+                locationName = "기숙사";
+                break;
+            case "StaffOnly":
+                locationName = "출입금지??";
+                break;
             default:
                 Debug.LogError("[OnSceneLoaded()] No case found. Add " + inSceneName);
                 break;
@@ -81,14 +96,21 @@ public class UICanvasManager : MonoBehaviour
         locationText.text = locationName;
     }
 
-    private bool IsMapMenuNeeded(string inSceneName)
+    private bool IsMapMenuNeeded(string inSceneName, bool bInHaveReport)
     {
         switch (inSceneName)
         {
+            case "LabCorridor":
+                if (bInHaveReport) return false;
+                break;
+
             case "CounselRoom":
                 return false;
-                
-            case "Dormitory":
+
+            case "PatrickLab":
+                return false;
+
+            case "DayEnd":
                 return false;
         }
 
