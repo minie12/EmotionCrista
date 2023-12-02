@@ -1,19 +1,34 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class PatternAreaBug : MonoBehaviour
 {
-    public Sprite[] bugSprites;
+    private Animator animator;
+
+    private readonly int bugTotalCnt = 5;
+    private readonly float time = 0.5f; // using falling bug
+    private readonly float bugScale = 0.35f;
+
     private Vector3 bugPos;
-    private float time = 0.5f;
+    private int typeNum = 0; // 벌레 번호
+    private bool isReady = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        // seg bug sprite random
-        this.GetComponent<SpriteRenderer>().sprite = bugSprites[Random.Range(0, bugSprites.Length)];
+        animator = GetComponent<Animator>();
+        typeNum = Random.Range(0, bugTotalCnt);
+        animator.Play($"bug_{typeNum}_anim", 0, 0.0f);
+    }
+
+    private void Update()
+    {
+        if (isReady)
+        {
+            transform.localScale = new Vector3(bugScale, bugScale, 1);
+        }
     }
 
     public void SetBugPos(Vector3 pos)
@@ -23,7 +38,7 @@ public class PatternAreaBug : MonoBehaviour
 
     public void SizeDown()
     {
-        StartCoroutine(SizeDown_(transform.localScale));
+        StartCoroutine(SizeDown_(new Vector3(bugScale, bugScale, 1)));
     }
 
     IEnumerator SizeDown_(Vector3 size)
@@ -33,6 +48,8 @@ public class PatternAreaBug : MonoBehaviour
         this.transform.DOScale(new Vector3(size.x - 0.15f, size.y - 0.15f), 0.25f);
         yield return new WaitForSeconds(0.2f);
         this.transform.DOScale(new Vector3(size.x, size.y), 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        isReady = true;
     }
 
     public void FallBug()

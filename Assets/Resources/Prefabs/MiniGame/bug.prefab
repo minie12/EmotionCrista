@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3550022794154664714}
   - component: {fileID: 3550022794154664713}
   - component: {fileID: 7240904667342683598}
+  - component: {fileID: 6097500350094641024}
   m_Layer: 7
   m_Name: bug
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3550022794154664715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.2427922}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,9 +96,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d808159353bfdc7438e91b810d162b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bugSprites:
-  - {fileID: -7251339825416130302, guid: 213872b478d13f74e8283d5d2c63a45f, type: 3}
-  - {fileID: -4390398128133702652, guid: 213872b478d13f74e8283d5d2c63a45f, type: 3}
-  - {fileID: -2071800514566320160, guid: 213872b478d13f74e8283d5d2c63a45f, type: 3}
-  - {fileID: 4675904057708367786, guid: 213872b478d13f74e8283d5d2c63a45f, type: 3}
-  - {fileID: -1267283332737934628, guid: 213872b478d13f74e8283d5d2c63a45f, type: 3}
+--- !u!95 &6097500350094641024
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3550022794154664715}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8cc30a54c9406c41aa41bbd7f9c9d1c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
