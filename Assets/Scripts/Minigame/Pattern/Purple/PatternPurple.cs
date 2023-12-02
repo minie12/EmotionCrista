@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -32,12 +32,30 @@ public class PatternPurple : PatternManager
         eyePrefab = Resources.Load<GameObject>("Prefabs/MiniGame/eye");
     }
 
+    public override void OnCrushedGem(bool isMatchColor)
+    {
+        base.OnCrushedGem(isMatchColor);
+
+        // purple gimmick
+        if (gimmick[0])
+        {
+            CheckAfterCrush();
+        }
+    }
+
     public override void StartPattern(int level_)
     {
         base.StartPattern(level_);
 
-        // [TODO] ±‚»π
-        switch (level_)
+        RestartPattern();
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+
+        // [TODO] Í∏∞Ìöç
+        switch (mini.patternLevel)
         {
             case 0:
                 StartGimmick(0);
@@ -55,6 +73,7 @@ public class PatternPurple : PatternManager
                 StartGimmick(0);
                 break;
             case 5:
+                StartGimmick(0);
                 StartGimmick(1);
                 break;
         }
@@ -106,7 +125,10 @@ public class PatternPurple : PatternManager
                 break;
             case 1:
                 Destroy(flashLight);
-                for (int i = 0; i < eyeObjs.Count; i++)
+                globalLightObj.GetComponent<Light2D>().intensity = 1f;
+
+                int cnt = eyeObjs.Count;
+                while (cnt-- > 0)
                 {
                     Destroy(eyeObjs[0]);
                     DeleteEye(0);
@@ -164,7 +186,7 @@ public class PatternPurple : PatternManager
 
         for (int i = 0; i < aroundChainGems.Count; i++)
         {
-            Debug.Log("¡÷∫Ø ªÁΩΩ" + aroundChainGems[i].GetColumn() + ", " + aroundChainGems[i].GetRow());
+            Debug.Log("Ï£ºÎ≥Ä ÏÇ¨Ïä¨" + aroundChainGems[i].GetColumn() + ", " + aroundChainGems[i].GetRow());
             int extraChain = aroundChainGems[i].MinusChainCnt();
 
             // end chain
@@ -192,7 +214,7 @@ public class PatternPurple : PatternManager
         for (int i = 0; i < aroundGems.Count; i++)
         {
             bool isChain = IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
-            Debug.Log("ªÁΩΩ «ÿ¡¶«— ¡÷∫Ø ±§π∞ " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", ªÁΩΩ ¿Øπ´: " + isChain);
+            Debug.Log("ÏÇ¨Ïä¨ Ìï¥Ï†úÌïú Ï£ºÎ≥Ä Í¥ëÎ¨º " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", ÏÇ¨Ïä¨ Ïú†Î¨¥: " + isChain);
             if (isChain)
             {
                 board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), true);

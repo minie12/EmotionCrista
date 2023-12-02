@@ -15,31 +15,23 @@ public class PatternRed : PatternManager
         base.Awake();
     }
 
+    public override void OnCrushedGem(bool isMatchColor)
+    {
+        base.OnCrushedGem(isMatchColor);
+
+        // red gimmick
+        if (isMatchColor && gimmick[0])
+        {
+            InvokeExplosion();
+        }
+    }
+
     // Setting gimmick
     public override void StartPattern(int level_)
     {
         base.StartPattern(level_);
 
-        gimmick[0] = true;
-        // [TODO] ±‚»π
-        switch (level_)
-        {
-            case 0:
-                break;
-            case 1:
-                StartGimmick(1);
-                break;
-            case 2:
-                break;
-            case 3:
-                StartGimmick(1);
-                break;
-            case 4:
-                break;
-            case 5:
-                StartGimmick(1);
-                break;
-        }
+        RestartPattern();
     }
 
     public override void StopPattern()
@@ -67,6 +59,33 @@ public class PatternRed : PatternManager
         {
             case 1:
                 CancelInvoke(nameof(StartFireRoad));
+                StartCoroutine(InitFire());
+                break;
+        }
+    }
+
+    public override void RestartPattern()
+    {
+        base.RestartPattern();
+
+        gimmick[0] = true;
+        // [TODO] ±‚»π
+        switch (mini.patternLevel)
+        {
+            case 0:
+                break;
+            case 1:
+                StartGimmick(1);
+                break;
+            case 2:
+                break;
+            case 3:
+                StartGimmick(1);
+                break;
+            case 4:
+                break;
+            case 5:
+                StartGimmick(1);
                 break;
         }
     }

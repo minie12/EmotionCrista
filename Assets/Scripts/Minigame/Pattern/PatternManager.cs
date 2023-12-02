@@ -1,4 +1,5 @@
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,13 @@ public class PatternManager : MonoBehaviour
     protected string[] chatTextInfo;
     protected int chatTextIdx = 0;
 
+    // yellow, blue, red, green, purple
     private readonly int[] gimmickCnt = new int[5] { 3, 3, 2, 2, 2 };
+    private readonly List<List<int>> failGaugeMount = new List<List<int>> { new List<int> { 0, 0, 0 },
+                                                                            new List<int> { 0, 3, 10 },
+                                                                            new List<int> { 0, 0 },
+                                                                            new List<int> { 0, 0 },
+                                                                            new List<int> { 0, 0 }};
 
     protected virtual void Awake(){
         UICanvas = GameObject.Find("PatternCanvas");
@@ -23,6 +30,8 @@ public class PatternManager : MonoBehaviour
         mini = GameObject.Find("MiniManager").GetComponent<MiniManager>();
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
+
+    virtual public void OnCrushedGem(bool isMatchColor) { }
 
     virtual public void StartPattern(int level_) 
     {
@@ -53,6 +62,9 @@ public class PatternManager : MonoBehaviour
     {
         this.gimmick[gimmick_] = false;
     }
+    
+    // 이어하기에 가까운 함수 !!
+    virtual public void RestartPattern() { }
 
     private void OrganizeCharacterChat(){
         chatTextIdx = 0;
@@ -81,5 +93,10 @@ public class PatternManager : MonoBehaviour
     public bool IsRunningGimmick(int gimmick_)
     {
         return this.gimmick[gimmick_];
+    }
+
+    public void SetFailGaugeMount(int gimmick_)
+    {
+        mini.SetPlayTime((float)failGaugeMount[mini.patternIdx][gimmick_]);
     }
 }

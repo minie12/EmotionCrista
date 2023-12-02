@@ -33,6 +33,10 @@ public class MiniManager : MonoBehaviour
     public GameObject UIGameOver;
     public GameObject timer;
     public Sprite timerOrigin, timerRed;
+    public Sprite[] Characters;
+
+    // Counselee Color
+    public Color[] counseleeColor;
 
     // timer
     private float fullPlayTime = 50f; 
@@ -56,8 +60,8 @@ public class MiniManager : MonoBehaviour
     private float scoreSpeed = 1f;
 
     // fever
-    private int fullFever = 20;
-    private int fever = 0;
+    private float fullFever = 50;
+    private float fever = 0;
     public Image feverFillIMG;
     public Image feverIMG;
     public Button feverBTN;
@@ -109,6 +113,11 @@ public class MiniManager : MonoBehaviour
         return this.goalUnit;
     }
 
+    public int GetClearGauge()
+    {
+        return (int)this.score;
+    }
+
     // set game option by pattern
     public void SetGameTimeInit(float fullPlayTime, float playTimeSpeed, float crushedGaugeTime, float fullScore, float scoreSpeed, int goalUnit)
     {
@@ -119,6 +128,17 @@ public class MiniManager : MonoBehaviour
         this.scoreSpeed = scoreSpeed;
         this.goalUnit = goalUnit;
     }
+
+    public void SetPlayTime(float offset)
+    {
+        playTime += offset;
+        Debug.Log("guage up! " + offset);
+    }
+
+    public void SetTotalCrushedGem(int cnt)
+    {
+        totalCrushedGem += cnt;
+    }
     // ---------------------------------------------------------------
 
     private void Start()
@@ -126,18 +146,27 @@ public class MiniManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
 
         // get variable about story from Fungus
-        miniGameLevel = 2; // TODO
-        storyRound = GameManager.Get().IsMultiRound() ? 1 : 0;
-        patternIdx = GameManager.Get().GetCharacterIndex();
+        //miniGameLevel = 2; // TODO
+        //storyRound = GameManager.Get().IsMultiRound() ? 1 : 0;
+        //patternIdx = GameManager.Get().GetCharacterIndex();
+
         //Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
         //miniGameLevel = GetFungusVariable(flowchart, "Level"); // 0: easy, 1: normal, 2: hard
         //storyRound = GetFungusVariable(flowchart, "StoryRound"); // 0: 1회차, 1: 다회차
         //patternIdx = GetFungusVariable(flowchart, "CharacterIndex");
-        patternLevel = (storyRound) * 3 + miniGameLevel;
+
+        //patternLevel = (storyRound) * 3 + miniGameLevel;
+
+        // for test
+        patternLevel = TestLoadMini.patternLevel;
+        patternIdx = TestLoadMini.patternIdx;
 
         // pattern
         pattern = SpawnPattern(patternIdx);
         pattern.StartPattern(patternLevel);
+        GameObject.Find("Counselee").GetComponent<SpriteRenderer>().sprite = Characters[patternIdx];
+        scoreFill.GetComponent<Image>().color = counseleeColor[patternIdx];
+        scoreFill.transform.GetChild(0).GetComponent<Image>().color = counseleeColor[patternIdx];
 
         // init board option
         InitBoardOption();
@@ -145,6 +174,7 @@ public class MiniManager : MonoBehaviour
 
     private void InitBoardOption()
     {
+        timer.GetComponent<Image>().sprite = timerOrigin;
         timer.transform.GetChild(1).gameObject.SetActive(false);
 
         playTime = 0;
@@ -252,15 +282,13 @@ public class MiniManager : MonoBehaviour
         return playTime;
     }
 
-    public void AddScore(int n)
+    public void AddScore(float n)
     {
         score += (float)n * scoreSpeed;
-        totalCrushedGem += n;
         SetScoreUI();
 
         if (!bFeverOn)
         {
-            playTime -= n * crushedGaugeTime;
             AddFever(n);
         }
 
@@ -291,7 +319,7 @@ public class MiniManager : MonoBehaviour
         scoreFill.fillAmount = Mathf.InverseLerp(0, fullScore, score);
     }
 
-    public void AddFever(int n)
+    public void AddFever(float n)
     {
         playTime -= n * crushedGaugeTime;
         fever += n;
@@ -336,7 +364,7 @@ public class MiniManager : MonoBehaviour
         if (bPuzzleMode && score < fullScore) board.EndFever();
 
         // restart pattern
-        if (bPuzzleMode && score < fullScore) pattern.StartPattern(patternLevel);
+        if (bPuzzleMode && score < fullScore) pattern.RestartPattern();
     }
 
     private void GameOver()
@@ -416,5 +444,10 @@ public class MiniManager : MonoBehaviour
     public void SetAfterCounsel(bool bInAfterCounsel)
     {
         GameManager.Get().SetAfterCounsel(bInAfterCounsel);
+    }
+
+    public void OnCrushedGemTrigger(int color)
+    {
+        this.pattern.OnCrushedGem(color == this.patternIdx);
     }
 }

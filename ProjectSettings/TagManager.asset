@@ -8,6 +8,7 @@ TagManager:
   - Gem
   - Gimmick
   - FlashLight
+  - EyeBorder
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Effect
   - Gem
   - PurpleEye
-  - 
+  - Bubble
   - 
   - 
   - 

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ public class PatternEye : MonoBehaviour
     private List<GameObject> eyeChildrens = new List<GameObject>();
     private Animator animator;
     private bool check = false;
+    private int flip = 0;
 
     private void Start()
     {
@@ -15,6 +16,13 @@ public class PatternEye : MonoBehaviour
 
         // all children non - activation
         SetObjectActive(false);
+
+        // random flip
+        flip = Random.Range(0, 2);
+        if (flip == 1)
+        {
+            transform.localScale = new Vector3((-1) * transform.localScale.x, transform.localScale.y, 1);
+        }
     }
 
     private void Update()
@@ -23,8 +31,9 @@ public class PatternEye : MonoBehaviour
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("purple_eye") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && !check)
         {
             check = true;
-            animator.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+            StartCoroutine(FadeOut(animator.gameObject.GetComponent<SpriteRenderer>(), 0.5f));
             SetObjectActive(true);
+            AllChildrenFadeIn();
         }
     }
 
@@ -49,6 +58,18 @@ public class PatternEye : MonoBehaviour
         }
     }
 
+    public void AllChildrenFadeIn()
+    {
+        for (int i = 0; i < eyeChildrens.Count; i++)
+        {
+            if (!eyeChildrens[i].GetComponent<SpriteRenderer>())
+            {
+                continue;
+            }
+            StartCoroutine(FadeIn(eyeChildrens[i].GetComponent<SpriteRenderer>(), 0.5f));
+        }
+    }
+
     public void AllChildrenFadeOut()
     {
         for (int i = 0; i < eyeChildrens.Count; i++)
@@ -61,8 +82,19 @@ public class PatternEye : MonoBehaviour
         }
     }
 
+    private IEnumerator FadeIn(SpriteRenderer sr, float time)
+    {
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0f);
+        while (sr.color.a <= 1f)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a + Time.deltaTime / time);
+            yield return null;
+        }
+    }
+
     private IEnumerator FadeOut(SpriteRenderer sr, float time)
     {
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
         while (sr.color.a >= 0f)
         {
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a - Time.deltaTime / time);
