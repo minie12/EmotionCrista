@@ -9,7 +9,7 @@ public class PatternAreaBug : MonoBehaviour
 
     private readonly int bugTotalCnt = 5;
     private readonly float time = 0.5f; // using falling bug
-    private readonly float bugScale = 0.35f;
+    private readonly float bugScale = 30f;
 
     private Vector3 bugPos;
     private int typeNum = 0; // 벌레 번호
@@ -27,7 +27,7 @@ public class PatternAreaBug : MonoBehaviour
     {
         if (isReady)
         {
-            transform.localScale = new Vector3(bugScale, bugScale, 1);
+            this.GetComponent<RectTransform>().localScale = new Vector3(bugScale, bugScale, 1);
         }
     }
 
@@ -43,9 +43,9 @@ public class PatternAreaBug : MonoBehaviour
 
     IEnumerator SizeDown_(Vector3 size)
     {
-        this.GetComponent<Transform>().localScale = new Vector3(size.x + 2f, size.y + 2f, 1);
+        this.GetComponent<RectTransform>().localScale = new Vector3(size.x + bugScale * 1.5f, size.y + bugScale * 1.5f, 1);
         this.gameObject.SetActive(true);
-        this.transform.DOScale(new Vector3(size.x - 0.15f, size.y - 0.15f), 0.25f);
+        this.transform.DOScale(new Vector3(size.x - bugScale * 0.15f, size.y - bugScale * 0.15f), 0.25f);
         yield return new WaitForSeconds(0.2f);
         this.transform.DOScale(new Vector3(size.x, size.y), 0.1f);
         yield return new WaitForSeconds(0.1f);
