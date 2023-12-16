@@ -1,19 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class PatternAreaBug : MonoBehaviour
+public class PatternAreaBug : MonoBehaviour, IPointerEnterHandler
 {
     private Animator animator;
 
     private readonly int bugTotalCnt = 5;
     private readonly float time = 0.5f; // using falling bug
-    private readonly float bugScale = 30f;
+    private readonly float bugScaleOrigin = 30f;
+    private float bugScale;
 
     private Vector3 bugPos;
     private int typeNum = 0; // 벌레 번호
     private bool isReady = false;
+
+    private float beformDropMaxTime = 0.5f;
+
+    void Awake()
+    {
+        bugScale = bugScaleOrigin;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +52,7 @@ public class PatternAreaBug : MonoBehaviour
 
     IEnumerator SizeDown_(Vector3 size)
     {
+        yield return new WaitForSeconds(Random.Range(0, beformDropMaxTime));
         this.GetComponent<RectTransform>().localScale = new Vector3(size.x + bugScale * 1.5f, size.y + bugScale * 1.5f, 1);
         this.gameObject.SetActive(true);
         this.transform.DOScale(new Vector3(size.x - bugScale * 0.15f, size.y - bugScale * 0.15f), 0.25f);
@@ -88,5 +98,18 @@ public class PatternAreaBug : MonoBehaviour
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime / time);
             yield return null;
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        StartCoroutine(BugFlinch());
+        Debug.Log("mouse cursor");
+    }
+
+    private IEnumerator BugFlinch()
+    {
+        bugScale = bugScaleOrigin + 10f;
+        yield return new WaitForSeconds(0.2f);
+        bugScale = bugScaleOrigin;
     }
 }
