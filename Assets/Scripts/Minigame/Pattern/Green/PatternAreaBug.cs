@@ -89,27 +89,56 @@ public class PatternAreaBug : MonoBehaviour, IPointerEnterHandler
         StartCoroutine(FadeEffect(0f, fadeTime, temp));
     }
 
+    // Fade in (fadeTime = time while fade)
+    public void FadeOut(float fadeTime = 1f)
+    {
+        SpriteRenderer temp = GetComponent<SpriteRenderer>();
+        StartCoroutine(FadeEffect(1f, -fadeTime, temp));
+    }
+
     private IEnumerator FadeEffect(float start, float time, SpriteRenderer spriteRenderer)
     {
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, start);
-        float target = 0.3f - start;
-        while ((target == 0f && spriteRenderer.color.a >= target) || (target == 0.3f && target >= spriteRenderer.color.a))
+        float target = 1f - start;
+        while ((target == 0f && spriteRenderer.color.a >= target) || (target == 1f && target >= spriteRenderer.color.a))
         {
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime / time);
             yield return null;
         }
     }
 
+    // 벌레 위에 마우스 포인터 올라갔을 때 -> 애니메이션 속도 증가 & 진동
     public void OnPointerEnter(PointerEventData eventData)
     {
         StartCoroutine(BugFlinch());
+        BugShake(0.03f, 0.35f);
         Debug.Log("mouse cursor");
     }
 
     private IEnumerator BugFlinch()
     {
-        bugScale = bugScaleOrigin + 10f;
-        yield return new WaitForSeconds(0.2f);
-        bugScale = bugScaleOrigin;
+        if (animator == null) yield return null;
+
+        animator.speed = 3.0f * animator.speed;
+        yield return new WaitForSeconds(0.35f);
+        animator.speed = 1.0f;
+    }
+
+    // shake bug
+    public void BugShake(float amount, float time, bool keepAmount = true)
+    {
+        StartCoroutine(BugShakeRoutine(amount, time, keepAmount));
+    }
+
+    private IEnumerator BugShakeRoutine(float amount, float time, bool keepAmount)
+    {
+        Vector3 originPosition = transform.position;
+        for (float t = time; t >= 0; t -= Time.deltaTime)
+        {
+            Vector3 rand = new Vector3(Random.insideUnitCircle.x, Random.insideUnitCircle.y, 0) * (keepAmount ? amount : Mathf.Lerp(amount, 0, 1 - t / time));
+            transform.position = originPosition + rand;
+            yield return null;
+        }
+        transform.position = originPosition;
     }
 }
