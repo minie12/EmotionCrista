@@ -505,7 +505,7 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        // refil board
+        board.BoardShake();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
@@ -513,7 +513,7 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        // refil board
+        board.BackgroundShake();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
@@ -521,7 +521,7 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        // refil board
+        board.UIShake();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
@@ -529,7 +529,7 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        // refil board
+        board.AllShake();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
@@ -537,7 +537,8 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        // refil board
+        board.BoardShake();
+        board.UIShake();
         board.StartRefilBoardFever();
     }
 

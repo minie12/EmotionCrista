@@ -888,4 +888,33 @@ public class BoardManager : MonoBehaviour
 
         return gems;
     }
+
+    public void BoardShake()
+    {
+        transform.GetComponent<ObjectShake>().Shake();
+    }
+
+    public void UIShake()
+    {
+        GameObject.Find("Timer").GetComponent<ObjectShake>().Shake();
+        GameObject.Find("Score").GetComponent<ObjectShake>().Shake();
+        GameObject.Find("Fever").GetComponent<ObjectShake>().Shake();
+        GameObject.Find("CharacterChat").GetComponent<ObjectShake>().Shake();
+        GameObject.Find("Setting").GetComponent<ObjectShake>().Shake();
+    }
+
+    public void BackgroundShake()
+    {
+
+        GameObject.Find("BG_sprite").GetComponent<ObjectShake>().Shake();
+    }
+
+    public void AllShake()
+    {
+        BoardShake();
+        UIShake();
+        BackgroundShake();
+    }
+
 }
+
