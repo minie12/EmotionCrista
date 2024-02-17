@@ -482,64 +482,63 @@ public class PatternRed : PatternManager
 
     // Red gimmick 2
 
-    void AllRedGems()
+    void AllGemVibration(List<GemInfo> gems)
     {
-        List<List<GemInfo>> patternGems = board.GetPatternGems();
-        for (int i = 0; i < patternGems[2].Count; i++)
+        for (int i = 0; i < gems.Count; i++)
         {
-            board.ExplosionGem(patternGems[2][i].GetColumn(), patternGems[2][i].GetRow());
+            gems[i].GemShake(0f, 0.1f, 0.5f);
         }
     }
 
-    void ColumnGems(List<int> columns)
+    void AllGemExplosion(List<GemInfo> gems)
     {
-        List<GemInfo> gems = board.GetGemColumns(columns);
-        for(int i = 0; i < gems.Count; i++)
-        {
-            board.ExplosionGem(gems[i].GetColumn(), gems[i].GetRow());
-        }
-    }
-
-    void DiagonalGemsRight(List<int> diagonals)
-    {
-        List<GemInfo> gems = board.GetGemDiagonalRight(diagonals);
         for (int i = 0; i < gems.Count; i++)
         {
             board.ExplosionGem(gems[i].GetColumn(), gems[i].GetRow());
         }
     }
 
-    void DiagonalGemsLeft(List<int> diagonals)
-    {
-        List<GemInfo> gems = board.GetGemDiagonalLeft(diagonals);
-        for (int i = 0; i < gems.Count; i++)
-        {
-            board.ExplosionGem(gems[i].GetColumn(), gems[i].GetRow());
-        }
-    }
 
     IEnumerator ExplosionGemsStep()
     {
-        AllRedGems();
+        List<GemInfo> gems = board.GetPatternGems()[2];
+        AllGemVibration(gems);
+        yield return new WaitForSeconds(1f);
+        AllGemExplosion(gems);
         // refil board
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
-        ColumnGems(new List<int>() { 1, 5, 9 });
+
+        gems = board.GetGemColumns(new List<int>() { 1, 5, 9 });
+        AllGemVibration(gems);
+        yield return new WaitForSeconds(1f);
+        AllGemExplosion(gems);
         // refil board
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
-        ColumnGems(new List<int>() { 1, 3, 5, 7, 9 });
+
+        gems = board.GetGemColumns(new List<int>() { 1, 3, 5, 7, 9 });
+        AllGemVibration(gems);
+        yield return new WaitForSeconds(1f);
+        AllGemExplosion(gems);
         // refil board
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
-        DiagonalGemsRight(new List<int>() { 1, 4, 7 });
+
+        gems = board.GetGemDiagonalRight(new List<int>() { 1, 4, 7 });
+        AllGemVibration(gems);
+        yield return new WaitForSeconds(1f);
+        AllGemExplosion(gems);
         // refil board
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
-        DiagonalGemsLeft(new List<int>() { 1, 4, 7 });
+
+        gems = board.GetGemDiagonalLeft(new List<int>() { 1, 4, 7 });
+        AllGemVibration(gems);
+        yield return new WaitForSeconds(1f);
+        AllGemExplosion(gems);
         // refil board
         board.StartRefilBoardFever();
-        yield return new WaitForSeconds(1f);
     }
 
     void StartRedGimmick2()
