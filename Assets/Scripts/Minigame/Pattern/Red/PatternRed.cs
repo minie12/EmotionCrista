@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,6 +48,9 @@ public class PatternRed : PatternManager
             case 1:
                 Invoke(nameof(StartFireRoad), 1f);
                 break;
+            case 2:
+                Invoke(nameof(StartRedGimmick2), 2f);
+                break;
         }
     }
 
@@ -69,23 +72,29 @@ public class PatternRed : PatternManager
         base.RestartPattern();
 
         gimmick[0] = true;
-        // [TODO] ±‚»π
+        // [TODO] Í∏∞Ìöç
         switch (mini.patternLevel)
         {
             case 0:
+                StartGimmick(2);
                 break;
             case 1:
                 StartGimmick(1);
+                StartGimmick(2);
                 break;
             case 2:
+                StartGimmick(2);
                 break;
             case 3:
                 StartGimmick(1);
+                StartGimmick(2);
                 break;
             case 4:
+                StartGimmick(2);
                 break;
             case 5:
                 StartGimmick(1);
+                StartGimmick(2);
                 break;
         }
     }
@@ -149,7 +158,7 @@ public class PatternRed : PatternManager
                 continue;
             }
 
-            Debug.Log("∆¯πﬂ«œ¥¬ ±§π∞: " + column_ + ", " + row_);
+            Debug.Log("Ìè≠Î∞úÌïòÎäî Í¥ëÎ¨º: " + column_ + ", " + row_);
             check[rand] = true;
             GameObject.Find("Board").GetComponent<BoardManager>().ExplosionGem(column_, row_);
             i++;
@@ -174,7 +183,7 @@ public class PatternRed : PatternManager
         {
             int cur_col = crushedGems[i][0];
             int cur_row = crushedGems[i][1];
-            Debug.Log("≈©∑ØΩ¨µ» ±§π∞: " + cur_col + ", " + cur_row);
+            Debug.Log("ÌÅ¨Îü¨Ïâ¨Îêú Í¥ëÎ¨º: " + cur_col + ", " + cur_row);
             crushedCheck[cur_col, cur_row] = true;
 
             // check start gem
@@ -469,5 +478,72 @@ public class PatternRed : PatternManager
             }
         }
         yield return null;
+    }
+
+    // Red gimmick 2
+
+    void AllRedGems()
+    {
+        List<List<GemInfo>> patternGems = board.GetPatternGems();
+        for (int i = 0; i < patternGems[2].Count; i++)
+        {
+            board.ExplosionGem(patternGems[2][i].GetColumn(), patternGems[2][i].GetRow());
+        }
+    }
+
+    void ColumnGems(List<int> columns)
+    {
+        List<GemInfo> gems = board.GetGemColumns(columns);
+        for(int i = 0; i < gems.Count; i++)
+        {
+            board.ExplosionGem(gems[i].GetColumn(), gems[i].GetRow());
+        }
+    }
+
+    void DiagonalGemsRight(List<int> diagonals)
+    {
+        List<GemInfo> gems = board.GetGemDiagonalRight(diagonals);
+        for (int i = 0; i < gems.Count; i++)
+        {
+            board.ExplosionGem(gems[i].GetColumn(), gems[i].GetRow());
+        }
+    }
+
+    void DiagonalGemsLeft(List<int> diagonals)
+    {
+        List<GemInfo> gems = board.GetGemDiagonalLeft(diagonals);
+        for (int i = 0; i < gems.Count; i++)
+        {
+            board.ExplosionGem(gems[i].GetColumn(), gems[i].GetRow());
+        }
+    }
+
+    IEnumerator ExplosionGemsStep()
+    {
+        AllRedGems();
+        // refil board
+        board.StartRefilBoardFever();
+        yield return new WaitForSeconds(1f);
+        ColumnGems(new List<int>() { 1, 5, 9 });
+        // refil board
+        board.StartRefilBoardFever();
+        yield return new WaitForSeconds(1f);
+        ColumnGems(new List<int>() { 1, 3, 5, 7, 9 });
+        // refil board
+        board.StartRefilBoardFever();
+        yield return new WaitForSeconds(1f);
+        DiagonalGemsRight(new List<int>() { 1, 4, 7 });
+        // refil board
+        board.StartRefilBoardFever();
+        yield return new WaitForSeconds(1f);
+        DiagonalGemsLeft(new List<int>() { 1, 4, 7 });
+        // refil board
+        board.StartRefilBoardFever();
+        yield return new WaitForSeconds(1f);
+    }
+
+    void StartRedGimmick2()
+    {
+        StartCoroutine(ExplosionGemsStep());
     }
 }

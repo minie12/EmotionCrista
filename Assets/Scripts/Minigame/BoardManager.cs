@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -320,11 +320,11 @@ public class BoardManager : MonoBehaviour
 
         // sort row increasing -> column increasing
         List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
-        Debug.Log("∫∏µÂ √§øÏ±‚ ≈©∑ØΩ¨µ» ±§π∞ ∞≥ºˆ: " + crushedGems.Count);
+        Debug.Log("Î≥¥Îìú Ï±ÑÏö∞Í∏∞ ÌÅ¨Îü¨Ïâ¨Îêú Í¥ëÎ¨º Í∞úÏàò: " + crushedGems.Count);
 
         crushedGems = crushedGems.OrderBy(x => x[1]).ThenBy(y => y[0]).ToList();
 
-        Debug.Log("¡§∑ƒ »ƒ " + crushedGems.Count);
+        Debug.Log("Ï†ïÎ†¨ ÌõÑ " + crushedGems.Count);
 
         while (crushedGems.Count > 0)
         {
@@ -374,7 +374,7 @@ public class BoardManager : MonoBehaviour
 
                 }
 
-                Debug.Log("√§øÓ ±§π∞ : " + newColumn + ", " + newRow);
+                Debug.Log("Ï±ÑÏö¥ Í¥ëÎ¨º : " + newColumn + ", " + newRow);
 
                 // drop the gem on top to bottom
                 gems[i, j] = gems[newColumn, newRow];
@@ -388,7 +388,7 @@ public class BoardManager : MonoBehaviour
             // if there was no gem on top
             if (!filled)
             {
-                Debug.Log("≈æ ∫ÒæÓ¿÷¿Ω " + i);
+                Debug.Log("ÌÉë ÎπÑÏñ¥ÏûàÏùå " + i);
                 // fill with new gem
                 int color = Random.Range(0, totalGemTypeCnt);
                 GameObject gemTemp = Instantiate(gemPF, dropPos[i], Quaternion.identity, this.transform);
@@ -653,7 +653,7 @@ public class BoardManager : MonoBehaviour
     public List<GemInfo> GetPatternGemManyRandom(int cnt)
     {
         List<List<GemInfo>> gems = GetPatternGems();
-        Debug.Log("∆–≈œ ¡™ " + cnt + ", " + gems[mini.patternIdx].Count);
+        Debug.Log("Ìå®ÌÑ¥ Ï†¨ " + cnt + ", " + gems[mini.patternIdx].Count);
         cnt = gems[mini.patternIdx].Count < cnt ? gems[mini.patternIdx].Count : cnt;
 
 
@@ -802,6 +802,88 @@ public class BoardManager : MonoBehaviour
             pickedCoordinates[i, 1] = row_;
 
             gems[i] = gem;
+        }
+
+        return gems;
+    }
+
+
+    public List<GemInfo> GetGemColumns(List<int> columns)
+    {
+        List<GemInfo> gems = new List<GemInfo>();
+
+        foreach (int c in columns)
+        {
+            for(int i = 0; i < 6; i++)
+            {
+                GemInfo gem = GetGem(c, i);
+                if (gem != null)
+                {
+                    gems.Add(gem);
+                }
+            }
+        }
+
+        return gems;
+    }
+
+    // Ïò§Î•∏Ï™Ω ÏïÑÎûò ÎåÄÍ∞ÅÏÑ†
+    public List<GemInfo> GetGemDiagonalRight(List<int> diagonals)
+    {
+        List<GemInfo> gems = new List<GemInfo>();
+        Dictionary<int, List<int>> diagonalDict = new Dictionary<int, List<int>>()
+        {
+            {0, new List<int>(){9,5 } },
+            {1, new List<int>(){7,5 } },
+            {2, new List<int>(){5,5 } },
+            {3, new List<int>(){3,5 } },
+            {4, new List<int>(){1,5 } },
+            {5, new List<int>(){0,4 } },
+            {6, new List<int>(){0,3 } },
+            {7, new List<int>(){0,2 } },
+            {8, new List<int>(){0,1 } },
+            {9, new List<int>(){0,0 } },
+        };
+        foreach (int d in diagonals)
+        {
+            List<int> gemInfo = diagonalDict[d];
+            gems.Add(GetGem(gemInfo[0], gemInfo[1]));
+            List<List<GemInfo>> aroundGems = GetAroundGemList(gemInfo[0], gemInfo[1]);
+            for (int i = 0; i < aroundGems[2].Count; i++)
+            {
+                gems.Add(aroundGems[2][i]);
+            }
+        }
+
+        return gems;
+    }
+
+    // ÏôºÏ™Ω ÏïÑÎûò ÎåÄÍ∞ÅÏÑ†
+    public List<GemInfo> GetGemDiagonalLeft(List<int> diagonals)
+    {
+        List<GemInfo> gems = new List<GemInfo>();
+        Dictionary<int, List<int>> diagonalDict = new Dictionary<int, List<int>>()
+        {
+            {0, new List<int>(){1,5 } },
+            {1, new List<int>(){3,5 } },
+            {2, new List<int>(){5,5 } },
+            {3, new List<int>(){7,5 } },
+            {4, new List<int>(){9,5 } },
+            {5, new List<int>(){10,4 } },
+            {6, new List<int>(){10,3 } },
+            {7, new List<int>(){10,2 } },
+            {8, new List<int>(){10,1 } },
+            {9, new List<int>(){10,0 } },
+        };
+        foreach (int d in diagonals)
+        {
+            List<int> gemInfo = diagonalDict[d];
+            gems.Add(GetGem(gemInfo[0], gemInfo[1]));
+            List<List<GemInfo>> aroundGems = GetAroundGemList(gemInfo[0], gemInfo[1]);
+            for (int i = 0; i < aroundGems[4].Count; i++)
+            {
+                gems.Add(aroundGems[4][i]);
+            }
         }
 
         return gems;
