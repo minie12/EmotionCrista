@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +11,11 @@ public class UICanvasManager : MonoBehaviour
     [SerializeField]
     private Text dayText;
 
-    [SerializeField]
-    private GameObject GO_reportButton;
-    [SerializeField]
-    private GameObject GO_mapButton;
+    public GameObject GO_reportButton;
+    public GameObject GO_mapButton;
 
+    public Toggle fullScreenToggle;
+    public Toggle windowToggle;
 
     public void OnSceneLoaded(string inSceneName, int inDayCount, bool bHaveReport)
     {
@@ -49,6 +49,18 @@ public class UICanvasManager : MonoBehaviour
         inObject.SetActive(!inObject.activeSelf);
     }
 
+    public void ChangeScreenSetting(bool bFullscreen)
+    {
+        if (true == bFullscreen)
+        {
+            Debug.Log("Fullscreen");
+        }
+        else
+        {
+            Debug.Log("Window");
+        }
+    }
+
     public void TransferScene(string inSceneName)
     {
         GameObject GO_flowchart = GameObject.Find("Flowchart");
@@ -71,22 +83,22 @@ public class UICanvasManager : MonoBehaviour
         switch (inSceneName)
         {
             case "LabCorridor":
-                locationName = "ªÛ¥„Ω« ∫πµµ";
+                locationName = "ÏÉÅÎã¥Ïã§ Î≥µÎèÑ";
                 break;
             case "CounselRoom":
-                locationName = "ªÛ¥„Ω«";
+                locationName = "ÏÉÅÎã¥Ïã§";
                 break;
             case "Dormitory":
-                locationName = "±‚º˜ªÁ";
+                locationName = "Í∏∞ÏàôÏÇ¨";
                 break;
             case "PatrickLab":
-                locationName = "∆–∆Æ∏Ø ø¨±∏Ω«";
+                locationName = "Ìå®Ìä∏Î¶≠ Ïó∞Íµ¨Ïã§";
                 break;
             case "DayEnd":
-                locationName = "±‚º˜ªÁ";
+                locationName = "Í∏∞ÏàôÏÇ¨";
                 break;
             case "StaffOnly":
-                locationName = "√‚¿‘±›¡ˆ??";
+                locationName = "Ï∂úÏûÖÍ∏àÏßÄ??";
                 break;
             default:
                 Debug.LogError("[OnSceneLoaded()] No case found. Add " + inSceneName);

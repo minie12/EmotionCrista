@@ -9,6 +9,9 @@ TagManager:
   - Gimmick
   - FlashLight
   - EyeBorder
+  - MouseDetactable
+  - NamePlate
+  - LogSpeechBox
   layers:
   - Default
   - TransparentFX

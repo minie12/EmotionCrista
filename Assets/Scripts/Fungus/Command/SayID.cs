@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 namespace Fungus
@@ -117,6 +117,33 @@ namespace Fungus
             });
             #endregion
         }
+
+        public override void Continue()
+        {
+            var sayDialog = SayDialog.GetSayDialog();
+            if (sayDialog != null)
+            {
+                string speaker = sayDialog.NameText;
+                string dialogue = sayDialog.StoryText;
+
+                if (0 < dialogue.Length)
+                {
+                    if (speaker.Length <= 0)
+                    {
+                        speaker = "system";
+                    }
+
+                    LogCache.AddLog(speaker, dialogue);
+                }
+            }
+
+            // This is a noop if the Block has already been stopped
+            if (IsExecuting)
+            {
+                Continue(CommandIndex + 1);
+            }
+        }
+
 
         public override string GetSummary()
         {
