@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.05
-  duration: 1
+  shakeAmount: 0.3
+  duration: 0.5
 --- !u!1 &63724920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4773,6 +4773,7 @@ GameObject:
   - component: {fileID: 117534030}
   - component: {fileID: 117534033}
   - component: {fileID: 117534034}
+  - component: {fileID: 117534035}
   m_Layer: 5
   m_Name: Tablet
   m_TagString: Untagged
@@ -4928,6 +4929,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 117534033}
   parameterName: isClick
+--- !u!114 &117534035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117534028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.3
+  duration: 0.5
 --- !u!1 &131121020
 GameObject:
   m_ObjectHideFlags: 0
@@ -5904,8 +5919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.05
-  duration: 1
+  shakeAmount: 0.3
+  duration: 0.5
 --- !u!1 &300192819
 GameObject:
   m_ObjectHideFlags: 0
@@ -6005,6 +6020,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &305039565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 305039566}
+  m_Layer: 0
+  m_Name: BoardUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &305039566
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305039565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.2705579, z: -7.334654}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319028428
 GameObject:
   m_ObjectHideFlags: 0
@@ -6842,6 +6887,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6962,6 +7008,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 10
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.5
+  duration: 0.5
 --- !u!1 &524833904
 GameObject:
   m_ObjectHideFlags: 0
@@ -8399,8 +8459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.05
-  duration: 1
+  shakeAmount: 0.3
+  duration: 0.5
 --- !u!1 &1081527913
 GameObject:
   m_ObjectHideFlags: 0
@@ -9244,7 +9304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.1
+  shakeAmount: 0.3
   duration: 0.5
 --- !u!1 &1198464049
 GameObject:
@@ -9440,8 +9500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.05
-  duration: 1
+  shakeAmount: 0.3
+  duration: 0.5
 --- !u!1 &1211750929
 GameObject:
   m_ObjectHideFlags: 0
@@ -9488,8 +9548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.05
-  duration: 1
+  shakeAmount: 0.3
+  duration: 0.5
 --- !u!1 &1238317183
 GameObject:
   m_ObjectHideFlags: 0
@@ -11605,8 +11665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aca4f8805e95244a940344fed32e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.05
-  duration: 1
+  shakeAmount: 0.3
+  duration: 0.5
 --- !u!1 &1856385362
 GameObject:
   m_ObjectHideFlags: 0

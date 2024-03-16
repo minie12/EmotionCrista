@@ -501,14 +501,16 @@ public class PatternRed : PatternManager
 
     IEnumerator ExplosionGemsStep()
     {
+        // 전체 다 흔들기
         List<GemInfo> gems = board.GetPatternGems()[2];
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        board.BoardShake();
+        board.AllShake();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
+        // 배경만 흔들기
         gems = board.GetGemColumns(new List<int>() { 1, 5, 9 });
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
@@ -517,28 +519,34 @@ public class PatternRed : PatternManager
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
+        // UI 흔들기
         gems = board.GetGemColumns(new List<int>() { 1, 3, 5, 7, 9 });
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
         board.UIShake();
+        board.BoardUIShake();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
+        // 카메라 흔들기
         gems = board.GetGemDiagonalRight(new List<int>() { 1, 4, 7 });
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        board.AllShake();
+        board.CameraShake();
+        board.UIShake();
+        board.BoardUIShake();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
+        // 보드판만 흔들기
         gems = board.GetGemDiagonalLeft(new List<int>() { 1, 4, 7 });
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
         board.BoardShake();
-        board.UIShake();
+        board.BoardUIShake();
         board.StartRefilBoardFever();
     }
 
