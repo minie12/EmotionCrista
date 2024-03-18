@@ -17,10 +17,10 @@ public class PatternManager : MonoBehaviour
     protected int chatTextIdx = 0;
 
     // yellow, blue, red, green, purple
-    private readonly int[] gimmickCnt = new int[5] { 3, 3, 2, 2, 2 };
+    private readonly int[] gimmickCnt = new int[5] { 3, 3, 3, 2, 2 };
     private readonly List<List<int>> failGaugeMount = new List<List<int>> { new List<int> { 0, 0, 0 },
                                                                             new List<int> { 0, 3, 10 },
-                                                                            new List<int> { 0, 0 },
+                                                                            new List<int> { 0, 0, 0 },
                                                                             new List<int> { 0, 0 },
                                                                             new List<int> { 0, 0 }};
 
