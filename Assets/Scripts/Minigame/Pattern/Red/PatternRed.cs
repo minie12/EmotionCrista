@@ -9,10 +9,16 @@ public class PatternRed : PatternManager
     private readonly int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
     private GemInfo startGem;
+    private ShakeObjectManager shakeObjectManager;
 
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    private void Start()
+    {
+        shakeObjectManager = GameObject.Find("ShakeObjectManager").GetComponent<ShakeObjectManager>();
     }
 
     public override void OnCrushedGem(bool isMatchColor)
@@ -506,7 +512,7 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        board.AllShake();
+        shakeObjectManager.ShakeAll();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
@@ -515,7 +521,7 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        board.BackgroundShake();
+        shakeObjectManager.ShakeBackground();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
@@ -524,29 +530,25 @@ public class PatternRed : PatternManager
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        board.UIShake();
-        board.BoardUIShake();
-        board.StartRefilBoardFever();
-        yield return new WaitForSeconds(1f);
-
-        // 카메라 흔들기
-        gems = board.GetGemDiagonalRight(new List<int>() { 1, 4, 7 });
-        AllGemVibration(gems);
-        yield return new WaitForSeconds(1f);
-        AllGemExplosion(gems);
-        board.CameraShake();
-        board.UIShake();
-        board.BoardUIShake();
+        shakeObjectManager.ShakeUi();
         board.StartRefilBoardFever();
         yield return new WaitForSeconds(1f);
 
         // 보드판만 흔들기
-        gems = board.GetGemDiagonalLeft(new List<int>() { 1, 4, 7 });
+        gems = board.GetGemDiagonalRight(new List<int>() { 1, 4, 7 });
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        board.BoardShake();
-        board.BoardUIShake();
+        shakeObjectManager.ShakePuzzle();
+        board.StartRefilBoardFever();
+        yield return new WaitForSeconds(1f);
+
+        // 보드판 & 보드판 UI 흔들기
+        gems = board.GetGemDiagonalLeft(new List<int>() { 1, 4, 7 });
+        AllGemVibration(gems);
+        yield return new WaitForSeconds(1f);
+        shakeObjectManager.ShakePuzzleUi();
+        AllGemExplosion(gems);
         board.StartRefilBoardFever();
     }
 

@@ -888,46 +888,5 @@ public class BoardManager : MonoBehaviour
 
         return gems;
     }
-
-    public void BoardShake()
-    {
-        transform.GetComponent<ObjectShake>().Shake();
-    }
-
-    public void BoardUIShake()
-    {
-        GameObject.Find("Timer").GetComponent<ObjectShake>().Shake();
-        GameObject.Find("Score").GetComponent<ObjectShake>().Shake();
-        GameObject.Find("Fever").GetComponent<ObjectShake>().Shake();
-    }
-
-    public void UIShake()
-    {
-        GameObject.Find("CharacterChat").GetComponent<ObjectShake>().Shake();
-        GameObject.Find("Tablet").GetComponent<ObjectShake>().Shake();
-        GameObject.Find("Setting").GetComponent<ObjectShake>().Shake();
-    }
-
-    public void BackgroundShake()
-    {
-        GameObject.Find("BG_sprite").GetComponent<ObjectShake>().Shake();
-    }
-
-    public void CameraShake()
-    {
-        GameObject.Find("Main Camera").GetComponent<ObjectShake>().Shake();
-    }
-
-
-    public void AllShake()
-    {
-        CameraShake();
-        BoardShake();
-        BoardUIShake();
-        UIShake();
-        BackgroundShake();
-    }
-
-   
 }
 
