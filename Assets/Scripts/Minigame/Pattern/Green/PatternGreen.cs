@@ -16,13 +16,36 @@ public class PatternGreen : PatternManager
 
     private bool[,] area = new bool[11, 6];
 
-    private List<GameObject> bugs = new List<GameObject>();
+    private Dictionary<GemInfo, List<GameObject>> bugs = new Dictionary<GemInfo, List<GameObject>>();
+
+    private int crushedBiasCnt = 10;
+    private int crushedGemLast = 0;
+
+    private bool start = false;
 
     protected override void Awake()
     {
         base.Awake();
         gemPF = Resources.Load<GameObject>("Prefabs/MiniGame/org_gem");
         bugPF = Resources.Load<GameObject>("Prefabs/MiniGame/bug");
+        start = false;
+    }
+
+    public override void OnCrushedGem(bool isMatchColor)
+    {
+        base.OnCrushedGem(isMatchColor);
+
+        // area
+        if (gimmick[1])
+        {
+            int cnt = mini.GetTotalCrushedGem() / crushedBiasCnt;
+            if (cnt > crushedGemLast)
+            {
+                Debug.Log("set area !");
+                crushedGemLast = cnt;
+                StartCoroutine(BugDisappear());
+            }
+        }
     }
 
     public override void StartPattern(int level_)
@@ -87,7 +110,7 @@ public class PatternGreen : PatternManager
                 InvokeRepeating("GreenGimmick0", 1f, bugInterval);
                 break;
             case 1:
-                Invoke("GreenGimmick1", 1f);
+                Invoke(nameof(SetAreaAgain), 1f);
                 break;
         }
     }
@@ -218,6 +241,9 @@ public class PatternGreen : PatternManager
 
     IEnumerator MoveStartToTarget(GameObject start, GameObject target, float endTime)
     {
+        if (start == null)
+            yield return null;
+
         float currentTime = 0.0f;
         Vector3 current = start.transform.position;
 
@@ -226,10 +252,10 @@ public class PatternGreen : PatternManager
         while (currentTime < endTime)
         {
             currentTime += Time.deltaTime * bugSpeed;
-            start.transform.position = Vector3.Lerp(current, target.transform.position, currentTime / endTime);
+            if(start != null) start.transform.position = Vector3.Lerp(current, target.transform.position, currentTime / endTime);
             yield return waitForEndOfFrame;
         }
-        start.transform.position = target.transform.position;
+        if (start != null) start.transform.position = target.transform.position;
     }
 
     IEnumerator ChangeDirectionTowards(GameObject start, GameObject target)
@@ -314,7 +340,6 @@ public class PatternGreen : PatternManager
         return area[col_, row_];
     }
 
-
     void ClearArea()
     {
         for(int i = 0; i < 11; i++)
@@ -324,15 +349,66 @@ public class PatternGreen : PatternManager
                 area[i, j] = false;
             }
         }
+
+        // delete bugs
+        foreach (List<GameObject> value in bugs.Values)
+        {
+            for (int i = 0; i < value.Count; i++)
+            {
+                Destroy(value[i]);
+            }
+        }
+    }
+
+    List<GemInfo> FindOppositeArea(List<List<GemInfo>> aroundRoadGems)
+    {
+        List<GemInfo> possibleDirection = new List<GemInfo>();
+        for(int i = 0; i < aroundRoadGems.Count; i++)
+        {
+            bool check = true;
+            for (int j = 0; j < aroundRoadGems[i].Count; j++)
+            {
+                if(area[aroundRoadGems[i][j].GetColumn(), aroundRoadGems[i][j].GetRow()])
+                {
+                    check = false;
+                    break;
+                }
+            }
+            if (check)
+            {
+                if (aroundRoadGems[i].Count == 0) continue;
+                possibleDirection.Add(aroundRoadGems[i][aroundRoadGems[i].Count - 1]);
+            }
+        }
+
+        return possibleDirection;
+    }
+
+    IEnumerator BugDisappear()
+    {
+        foreach (GemInfo key in bugs.Keys)
+        {
+            // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+            List<List<GemInfo>> aroundRoadGems = board.GetAroundGemList(key.GetColumn(), key.GetRow());
+            List<GemInfo> possibleDirection = FindOppositeArea(aroundRoadGems);
+
+            for (int i = 0; i < bugs[key].Count; i++)
+            {
+                int randomIdx = Random.Range(0, possibleDirection.Count);
+                if(possibleDirection.Count > 0) StartCoroutine(MoveStartToTarget(bugs[key][i].gameObject, possibleDirection[randomIdx].gameObject, 3f));
+                bugs[key][i].GetComponent<PatternAreaBug>().FadeOut(0.5f);
+            }
+
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        ClearArea();
+        SetAreaAgain();
     }
 
     void SetColor()
     {
-        // init bugs
-        for (int i = 0; i < bugs.Count; i++)
-        {
-            Destroy(bugs[i]);
-        }
+        start = true;
 
         // create bugs (extends area)
         for (int i = 0; i < 11; i++)
@@ -348,7 +424,7 @@ public class PatternGreen : PatternManager
 
                 for (int k = 0; k < 2; k++)
                 {
-                    GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, board.transform);
+                    GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, UICanvas.transform);
                     Vector3 originPos = bug.transform.position;
                     float interval = 0.2f;
                     Vector3 newPos = new Vector3(originPos.x + Random.Range(-interval, interval), originPos.y + Random.Range(-interval, interval), originPos.z);
@@ -358,7 +434,13 @@ public class PatternGreen : PatternManager
                     //bug.GetComponent<PatternAreaBug>().FallBug();
                     bug.transform.position = newPos;
                     bug.GetComponent<PatternAreaBug>().SizeDown();
-                    bugs.Add(bug);
+
+                    GemInfo tempGem = board.GetGem(i, j);
+                    if(bugs.ContainsKey(tempGem) == false)
+                    {
+                        bugs.Add(tempGem, new List<GameObject>());
+                    }
+                    bugs[tempGem].Add(bug);
                 }
             }
         }
@@ -369,25 +451,25 @@ public class PatternGreen : PatternManager
     {
         area[col_, row_] = true;
 
-        // hard mode
-        if(mini.patternLevel == (int)LevelType.HARD1 || mini.patternLevel == (int)LevelType.HARD2)
-        {
-            int idx = col_ % 2;
-            int[,] goal_area = GameObject.Find("Board").GetComponent<GoalInfo>().GetGoal();
-            for(int i=0;i<goal_area.GetLength(1); i+=2)
-            {
-                int new_col = col_ + goal_area[idx, i];
-                int new_row = row_ + goal_area[idx, i + 1];
-                if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0 || (new_col % 2 == 0 && new_row > 4))
-                {
-                    Debug.Log("영역 범위 넘어서 Area 재설정");
-                    SetAreaAgain();
-                    return false;
-                }
-                area[new_col, new_row] = true;
-            }
-            return true;
-        }
+        //// hard mode
+        //if(mini.patternLevel == (int)LevelType.HARD1 || mini.patternLevel == (int)LevelType.HARD2)
+        //{
+        //    int idx = col_ % 2;
+        //    int[,] goal_area = GameObject.Find("Board").GetComponent<GoalInfo>().GetGoal();
+        //    for(int i=0;i<goal_area.GetLength(1); i+=2)
+        //    {
+        //        int new_col = col_ + goal_area[idx, i];
+        //        int new_row = row_ + goal_area[idx, i + 1];
+        //        if (new_col >= 11 || new_row >= 6 || new_col < 0 || new_row < 0 || (new_col % 2 == 0 && new_row > 4))
+        //        {
+        //            Debug.Log("영역 범위 넘어서 Area 재설정");
+        //            SetAreaAgain();
+        //            return false;
+        //        }
+        //        area[new_col, new_row] = true;
+        //    }
+        //    return true;
+        //}
 
         // choose direction vector about even or odd column
         int[,] direction;
@@ -426,19 +508,13 @@ public class PatternGreen : PatternManager
 
     public void SetAreaAgain()
     {
-        ClearArea();
         GemInfo gem = board.GetRandomGemArea();
         int level_ = 1;
-        if (mini.patternLevel == (int)LevelType.EASY1 || mini.patternLevel == (int)LevelType.EASY2)
-        {
-            level_ = 2;
-        }
+        //if (mini.patternLevel == (int)LevelType.EASY1 || mini.patternLevel == (int)LevelType.EASY2)
+        //{
+        //    level_ = 2;
+        //}
         SetAreas(gem.GetColumn(), gem.GetRow(), level_);
         SetColor();
-    }
-
-    void GreenGimmick1()
-    {
-        SetAreaAgain();
     }
 }

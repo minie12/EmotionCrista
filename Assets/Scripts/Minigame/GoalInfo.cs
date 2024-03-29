@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // ERASE!
@@ -136,11 +136,11 @@ public class GoalInfo : MonoBehaviour
                     if (result)
                     {
                         crushedGems.Add(new List<int> { column2, row2 });
-                        if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
-                        {
-                            mini.GetComponent<PatternGreen>()?.SetAreaAgain();
+                        //if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
+                        //{
+                        //    mini.GetComponent<PatternGreen>()?.SetAreaAgain();
 
-                        }
+                        //}
                         return true;
                     }
                 }
@@ -166,10 +166,10 @@ public class GoalInfo : MonoBehaviour
                     if (result)
                     {
                         crushedGems.Add(new List<int> { column2, row2 });
-                        if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
-                        {
-                            mini.GetComponent<PatternGreen>()?.SetAreaAgain();
-                        }
+                        //if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
+                        //{
+                        //    mini.GetComponent<PatternGreen>()?.SetAreaAgain();
+                        //}
                         return true;
                     }
                 }
@@ -212,10 +212,10 @@ public class GoalInfo : MonoBehaviour
             {
                 board.BeepPlay();
             }
-            if (result && mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
-            {
-                mini.GetComponent<PatternGreen>()?.SetAreaAgain();
-            }
+            //if (result && mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
+            //{
+            //    mini.GetComponent<PatternGreen>()?.SetAreaAgain();
+            //}
             return result;
         }
         return false;
