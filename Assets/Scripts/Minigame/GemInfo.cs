@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -38,6 +38,7 @@ public class GemInfo : MonoBehaviour
     [HideInInspector] public bool bLocationFixed = false; // manage location fixed
     [HideInInspector] public int isFired = 0; // 0: no fire, 1: init fire, 2: spreaded fire
     [HideInInspector] public bool isChecked = false; // check (using BFS)
+    [HideInInspector] public bool isCryGem = false; // using blue gimmick
 
     private void Awake()
     {

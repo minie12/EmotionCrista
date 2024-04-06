@@ -397,6 +397,12 @@ public class BoardManager : MonoBehaviour
                 gems[i, j] = gemTemp.GetComponent<GemInfo>();
                 gems[i, j].MoveGem(i, j, dropTime);
             }
+
+            if (j == 0 && gems[i, j].isCryGem == true)
+            {
+                gems[i, j].DestroyGem();
+                crushedGems.Add(new List<int> { i, j });
+            }
         }
 
         // wait for gems to fall down then allow clicks
@@ -807,7 +813,33 @@ public class BoardManager : MonoBehaviour
         return gems;
     }
 
+    // 특정 행에 있는 광물 모두 얻어오기
+    // 가장 아래 행부터 0, 1, 2, 3, 4 (행이 짝수면 그대로, 홀수면 +1)
+    public List<GemInfo> GetGemRows(List<int> rows)
+    {
+        List<GemInfo> gems = new List<GemInfo>();
 
+        foreach (int r in rows)
+        {
+            for (int i = 0; i < 11; i++)
+            {
+                int nr = r;
+                if (i % 2 == 1)
+                {
+                    nr++;
+                }
+                GemInfo gem = GetGem(i, nr);
+                if (gem != null)
+                {
+                    gems.Add(gem);
+                }
+            }
+        }
+
+        return gems;
+    }
+
+    // 특정 열에 있는 광물 모두 얻어오기
     public List<GemInfo> GetGemColumns(List<int> columns)
     {
         List<GemInfo> gems = new List<GemInfo>();

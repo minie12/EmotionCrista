@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,6 +63,8 @@ public class PatternBlue : PatternManager
         bubbleShowing = false;
         crushedGemLast = 0;
 
+        Invoke(nameof(B_CryGem), 1f);
+
         RestartPattern();
     }
 
@@ -102,7 +104,7 @@ public class PatternBlue : PatternManager
     {
         base.RestartPattern();
 
-        // [TODO] ��ȹ
+        // [TODO] 기획
         switch (mini.patternLevel)
         {
             case 0:
@@ -226,5 +228,56 @@ public class PatternBlue : PatternManager
         bubbleCnt = Random.Range(2, 10);
         bubbleCoroutine = CreateBubble(bubbleCnt);
         StartCoroutine(bubbleCoroutine);
+    }
+
+    // B2 -----------------------------------------------
+    void B_CryGem()
+    {
+        // 맨 윗 줄 (row: 4)에서 랜덤으로 광물 얻어오기
+        List<GemInfo> upperGems = board.GetGemRows(new List<int> { 4 });
+        GemInfo gem = upperGems[Random.Range(0, upperGems.Count)];
+
+        // 눈물 광물로 변경
+        gem.ChangeGemColor(1);
+        gem.ChangeSpecialGem();
+        gem.FadeIn(0.5f);
+        gem.isCryGem = true;
+
+        StartCoroutine(GemCrying(gem));
+    }
+
+    IEnumerator GemCrying(GemInfo gem)
+    {
+        yield return new WaitForSeconds(1f);
+        float dropTime = 0.3f;
+
+        while (true)
+        {
+            int curr_col = gem.GetColumn();
+            int curr_row = gem.GetRow();
+            int next_row = curr_row - 1;
+
+            GemInfo next_gem = board.GetGem(curr_col, next_row);
+
+            if (next_gem == null)
+            {
+                gem.DestroyGem();
+                board.StartRefilBoardFever();
+                break;
+            }
+
+            next_gem.MoveGem(curr_col, curr_row, dropTime);
+            gem.FadeOut(0.3f);
+            next_gem.FadeOut(0.3f);
+            gem.MoveGem(curr_col, next_row, dropTime);
+            board.SetGem(curr_col, next_row, gem);
+            board.SetGem(curr_col, curr_row, next_gem);
+            yield return new WaitForSeconds(0.3f);
+            gem.FadeIn(0.3f);
+            next_gem.FadeIn(0.3f);
+
+            yield return new WaitForSeconds(2f);
+        }
+        yield return null;
     }
 }
