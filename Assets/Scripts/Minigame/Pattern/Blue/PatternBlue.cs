@@ -63,7 +63,7 @@ public class PatternBlue : PatternManager
         bubbleShowing = false;
         crushedGemLast = 0;
 
-        Invoke(nameof(B_CryGem), 1f);
+        //Invoke(nameof(B_CryGem), 1f);
 
         RestartPattern();
     }

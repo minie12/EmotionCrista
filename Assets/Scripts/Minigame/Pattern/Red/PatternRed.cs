@@ -78,21 +78,20 @@ public class PatternRed : PatternManager
         base.RestartPattern();
 
         gimmick[0] = true;
+        mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+
         // [TODO] 기획
         switch (mini.patternLevel)
         {
             case 0:
-                StartGimmick(2);
                 break;
             case 1:
                 StartGimmick(1);
-                StartGimmick(2);
                 break;
             case 2:
-                StartGimmick(2);
+                StartGimmick(1);
                 break;
             case 3:
-                StartGimmick(1);
                 StartGimmick(2);
                 break;
             case 4:
