@@ -80,11 +80,11 @@ public class PatternGreen : PatternManager
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 3:
-                StartGimmick(1);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 4:
-                StartGimmick(0);
+                StartGimmick(1);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 5:
@@ -183,6 +183,7 @@ public class PatternGreen : PatternManager
 
         // just create image
         GameObject specialGem = Instantiate(gemPF, greenGem.GetComponent<Transform>().position, Quaternion.identity, UICanvas.transform);
+        specialGem.transform.localScale = new Vector3(100f, 100f, 1f);
         specialGem.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 3;
         GemInfo specialGemInfo = specialGem.GetComponent<GemInfo>();
         specialGemInfo.SetBackgroundColor(255f, 255f, 255f, 0f);
