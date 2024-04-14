@@ -63,8 +63,6 @@ public class PatternBlue : PatternManager
         bubbleShowing = false;
         crushedGemLast = 0;
 
-        //Invoke(nameof(B_CryGem), 1f);
-
         RestartPattern();
     }
 
@@ -82,6 +80,9 @@ public class PatternBlue : PatternManager
             case 0:
                 break;
             case 1:
+                break;
+            case 2:
+                Invoke(nameof(B_CryGem), 1f);
                 break;
         }
     }
@@ -121,11 +122,11 @@ public class PatternBlue : PatternManager
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 3:
-                StartGimmick(1);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 4:
-                StartGimmick(0);
+                StartGimmick(1);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 5:
