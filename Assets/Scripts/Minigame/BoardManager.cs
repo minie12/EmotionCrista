@@ -401,7 +401,7 @@ public class BoardManager : MonoBehaviour
             if (j == 0 && gems[i, j].isCryGem == true)
             {
                 gems[i, j].DestroyGem();
-                crushedGems.Add(new List<int> { i, j });
+                crushedGems.Insert(0, new List<int> { i, j });
             }
         }
 

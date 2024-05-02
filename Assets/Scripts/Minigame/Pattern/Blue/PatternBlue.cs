@@ -17,6 +17,9 @@ public class PatternBlue : PatternManager
     private int bubbleCnt = 0;
     private IEnumerator bubbleCoroutine;
 
+    // crying gem
+    private GemInfo crying_gem;
+
     protected override void Awake()
     {
         base.Awake();
@@ -236,46 +239,67 @@ public class PatternBlue : PatternManager
     {
         // 맨 윗 줄 (row: 4)에서 랜덤으로 광물 얻어오기
         List<GemInfo> upperGems = board.GetGemRows(new List<int> { 4 });
-        GemInfo gem = upperGems[Random.Range(0, upperGems.Count)];
+        crying_gem = upperGems[Random.Range(0, upperGems.Count)];
 
         // 눈물 광물로 변경
-        gem.ChangeGemColor(1);
-        gem.ChangeSpecialGem();
-        gem.FadeIn(0.5f);
-        gem.isCryGem = true;
+        crying_gem.ChangeGemColor(1);
+        crying_gem.ChangeSpecialGem();
+        crying_gem.FadeIn(0.5f);
+        crying_gem.isCryGem = true;
 
-        StartCoroutine(GemCrying(gem));
+        StartCoroutine(GemCrying());
     }
 
-    IEnumerator GemCrying(GemInfo gem)
+    IEnumerator GemCrying()
     {
         yield return new WaitForSeconds(1f);
         float dropTime = 0.3f;
 
+        int curr_col = crying_gem.GetColumn();
+        int curr_row = crying_gem.GetRow();
+        int next_row = curr_row - 1;
+
+        GemInfo next_crying_gem = board.GetGem(curr_col, next_row);
+        if (next_crying_gem == null)
+        {
+            yield return null;
+        }
+
         while (true)
         {
-            int curr_col = gem.GetColumn();
-            int curr_row = gem.GetRow();
-            int next_row = curr_row - 1;
+            curr_col = crying_gem.GetColumn();
+            curr_row = crying_gem.GetRow();
+            next_row = curr_row - 1;
 
-            GemInfo next_gem = board.GetGem(curr_col, next_row);
-
-            if (next_gem == null)
+            next_crying_gem = board.GetGem(curr_col, next_row);
+            if (next_crying_gem == null)
             {
-                gem.DestroyGem();
+                board.DelGem(curr_col, curr_row);
                 board.StartRefilBoardFever();
                 break;
             }
 
-            next_gem.MoveGem(curr_col, curr_row, dropTime);
-            gem.FadeOut(0.3f);
-            next_gem.FadeOut(0.3f);
-            gem.MoveGem(curr_col, next_row, dropTime);
-            board.SetGem(curr_col, next_row, gem);
-            board.SetGem(curr_col, curr_row, next_gem);
+            next_crying_gem.MoveGem(curr_col, curr_row, dropTime);
+            crying_gem.FadeOut(0.3f);
+            next_crying_gem.FadeOut(0.3f);
+            crying_gem.MoveGem(curr_col, next_row, dropTime);
+            board.SetGem(curr_col, next_row, crying_gem);
+            board.SetGem(curr_col, curr_row, next_crying_gem);
             yield return new WaitForSeconds(0.3f);
-            gem.FadeIn(0.3f);
-            next_gem.FadeIn(0.3f);
+            crying_gem.FadeIn(0.3f);
+            next_crying_gem.FadeIn(0.3f);
+            yield return new WaitForSeconds(0.3f);
+            curr_col = crying_gem.GetColumn();
+            curr_row = crying_gem.GetRow();
+            next_row = curr_row - 1;
+
+            next_crying_gem = board.GetGem(curr_col, next_row);
+            if (next_crying_gem == null)
+            {
+                board.DelGem(curr_col, curr_row);
+                board.StartRefilBoardFever();
+                break;
+            }
 
             yield return new WaitForSeconds(2f);
         }
