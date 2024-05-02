@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +38,7 @@ public class PatternYellow : PatternManager
     public override void StartPattern(int level_){
         base.StartPattern(level_);
 
-        // [TODO] ±âÈ¹
+        // [TODO] ï¿½ï¿½È¹
         switch (level_)
         {
             case 0:
@@ -56,11 +56,11 @@ public class PatternYellow : PatternManager
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 3:
-                StartGimmick(1);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 4:
-                StartGimmick(0);
+                StartGimmick(1);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 5:

@@ -146,7 +146,7 @@ public class MiniManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
 
         // get variable about story from Fungus
-        miniGameLevel = 2; // TODO
+        miniGameLevel = 0; // TODO
         storyRound = SystemManager.Get().IsMultiRound() ? 1 : 0;
         patternIdx = GameManager.Get().GetCharacterIndex();
 

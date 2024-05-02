@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +16,9 @@ public class PatternBlue : PatternManager
     private bool bubbleShowing = false;
     private int bubbleCnt = 0;
     private IEnumerator bubbleCoroutine;
+
+    // crying gem
+    private GemInfo crying_gem;
 
     protected override void Awake()
     {
@@ -81,6 +84,9 @@ public class PatternBlue : PatternManager
                 break;
             case 1:
                 break;
+            case 2:
+                Invoke(nameof(B_CryGem), 1f);
+                break;
         }
     }
 
@@ -102,7 +108,7 @@ public class PatternBlue : PatternManager
     {
         base.RestartPattern();
 
-        // [TODO] ��ȹ
+        // [TODO] 기획
         switch (mini.patternLevel)
         {
             case 0:
@@ -119,11 +125,11 @@ public class PatternBlue : PatternManager
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 3:
-                StartGimmick(1);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 4:
-                StartGimmick(0);
+                StartGimmick(1);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 5:
@@ -226,5 +232,77 @@ public class PatternBlue : PatternManager
         bubbleCnt = Random.Range(2, 10);
         bubbleCoroutine = CreateBubble(bubbleCnt);
         StartCoroutine(bubbleCoroutine);
+    }
+
+    // B2 -----------------------------------------------
+    void B_CryGem()
+    {
+        // 맨 윗 줄 (row: 4)에서 랜덤으로 광물 얻어오기
+        List<GemInfo> upperGems = board.GetGemRows(new List<int> { 4 });
+        crying_gem = upperGems[Random.Range(0, upperGems.Count)];
+
+        // 눈물 광물로 변경
+        crying_gem.ChangeGemColor(1);
+        crying_gem.ChangeSpecialGem();
+        crying_gem.FadeIn(0.5f);
+        crying_gem.isCryGem = true;
+
+        StartCoroutine(GemCrying());
+    }
+
+    IEnumerator GemCrying()
+    {
+        yield return new WaitForSeconds(1f);
+        float dropTime = 0.3f;
+
+        int curr_col = crying_gem.GetColumn();
+        int curr_row = crying_gem.GetRow();
+        int next_row = curr_row - 1;
+
+        GemInfo next_crying_gem = board.GetGem(curr_col, next_row);
+        if (next_crying_gem == null)
+        {
+            yield return null;
+        }
+
+        while (true)
+        {
+            curr_col = crying_gem.GetColumn();
+            curr_row = crying_gem.GetRow();
+            next_row = curr_row - 1;
+
+            next_crying_gem = board.GetGem(curr_col, next_row);
+            if (next_crying_gem == null)
+            {
+                board.DelGem(curr_col, curr_row);
+                board.StartRefilBoardFever();
+                break;
+            }
+
+            next_crying_gem.MoveGem(curr_col, curr_row, dropTime);
+            crying_gem.FadeOut(0.3f);
+            next_crying_gem.FadeOut(0.3f);
+            crying_gem.MoveGem(curr_col, next_row, dropTime);
+            board.SetGem(curr_col, next_row, crying_gem);
+            board.SetGem(curr_col, curr_row, next_crying_gem);
+            yield return new WaitForSeconds(0.3f);
+            crying_gem.FadeIn(0.3f);
+            next_crying_gem.FadeIn(0.3f);
+            yield return new WaitForSeconds(0.3f);
+            curr_col = crying_gem.GetColumn();
+            curr_row = crying_gem.GetRow();
+            next_row = curr_row - 1;
+
+            next_crying_gem = board.GetGem(curr_col, next_row);
+            if (next_crying_gem == null)
+            {
+                board.DelGem(curr_col, curr_row);
+                board.StartRefilBoardFever();
+                break;
+            }
+
+            yield return new WaitForSeconds(2f);
+        }
+        yield return null;
     }
 }
