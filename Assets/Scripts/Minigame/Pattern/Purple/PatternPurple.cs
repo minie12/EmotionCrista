@@ -53,6 +53,7 @@ public class PatternPurple : PatternManager
     public override void RestartPattern()
     {
         base.RestartPattern();
+        mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
 
         // [TODO] 기획
         switch (mini.patternLevel)
