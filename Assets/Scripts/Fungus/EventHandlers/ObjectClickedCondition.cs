@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Fungus
@@ -13,7 +13,7 @@ namespace Fungus
     public class ObjectClickedCondition : ObjectClicked
     {
         [Tooltip("Conditions to execute the block.")]
-        [SerializeField] protected int storyRound = 1;
+        [SerializeField] protected bool bMultiRound = false;
         [SerializeField] protected int characterIndex = 1;
         [SerializeField] protected bool bHaveReport = false;
 
@@ -26,11 +26,11 @@ namespace Fungus
         {
             Flowchart flowchart = ParentBlock.GetFlowchart();
 
-            int varStoryRound = flowchart.GetVariable<IntegerVariable>("StoryRound").Value;
+            bool varMultiRound = flowchart.GetVariable<BooleanVariable>("MultiRound").Value;
             int varCharacterIndex = flowchart.GetVariable<IntegerVariable>("CharacterIndex").Value;
             bool varHaveReport = flowchart.GetVariable<BooleanVariable>("HaveReport").Value;
             if ((clickableObject == this.clickableObject) &&
-                (varStoryRound == storyRound) && (varCharacterIndex == characterIndex) && (varHaveReport == bHaveReport))
+                (varMultiRound == bMultiRound) && (varCharacterIndex == characterIndex) && (varHaveReport == bHaveReport))
             {
                 StartCoroutine(DoExecuteBlock(waitFrames));
             }

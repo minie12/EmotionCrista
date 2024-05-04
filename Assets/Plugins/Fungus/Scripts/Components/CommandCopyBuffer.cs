@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -58,6 +58,13 @@ namespace Fungus
         public virtual Command[] GetCommands()
         {
             return GetComponents<Command>();
+        }
+
+        public virtual Command GetLastCommand()
+        {
+            var commands = GetCommands();
+
+            return commands[commands.Length - 1];
         }
 
         public virtual void Clear()

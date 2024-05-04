@@ -82,6 +82,9 @@ public class UICanvasManager : MonoBehaviour
 
         switch (inSceneName)
         {
+            case "Lobby":
+                locationName = "로비";
+                break;
             case "LabCorridor":
                 locationName = "상담실 복도";
                 break;
@@ -97,8 +100,8 @@ public class UICanvasManager : MonoBehaviour
             case "DayEnd":
                 locationName = "기숙사";
                 break;
-            case "StaffOnly":
-                locationName = "출입금지??";
+            case "AndroidLab":
+                locationName = "실험실";
                 break;
             default:
                 Debug.LogError("[OnSceneLoaded()] No case found. Add " + inSceneName);
@@ -120,6 +123,9 @@ public class UICanvasManager : MonoBehaviour
                 return false;
 
             case "PatrickLab":
+                return false;
+
+            case "AndroidLab":
                 return false;
 
             case "DayEnd":

@@ -39,12 +39,12 @@ public class MiniManager : MonoBehaviour
     public Color[] counseleeColor;
 
     // timer
-    private float fullPlayTime = 50f; 
+    private float fullPlayTime = 50f;
     private float playTimeSpeed = 1f;
     private float playTime = 0f;
     private float fullFeverTime = 10f;
     private float feverTime = 0f;
-    private float crushedGaugeTime = 1f; 
+    private float crushedGaugeTime = 1f;
     private bool isTwinkle = false;
 
     // board related
@@ -83,7 +83,7 @@ public class MiniManager : MonoBehaviour
     private bool bPuzzleMode = true;
 
     // Get & Set -----------------------------------------------------
-    public string GetFungusMessage() 
+    public string GetFungusMessage()
     {
         // D0회차_내담자이름난이도
         string characterName = Enum.GetName(typeof(CharacterName), patternIdx);
@@ -91,16 +91,6 @@ public class MiniManager : MonoBehaviour
         string message = "D" + string.Format("{0:D2}", storyRound + 1) + "_" + characterName + levelName[miniGameLevel];
 
         return message;
-    }
-
-    // get fungus variable (check null)
-    int GetFungusVariable(Fungus.Flowchart flowchart, string variableName)
-    {
-        if (flowchart.GetVariable<Fungus.IntegerVariable>(variableName) != null)
-        {
-            return flowchart.GetVariable<Fungus.IntegerVariable>(variableName).Value;
-        }
-        return 0;
     }
 
     public int GetTotalCrushedGem()
@@ -146,11 +136,10 @@ public class MiniManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
 
         // get variable about story from Fungus
-        miniGameLevel = 0; // TODO
         storyRound = SystemManager.Get().IsMultiRound() ? 1 : 0;
         patternIdx = GameManager.Get().GetCharacterIndex();
 
-        patternLevel = (storyRound) * 3 + miniGameLevel;
+        UpdatePatternLevel();
 
         // for test
         //patternLevel = TestLoadMini.patternLevel;
@@ -186,6 +175,12 @@ public class MiniManager : MonoBehaviour
 
         // set goal
         goalInfo.SetGoal(goalUnit);
+    }
+
+    private void UpdatePatternLevel()
+    {
+        miniGameLevel = GameManager.Get().GetMiniGameLevel();
+        patternLevel = (storyRound) * 3 + miniGameLevel;
     }
 
     private PatternManager SpawnPattern(int patternIdx)
@@ -405,12 +400,14 @@ public class MiniManager : MonoBehaviour
     }
 
     // after dialogue with client
-    public void RestartGame(string color, int gimmick_)
+    public void RestartGame()
     {
         EndFever();
         UIScore.SetActive(true);
         board.InitBoard();
         bPuzzleMode = true;
+
+        UpdatePatternLevel();
 
         pattern.StartPattern(patternLevel);
         InitBoardOption();

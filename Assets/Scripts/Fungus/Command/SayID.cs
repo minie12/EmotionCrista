@@ -59,8 +59,22 @@ namespace Fungus
         public override void OnEnter()
         {
             DialogData data = StoryDialogReader.GetDialogData(textID);
-            
-            character = GameObject.Find(data.character).GetComponent<Character>();
+
+            if (data == null)
+            {
+                data = new DialogData("System", "Could not find dialogue (" + textID + ").");
+            }
+
+            GameObject GO_Character = GameObject.Find(data.character);
+            if (null == GO_Character)
+            {
+                Debug.Log("Character could not be found : " + data.character);
+
+                Continue();
+                return;
+            }
+
+            character = GO_Character.GetComponent<Character>();
             storyText = data.dialog;
 
             #region Method: Say
@@ -112,13 +126,11 @@ namespace Fungus
 
             string subbedText = flowchart.SubstituteVariables(displayText);
 
-            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
-                Continue();
-            });
+            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate { Continue(); }, delegate { OnWaitForInputAndClear(); });
             #endregion
         }
 
-        public override void Continue()
+        public void OnWaitForInputAndClear()
         {
             var sayDialog = SayDialog.GetSayDialog();
             if (sayDialog != null)
@@ -136,14 +148,7 @@ namespace Fungus
                     LogCache.AddLog(speaker, dialogue);
                 }
             }
-
-            // This is a noop if the Block has already been stopped
-            if (IsExecuting)
-            {
-                Continue(CommandIndex + 1);
-            }
         }
-
 
         public override string GetSummary()
         {

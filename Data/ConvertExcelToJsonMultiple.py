@@ -4,10 +4,10 @@ import os
 import sys
 
 currentDir = os.getcwd()
-fileName = ["E.xlsx"]
-sheetName = [["Tutorial", "Worksheet2", "Worksheet3"]]
+fileName = ["Dialogue.xlsx"]
+sheetName = [["D01_Naria", "D01_Lulian", "D01_Russel", "D01_Nish", "D01_Ilrak", "Ending0"]]
 
-excelData = pandas.DataFrame(columns = ["id", "character", "spriteName", "spritePosition", "dialog", "desc"])
+excelData = pandas.DataFrame(columns = ["id", "character", "dialog"])
 
 for i in range(len(fileName)):
     excelPath = os.path.join(currentDir, fileName[i])

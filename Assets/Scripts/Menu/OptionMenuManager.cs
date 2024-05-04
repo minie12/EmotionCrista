@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,8 +11,6 @@ public class OptionMenuManager : MonoBehaviour
 
     private int previousIdx;
 
-    private bool bInMenuBox;
-
     public GameObject[] menuSlots;
 
     // Start is called before the first frame update
@@ -23,7 +21,6 @@ public class OptionMenuManager : MonoBehaviour
         centerPosition = new Vector2(940.0f, 485.0f);
         anglePerSlot = 360 * 0.2f;
         previousIdx = -1;
-        bInMenuBox = false;
     }
 
     // Update is called once per frame

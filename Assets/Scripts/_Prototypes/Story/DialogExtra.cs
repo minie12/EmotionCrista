@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,6 +70,12 @@ public class DialogExtra : MonoBehaviour
         //Instantiate(clickableObj, location);
         obj.transform.SetParent(parent, false);
     }
+
+    public void SetMiniGameLevel(int inGameLevel)
+    {
+        GameManager.Get().SetGameLevel(inGameLevel);
+    }
+
     //public void EraseClickable(GameObject location)
     //{
     //    foreach (Transform children in location.transform)
@@ -92,9 +98,19 @@ public class DialogExtra : MonoBehaviour
     //}
 
     #region Minigame
-    public void RestartPuzzle(string color, int gimmick)
+    public void RestartPuzzle()
     {
-        GameObject.Find("MiniManager").GetComponent<MiniManager>().RestartGame(color, gimmick);
+        GameObject MiniManagerObj = GameObject.Find("MiniManager");
+
+        if (null != MiniManagerObj)
+        {
+            MiniManager MiniManager = MiniManagerObj.GetComponent<MiniManager>();
+
+            if (null != MiniManager)
+            {
+                MiniManager.RestartGame();
+            }
+        }
     }
 
     // minigame option (pause)
