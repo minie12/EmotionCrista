@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -14,12 +14,15 @@ public class SaveLoadMenuManager : MonoBehaviour
     
     // SaveLoad Data Menu UI
     public GameObject SaveLoadMenu;
-    public Text SaveLoadMenuTitle;
+    public Image SaveLoadMenuTitle;
 
     public GameObject[] Slots;
 
     public Sprite EmptySlotImage;
     public Sprite ActiveSlotImage;
+
+    public Sprite LoadTitleImage;
+    public Sprite SaveTitleImage;
 
     public void Start()
     {
@@ -45,11 +48,11 @@ public class SaveLoadMenuManager : MonoBehaviour
         bSave = bSave_;
         if (bSave)
         {
-            SaveLoadMenuTitle.text = "Àú Àå ÇÏ ±â";
+            SaveLoadMenuTitle.sprite = SaveTitleImage;
         }
         else
         {
-            SaveLoadMenuTitle.text = "ºÒ ·¯ ¿À ±â";
+            SaveLoadMenuTitle.sprite = LoadTitleImage;
         }
         SaveLoadMenu.SetActive(true);
     }
@@ -220,10 +223,10 @@ public class SaveLoadMenuManager : MonoBehaviour
                 return;
             }
 
-            OldGameManager gameManager = OldGameManager.Get();
+            GameManager gameManager = GameManager.Get();
             if (null != gameManager)
             {
-                gameManager.LoadEmoSaveData = loadedData;
+                gameManager.SetLoadData(loadedData);
             }
 
             SceneManager.LoadScene(loadedData.SceneName, LoadSceneMode.Single);

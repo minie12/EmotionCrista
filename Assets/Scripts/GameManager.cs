@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
             currentPlayInfo.Initialize();
 
             loadManager = this.GetComponent<LoadManager>();
-                
+
             Debug.Assert(loadManager != null, "[GameManager] Add 'LoadManager' Script to 'GameManager' gameobject");
 
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -148,6 +148,11 @@ public class GameManager : MonoBehaviour
     }
 
     #region PlayInfoFunctions
+    public string GetPlayerName()
+    {
+        return currentPlayInfo.playerName;
+    }
+
     public void GetPlayInfo(ref PlayInfo refPlayInfo)
     {
         refPlayInfo.playerName = currentPlayInfo.playerName;
@@ -225,5 +230,12 @@ public class GameManager : MonoBehaviour
     public int GetDayCount() { return currentPlayInfo.dayCount; }
     public int GetCharacterIndex() { return currentPlayInfo.characterIndex; }
     public void SetHaveReport(bool bInHaveReport) { currentPlayInfo.bHaveReport = bInHaveReport; }
+    public void SetLoadData(EmoSaveData inLoadData) 
+    {
+        if (null != loadManager)
+        {
+            loadManager.LoadEmoSaveData = inLoadData;
+        }
+    }
     #endregion
 }

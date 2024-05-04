@@ -756,6 +756,7 @@ GameObject:
   - component: {fileID: 1106063419}
   - component: {fileID: 1106063418}
   - component: {fileID: 1106063417}
+  - component: {fileID: 1106063430}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -863,7 +864,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 502.15723
     y: 57.891277
-    width: 130.21977
+    width: 130.26314
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -951,7 +952,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 67
     y: 70
-    width: 77.47253
+    width: 76.31578
     height: 40
   tint: {r: 1, g: 0.92016095, b: 0.4764151, a: 1}
   useCustomTint: 1
@@ -959,7 +960,8 @@ MonoBehaviour:
   blockName: Start
   description: 
   eventHandler: {fileID: 1106063426}
-  commandList: []
+  commandList:
+  - {fileID: 1106063430}
   suppressAllAutoSelections: 0
 --- !u!114 &1106063428
 MonoBehaviour:
@@ -974,11 +976,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -10.964934, y: 67.7131}
+  scrollPos: {x: 24.489063, y: -50.476597}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.9100001
+  zoom: 0.76000017
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -987,7 +989,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 1106063427}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1106063430}
   variables:
   - {fileID: 1106063425}
   - {fileID: 1106063424}
@@ -1018,6 +1021,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1106063430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106063416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 0
+  duration: 1
+  targetAlpha: 0
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
+  fadeTweenType: 4
 --- !u!1 &1423757301
 GameObject:
   m_ObjectHideFlags: 0

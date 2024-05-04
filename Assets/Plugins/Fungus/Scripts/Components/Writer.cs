@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
@@ -273,6 +273,8 @@ namespace Fungus
 
             TokenType previousTokenType = TokenType.Invalid;
 
+            string OutputWithoutToken = "";
+
             for (int i = 0; i < tokens.Count; ++i)
             {
                 // Pause between tokens if Paused is set
@@ -310,6 +312,7 @@ namespace Fungus
                 switch (token.type)
                 {
                 case TokenType.Words:
+                    OutputWithoutToken += token.paramList[0];
                     yield return StartCoroutine(DoWords(token.paramList, previousTokenType));
                     WordTokensProcessed++;
                     break;
@@ -513,6 +516,8 @@ namespace Fungus
                     break;
                 }
             }
+
+            OutputWithoutToken += ".";
 
             inputFlag = false;
             exitFlag = false;
