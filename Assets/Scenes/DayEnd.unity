@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 352672070}
   - component: {fileID: 352672069}
   - component: {fileID: 352672064}
+  - component: {fileID: 352672066}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -535,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -10.964934, y: 67.7131}
+  scrollPos: {x: 193.43068, y: 154.52634}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -546,7 +547,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 352672081}
   selectedCommands: []
   variables:
   - {fileID: 352672068}
@@ -554,6 +556,7 @@ MonoBehaviour:
   - {fileID: 352672079}
   - {fileID: 352672065}
   - {fileID: 352672074}
+  - {fileID: 352672066}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -613,6 +616,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: HaveReport
+  value: 0
+--- !u!114 &352672066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352672059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: Debugging
   value: 0
 --- !u!114 &352672067
 MonoBehaviour:

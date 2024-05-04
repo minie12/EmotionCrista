@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using static PlasticPipe.PlasticProtocol.Messages.NegotiationCommand;
 
 namespace Fungus.EditorUtils
 {
@@ -665,12 +666,22 @@ namespace Fungus.EditorUtils
             CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
             commandCopyBuffer.Clear();
 
+            // LEJ - increase SayID #
+            bool bIsTypeSayID = false;
+            if ((flowchart.SelectedCommands.Count == 1))
+            {
+                if (flowchart.SelectedCommands[0].GetType().Name.Equals("SayID"))
+                    bIsTypeSayID = true;
+            }
+            // LEJ -----------------
+
             // Scan through all commands in execution order to see if each needs to be copied
             foreach (Command command in flowchart.SelectedBlock.CommandList)
             {
                 if (flowchart.SelectedCommands.Contains(command))
                 {
                     var type = command.GetType();
+
                     Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
                     var fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
                     foreach (var field in fields)
@@ -687,7 +698,34 @@ namespace Fungus.EditorUtils
 
                         if (copy)
                         {
-                            field.SetValue(newCommand, field.GetValue(command));
+                            var fieldValue = field.GetValue(command);
+
+                            // LEJ - increase SayID #
+                            if (true == bIsTypeSayID)
+                            {
+                                if ((fieldValue is string sayID) && 
+                                    (field.Name.Equals("textID")))
+                                {
+                                    string frontID = sayID.Substring(0, sayID.Length - 3);
+                                    string backID = sayID.Substring(sayID.Length - 3);
+
+                                    int numberID;
+                                    if (int.TryParse(backID, out numberID))
+                                    {
+                                        numberID++;
+
+                                        if (1 <= numberID * 0.01)
+                                            fieldValue = frontID + numberID.ToString();
+                                        else if (1 <= numberID * 0.1)
+                                            fieldValue = frontID + "0" + numberID.ToString();
+                                        else
+                                            fieldValue = frontID + "00" + numberID.ToString();
+                                    }
+                                }
+                            }
+                            // LEJ -----------------
+                            
+                            field.SetValue(newCommand, fieldValue);
                         }
                     }
                 }
@@ -747,10 +785,36 @@ namespace Fungus.EditorUtils
                 }
             }
 
+            if (true == commandCopyBuffer.HasCommands())
+            {
+                ChangeSelectedCommand(pasteIndex-1);
+            }
+
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 
             Repaint();
+        }
+
+        protected void ChangeSelectedCommand(int selectedIndex)
+        {
+            var block = target as Block;
+            var flowchart = (Flowchart)block.GetFlowchart();
+
+            if (flowchart == null ||
+                flowchart.SelectedBlock == null)
+            {
+                return;
+            }
+
+            if (selectedIndex < flowchart.SelectedBlock.CommandList.Count)
+            {
+                Command selectedCommand = flowchart.SelectedBlock.CommandList[selectedIndex];
+
+                flowchart.ClearSelectedCommands();
+                flowchart.AddSelectedCommand(selectedCommand);
+            }
+            
         }
 
         protected void Delete()

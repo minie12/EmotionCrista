@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Fungus;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +24,8 @@ public struct PlayInfo
     public bool bHaveReport;
     public bool bRedButtonPressed;
 
+    public int miniGameLevel;
+
     public int endingMode;
 
     public void Initialize()
@@ -33,6 +36,8 @@ public struct PlayInfo
 
         bHaveReport = false;
         bRedButtonPressed = false;
+
+        miniGameLevel = (int)LevelType.EASY1;
 
         endingMode = (int)EndingMode.None;
     }
@@ -58,9 +63,14 @@ public class GameManager : MonoBehaviour
 
     private PlayInfo currentPlayInfo;
 
+#if UNITY_EDITOR
+    bool bFirstLoad = true;
+#endif
+
     // Start is called before the first frame update
     void Awake()
     {
+        Debug.Log("GameManager Instance Created");
         if (instance == null) // If there is no instance already
         {
             DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
@@ -112,39 +122,72 @@ public class GameManager : MonoBehaviour
             Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
             if (null != flowchart)
             {
-                flowchart.SetBooleanVariable("MultiRound", SystemManager.Get().IsMultiRound());
+#if UNITY_EDITOR
+                bool bDebugging = false;
+                if (true == bFirstLoad)
+                {
+                    bDebugging = flowchart.GetBooleanVariable("Debugging");
+                }
 
-                flowchart.SetStringVariable("PlayerName", currentPlayInfo.playerName);
-                flowchart.SetIntegerVariable("CharacterIndex", currentPlayInfo.characterIndex);
+                if (true == bDebugging)
+                {
+                    PlayInfo DebugPlayInfo = new PlayInfo();
 
-                flowchart.SetBooleanVariable("HaveReport", currentPlayInfo.bHaveReport);
-                // RedButton
+                    bool bMultiRound = flowchart.GetBooleanVariable("MultiRound");
+                    SystemManager.Get().SetMultiRound(bMultiRound);
 
-                flowchart.SetIntegerVariable("EndingMode", currentPlayInfo.endingMode);
+                    DebugPlayInfo.playerName = flowchart.GetStringVariable("PlayerName");
+                    DebugPlayInfo.characterIndex = flowchart.GetIntegerVariable("CharacterIndex");
+                    DebugPlayInfo.dayCount = DebugPlayInfo.characterIndex + 1;
+
+                    DebugPlayInfo.bHaveReport = flowchart.GetBooleanVariable("HaveReport");
+                    // RedButton
+
+                    DebugPlayInfo.endingMode = flowchart.GetIntegerVariable("EndingMode");
+                    
+                    SetPlayInfo(DebugPlayInfo);
+                }
+                else
+#endif
+                {
+                    flowchart.SetBooleanVariable("MultiRound", SystemManager.Get().IsMultiRound());
+
+                    flowchart.SetStringVariable("PlayerName", currentPlayInfo.playerName);
+                    flowchart.SetIntegerVariable("CharacterIndex", currentPlayInfo.characterIndex);
+
+                    flowchart.SetBooleanVariable("HaveReport", currentPlayInfo.bHaveReport);
+                    // RedButton
+
+                    flowchart.SetIntegerVariable("EndingMode", currentPlayInfo.endingMode);
+                }
             }
-        }
 
-        // Set PlayerName
-        GameObject GO_playerCharacter = GameObject.Find("Player");
-        if (null != GO_playerCharacter)
-        {
-            Fungus.Character playerCharacter = GO_playerCharacter.GetComponent<Fungus.Character>();
-            if (null != playerCharacter)
+            // Set PlayerName
+            GameObject GO_playerCharacter = GameObject.Find("Player");
+            if (null != GO_playerCharacter)
             {
-                playerCharacter.SetStandardText(currentPlayInfo.playerName);
+                Fungus.Character playerCharacter = GO_playerCharacter.GetComponent<Fungus.Character>();
+                if (null != playerCharacter)
+                {
+                    playerCharacter.SetStandardText(currentPlayInfo.playerName);
+                }
+            }
+
+            // Set UI Info
+            GameObject GO_UICanvas = GameObject.Find("GameUICanvas");
+            if (null != GO_UICanvas)
+            {
+                UICanvasManager UICanvasManager = GO_UICanvas.GetComponent<UICanvasManager>();
+                if (null != UICanvasManager)
+                {
+                    UICanvasManager.OnSceneLoaded(Scene.name, currentPlayInfo.dayCount, currentPlayInfo.bHaveReport);
+                }
             }
         }
 
-        // Set UI Info
-        GameObject GO_UICanvas = GameObject.Find("GameUICanvas");
-        if (null != GO_UICanvas)
-        {
-            UICanvasManager UICanvasManager = GO_UICanvas.GetComponent<UICanvasManager>();
-            if (null != UICanvasManager)
-            {
-                UICanvasManager.OnSceneLoaded(Scene.name, currentPlayInfo.dayCount, currentPlayInfo.bHaveReport);
-            }
-        }
+#if UNITY_EDITOR
+        bFirstLoad = false;
+#endif
     }
 
     #region PlayInfoFunctions
@@ -161,6 +204,7 @@ public class GameManager : MonoBehaviour
 
         refPlayInfo.bHaveReport = currentPlayInfo.bHaveReport;
         refPlayInfo.bRedButtonPressed = currentPlayInfo.bRedButtonPressed;
+        refPlayInfo.miniGameLevel = currentPlayInfo.miniGameLevel;
 
         refPlayInfo.endingMode = currentPlayInfo.endingMode;
     }
@@ -172,6 +216,7 @@ public class GameManager : MonoBehaviour
 
         currentPlayInfo.bHaveReport = inPlayInfo.bHaveReport;
         currentPlayInfo.bRedButtonPressed = inPlayInfo.bRedButtonPressed;
+        currentPlayInfo.miniGameLevel = inPlayInfo.miniGameLevel;
 
         currentPlayInfo.endingMode = inPlayInfo.endingMode;
     }
@@ -192,6 +237,7 @@ public class GameManager : MonoBehaviour
 
         currentPlayInfo.bHaveReport = false;
         currentPlayInfo.bRedButtonPressed = false;
+        currentPlayInfo.miniGameLevel = 0;
 
         currentPlayInfo.endingMode = (int)EndingMode.None;
     }
@@ -229,7 +275,9 @@ public class GameManager : MonoBehaviour
     public bool IsRedButtonPressed() { return currentPlayInfo.bRedButtonPressed; }
     public int GetDayCount() { return currentPlayInfo.dayCount; }
     public int GetCharacterIndex() { return currentPlayInfo.characterIndex; }
+    public int GetMiniGameLevel() { return currentPlayInfo.miniGameLevel; }
     public void SetHaveReport(bool bInHaveReport) { currentPlayInfo.bHaveReport = bInHaveReport; }
+    public void SetGameLevel(int inGameLevel) { currentPlayInfo.miniGameLevel = inGameLevel; }
     public void SetLoadData(EmoSaveData inLoadData) 
     {
         if (null != loadManager)

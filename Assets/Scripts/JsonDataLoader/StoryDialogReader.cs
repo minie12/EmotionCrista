@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -8,10 +8,7 @@ public class RawDialogData
 {
     public string id;
     public string character;
-    public string spriteName;
-    public string spritePosition;
     public string dialog;
-    public string desc;
 }
 [System.Serializable]
 public class RawDialogDataList
@@ -86,6 +83,7 @@ public class StoryDialogReader : MonoBehaviour
         if (!DialogList.ContainsKey(id))
         {
             Debug.LogError("Cannot load: " + id);
+            return null;
         }
 
         return DialogList[id];

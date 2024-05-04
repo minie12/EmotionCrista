@@ -254,7 +254,7 @@ namespace Fungus
             return false;
         }
 
-        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete)
+        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete, System.Action onWaitForInput)
         {
             // Reset control members
             boldActive = false;
@@ -373,7 +373,11 @@ namespace Fungus
                     break;
                     
                 case TokenType.WaitForInputNoClear:
-                    yield return StartCoroutine(DoWaitForInput(false));
+                    if (null != onWaitForInput)
+                    {
+                        onWaitForInput();
+                    }
+                        yield return StartCoroutine(DoWaitForInput(false));
                     break;
                     
                 case TokenType.WaitForInputAndClear:
@@ -516,8 +520,6 @@ namespace Fungus
                     break;
                 }
             }
-
-            OutputWithoutToken += ".";
 
             inputFlag = false;
             exitFlag = false;
@@ -961,7 +963,7 @@ namespace Fungus
         /// <param name="waitForVO">Wait for the Voice over to complete before proceeding</param>
         /// <param name="audioClip">Audio clip to play when text starts writing.</param>
         /// <param name="onComplete">Callback to call when writing is finished.</param>
-        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, System.Action onComplete)
+        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, System.Action onComplete, System.Action onWaitForInput)
         {
             if (clear)
             {
@@ -994,7 +996,7 @@ namespace Fungus
 
             gameObject.SetActive(true);
 
-            yield return StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
+            yield return StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete, onWaitForInput));
         }
 
         public void SetTextColor(Color textColor)
