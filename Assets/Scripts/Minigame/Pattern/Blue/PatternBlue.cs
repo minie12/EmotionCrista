@@ -112,7 +112,7 @@ public class PatternBlue : PatternManager
         switch (mini.patternLevel)
         {
             case 0:
-                StartGimmick(0);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 1:
@@ -125,7 +125,7 @@ public class PatternBlue : PatternManager
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 3:
-                StartGimmick(0);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 4:
@@ -255,46 +255,72 @@ public class PatternBlue : PatternManager
         yield return new WaitForSeconds(1f);
         float dropTime = 0.3f;
 
-        int curr_col = crying_gem.GetColumn();
-        int curr_row = crying_gem.GetRow();
-        int next_row = curr_row - 1;
-
-        GemInfo next_crying_gem = board.GetGem(curr_col, next_row);
-        if (next_crying_gem == null)
-        {
-            yield return null;
-        }
-
         while (true)
         {
-            curr_col = crying_gem.GetColumn();
-            curr_row = crying_gem.GetRow();
-            next_row = curr_row - 1;
+            int curr_col = crying_gem.GetColumn();
+            int curr_row = crying_gem.GetRow();
+            int next_row = curr_row - 1;
 
-            next_crying_gem = board.GetGem(curr_col, next_row);
-            if (next_crying_gem == null)
+            if (board.GetGem(curr_col, curr_row) == null)
             {
-                board.DelGem(curr_col, curr_row);
-                board.StartRefilBoardFever();
                 break;
             }
 
+            GemInfo next_crying_gem = board.GetGem(curr_col, next_row);
+            if (next_crying_gem == null)
+            {
+                continue;
+            }
+
+            board.SetGemMovable(false);
+            board.SetGemClicked(false);
+            // get around gems
+            List<GemInfo> aroundGems_1 = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(curr_col, curr_row);
+            List<GemInfo> aroundGems_2 = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(curr_col, next_row);
+
+            for (int i = 0; i < aroundGems_1.Count; i++)
+            {
+                aroundGems_1[i].bLocationFixed = true;
+                board.SetRotate(aroundGems_1[i].GetColumn(), aroundGems_1[i].GetRow(), true);
+            }
+            for (int i = 0; i < aroundGems_2.Count; i++)
+            {
+                aroundGems_2[i].bLocationFixed = true;
+                board.SetRotate(aroundGems_2[i].GetColumn(), aroundGems_2[i].GetRow(), true);
+            }
+            yield return new WaitForSeconds(0.05f);
             next_crying_gem.MoveGem(curr_col, curr_row, dropTime);
-            crying_gem.FadeOut(0.3f);
-            next_crying_gem.FadeOut(0.3f);
+            crying_gem.FadeIn(0.3f);
+            next_crying_gem.FadeIn(0.3f);
+            crying_gem.bLocationFixed = true;
+            next_crying_gem.bLocationFixed = true;
             crying_gem.MoveGem(curr_col, next_row, dropTime);
             board.SetGem(curr_col, next_row, crying_gem);
             board.SetGem(curr_col, curr_row, next_crying_gem);
-            yield return new WaitForSeconds(0.3f);
-            crying_gem.FadeIn(0.3f);
-            next_crying_gem.FadeIn(0.3f);
-            yield return new WaitForSeconds(0.3f);
+            board.SetRotate(curr_col, curr_row, true);
+            board.SetRotate(curr_col, next_row, true);
+            yield return new WaitForSeconds(0.4f);
+
+            board.SetGemMovable(true);
+            crying_gem.bLocationFixed = false;
+            for (int i = 0; i < aroundGems_1.Count; i++)
+            {
+                aroundGems_1[i].bLocationFixed = false;
+                board.SetRotate(aroundGems_1[i].GetColumn(), aroundGems_1[i].GetRow(), false);
+            }
+            for (int i = 0; i < aroundGems_2.Count; i++)
+            {
+                aroundGems_2[i].bLocationFixed = false;
+                board.SetRotate(aroundGems_2[i].GetColumn(), aroundGems_2[i].GetRow(), false);
+            }
+            next_crying_gem.bLocationFixed = false;
+            board.SetRotate(curr_col, curr_row, false);
+            board.SetRotate(curr_col, next_row, false);
             curr_col = crying_gem.GetColumn();
             curr_row = crying_gem.GetRow();
             next_row = curr_row - 1;
 
-            next_crying_gem = board.GetGem(curr_col, next_row);
-            if (next_crying_gem == null)
+            if (next_row < 0)
             {
                 board.DelGem(curr_col, curr_row);
                 board.StartRefilBoardFever();

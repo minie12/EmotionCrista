@@ -91,6 +91,7 @@ public class GemInfo : MonoBehaviour
         }
         else if (board.GetGemMovable() && !bLocationFixed)
         {
+            gameObject.GetComponent<AudioSource>().Play();
             board.GemClick(column, row);
         }
     }
@@ -257,7 +258,7 @@ public class GemInfo : MonoBehaviour
         for (float t = 0; t <= 1 * time; t += Time.deltaTime)
         {
             transform.position = Vector3.Lerp(startPos, endPos, t / time);
-            yield return 0;
+            yield return null;
         }
 
         transform.position = endPos;
