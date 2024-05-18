@@ -123,7 +123,7 @@ public class GoalInfo : MonoBehaviour
                     bool result = false;
                     if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
                     {
-                        board.BeepPlay();
+                        SoundEffectManager.Instance.Play((int)SoundEffectName.DefaultBeep);
                         if (mini.GetComponent<PatternGreen>().IsInArea(column, row) && mini.GetComponent<PatternGreen>().IsInArea(column2, row2))
                         {
                             result = true;
@@ -153,7 +153,7 @@ public class GoalInfo : MonoBehaviour
                     bool result = false;
                     if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
                     {
-                        board.BeepPlay();
+                        SoundEffectManager.Instance.Play((int)SoundEffectName.DefaultBeep);
                         if (mini.GetComponent<PatternGreen>().IsInArea(column, row) && mini.GetComponent<PatternGreen>().IsInArea(column2, row2))
                         {
                             result = true;
@@ -210,7 +210,7 @@ public class GoalInfo : MonoBehaviour
             }
             if (isCrushed && !result)
             {
-                board.BeepPlay();
+                SoundEffectManager.Instance.Play((int)SoundEffectName.DefaultBeep);
             }
             //if (result && mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
             //{
