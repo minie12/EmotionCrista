@@ -32,7 +32,7 @@ public struct PlayInfo
     {
         playerName = "NoName";
         dayCount = 1;
-        characterIndex = (int)CharacterName.Naria;
+        characterIndex = (int)CharacterName.Lulian;
 
         bHaveReport = false;
         bRedButtonPressed = false;
