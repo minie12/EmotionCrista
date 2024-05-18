@@ -91,7 +91,7 @@ public class GemInfo : MonoBehaviour
         }
         else if (board.GetGemMovable() && !bLocationFixed)
         {
-            gameObject.GetComponent<AudioSource>().Play();
+            SoundEffectManager.Instance.Play((int)SoundEffectName.MiniGemClick);
             board.GemClick(column, row);
         }
     }

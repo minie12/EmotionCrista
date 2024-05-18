@@ -30,8 +30,6 @@ public class BoardManager : MonoBehaviour
     // animation and audio
     public float rotateTime = 0.1f;
     public float dropTime = 0.1f;
-    public AudioSource boardAUD;
-    public AudioClip defaultAUD, beep;
 
     // goal state
     public GoalInfo goalInfo;
@@ -50,8 +48,16 @@ public class BoardManager : MonoBehaviour
     {
         if (bGemClicked && bGemMovable && !isLockRotate[column, row])
         {
-            if (Input.GetKeyDown(KeyCode.A)) RotateGem('a');
-            else if (Input.GetKeyDown(KeyCode.D)) RotateGem('d');
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                SoundEffectManager.Instance.Play((int)SoundEffectName.MiniRotateLeft);
+                RotateGem('a');
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                SoundEffectManager.Instance.Play((int)SoundEffectName.MiniRotateRight);
+                RotateGem('d');
+            }
         }
 
         // locked gem + gem clicked
@@ -218,8 +224,7 @@ public class BoardManager : MonoBehaviour
             else mini.AddFever(mini.GetGoalUnit());
 
             // Delete gems
-            boardAUD.clip = defaultAUD;
-            boardAUD.Play();
+            SoundEffectManager.Instance.Play((int)SoundEffectName.MiniGemCrush);
             goalInfo.EraseGems(column, row, true);
 
             // related gimmick
@@ -575,8 +580,7 @@ public class BoardManager : MonoBehaviour
 
     public void FeverClick(int column_, int row_)
     {
-        boardAUD.clip = defaultAUD;
-        boardAUD.Play();
+        SoundEffectManager.Instance.Play((int)SoundEffectName.MiniGemCrush);
         if (GetGemColor(column_, row_) == mini.patternIdx) mini.AddScore(1);
         else mini.AddScore(0.5f);
         DelGem(column_, row_);
@@ -584,12 +588,6 @@ public class BoardManager : MonoBehaviour
         // in case player clicks all gem before Fever ends
         feverCnt++;
         if (feverCnt > 59) mini.EndFever();
-    }
-
-    public void BeepPlay()
-    {
-        boardAUD.clip = beep;
-        boardAUD.Play();
     }
 
     // PATTERN RELATED
