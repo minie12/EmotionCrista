@@ -152,6 +152,9 @@ public class MiniManager : MonoBehaviour
         scoreFill.GetComponent<Image>().color = counseleeColor[patternIdx];
         scoreFill.transform.GetChild(0).GetComponent<Image>().color = counseleeColor[patternIdx];
 
+        Debug.Log("pattern " + patternIdx);
+        Debug.Log("level " + patternLevel);
+
         // init board option
         InitBoardOption();
     }

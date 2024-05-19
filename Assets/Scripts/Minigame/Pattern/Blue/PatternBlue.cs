@@ -19,6 +19,10 @@ public class PatternBlue : PatternManager
 
     // crying gem
     private GemInfo crying_gem;
+    private bool crying = false;
+    private int crushedBiasCnt2 = 15;
+    private int crushedGemLast2 = 0;
+
 
     protected override void Awake()
     {
@@ -49,11 +53,26 @@ public class PatternBlue : PatternManager
             Debug.Log("bubble gimmick" + cnt);
             if(!bubbleShowing && cnt > crushedGemLast)
             {
-                Debug.Log("bubble ");
+                Debug.Log("bubble");
                 BlueGimmick1();
                 bubbleShowing = true;
                 crushedGemLast = cnt;
                 StartCoroutine(BubbleTimer());
+            }
+        }
+
+        // crying gem
+        if (gimmick[2])
+        {
+            Debug.Log("crushed gem cnt" + mini.GetTotalCrushedGem());
+            int cnt = mini.GetTotalCrushedGem() / crushedBiasCnt2;
+            Debug.Log("crying gimmick" + cnt);
+            if (!crying && cnt > crushedGemLast2)
+            {
+                Debug.Log("crying");
+                B_CryGem();
+                crying = true;
+                crushedGemLast2 = cnt;
             }
         }
     }
@@ -85,7 +104,6 @@ public class PatternBlue : PatternManager
             case 1:
                 break;
             case 2:
-                Invoke(nameof(B_CryGem), 1f);
                 break;
         }
     }
@@ -112,7 +130,7 @@ public class PatternBlue : PatternManager
         switch (mini.patternLevel)
         {
             case 0:
-                StartGimmick(2);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 1:
@@ -121,20 +139,22 @@ public class PatternBlue : PatternManager
                 break;
             case 2:
                 StartGimmick(0);
-                StartGimmick(1);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 3:
-                StartGimmick(2);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 4:
                 StartGimmick(1);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 5:
                 StartGimmick(0);
                 StartGimmick(1);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
         }
@@ -237,8 +257,13 @@ public class PatternBlue : PatternManager
     // B2 -----------------------------------------------
     void B_CryGem()
     {
+        Debug.Log("crying");
         // 맨 윗 줄 (row: 4)에서 랜덤으로 광물 얻어오기
         List<GemInfo> upperGems = board.GetGemRows(new List<int> { 4 });
+        if(upperGems.Count ==  0)
+        {
+            return;
+        }
         crying_gem = upperGems[Random.Range(0, upperGems.Count)];
 
         // 눈물 광물로 변경
@@ -246,6 +271,7 @@ public class PatternBlue : PatternManager
         crying_gem.ChangeSpecialGem();
         crying_gem.FadeIn(0.5f);
         crying_gem.isCryGem = true;
+        crying_gem.bPatternApplied = true;
 
         StartCoroutine(GemCrying());
     }
@@ -288,7 +314,12 @@ public class PatternBlue : PatternManager
                 aroundGems_2[i].bLocationFixed = true;
                 board.SetRotate(aroundGems_2[i].GetColumn(), aroundGems_2[i].GetRow(), true);
             }
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.1f);
+            if (next_crying_gem == null)
+            {
+                continue;
+            }
+
             next_crying_gem.MoveGem(curr_col, curr_row, dropTime);
             crying_gem.FadeIn(0.3f);
             next_crying_gem.FadeIn(0.3f);
@@ -329,6 +360,7 @@ public class PatternBlue : PatternManager
 
             yield return new WaitForSeconds(2f);
         }
+        crying = false;
         yield return null;
     }
 }

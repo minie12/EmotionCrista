@@ -66,7 +66,7 @@ public class BoardManager : MonoBehaviour
             for (int j = 0; j < 6; j++)
             {
                 if (j == 5 && i % 2 == 0) continue;
-                if(gems[i,j] != null)
+                if (gems[i, j] != null)
                 {
                     gems[i, j].SetOutline("undo");
                 }
@@ -81,7 +81,7 @@ public class BoardManager : MonoBehaviour
                     continue;
                 }
 
-                if (isLockRotate[i, j] && gems[i,j].GetChainCnt() == 0)
+                if (isLockRotate[i, j] && gems[i, j].GetChainCnt() == 0)
                 {
                     gems[i, j].SetFilm();
                 }
@@ -90,11 +90,11 @@ public class BoardManager : MonoBehaviour
                     gems[i, j].DeleteFilm();
                 }
 
-                if(isClickedGem[i,j] == 1)
+                if (isClickedGem[i, j] == 1)
                 {
                     gems[i, j].SetOutline("side");
                 }
-                else if(isClickedGem[i,j] == 2)
+                else if (isClickedGem[i, j] == 2)
                 {
                     gems[i, j].SetOutline("click");
                 }
@@ -591,30 +591,12 @@ public class BoardManager : MonoBehaviour
     }
 
     // PATTERN RELATED
-    public GemInfo GetRandomGem()
-    {
-        // TODO: Does not check whether the gem is already filled with water
-
-        int column_ = Random.Range(0, 11);
-        int row_ = Random.Range(0, 6);
-        GemInfo gem = GetGem(column_, row_);
-        while (gem == null)
-        {
-            column_ = Random.Range(0, 11);
-            row_ = Random.Range(0, 6);
-            gem = GetGem(column_, row_);
-        }
-        return gem;
-    }
-
     public GemInfo GetRandomGemArea()
     {
-        // TODO: Does not check whether the gem is already filled with water
-
         int column_ = Random.Range(2, 9);
         int row_ = Random.Range(2, 4);
         GemInfo gem = GetGem(column_, row_);
-        while (gem == null)
+        while (gem == null || gem.bPatternApplied)
         {
             column_ = Random.Range(2, 9);
             row_ = Random.Range(2, 4);
@@ -632,7 +614,7 @@ public class BoardManager : MonoBehaviour
             for(int j = 0; j < 6; j++)
             {
                 GemInfo gem = GetGem(i, j);
-                if(gem != null)
+                if(gem != null && !gem.bPatternApplied)
                 {
                     gems[gem.GetColor()].Add(gem);
                 }
@@ -771,44 +753,6 @@ public class BoardManager : MonoBehaviour
             aroundGemList.Add(temp);
         }
         return aroundGemList;
-    }
-
-
-    public GemInfo[] GetRandomGems(int cnt)
-    {
-        // TODO: Does not check whether the gem is already filled with water
-        GemInfo[] gems = new GemInfo[cnt];
-        int[,] pickedCoordinates = new int[cnt, 2];
-
-        for (int i = 0; i < cnt; i++)
-        {
-            GemInfo gem; int column_, row_;
-            bool bPicked;
-            do
-            {
-                bPicked = false;
-                column_ = Random.Range(0, 11);
-                row_ = Random.Range(0, 6);
-                gem = GetGem(column_, row_);
-
-                // check if this gem is already picked
-                for (int j = 0; j < i; j++)
-                {
-                    if (pickedCoordinates[j, 0] == column_ && pickedCoordinates[j, 1] == row_)
-                    {
-                        bPicked = true;
-                        break;
-                    }
-                }
-            } while (gem == null || gem.bPatternApplied || bPicked);
-
-            pickedCoordinates[i, 0] = column_;
-            pickedCoordinates[i, 1] = row_;
-
-            gems[i] = gem;
-        }
-
-        return gems;
     }
 
     // 특정 행에 있는 광물 모두 얻어오기
