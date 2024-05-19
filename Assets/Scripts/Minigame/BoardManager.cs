@@ -605,6 +605,25 @@ public class BoardManager : MonoBehaviour
         return gem;
     }
 
+    public List<GemInfo> GetGemAll()
+    {
+        List<GemInfo> gems = new List<GemInfo>();
+
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                GemInfo gem = GetGem(i, j);
+                if (gem != null && !gem.bPatternApplied)
+                {
+                    gems.Add(gem);
+                }
+            }
+        }
+
+        return gems;
+    }
+
     public List<List<GemInfo>> GetPatternGems()
     {
         List<List<GemInfo>> gems = new List<List<GemInfo>>(5) { new List<GemInfo>(), new List<GemInfo>(), new List<GemInfo>(), new List<GemInfo>(), new List<GemInfo>() };
@@ -660,7 +679,7 @@ public class BoardManager : MonoBehaviour
     public GemInfo GetRandomGemOnWay(int current_c, int current_r)
     {
         GemInfo gem = null;
-        while (gem == null)
+        while (gem == null || gem.bPatternApplied)
         {
             // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
             int direction = Random.Range(0, 6);
@@ -744,7 +763,7 @@ public class BoardManager : MonoBehaviour
                     default:
                         break;
                 }
-                if (gem == null)
+                if (gem == null || gem.bPatternApplied)
                 {
                     break;
                 }
@@ -771,7 +790,7 @@ public class BoardManager : MonoBehaviour
                     nr++;
                 }
                 GemInfo gem = GetGem(i, nr);
-                if (gem != null)
+                if (gem != null && !gem.bPatternApplied)
                 {
                     gems.Add(gem);
                 }
@@ -791,7 +810,7 @@ public class BoardManager : MonoBehaviour
             for(int i = 0; i < 6; i++)
             {
                 GemInfo gem = GetGem(c, i);
-                if (gem != null)
+                if (gem != null && !gem.bPatternApplied)
                 {
                     gems.Add(gem);
                 }
@@ -821,11 +840,12 @@ public class BoardManager : MonoBehaviour
         foreach (int d in diagonals)
         {
             List<int> gemInfo = diagonalDict[d];
-            gems.Add(GetGem(gemInfo[0], gemInfo[1]));
+            GemInfo tempGem = GetGem(gemInfo[0], gemInfo[1]);
+            if(tempGem != null && !tempGem.bPatternApplied) gems.Add(tempGem);
             List<List<GemInfo>> aroundGems = GetAroundGemList(gemInfo[0], gemInfo[1]);
             for (int i = 0; i < aroundGems[2].Count; i++)
             {
-                gems.Add(aroundGems[2][i]);
+                if (aroundGems[2][i] != null && !aroundGems[2][i].bPatternApplied) gems.Add(aroundGems[2][i]);
             }
         }
 
@@ -852,11 +872,12 @@ public class BoardManager : MonoBehaviour
         foreach (int d in diagonals)
         {
             List<int> gemInfo = diagonalDict[d];
-            gems.Add(GetGem(gemInfo[0], gemInfo[1]));
+            GemInfo tempGem = GetGem(gemInfo[0], gemInfo[1]);
+            if (tempGem != null && !tempGem.bPatternApplied) gems.Add(tempGem);
             List<List<GemInfo>> aroundGems = GetAroundGemList(gemInfo[0], gemInfo[1]);
             for (int i = 0; i < aroundGems[4].Count; i++)
             {
-                gems.Add(aroundGems[4][i]);
+                if (aroundGems[4][i] != null && !aroundGems[4][i].bPatternApplied) gems.Add(aroundGems[4][i]);
             }
         }
 
