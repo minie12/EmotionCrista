@@ -40,6 +40,7 @@ public class GemInfo : MonoBehaviour
     [HideInInspector] public int isFired = 0; // 0: no fire, 1: init fire, 2: spreaded fire
     [HideInInspector] public bool isChecked = false; // check (using BFS)
     [HideInInspector] public bool isCryGem = false; // using blue gimmick
+    [HideInInspector] public bool isCrushed = false; // check crush
 
     private void Awake()
     {
