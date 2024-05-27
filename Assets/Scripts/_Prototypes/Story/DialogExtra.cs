@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static ScreenObjectInfo;
+using System;
 
 public class DialogExtra : MonoBehaviour
 {
     private int razPoint;
 
+    static byte OnScreenCharacterFlag = 0b_0000_0000;
     //public void GoToScene(string sceneName)
     //{
     //    SceneManager.LoadScene(sceneName);
@@ -52,10 +55,6 @@ public class DialogExtra : MonoBehaviour
             }
         }
     }
-
-    //public void StartSaveData(){
-    //    GameObject.Find("SaveLoadManager").GetComponent<SaveLoadManager>().SetSaveData();
-    //}
 
     public void ExitGame() {
         Application.Quit();
