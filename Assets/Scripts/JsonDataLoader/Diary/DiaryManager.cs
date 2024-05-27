@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class DiaryManager : MonoBehaviour
 {
     [SerializeField]
-    private Text diaryText;
+    private Text diaryText1P;
+    [SerializeField]
+    private Text diaryText2P;
 
     public void SetDiaryText()
     {
@@ -14,7 +16,15 @@ public class DiaryManager : MonoBehaviour
         int characterIndex = GameManager.Get().GetCharacterIndex();
         bool bRedButtonPressed = GameManager.Get().IsRedButtonPressed();
 
-        diaryText.text = DiaryDialogReader.GetDialogData(bMultiRound, characterIndex, bRedButtonPressed);
+        string DiaryTextData = DiaryDialogReader.GetDialogData(bMultiRound, characterIndex, bRedButtonPressed);
+        string[] DiaryTexts = DiaryTextData.Split('/');
+
+        diaryText1P.text = DiaryTexts[0];
+
+        if (1 < DiaryTexts.Length)
+        {
+            diaryText2P.text = DiaryTexts[1];
+        }
     }
 
     public void LoadLoadingScene()

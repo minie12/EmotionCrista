@@ -609,7 +609,6 @@ GameObject:
   - component: {fileID: 79947917}
   - component: {fileID: 79947910}
   - component: {fileID: 79947909}
-  - component: {fileID: 79947818}
   - component: {fileID: 79948025}
   - component: {fileID: 79948024}
   - component: {fileID: 79948023}
@@ -733,6 +732,7 @@ GameObject:
   - component: {fileID: 79948028}
   - component: {fileID: 79948027}
   - component: {fileID: 79948026}
+  - component: {fileID: 79947818}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -790,7 +790,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -13.15097
-    y: 196.39085
+    y: 195.021
     width: 77.39726
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -828,9 +828,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 79947984}
-  selectedCommands:
-  - {fileID: 79947978}
+  - {fileID: 79947777}
+  selectedCommands: []
   variables:
   - {fileID: 79947785}
   - {fileID: 79947923}
@@ -1665,19 +1664,19 @@ MonoBehaviour:
   targetGameObjectOLD: {fileID: 0}
 --- !u!114 &79947818
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 79947774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 79947777}
   suppressBlockAutoSelect: 0
-  message: SceneLoaded
+  waitForFrames: 1
 --- !u!114 &79947819
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13623,7 +13622,6 @@ GameObject:
   - component: {fileID: 1458347491}
   - component: {fileID: 1458347490}
   - component: {fileID: 1458347489}
-  - component: {fileID: 1458347493}
   m_Layer: 5
   m_Name: BoardCanvas
   m_TagString: Untagged
@@ -13714,102 +13712,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!82 &1458347493
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458347488}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 01791280515ab2444bd2564acc87b9e1, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1473822318
 GameObject:
   m_ObjectHideFlags: 0
