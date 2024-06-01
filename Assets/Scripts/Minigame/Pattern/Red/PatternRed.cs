@@ -11,6 +11,31 @@ public class PatternRed : PatternManager
     private GemInfo startGem;
     private ShakeObjectManager shakeObjectManager;
 
+    // red gimmick 2 (attack desk)
+    private bool isPlayingGimmick2 = false;
+    private bool isAttacking = false;
+    private int crushedBiasCnt = 10;
+    private int crushedGemLast = 0;
+    private IEnumerator attackCoroutine, explosioningCoroutine, continueAttackCoroutine;
+    private readonly List<List<int>> optionNums = new List<List<int>> { new List<int> { 2 },
+                                                                        new List<int> { 2 },
+                                                                        new List<int> { 1, 2 },
+                                                                        new List<int> { 1, 2, 3, 5 },
+                                                                        new List<int> { 1, 2, 3, 4, 5 },
+                                                                        new List<int> { 1, 2, 3, 4, 5, 6 }};
+    private readonly List<List<int>> continuityPer = new List<List<int>> { new List<int> { 100 },
+                                                                            new List<int> { 100 },
+                                                                            new List<int> { 70, 30 },
+                                                                            new List<int> { 65, 35 },
+                                                                            new List<int> { 55, 40, 5 },
+                                                                            new List<int> { 50, 40, 10 }};
+    private readonly List<List<float>> continuityInterval = new List<List<float>> { new List<float> { 0, 0 },
+                                                                                    new List<float> { 0, 0 },
+                                                                                    new List<float> { 6, 6},
+                                                                                    new List<float> { 6, 6 },
+                                                                                    new List<float> { 5, 6 },
+                                                                                    new List<float> { 4, 6 }};
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,10 +50,47 @@ public class PatternRed : PatternManager
     {
         base.OnCrushedGem(isMatchColor);
 
-        // red gimmick
+        // red gimmick 0
         if (isMatchColor && gimmick[0])
         {
             InvokeExplosion();
+        }
+
+        // red gimmick 2
+        if (gimmick[2])
+        {
+            Debug.Log("attack crushed gem cnt" + mini.GetTotalCrushedGem());
+            int cnt = mini.GetTotalCrushedGem() / crushedBiasCnt;
+            Debug.Log("attack desk gimmick" + cnt);
+            if (!isPlayingGimmick2 && cnt > crushedGemLast)
+            {
+                Debug.Log("attacking !!");
+                isPlayingGimmick2 = true;
+                crushedGemLast = cnt;
+
+                // 기믹 번호 랜덤으로 정하기
+                int optionIdx = Random.Range(0, optionNums[mini.patternLevel].Count);
+                int option = optionNums[mini.patternLevel][optionIdx];
+                Debug.Log("attack option " + option);
+
+                // 연속 여부 처리하기
+                int randNum = Random.Range(0, 100);
+                int sum = 0;
+                int continuityCnt = 0;
+                for(int i = 0; i < continuityPer[mini.patternLevel].Count; i++)
+                {
+                    if (randNum < sum + continuityPer[mini.patternLevel][i])
+                    {
+                        continuityCnt = i;
+                        break;
+                    }
+                    sum += continuityPer[mini.patternLevel][i];
+                }
+                Debug.Log("attack 연속 횟수 !! " + continuityCnt);
+
+                continueAttackCoroutine = ExplodeContinue(option, continuityCnt);
+                StartCoroutine(continueAttackCoroutine);
+            }
         }
     }
 
@@ -36,6 +98,10 @@ public class PatternRed : PatternManager
     public override void StartPattern(int level_)
     {
         base.StartPattern(level_);
+
+        crushedGemLast = 0;
+        isPlayingGimmick2 = false;
+        isAttacking = false;
 
         RestartPattern();
     }
@@ -54,9 +120,6 @@ public class PatternRed : PatternManager
             case 1:
                 Invoke(nameof(StartFireRoad), 1f);
                 break;
-            case 2:
-                Invoke(nameof(StartRedGimmick2), 2f);
-                break;
         }
     }
 
@@ -69,6 +132,11 @@ public class PatternRed : PatternManager
             case 1:
                 CancelInvoke(nameof(StartFireRoad));
                 StartCoroutine(InitFire());
+                break;
+            case 2:
+                if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+                if (explosioningCoroutine != null) StopCoroutine(explosioningCoroutine);
+                if (continueAttackCoroutine != null) StopCoroutine(continueAttackCoroutine);
                 break;
         }
     }
@@ -84,17 +152,20 @@ public class PatternRed : PatternManager
         switch (mini.patternLevel)
         {
             case 0:
+                StartGimmick(2);
                 break;
             case 1:
-                StartGimmick(1);
+                StartGimmick(2);
                 break;
             case 2:
                 StartGimmick(1);
+                StartGimmick(2);
                 break;
             case 3:
                 StartGimmick(2);
                 break;
             case 4:
+                StartGimmick(1);
                 StartGimmick(2);
                 break;
             case 5:
@@ -266,6 +337,7 @@ public class PatternRed : PatternManager
         // get random gem
         startGem = board.GetPatternGemRandom();
         startGem.FireGem(true);
+        startGem.bPatternApplied = true;
 
         StartCoroutine(SpreadFire(3f));
     }
@@ -390,22 +462,6 @@ public class PatternRed : PatternManager
                     gemList.Add(gem);
                 }
             }
-            //for (int i = 0; i <= 10; i++)
-            //{
-            //    for (int j = 0; j <= 5; j++)
-            //    {
-            //        // outside board
-            //        if (j == 5 && i % 2 == 0)
-            //        {
-            //            break;
-            //        }
-            //        GemInfo gem = board.GetGem(i, j);
-            //        if (gem != null && gem.isFired > 0)
-            //        {
-            //            gemList.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
-            //        }
-            //    }
-            //}
             if(gemList.Count == 0)
             {
                 break;
@@ -442,7 +498,7 @@ public class PatternRed : PatternManager
                     }
                     // if around already fired then continue
                     GemInfo gem = board.GetGem(new_col, new_row);
-                    if (gem.isFired > 0)
+                    if (gem != null && gem.isFired > 0)
                     {
                         continue;
                     }
@@ -478,6 +534,7 @@ public class PatternRed : PatternManager
                     continue;
                 }
                 temp.FireGem();
+                temp.bPatternApplied = true;
                 StartCoroutine(AfterExplode(6f, temp));
                 i++;
             }
@@ -486,7 +543,6 @@ public class PatternRed : PatternManager
     }
 
     // Red gimmick 2
-
     void AllGemVibration(List<GemInfo> gems)
     {
         for (int i = 0; i < gems.Count; i++)
@@ -503,56 +559,149 @@ public class PatternRed : PatternManager
         }
     }
 
-
-    IEnumerator ExplosionGemsStep()
+    IEnumerator ExplodeGems(List<GemInfo> gems)
     {
-        // 전체 다 흔들기
-        List<GemInfo> gems = board.GetPatternGems()[2];
         AllGemVibration(gems);
         yield return new WaitForSeconds(1f);
         AllGemExplosion(gems);
-        shakeObjectManager.ShakeAll();
-        board.StartRefilBoardFever();
-        yield return new WaitForSeconds(1f);
-
-        // 배경만 흔들기
-        gems = board.GetGemColumns(new List<int>() { 1, 5, 9 });
-        AllGemVibration(gems);
-        yield return new WaitForSeconds(1f);
-        AllGemExplosion(gems);
-        shakeObjectManager.ShakeBackground();
-        board.StartRefilBoardFever();
-        yield return new WaitForSeconds(1f);
-
-        // UI 흔들기
-        gems = board.GetGemColumns(new List<int>() { 1, 3, 5, 7, 9 });
-        AllGemVibration(gems);
-        yield return new WaitForSeconds(1f);
-        AllGemExplosion(gems);
-        shakeObjectManager.ShakeUi();
-        board.StartRefilBoardFever();
-        yield return new WaitForSeconds(1f);
-
-        // 보드판만 흔들기
-        gems = board.GetGemDiagonalRight(new List<int>() { 1, 4, 7 });
-        AllGemVibration(gems);
-        yield return new WaitForSeconds(1f);
-        AllGemExplosion(gems);
-        shakeObjectManager.ShakePuzzle();
-        board.StartRefilBoardFever();
-        yield return new WaitForSeconds(1f);
-
-        // 보드판 & 보드판 UI 흔들기
-        gems = board.GetGemDiagonalLeft(new List<int>() { 1, 4, 7 });
-        AllGemVibration(gems);
-        yield return new WaitForSeconds(1f);
-        shakeObjectManager.ShakePuzzleUi();
-        AllGemExplosion(gems);
-        board.StartRefilBoardFever();
     }
 
-    void StartRedGimmick2()
+    /** 광물 터지기
+     * 1. 빨간 광물만 터짐
+     * 2. 세로 폭발 (3줄)
+     * 3. 대각선 폭발 (왼쪽 대각선 3줄)
+     * 4. 세로 폭발 (6줄)
+     * 5. 대각선 폭발 (오른쪽 대각선 3줄)
+     * 6. 전체 다 폭발
+     * */
+    IEnumerator ExplodeOptionalGem(int option)
     {
-        StartCoroutine(ExplosionGemsStep());
+        isAttacking = true;
+        yield return new WaitForSeconds(0.5f);
+
+        // 광물 터지기 전 보드판 잠금
+        board.SetGemMovable(false);
+        board.SetGemClicked(false);
+        yield return new WaitForSeconds(0.1f);
+
+        // 옵션에 따라 광물 터지기 & 진동
+        List<GemInfo> gems = null;
+        switch (option)
+        {
+            case 1:
+                gems = board.GetPatternGems()[(int)PatternType.RED];
+                if(gems.Count == 0)
+                {
+                    break;
+                }
+                explosioningCoroutine = ExplodeGems(gems);
+                StartCoroutine(explosioningCoroutine);
+
+                // 배경만 흔들기
+                yield return new WaitForSeconds(1f);
+                shakeObjectManager.ShakeBackground();
+                break;
+            case 2:
+                gems = board.GetGemColumns(new List<int>() { 1, 5, 9 });
+                if (gems.Count == 0)
+                {
+                    break;
+                }
+                explosioningCoroutine = ExplodeGems(gems);
+                StartCoroutine(explosioningCoroutine);
+
+                // 보드판만 흔들기
+                yield return new WaitForSeconds(1f);
+                shakeObjectManager.ShakePuzzle(); 
+                break;
+            case 3:
+                gems = board.GetGemDiagonalRight(new List<int>() { 1, 4, 7 });
+                if (gems.Count == 0)
+                {
+                    break;
+                }
+                explosioningCoroutine = ExplodeGems(gems);
+                StartCoroutine(explosioningCoroutine);
+
+                // 보드판만 흔들기
+                yield return new WaitForSeconds(1f);
+                shakeObjectManager.ShakePuzzle();
+                break;
+            case 4:
+                gems = board.GetGemColumns(new List<int>() { 1, 3, 5, 7, 9 });
+                if (gems.Count == 0)
+                {
+                    break;
+                }
+                explosioningCoroutine = ExplodeGems(gems);
+                StartCoroutine(explosioningCoroutine);
+
+                // 보드판 & 보드판 UI 흔들기
+                yield return new WaitForSeconds(1f);
+                shakeObjectManager.ShakePuzzleUi();
+                break;
+            case 5:
+                gems = board.GetGemDiagonalLeft(new List<int>() { 1, 4, 7 });
+                if (gems.Count == 0)
+                {
+                    break;
+                }
+                explosioningCoroutine = ExplodeGems(gems);
+                StartCoroutine(explosioningCoroutine);
+
+                // 보드판 & 보드판 UI 흔들기
+                yield return new WaitForSeconds(1f);
+                shakeObjectManager.ShakePuzzleUi();
+                break;
+            case 6:
+                gems = board.GetGemAll();
+                if (gems.Count == 0)
+                {
+                    break;
+                }
+                explosioningCoroutine = ExplodeGems(gems);
+                StartCoroutine(explosioningCoroutine);
+
+                // 전체 다 흔들기
+                yield return new WaitForSeconds(1f);
+                shakeObjectManager.ShakeAll();
+                break;
+        }
+        if(gems.Count != 0)
+        {
+            board.StartRefilBoardFever();
+        }
+        yield return new WaitForSeconds(0.5f);
+
+        board.SetGemMovable(true);
+        isAttacking = false;
+    }
+
+    IEnumerator ExplodeContinue(int option, int continuityCnt)
+    {
+        isPlayingGimmick2 = true;
+
+        attackCoroutine = ExplodeOptionalGem(option);
+        StartCoroutine(attackCoroutine);
+
+        while (isAttacking == true)
+        {
+            yield return null;
+        }
+
+        for (int i = 0; i < continuityCnt; i++)
+        {
+            float minInterval = continuityInterval[mini.patternLevel][0];
+            float maxInterval = continuityInterval[mini.patternLevel][1];
+            yield return new WaitForSeconds(Random.Range(minInterval, maxInterval));
+            attackCoroutine = ExplodeOptionalGem(option);
+            StartCoroutine(attackCoroutine);
+            while (isAttacking == true)
+            {
+                yield return null;
+            }
+        }
+      
+        isPlayingGimmick2 = false;
     }
 }

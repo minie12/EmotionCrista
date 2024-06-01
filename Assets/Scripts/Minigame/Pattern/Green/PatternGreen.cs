@@ -21,14 +21,11 @@ public class PatternGreen : PatternManager
     private int crushedBiasCnt = 10;
     private int crushedGemLast = 0;
 
-    private bool start = false;
-
     protected override void Awake()
     {
         base.Awake();
         gemPF = Resources.Load<GameObject>("Prefabs/MiniGame/org_gem");
         bugPF = Resources.Load<GameObject>("Prefabs/MiniGame/bug");
-        start = false;
     }
 
     public override void OnCrushedGem(bool isMatchColor)
@@ -409,8 +406,6 @@ public class PatternGreen : PatternManager
 
     void SetColor()
     {
-        start = true;
-
         // create bugs (extends area)
         for (int i = 0; i < 11; i++)
         {
