@@ -1,8 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static ScreenObjectInfo;
 
 [System.Serializable]
 public class SerializablePortraitState
@@ -30,14 +31,17 @@ public class EmoSaveData
     public string dialogueNameText;
     public string dialogueStoryText;
 
-    // Characters on Screen
-    //public List<Fungus.Character> activeCharacters = new List<Fungus.Character>();
+    // Characters on Diaglogue Screen
     public Dictionary<string, SerializablePortraitState> portraitStates = new Dictionary<string, SerializablePortraitState>();
+
+    // Point&Click Objects 
+    public ClickableID[] locatedClickableObjects;
+    public byte objectClickedFlag;
     #endregion
 
     public bool ValidateData()
     {
-        if ((0 < sceneName.Length) && (0 < blockName.Length) && (-1 < commandId) && (0 < playInfo.playerName.Length))
+        if ((false == string.IsNullOrEmpty(sceneName)) && (false == string.IsNullOrEmpty(playInfo.playerName)))
         {
             return true;
         }
@@ -50,119 +54,118 @@ public class EmoSaveData
         EmoSaveData gameData = new EmoSaveData();
 
         // Scene Name
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (null != currentScene)
         {
-            Scene currentScene = SceneManager.GetActiveScene();
-            if (null != currentScene)
-            {
-                gameData.sceneName = currentScene.name;
-            }
-            else
-            {
-                return null;
-            }
+            gameData.sceneName = currentScene.name;
+        }
+        else
+        {
+            return null;
         }
 
         // Screen Info
+        Fungus.Stage activeStage = Fungus.Stage.GetActiveStage();
+        if (null != activeStage)
         {
-            Fungus.Stage activeStage = Fungus.Stage.GetActiveStage();
-            if (null != activeStage)
+            List<Fungus.Character> activeCharacters = activeStage.CharactersOnStage;
+
+            for (int charIdx = 0; charIdx < activeCharacters.Count; ++charIdx)
             {
-                List<Fungus.Character> activeCharacters = activeStage.CharactersOnStage;
-
-                for (int charIdx = 0; charIdx < activeCharacters.Count; ++charIdx)
+                Fungus.Character character = activeCharacters[charIdx];
+                if (null != character)
                 {
-                    Fungus.Character character = activeCharacters[charIdx];
-                    if (null != character)
+                    Fungus.PortraitState currentPortraitState = character.State;
+                    if (null != currentPortraitState)
                     {
-                        Fungus.PortraitState currentPortraitState = character.State;
-                        if (null != currentPortraitState)
+                        if (true == currentPortraitState.onScreen)
                         {
-                            if (true == currentPortraitState.onScreen)
+                            string portraitCharacterName = character.gameObject.name;
+
+                            if (0 < portraitCharacterName.Length)
                             {
-                                string portraitCharacterName = character.gameObject.name;
+                                SerializablePortraitState serializablePortraitState = new SerializablePortraitState();
 
-                                if (0 < portraitCharacterName.Length)
+                                serializablePortraitState.bDimmed = currentPortraitState.dimmed;
+
+                                foreach (var stageRect in activeStage.Positions)
                                 {
-                                    SerializablePortraitState serializablePortraitState = new SerializablePortraitState();
-
-                                    serializablePortraitState.bDimmed = currentPortraitState.dimmed;
-
-                                    foreach (var stageRect in activeStage.Positions)
+                                    if (stageRect == currentPortraitState.position)
                                     {
-                                        if (stageRect == currentPortraitState.position)
-                                        {
-                                            serializablePortraitState.positionName = currentPortraitState.position.gameObject.name;
-                                            break;
-                                        }
+                                        serializablePortraitState.positionName = currentPortraitState.position.gameObject.name;
+                                        break;
                                     }
-
-                                    serializablePortraitState.portraitName = currentPortraitState.portraitImage.gameObject.name;
-
-                                    gameData.portraitStates.Add(portraitCharacterName, serializablePortraitState);
                                 }
+
+                                serializablePortraitState.portraitName = currentPortraitState.portraitImage.gameObject.name;
+
+                                gameData.portraitStates.Add(portraitCharacterName, serializablePortraitState);
                             }
                         }
-
                     }
+
                 }
             }
         }
 
         // Dialogue
+        Fungus.SayDialog activeSayDialog = Fungus.SayDialog.GetSayDialog();
+        if (null != activeSayDialog)
         {
-            Fungus.SayDialog activeSayDialog = Fungus.SayDialog.GetSayDialog();
-            if (null != activeSayDialog)
+            string activeNameText = activeSayDialog.NameText;
+            if (0 < activeNameText.Length)
             {
-                string activeNameText = activeSayDialog.NameText;
-                if (0 < activeNameText.Length)
+                string activeStoryText = activeSayDialog.StoryText;
+                if (0 < activeStoryText.Length)
                 {
-                    string activeStoryText = activeSayDialog.StoryText;
-                    if (0 < activeStoryText.Length)
-                    {
-                        gameData.dialogueNameText = activeNameText;
-                        gameData.dialogueStoryText = activeStoryText;
-                    }
+                    gameData.dialogueNameText = activeNameText;
+                    gameData.dialogueStoryText = activeStoryText;
                 }
             }
         }
 
         // Fungus Command
+        GameObject flowchartObj = GameObject.Find("Flowchart");
+        if (null != flowchartObj)
         {
-            GameObject flowchartObj = GameObject.Find("Flowchart");
-            if (null != flowchartObj)
-            {
-                Fungus.Flowchart flowchart = flowchartObj.GetComponent<Fungus.Flowchart>();
+            Fungus.Flowchart flowchart = flowchartObj.GetComponent<Fungus.Flowchart>();
 
-                if (null != flowchart)
+            if (null != flowchart)
+            {
+                // Fungus Command
+                List<Fungus.Block> executingBlocks = flowchart.GetExecutingBlocks();
+                for (int blockIdx = 0; blockIdx < executingBlocks.Count; ++blockIdx)
                 {
-                    // Fungus Command
-                    List<Fungus.Block> executingBlocks = flowchart.GetExecutingBlocks();
-                    for (int blockIdx = 0; blockIdx < executingBlocks.Count; ++blockIdx)
+                    Fungus.Block executingBlock = executingBlocks[blockIdx];
+                    if (null != executingBlock)
                     {
-                        Fungus.Block executingBlock = executingBlocks[blockIdx];
-                        if (null != executingBlock)
+                        Fungus.Command activeCommand = executingBlock.ActiveCommand;
+                        if (null != activeCommand)
                         {
-                            Fungus.Command activeCommand = executingBlock.ActiveCommand;
-                            if (null != activeCommand)
+                            if (-1 != activeCommand.ItemId)
                             {
-                                if (-1 != activeCommand.ItemId)
-                                {
-                                    gameData.blockName = executingBlock.BlockName;
-                                    gameData.commandId = activeCommand.CommandIndex;
-                                }
+                                gameData.blockName = executingBlock.BlockName;
+                                gameData.commandId = activeCommand.CommandIndex;
                             }
                         }
                     }
                 }
             }
-            else
-            {
-                return null;
-            }
         }
 
         // PlayInfo
         GameManager.Get().GetPlayInfo(ref gameData.playInfo);
+
+        // Clickable Object Info
+        GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
+        if (null != GO_ClickableLocation)
+        {
+            ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>(); 
+            if (null != screenObjectInfo)
+            {
+                screenObjectInfo.GetSaveData(ref gameData.locatedClickableObjects, ref gameData.objectClickedFlag);
+            }
+        }
 
         if (true == gameData.ValidateData())
         {

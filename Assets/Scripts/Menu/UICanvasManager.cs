@@ -17,9 +17,44 @@ public class UICanvasManager : MonoBehaviour
     public Toggle fullScreenToggle;
     public Toggle windowToggle;
 
+    static public string GetLocationName(string inSceneName)
+    {
+        string locationName = inSceneName;
+
+        switch (inSceneName)
+        {
+            case "Lobby":
+                locationName = "로비";
+                break;
+            case "LabCorridor":
+                locationName = "상담실 복도";
+                break;
+            case "CounselRoom":
+                locationName = "상담실";
+                break;
+            case "Dormitory":
+                locationName = "기숙사";
+                break;
+            case "PatrickLab":
+                locationName = "패트릭 연구실";
+                break;
+            case "DayEnd":
+                locationName = "기숙사";
+                break;
+            case "AndroidLab":
+                locationName = "실험실";
+                break;
+            default:
+                Debug.LogError("[OnSceneLoaded()] No case found. Add " + inSceneName);
+                break;
+        }
+
+        return locationName;
+    }
+
     public void OnSceneLoaded(string inSceneName, int inDayCount, bool bHaveReport)
     {
-        ChangeLocationName(inSceneName);
+        locationText.text = GetLocationName(inSceneName);
 
         dayText.text = "Day " + inDayCount;
 
@@ -74,41 +109,6 @@ public class UICanvasManager : MonoBehaviour
                 flowchart.SendFungusMessage("ToNextScene");
             }
         }
-    }
-
-    private void ChangeLocationName(string inSceneName)
-    {
-        string locationName = "";
-
-        switch (inSceneName)
-        {
-            case "Lobby":
-                locationName = "로비";
-                break;
-            case "LabCorridor":
-                locationName = "상담실 복도";
-                break;
-            case "CounselRoom":
-                locationName = "상담실";
-                break;
-            case "Dormitory":
-                locationName = "기숙사";
-                break;
-            case "PatrickLab":
-                locationName = "패트릭 연구실";
-                break;
-            case "DayEnd":
-                locationName = "기숙사";
-                break;
-            case "AndroidLab":
-                locationName = "실험실";
-                break;
-            default:
-                Debug.LogError("[OnSceneLoaded()] No case found. Add " + inSceneName);
-                break;
-        }
-
-        locationText.text = locationName;
     }
 
     private bool IsMapMenuNeeded(string inSceneName, bool bInHaveReport)

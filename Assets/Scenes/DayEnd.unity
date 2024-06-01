@@ -472,6 +472,7 @@ GameObject:
   - component: {fileID: 352672069}
   - component: {fileID: 352672064}
   - component: {fileID: 352672066}
+  - component: {fileID: 352672082}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -548,7 +549,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 352672081}
+  - {fileID: 352672061}
   selectedCommands: []
   variables:
   - {fileID: 352672068}
@@ -556,6 +557,7 @@ MonoBehaviour:
   - {fileID: 352672079}
   - {fileID: 352672065}
   - {fileID: 352672074}
+  - {fileID: 352672082}
   - {fileID: 352672066}
   description: 
   stepPause: 0
@@ -1266,6 +1268,21 @@ MonoBehaviour:
   - {fileID: 352672072}
   - {fileID: 352672080}
   suppressAllAutoSelections: 0
+--- !u!114 &352672082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352672059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: HaveLoadData
+  value: 0
 --- !u!1 &1280458177
 GameObject:
   m_ObjectHideFlags: 0

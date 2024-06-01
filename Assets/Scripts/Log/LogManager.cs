@@ -25,7 +25,7 @@ public class LogManager : MonoBehaviour
 
         if (logQueue.Count != 0)
         {
-            //string playerName = GameManager.Get().GetPlayerName();
+            string playerName = GameManager.Get().GetPlayerName();
 
             foreach (LogMessage logPair in logQueue)
             {
@@ -35,11 +35,10 @@ public class LogManager : MonoBehaviour
                 }
 
                 if ("Player" == logPair.logName)
-                //if (playerName == logPair.logName)
                 {
-                    AddPlayerSpeech(logPair.logName, logPair.logText);
+                    AddPlayerSpeech(playerName, logPair.logText);
                 }
-                else if ("system" == logPair.logName)
+                else if ("System" == logPair.logName)
                 {
                     AddSystemSpeech(logPair.logText);
                 }

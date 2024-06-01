@@ -135,14 +135,15 @@ namespace Fungus
             var sayDialog = SayDialog.GetSayDialog();
             if (sayDialog != null)
             {
-                string speaker = sayDialog.NameText;
+                //string speaker = sayDialog.NameText;
+                string speaker = character.gameObject.name;
                 string dialogue = sayDialog.StoryText;
 
                 if (0 < dialogue.Length)
                 {
                     if (speaker.Length <= 0)
                     {
-                        speaker = "system";
+                        speaker = "System";
                     }
 
                     LogCache.AddLog(speaker, dialogue);

@@ -110,13 +110,24 @@ public class GameManager : MonoBehaviour
 
     protected void OnSceneLoaded(Scene Scene, LoadSceneMode mode)
     {
+        GameObject GO_flowchart = GameObject.Find("Flowchart");
+
         if (null != loadManager)
         {
+            if (null != GO_flowchart)
+            {
+                Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
+                if (null != flowchart)
+                {
+                    flowchart.SetBooleanVariable("HaveLoadData", loadManager.HaveLoadData());
+                }
+            }
+
             loadManager.LoadGameData(); // load game data from saved file
         }
 
         // Set Fungus variables to PlayInfo
-        GameObject GO_flowchart = GameObject.Find("Flowchart");
+        
         if (null != GO_flowchart)
         {
             Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
@@ -184,6 +195,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        // Reset Log 
+        LogCache.ClearAllLog();
 
 #if UNITY_EDITOR
         bFirstLoad = false;

@@ -8,6 +8,11 @@ public class LoadManager : MonoBehaviour
     private EmoSaveData loadEmoSaveData;
     public EmoSaveData LoadEmoSaveData { set { loadEmoSaveData = value; } }
 
+    public bool HaveLoadData()
+    {
+        return null != loadEmoSaveData;
+    }
+
     public bool LoadGameData()
     {
         if (null == loadEmoSaveData)
@@ -86,11 +91,10 @@ public class LoadManager : MonoBehaviour
             if (null != activeSayDialog)
             {
                 string dialogueNameText = loadEmoSaveData.dialogueNameText;
-                if (0 < dialogueNameText.Length)
+                if (false == string.IsNullOrEmpty(dialogueNameText))
                 {
                     activeSayDialog.NameText = dialogueNameText;
                     activeSayDialog.StoryText = loadEmoSaveData.dialogueStoryText;
-
                 }
             }
         }
@@ -105,11 +109,7 @@ public class LoadManager : MonoBehaviour
             string blockName = loadEmoSaveData.blockName;
             int commandId = loadEmoSaveData.commandId;
 
-            if (blockName.Length <= 0 || commandId == -1)
-            {
-                Debug.LogError("Try Load Data: Invalid block id / command id");
-            }
-            else
+            if (false == string.IsNullOrEmpty(blockName) && commandId != -1)
             {
                 Fungus.Block executeBlock = flowchart.FindBlock(blockName);
                 if (null != executeBlock)
@@ -121,6 +121,17 @@ public class LoadManager : MonoBehaviour
 
                     flowchart.ExecuteBlock(executeBlock, commandId);
                 }
+            }
+        }
+
+        // Clickable Object Info
+        GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
+        if (null != GO_ClickableLocation)
+        {
+            ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>();
+            if (null != screenObjectInfo)
+            {
+                screenObjectInfo.SetLoadData(loadEmoSaveData.locatedClickableObjects, loadEmoSaveData.objectClickedFlag);
             }
         }
 

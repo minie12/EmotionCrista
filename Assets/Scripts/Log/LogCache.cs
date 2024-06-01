@@ -41,6 +41,8 @@ public class LogCache
             logQueue.Clear();
         }
     }
+
+    public static void ClearAllLog() { logQueue.Clear(); }  
 }
 
 
