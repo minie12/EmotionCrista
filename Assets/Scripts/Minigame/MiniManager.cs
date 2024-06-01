@@ -142,8 +142,8 @@ public class MiniManager : MonoBehaviour
         UpdatePatternLevel();
 
         // for test
-        patternLevel = TestLoadMini.patternLevel;
-        patternIdx = TestLoadMini.patternIdx;
+        //patternLevel = TestLoadMini.patternLevel;
+        //patternIdx = TestLoadMini.patternIdx;
 
         // pattern
         pattern = SpawnPattern(patternIdx);
