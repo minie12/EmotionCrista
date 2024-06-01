@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Fungus;
+using UnityEngine.Playables;
 
 public class StartManager : MonoBehaviour
 {
@@ -43,7 +44,17 @@ public class StartManager : MonoBehaviour
     public void ResetGame()
     {
         SystemManager.Get().EraseData();
+        SaveLoadMenuManager.EraseData();
         RefreshStartScene();
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     void RefreshStartScene()

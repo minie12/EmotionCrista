@@ -8,8 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class SaveLoadMenuManager : MonoBehaviour
 {
-    string directoryName = "Saves";
-
     bool bSave = false;
     
     // SaveLoad Data Menu UI
@@ -23,6 +21,8 @@ public class SaveLoadMenuManager : MonoBehaviour
 
     public Sprite LoadTitleImage;
     public Sprite SaveTitleImage;
+
+    public Sprite[] GemIcons;
 
     public void Start()
     {
@@ -137,8 +137,8 @@ public class SaveLoadMenuManager : MonoBehaviour
 
         ActiveSlotObj.SetActive(true);
 
-        bool bDay, bPlayer, bPlace;
-        bDay = bPlayer = bPlace = false;
+        bool bDay, bPlayer, bPlace, bGem;
+        bDay = bPlayer = bPlace = bGem = false;
         {
             GameObject MenuDay = ActiveSlotObj.transform.Find("Day").gameObject;
             if (null != MenuDay)
@@ -149,7 +149,7 @@ public class SaveLoadMenuManager : MonoBehaviour
                     Text MenuDayText = MenuDayTextObj.GetComponent<Text>();
                     if (null != MenuDayText)
                     {
-                        //MenuDayText.text = inSaveData.CharacterIndex.ToString();
+                        MenuDayText.text = inSaveData.playInfo.dayCount.ToString();
                         bDay = true;
                     }
                 }
@@ -160,15 +160,11 @@ public class SaveLoadMenuManager : MonoBehaviour
             GameObject MenuPlayer = ActiveSlotObj.transform.Find("PlayerName").gameObject;
             if (null != MenuPlayer)
             {
-                GameObject MenuPlayerTextObj = MenuPlayer.transform.Find("Name").gameObject;
-                if (null != MenuPlayerTextObj)
+                Text MenuPlayerText = MenuPlayer.GetComponent<Text>();
+                if (null != MenuPlayerText)
                 {
-                    Text MenuPlayerText = MenuPlayerTextObj.GetComponent<Text>();
-                    if (null != MenuPlayerText)
-                    {
-                        //MenuPlayerText.text = inSaveData.PlayerName;
-                        bPlayer = true;
-                    }
+                    MenuPlayerText.text = inSaveData.playInfo.playerName.ToString();
+                    bPlayer = true;
                 }
             }
         }
@@ -183,14 +179,34 @@ public class SaveLoadMenuManager : MonoBehaviour
                     Text MenuPlaceText = MenuPlaceTextObj.GetComponent<Text>();
                     if (null != MenuPlaceText)
                     {
-                        MenuPlaceText.text = inSaveData.SceneName;
+                        MenuPlaceText.text = UICanvasManager.GetLocationName(inSaveData.SceneName);
+                        
                         bPlace = true;
                     }
                 }
             }
         }
 
-        if (bDay && bPlayer && bPlace)
+        {
+            GameObject MenuGem = ActiveSlotObj.transform.Find("Gem").gameObject;
+            if (null != MenuGem)
+            {
+                Image GemImage = MenuGem.GetComponent<Image>();
+                if (null != GemImage)
+                {
+                    int ColorIndex = inSaveData.playInfo.dayCount - 1;
+                    if (0 <= ColorIndex && ColorIndex < GemIcons.Length)
+                    {
+                        GemImage.sprite = GemIcons[ColorIndex];
+
+                        bGem = true;
+                    }
+                }
+            }
+        }
+
+
+        if (bDay && bPlayer && bPlace && bGem)
         {
             Image SlotImage = inSaveSlot.GetComponent<Image>();
             if (null != SlotImage)
@@ -200,6 +216,8 @@ public class SaveLoadMenuManager : MonoBehaviour
 
             return true;
         }
+
+        ActiveSlotObj.SetActive(false);
 
         return false;
     }
@@ -257,6 +275,17 @@ public class SaveLoadMenuManager : MonoBehaviour
 
     private string GetSaveDataDirectory()
     {
-        return string.Format("{0}/{1}/", Application.persistentDataPath, directoryName);
+        return string.Format("{0}/{1}/", Application.persistentDataPath, "Saves");
+    }
+
+    // DEBUG
+    static public void EraseData()
+    {
+        string directoryPath = string.Format("{0}/{1}/", Application.persistentDataPath, "Saves");
+
+        if (Directory.Exists(directoryPath))
+        {
+            Directory.Delete(directoryPath, true);
+        }
     }
 }

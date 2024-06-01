@@ -308,7 +308,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.4
-  m_Text: "\uC2A4\uD1A0\uB9AC story\n\uB77C\uC778\uCC44\uD06C\uC911\n3\uAC1C \uC801\uC5B4\uC57C\uD568"
+  m_Text: 
 --- !u!114 &11439138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC548\uB155\uD558\uC138\uC694\uC5BC"
+  m_Text: 
 --- !u!114 &8626239368856275819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,10 +1194,10 @@ MonoBehaviour:
   m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
-  m_Elasticity: 0.1
+  m_Elasticity: 0.15
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 6703454386275613236}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 419707151489695338}

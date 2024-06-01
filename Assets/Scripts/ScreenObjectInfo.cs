@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using static ScreenObjectInfo;
 
 public class ScreenObjectInfo : MonoBehaviour
 {
@@ -43,15 +44,34 @@ public class ScreenObjectInfo : MonoBehaviour
     [SerializeField]
     private Transform clickablesContainer;
 
+    public void GetSaveData(ref ClickableID[] outClickableLocations, ref byte outObjectClickedFlag)
+    {
+        outClickableLocations = locatedObjects;
+        outObjectClickedFlag = objectClickedFlag;
+    }
+
+    public void SetLoadData(ClickableID[] inClickableLocations, byte inObjectClickedFlag)
+    {
+        locatedObjects = inClickableLocations;
+        objectClickedFlag = inObjectClickedFlag;
+
+        for (int locationIndex = 0; locationIndex < LOCATIONNUM_MAX; ++locationIndex)
+        {
+            SetClickableObject(locatedObjects[locationIndex], locationIndex);
+        }
+
+        ShowAllObjects();
+    }
+
     // Objects will be visible all at once (ShowAllObjects)
     public void SetClickableObject(ClickableID inObjectID, int inLocationIndex)
     {
         if (ClickableID.CID_None == inObjectID || ClickableID.CID_Max == inObjectID)
             return;
-        
-        while (true == locatedObjects.Contains(inObjectID))
+
+        if ((null != clickableLocations[inLocationIndex]) && (0 < clickableLocations[inLocationIndex].transform.childCount))
         {
-            CleanClickableObject(inObjectID);
+            CleanClickableObject(inLocationIndex);
         }
 
         GameObject clickableObject = GetClickableObject(inObjectID);
@@ -98,7 +118,7 @@ public class ScreenObjectInfo : MonoBehaviour
             }
         }
     }
-    
+
     public void CleanClickableObject(ClickableID inObjectID)
     {
         GameObject clickableObject = GetClickableObject(inObjectID);
@@ -108,19 +128,23 @@ public class ScreenObjectInfo : MonoBehaviour
             {
                 if (inObjectID == locatedObjects[locationIndex])
                 {
-                    // Set VisibleFlag to False
-                    byte mask = (byte)(1 << locationIndex);
-                    objectClickedFlag &= (byte)~mask;
-
-                    // Clean up Location : ClickableID info
-                    locatedObjects[locationIndex] = ClickableID.CID_None;
-
-                    // move to Container
-                    clickableObject.transform.SetParent(clickablesContainer, false);
+                    _CleanClickableObject(clickableObject, locationIndex);
 
                     break;
                 }
             }
+        }
+    }
+
+    public void CleanClickableObject(int inLocationIndex)
+    {
+        ClickableID objectID = locatedObjects[inLocationIndex];
+
+        GameObject clickableObject = GetClickableObject(objectID);
+
+        if (null != clickableObject)
+        {
+            _CleanClickableObject(clickableObject, inLocationIndex);
         }
     }
 
@@ -181,5 +205,18 @@ public class ScreenObjectInfo : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void _CleanClickableObject(GameObject inGameObj, int inLocationIndex)
+    {
+        // Set ClickedFlag to False
+        byte mask = (byte)(1 << inLocationIndex);
+        objectClickedFlag &= (byte)~mask;
+
+        // Clean up Location : ClickableID info
+        locatedObjects[inLocationIndex] = ClickableID.CID_None;
+
+        // move to Container
+        inGameObj.transform.SetParent(clickablesContainer, false);
     }
 }

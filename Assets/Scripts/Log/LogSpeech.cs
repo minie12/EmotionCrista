@@ -13,19 +13,19 @@ public class LogSpeech : MonoBehaviour
     public Text nameText;
     public Text speechBoxText;
 
-    public void SetSpeech(string inPlayerName, string inSpeechText)
+    public void SetSpeech(string inSpeechName, string inSpeechText)
     {
         if (inSpeechText.Length <= 0 || null == speechBoxText)
         {
             return;
         }
 
-        if (0 < inPlayerName.Length)
+        if (0 < inSpeechName.Length)
         {
             // System Log Speech does not have nameText
             if (null != nameText)
             {
-                nameText.text = inPlayerName;
+                nameText.text = inSpeechName;
             }
         }
 
