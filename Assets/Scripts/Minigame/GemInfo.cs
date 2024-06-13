@@ -24,6 +24,7 @@ public class GemInfo : MonoBehaviour
     // animation
     public Animator sparkleANIM;
     public Animator patternANIM;
+    public Animator fillWaterANIM;
     public Animator gemANIM;
     public Animator fireANIM;
     public Animator explosionANIM;
@@ -39,6 +40,7 @@ public class GemInfo : MonoBehaviour
     [HideInInspector] public int isFired = 0; // 0: no fire, 1: init fire, 2: spreaded fire
     [HideInInspector] public bool isChecked = false; // check (using BFS)
     [HideInInspector] public bool isCryGem = false; // using blue gimmick
+    [HideInInspector] public bool isCrushed = false; // check crush
 
     private void Awake()
     {
@@ -318,23 +320,22 @@ public class GemInfo : MonoBehaviour
     public void FillWaterInHex()
     {
         bPatternApplied = true;  // so that this gem does not get selected at GetRandomGem()
-        patternANIM.Play("gem_fill_water", 0, 0.0f);
+        fillWaterANIM.Play("gem_fill_water", 0, 0.0f);
         StartCoroutine("FillWaterInHexC");
     }
 
     IEnumerator FillWaterInHexC()
     {
         yield return new WaitForSeconds(0.1f);
-
-        // check whether gem_fill_water animation is done or not
-        while (!patternANIM.GetCurrentAnimatorStateInfo(0).IsTag("changeColor"))
+        SetColor(); // change color of gem
+        
+        while (fillWaterANIM.GetCurrentAnimatorStateInfo(0).normalizedTime > 0 && fillWaterANIM.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return null;
         }
 
-        SetColor(); // change color of gem
+        Debug.Log("done change");
         bPatternApplied = false;
-        patternANIM.SetBool("bWaterFilled", true);
     }
 
     // gem explode (red gimmick 0)

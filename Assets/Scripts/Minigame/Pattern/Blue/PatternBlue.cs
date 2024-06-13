@@ -19,6 +19,11 @@ public class PatternBlue : PatternManager
 
     // crying gem
     private GemInfo crying_gem;
+    private bool crying = false;
+    private int crushedBiasCnt2 = 15;
+    private int crushedGemLast2 = 0;
+    private IEnumerator cryingCoroutine;
+
 
     protected override void Awake()
     {
@@ -49,11 +54,26 @@ public class PatternBlue : PatternManager
             Debug.Log("bubble gimmick" + cnt);
             if(!bubbleShowing && cnt > crushedGemLast)
             {
-                Debug.Log("bubble ");
+                Debug.Log("bubble");
                 BlueGimmick1();
                 bubbleShowing = true;
                 crushedGemLast = cnt;
                 StartCoroutine(BubbleTimer());
+            }
+        }
+
+        // crying gem
+        if (gimmick[2])
+        {
+            Debug.Log("crushed gem cnt" + mini.GetTotalCrushedGem());
+            int cnt = mini.GetTotalCrushedGem() / crushedBiasCnt2;
+            Debug.Log("crying gimmick" + cnt);
+            if (!crying && cnt > crushedGemLast2)
+            {
+                Debug.Log("crying");
+                B_CryGem();
+                crying = true;
+                crushedGemLast2 = cnt;
             }
         }
     }
@@ -65,6 +85,9 @@ public class PatternBlue : PatternManager
 
         bubbleShowing = false;
         crushedGemLast = 0;
+
+        crying = false;
+        crushedGemLast2 = 0;
 
         RestartPattern();
     }
@@ -85,7 +108,6 @@ public class PatternBlue : PatternManager
             case 1:
                 break;
             case 2:
-                Invoke(nameof(B_CryGem), 1f);
                 break;
         }
     }
@@ -102,6 +124,9 @@ public class PatternBlue : PatternManager
             case 1:
                 if(bubbleCoroutine != null) StopCoroutine(bubbleCoroutine);
                 break;
+            case 2:
+                if (cryingCoroutine != null) StopCoroutine(cryingCoroutine);
+                break;
         }
     }
     public override void RestartPattern()
@@ -112,7 +137,7 @@ public class PatternBlue : PatternManager
         switch (mini.patternLevel)
         {
             case 0:
-                StartGimmick(2);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 1:
@@ -121,20 +146,22 @@ public class PatternBlue : PatternManager
                 break;
             case 2:
                 StartGimmick(0);
-                StartGimmick(1);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 3:
-                StartGimmick(2);
+                StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 4:
                 StartGimmick(1);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
             case 5:
                 StartGimmick(0);
                 StartGimmick(1);
+                StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
                 break;
         }
@@ -234,11 +261,15 @@ public class PatternBlue : PatternManager
         StartCoroutine(bubbleCoroutine);
     }
 
-    // B2 -----------------------------------------------
+    // B2 crying gem -----------------------------------------------
     void B_CryGem()
     {
         // 맨 윗 줄 (row: 4)에서 랜덤으로 광물 얻어오기
         List<GemInfo> upperGems = board.GetGemRows(new List<int> { 4 });
+        if(upperGems.Count ==  0)
+        {
+            return;
+        }
         crying_gem = upperGems[Random.Range(0, upperGems.Count)];
 
         // 눈물 광물로 변경
@@ -246,8 +277,35 @@ public class PatternBlue : PatternManager
         crying_gem.ChangeSpecialGem();
         crying_gem.FadeIn(0.5f);
         crying_gem.isCryGem = true;
+        crying_gem.bPatternApplied = true;
 
-        StartCoroutine(GemCrying());
+        cryingCoroutine = GemCrying();
+        StartCoroutine(cryingCoroutine);
+    }
+
+    // 보드판 클릭 막는 함수 (isBlock == true일 경우 보드판 클릭 못하게 막음)
+    void SwitchBoardBlock(bool isBlock, int curr_col, int curr_row, int next_row)
+    {
+        board.SetGemMovable(!isBlock);
+        if (isBlock)
+        {
+            board.SetGemClicked(!isBlock);
+        }
+
+        // get around gems
+        List<GemInfo> aroundGems_1 = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(curr_col, curr_row);
+        List<GemInfo> aroundGems_2 = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(curr_col, next_row);
+
+        for (int i = 0; i < aroundGems_1.Count; i++)
+        {
+            aroundGems_1[i].bLocationFixed = isBlock;
+            board.SetRotate(aroundGems_1[i].GetColumn(), aroundGems_1[i].GetRow(), isBlock);
+        }
+        for (int i = 0; i < aroundGems_2.Count; i++)
+        {
+            aroundGems_2[i].bLocationFixed = isBlock;
+            board.SetRotate(aroundGems_2[i].GetColumn(), aroundGems_2[i].GetRow(), isBlock);
+        }
     }
 
     IEnumerator GemCrying()
@@ -257,65 +315,53 @@ public class PatternBlue : PatternManager
 
         while (true)
         {
-            int curr_col = crying_gem.GetColumn();
-            int curr_row = crying_gem.GetRow();
-            int next_row = curr_row - 1;
-
-            if (board.GetGem(curr_col, curr_row) == null)
+            if(crying_gem == null)
             {
+                Debug.Log("crying gem null !!!");
                 break;
             }
 
-            GemInfo next_crying_gem = board.GetGem(curr_col, next_row);
-            if (next_crying_gem == null)
+            int curr_col = crying_gem.GetColumn();
+            int curr_row = crying_gem.GetRow();
+            if (board.GetGem(curr_col, curr_row) == null || board.GetGem(curr_col, curr_row).isCrushed)
             {
+                Debug.Log("curr gem is crushed !!");
+                break;
+            }
+
+            // 다음 광물이 있는지 확인
+            int next_row = curr_row - 1;
+            GemInfo next_crying_gem = board.GetGem(curr_col, next_row);
+            if (next_crying_gem == null || next_crying_gem.isCrushed)
+            {
+                yield return null;
                 continue;
             }
 
-            board.SetGemMovable(false);
-            board.SetGemClicked(false);
-            // get around gems
-            List<GemInfo> aroundGems_1 = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(curr_col, curr_row);
-            List<GemInfo> aroundGems_2 = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(curr_col, next_row);
+            // swap 하기 전 보드판 막기
+            SwitchBoardBlock(true, curr_col, curr_row, next_row);
+            yield return new WaitForSeconds(0.1f);
+            // 다음 광물이 있는지 확인
+            curr_col = crying_gem.GetColumn();
+            curr_row = crying_gem.GetRow();
+            next_row = curr_row - 1;
+            next_crying_gem = board.GetGem(curr_col, next_row);
+            if (next_crying_gem == null || next_crying_gem.isCrushed)
+            {
+                SwitchBoardBlock(false, curr_col, curr_row, next_row);
+                yield return null;
+                continue;
+            }
 
-            for (int i = 0; i < aroundGems_1.Count; i++)
-            {
-                aroundGems_1[i].bLocationFixed = true;
-                board.SetRotate(aroundGems_1[i].GetColumn(), aroundGems_1[i].GetRow(), true);
-            }
-            for (int i = 0; i < aroundGems_2.Count; i++)
-            {
-                aroundGems_2[i].bLocationFixed = true;
-                board.SetRotate(aroundGems_2[i].GetColumn(), aroundGems_2[i].GetRow(), true);
-            }
-            yield return new WaitForSeconds(0.05f);
             next_crying_gem.MoveGem(curr_col, curr_row, dropTime);
             crying_gem.FadeIn(0.3f);
             next_crying_gem.FadeIn(0.3f);
-            crying_gem.bLocationFixed = true;
-            next_crying_gem.bLocationFixed = true;
             crying_gem.MoveGem(curr_col, next_row, dropTime);
             board.SetGem(curr_col, next_row, crying_gem);
             board.SetGem(curr_col, curr_row, next_crying_gem);
-            board.SetRotate(curr_col, curr_row, true);
-            board.SetRotate(curr_col, next_row, true);
             yield return new WaitForSeconds(0.4f);
 
-            board.SetGemMovable(true);
-            crying_gem.bLocationFixed = false;
-            for (int i = 0; i < aroundGems_1.Count; i++)
-            {
-                aroundGems_1[i].bLocationFixed = false;
-                board.SetRotate(aroundGems_1[i].GetColumn(), aroundGems_1[i].GetRow(), false);
-            }
-            for (int i = 0; i < aroundGems_2.Count; i++)
-            {
-                aroundGems_2[i].bLocationFixed = false;
-                board.SetRotate(aroundGems_2[i].GetColumn(), aroundGems_2[i].GetRow(), false);
-            }
-            next_crying_gem.bLocationFixed = false;
-            board.SetRotate(curr_col, curr_row, false);
-            board.SetRotate(curr_col, next_row, false);
+            SwitchBoardBlock(false, curr_col, curr_row, next_row);
             curr_col = crying_gem.GetColumn();
             curr_row = crying_gem.GetRow();
             next_row = curr_row - 1;
@@ -329,6 +375,7 @@ public class PatternBlue : PatternManager
 
             yield return new WaitForSeconds(2f);
         }
+        crying = false;
         yield return null;
     }
 }

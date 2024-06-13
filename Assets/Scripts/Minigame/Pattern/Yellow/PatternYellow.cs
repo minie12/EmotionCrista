@@ -60,6 +60,7 @@ public class PatternYellow : PatternManager
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;
             case 4:
+                StartGimmick(0);
                 StartGimmick(1);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, 3);
                 break;

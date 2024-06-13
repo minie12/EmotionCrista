@@ -66,7 +66,7 @@ public class BoardManager : MonoBehaviour
             for (int j = 0; j < 6; j++)
             {
                 if (j == 5 && i % 2 == 0) continue;
-                if(gems[i,j] != null)
+                if (gems[i, j] != null)
                 {
                     gems[i, j].SetOutline("undo");
                 }
@@ -81,7 +81,7 @@ public class BoardManager : MonoBehaviour
                     continue;
                 }
 
-                if (isLockRotate[i, j] && gems[i,j].GetChainCnt() == 0)
+                if (isLockRotate[i, j] && gems[i, j].GetChainCnt() == 0)
                 {
                     gems[i, j].SetFilm();
                 }
@@ -90,11 +90,11 @@ public class BoardManager : MonoBehaviour
                     gems[i, j].DeleteFilm();
                 }
 
-                if(isClickedGem[i,j] == 1)
+                if (isClickedGem[i, j] == 1)
                 {
                     gems[i, j].SetOutline("side");
                 }
-                else if(isClickedGem[i,j] == 2)
+                else if (isClickedGem[i, j] == 2)
                 {
                     gems[i, j].SetOutline("click");
                 }
@@ -591,36 +591,37 @@ public class BoardManager : MonoBehaviour
     }
 
     // PATTERN RELATED
-    public GemInfo GetRandomGem()
-    {
-        // TODO: Does not check whether the gem is already filled with water
-
-        int column_ = Random.Range(0, 11);
-        int row_ = Random.Range(0, 6);
-        GemInfo gem = GetGem(column_, row_);
-        while (gem == null)
-        {
-            column_ = Random.Range(0, 11);
-            row_ = Random.Range(0, 6);
-            gem = GetGem(column_, row_);
-        }
-        return gem;
-    }
-
     public GemInfo GetRandomGemArea()
     {
-        // TODO: Does not check whether the gem is already filled with water
-
         int column_ = Random.Range(2, 9);
         int row_ = Random.Range(2, 4);
         GemInfo gem = GetGem(column_, row_);
-        while (gem == null)
+        while (gem == null || gem.bPatternApplied)
         {
             column_ = Random.Range(2, 9);
             row_ = Random.Range(2, 4);
             gem = GetGem(column_, row_);
         }
         return gem;
+    }
+
+    public List<GemInfo> GetGemAll()
+    {
+        List<GemInfo> gems = new List<GemInfo>();
+
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                GemInfo gem = GetGem(i, j);
+                if (gem != null && !gem.bPatternApplied)
+                {
+                    gems.Add(gem);
+                }
+            }
+        }
+
+        return gems;
     }
 
     public List<List<GemInfo>> GetPatternGems()
@@ -632,7 +633,7 @@ public class BoardManager : MonoBehaviour
             for(int j = 0; j < 6; j++)
             {
                 GemInfo gem = GetGem(i, j);
-                if(gem != null)
+                if(gem != null && !gem.bPatternApplied)
                 {
                     gems[gem.GetColor()].Add(gem);
                 }
@@ -678,7 +679,7 @@ public class BoardManager : MonoBehaviour
     public GemInfo GetRandomGemOnWay(int current_c, int current_r)
     {
         GemInfo gem = null;
-        while (gem == null)
+        while (gem == null || gem.bPatternApplied)
         {
             // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
             int direction = Random.Range(0, 6);
@@ -762,7 +763,7 @@ public class BoardManager : MonoBehaviour
                     default:
                         break;
                 }
-                if (gem == null)
+                if (gem == null || gem.bPatternApplied)
                 {
                     break;
                 }
@@ -771,44 +772,6 @@ public class BoardManager : MonoBehaviour
             aroundGemList.Add(temp);
         }
         return aroundGemList;
-    }
-
-
-    public GemInfo[] GetRandomGems(int cnt)
-    {
-        // TODO: Does not check whether the gem is already filled with water
-        GemInfo[] gems = new GemInfo[cnt];
-        int[,] pickedCoordinates = new int[cnt, 2];
-
-        for (int i = 0; i < cnt; i++)
-        {
-            GemInfo gem; int column_, row_;
-            bool bPicked;
-            do
-            {
-                bPicked = false;
-                column_ = Random.Range(0, 11);
-                row_ = Random.Range(0, 6);
-                gem = GetGem(column_, row_);
-
-                // check if this gem is already picked
-                for (int j = 0; j < i; j++)
-                {
-                    if (pickedCoordinates[j, 0] == column_ && pickedCoordinates[j, 1] == row_)
-                    {
-                        bPicked = true;
-                        break;
-                    }
-                }
-            } while (gem == null || gem.bPatternApplied || bPicked);
-
-            pickedCoordinates[i, 0] = column_;
-            pickedCoordinates[i, 1] = row_;
-
-            gems[i] = gem;
-        }
-
-        return gems;
     }
 
     // 특정 행에 있는 광물 모두 얻어오기
@@ -827,7 +790,7 @@ public class BoardManager : MonoBehaviour
                     nr++;
                 }
                 GemInfo gem = GetGem(i, nr);
-                if (gem != null)
+                if (gem != null && !gem.bPatternApplied)
                 {
                     gems.Add(gem);
                 }
@@ -847,7 +810,7 @@ public class BoardManager : MonoBehaviour
             for(int i = 0; i < 6; i++)
             {
                 GemInfo gem = GetGem(c, i);
-                if (gem != null)
+                if (gem != null && !gem.bPatternApplied)
                 {
                     gems.Add(gem);
                 }
@@ -877,11 +840,12 @@ public class BoardManager : MonoBehaviour
         foreach (int d in diagonals)
         {
             List<int> gemInfo = diagonalDict[d];
-            gems.Add(GetGem(gemInfo[0], gemInfo[1]));
+            GemInfo tempGem = GetGem(gemInfo[0], gemInfo[1]);
+            if(tempGem != null && !tempGem.bPatternApplied) gems.Add(tempGem);
             List<List<GemInfo>> aroundGems = GetAroundGemList(gemInfo[0], gemInfo[1]);
             for (int i = 0; i < aroundGems[2].Count; i++)
             {
-                gems.Add(aroundGems[2][i]);
+                if (aroundGems[2][i] != null && !aroundGems[2][i].bPatternApplied) gems.Add(aroundGems[2][i]);
             }
         }
 
@@ -908,11 +872,12 @@ public class BoardManager : MonoBehaviour
         foreach (int d in diagonals)
         {
             List<int> gemInfo = diagonalDict[d];
-            gems.Add(GetGem(gemInfo[0], gemInfo[1]));
+            GemInfo tempGem = GetGem(gemInfo[0], gemInfo[1]);
+            if (tempGem != null && !tempGem.bPatternApplied) gems.Add(tempGem);
             List<List<GemInfo>> aroundGems = GetAroundGemList(gemInfo[0], gemInfo[1]);
             for (int i = 0; i < aroundGems[4].Count; i++)
             {
-                gems.Add(aroundGems[4][i]);
+                if (aroundGems[4][i] != null && !aroundGems[4][i].bPatternApplied) gems.Add(aroundGems[4][i]);
             }
         }
 
