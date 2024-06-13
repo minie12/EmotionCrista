@@ -1,8 +1,12 @@
 ﻿using Fungus;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static ScreenObjectInfo;
 
 public enum CharacterName
 {
@@ -12,6 +16,19 @@ public enum CharacterName
     Nish,
     Ilrak,
     Max
+}
+
+[System.Serializable]
+public struct ScreenInfoData
+{
+    public ClickableID[] locatedObjects;
+    public byte objectClickedFlag;
+
+    public ScreenInfoData(ClickableID[] inLocatedObjects, byte inObjectClickedFlag)
+    {
+        locatedObjects = inLocatedObjects;
+        objectClickedFlag = inObjectClickedFlag;
+    }
 }
 
 [System.Serializable]
@@ -28,11 +45,14 @@ public struct PlayInfo
 
     public int endingMode;
 
-    public void Initialize()
+    public Dictionary<string, bool> sceneStartBlockCompletedMap;
+    public Dictionary<string, ScreenInfoData> sceneScreenInfoMap;
+
+    public void Reset()
     {
         playerName = "NoName";
         dayCount = 1;
-        characterIndex = (int)CharacterName.Lulian;
+        characterIndex = (int)CharacterName.Naria;
 
         bHaveReport = false;
         bRedButtonPressed = false;
@@ -40,6 +60,24 @@ public struct PlayInfo
         miniGameLevel = (int)LevelType.EASY1;
 
         endingMode = (int)EndingMode.None;
+
+        if (null == sceneStartBlockCompletedMap)
+        {
+            sceneStartBlockCompletedMap = new Dictionary<string, bool>();
+        }
+        else
+        {
+            sceneStartBlockCompletedMap.Clear();
+        }
+
+        if (null == sceneScreenInfoMap)
+        {
+            sceneScreenInfoMap = new Dictionary<string, ScreenInfoData>();
+        }
+        else
+        {
+            sceneScreenInfoMap.Clear();
+        }
     }
 }
 
@@ -76,7 +114,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
             instance = this;
 
-            currentPlayInfo.Initialize();
+            currentPlayInfo.Reset();
 
             loadManager = this.GetComponent<LoadManager>();
 
@@ -108,26 +146,23 @@ public class GameManager : MonoBehaviour
         return instance;
     }
 
+    public void SetSceneScreenInfo(ClickableID[] locatedObjects, byte objectClickedFlag)
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        string sceneName = scene.name;
+
+        currentPlayInfo.sceneScreenInfoMap[sceneName] = new ScreenInfoData(locatedObjects, objectClickedFlag);
+    }
+
     protected void OnSceneLoaded(Scene Scene, LoadSceneMode mode)
     {
-        GameObject GO_flowchart = GameObject.Find("Flowchart");
-
         if (null != loadManager)
         {
-            if (null != GO_flowchart)
-            {
-                Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
-                if (null != flowchart)
-                {
-                    flowchart.SetBooleanVariable("HaveLoadData", loadManager.HaveLoadData());
-                }
-            }
-
             loadManager.LoadGameData(); // load game data from saved file
         }
 
         // Set Fungus variables to PlayInfo
-        
+        GameObject GO_flowchart = GameObject.Find("Flowchart");
         if (null != GO_flowchart)
         {
             Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
@@ -143,6 +178,7 @@ public class GameManager : MonoBehaviour
                 if (true == bDebugging)
                 {
                     PlayInfo DebugPlayInfo = new PlayInfo();
+                    DebugPlayInfo.Reset();
 
                     bool bMultiRound = flowchart.GetBooleanVariable("MultiRound");
                     SystemManager.Get().SetMultiRound(bMultiRound);
@@ -155,6 +191,13 @@ public class GameManager : MonoBehaviour
                     // RedButton
 
                     DebugPlayInfo.endingMode = flowchart.GetIntegerVariable("EndingMode");
+
+
+                    bool bCompletedStart = flowchart.GetBooleanVariable("CompletedStart");
+                    if (true == bCompletedStart)
+                    {
+                        SetStartBlockCompletion(true);
+                    }
                     
                     SetPlayInfo(DebugPlayInfo);
                 }
@@ -170,6 +213,14 @@ public class GameManager : MonoBehaviour
                     // RedButton
 
                     flowchart.SetIntegerVariable("EndingMode", currentPlayInfo.endingMode);
+
+                    if (null != currentPlayInfo.sceneStartBlockCompletedMap)
+                    {
+                        if (currentPlayInfo.sceneStartBlockCompletedMap.ContainsKey(Scene.name))
+                        {
+                            flowchart.SetBooleanVariable("CompletedStart", currentPlayInfo.sceneStartBlockCompletedMap[Scene.name]);
+                        }
+                    }
                 }
             }
 
@@ -199,6 +250,24 @@ public class GameManager : MonoBehaviour
         // Reset Log 
         LogCache.ClearAllLog();
 
+        // Set ScreenInfo
+        if (null != currentPlayInfo.sceneScreenInfoMap)
+        {
+            GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
+            if (null != GO_ClickableLocation)
+            {
+                ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>();
+                if (null != screenObjectInfo)
+                {
+                    if (currentPlayInfo.sceneScreenInfoMap.ContainsKey(Scene.name))
+                    {
+                        screenObjectInfo.SetLoadData(currentPlayInfo.sceneScreenInfoMap[Scene.name].locatedObjects, currentPlayInfo.sceneScreenInfoMap[Scene.name].objectClickedFlag);
+                    }
+                }
+            }
+        }
+        
+
 #if UNITY_EDITOR
         bFirstLoad = false;
 #endif
@@ -221,6 +290,9 @@ public class GameManager : MonoBehaviour
         refPlayInfo.miniGameLevel = currentPlayInfo.miniGameLevel;
 
         refPlayInfo.endingMode = currentPlayInfo.endingMode;
+
+        refPlayInfo.sceneStartBlockCompletedMap = currentPlayInfo.sceneStartBlockCompletedMap;
+        refPlayInfo.sceneScreenInfoMap = currentPlayInfo.sceneScreenInfoMap;
     }
     public void SetPlayInfo(PlayInfo inPlayInfo)
     {
@@ -233,6 +305,9 @@ public class GameManager : MonoBehaviour
         currentPlayInfo.miniGameLevel = inPlayInfo.miniGameLevel;
 
         currentPlayInfo.endingMode = inPlayInfo.endingMode;
+
+        currentPlayInfo.sceneStartBlockCompletedMap = inPlayInfo.sceneStartBlockCompletedMap;
+        currentPlayInfo.sceneScreenInfoMap = inPlayInfo.sceneScreenInfoMap;
     }
     public void ProceedNextDay()
     {
@@ -241,27 +316,35 @@ public class GameManager : MonoBehaviour
 
         currentPlayInfo.bHaveReport = false;
         currentPlayInfo.bRedButtonPressed = false;
+
+        if (null != currentPlayInfo.sceneStartBlockCompletedMap)
+        {
+            currentPlayInfo.sceneStartBlockCompletedMap.Clear();
+        }
+
+        if (null != currentPlayInfo.sceneScreenInfoMap)
+        {
+            currentPlayInfo.sceneScreenInfoMap.Clear();
+        }
     }
 
     public void ResetPlayInfo()
     {
-        currentPlayInfo.playerName = "NoName";
-        currentPlayInfo.dayCount = 1;
-        currentPlayInfo.characterIndex = 0;
-
-        currentPlayInfo.bHaveReport = false;
-        currentPlayInfo.bRedButtonPressed = false;
-        currentPlayInfo.miniGameLevel = 0;
-
-        currentPlayInfo.endingMode = (int)EndingMode.None;
+        currentPlayInfo.Reset();
     }
-
-    public void ResetPlayInfoDebug()
+    public void ResetAfterMinigame()
     {
-        ResetPlayInfo();
+        if (null != currentPlayInfo.sceneStartBlockCompletedMap)
+        {
+            currentPlayInfo.sceneStartBlockCompletedMap.Clear();
+        }
 
-        currentPlayInfo.dayCount = 3;
-        currentPlayInfo.characterIndex = (int)CharacterName.Russel;
+        if (null != currentPlayInfo.sceneScreenInfoMap)
+        {
+            currentPlayInfo.sceneScreenInfoMap.Clear();
+        }
+
+        currentPlayInfo.miniGameLevel = 0;
     }
 
     public void SetEndingMode(EndingMode inMode) { currentPlayInfo.endingMode = (int)inMode; }
@@ -299,5 +382,13 @@ public class GameManager : MonoBehaviour
             loadManager.LoadEmoSaveData = inLoadData;
         }
     }
+    public void SetStartBlockCompletion(bool bCompletion)
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        string sceneName = scene.name;
+
+        currentPlayInfo.sceneStartBlockCompletedMap[sceneName] = bCompletion;
+    }
+
     #endregion
 }

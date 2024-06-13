@@ -23,17 +23,8 @@ public class StartManager : MonoBehaviour
         GameManager gameManager = GameManager.Get();
         if (null != gameManager)
         {
-            if(true == SystemManager.Get().IsMultiRound())
-            {
-                //gameManager.ResetPlayInfo();
-                gameManager.ResetPlayInfoDebug();
-                SceneManager.LoadScene("LabCorridor");
-            }
-            else 
-            {
-                gameManager.ResetPlayInfo();
-                SceneManager.LoadScene("LabCorridor");
-            }
+            gameManager.ResetPlayInfo();
+            SceneManager.LoadScene("LabCorridor");
         }
         else
         {

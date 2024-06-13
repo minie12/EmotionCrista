@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using static ScreenObjectInfo;
 
 public class ScreenObjectInfo : MonoBehaviour
 {
@@ -43,6 +36,14 @@ public class ScreenObjectInfo : MonoBehaviour
 
     [SerializeField]
     private Transform clickablesContainer;
+
+    public void SaveSceneScreenInfo()
+    {
+        if (true == ShouldSaveScreenInfo())
+        {
+            GameManager.Get().SetSceneScreenInfo(locatedObjects, objectClickedFlag);
+        }
+    }
 
     public void GetSaveData(ref ClickableID[] outClickableLocations, ref byte outObjectClickedFlag)
     {
@@ -218,5 +219,18 @@ public class ScreenObjectInfo : MonoBehaviour
 
         // move to Container
         inGameObj.transform.SetParent(clickablesContainer, false);
+    }
+
+    private bool ShouldSaveScreenInfo()
+    {
+        foreach (ClickableID ID in locatedObjects)
+        {
+            if (ClickableID.CID_None != ID)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
