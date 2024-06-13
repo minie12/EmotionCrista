@@ -35,8 +35,8 @@ public class EmoSaveData
     public Dictionary<string, SerializablePortraitState> portraitStates = new Dictionary<string, SerializablePortraitState>();
 
     // Point&Click Objects 
-    public ClickableID[] locatedClickableObjects;
-    public byte objectClickedFlag;
+    //public ClickableID[] locatedClickableObjects;
+    //public byte objectClickedFlag;
     #endregion
 
     public bool ValidateData()
@@ -153,19 +153,22 @@ public class EmoSaveData
             }
         }
 
-        // PlayInfo
-        GameManager.Get().GetPlayInfo(ref gameData.playInfo);
-
-        // Clickable Object Info
-        GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
-        if (null != GO_ClickableLocation)
+        // Set Current SceneInfo to PlayInfo before saving
         {
-            ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>(); 
-            if (null != screenObjectInfo)
+            // Clickable Object Info
+            GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
+            if (null != GO_ClickableLocation)
             {
-                screenObjectInfo.GetSaveData(ref gameData.locatedClickableObjects, ref gameData.objectClickedFlag);
+                ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>();
+                if (null != screenObjectInfo)
+                {
+                    screenObjectInfo.SaveSceneScreenInfo();
+                }
             }
         }
+
+        // PlayInfo
+        GameManager.Get().GetPlayInfo(ref gameData.playInfo);
 
         if (true == gameData.ValidateData())
         {

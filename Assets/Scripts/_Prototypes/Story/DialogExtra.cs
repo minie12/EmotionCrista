@@ -44,18 +44,6 @@ public class DialogExtra : MonoBehaviour
         player.SetStandardText(nameText_);
     }
 
-    public void InitializeScene(Fungus.Flowchart flowchart)
-    {
-        if (null != flowchart)
-        {
-            // Load Save Data if has one
-            {
-                OldGameManager gameManager = OldGameManager.Get();
-                gameManager.TryLoadData(flowchart);
-            }
-        }
-    }
-
     public void ExitGame() {
         Application.Quit();
     }
@@ -64,15 +52,19 @@ public class DialogExtra : MonoBehaviour
         go.SetActive(!go.activeSelf);
     }
 
-    public void ChangeParent(Transform parent, GameObject obj)
-    {
-        //Instantiate(clickableObj, location);
-        obj.transform.SetParent(parent, false);
-    }
-
     public void SetMiniGameLevel(int inGameLevel)
     {
         GameManager.Get().SetGameLevel(inGameLevel);
+    }
+
+    public void SetStartBlockCompletion(bool bInCompletion)
+    {
+        GameManager.Get().SetStartBlockCompletion(bInCompletion);
+    }
+
+    public void ResetAfterMinigame()
+    {
+        GameManager.Get().ResetAfterMinigame();
     }
 
     //public void EraseClickable(GameObject location)

@@ -124,17 +124,6 @@ public class LoadManager : MonoBehaviour
             }
         }
 
-        // Clickable Object Info
-        GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
-        if (null != GO_ClickableLocation)
-        {
-            ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>();
-            if (null != screenObjectInfo)
-            {
-                screenObjectInfo.SetLoadData(loadEmoSaveData.locatedClickableObjects, loadEmoSaveData.objectClickedFlag);
-            }
-        }
-
         // Delete Load Info so that it won't load again
         loadEmoSaveData = null;
 
