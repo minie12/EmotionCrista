@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
@@ -439,13 +439,17 @@ namespace Fungus
 
             options.character.State.SetPortraitImageBySprite(options.portrait);
             options.character.State.portraitImage.rectTransform.gameObject.SetActive(true);
-            
-            if(options.character.State.portraitImage.color != Color.white)
-            {
-                LeanTween.color(options.character.State.portraitImage.rectTransform, Color.white, duration)
-                    .setEase(stage.FadeEaseType)
-                    .setRecursive(false);
-            }
+
+            // LEJ - dim portrait --------------
+            //if(options.character.State.portraitImage.color != Color.white)
+            //{
+            //    LeanTween.color(options.character.State.portraitImage.rectTransform, Color.white, duration)
+            //        .setEase(stage.FadeEaseType)
+            //        .setRecursive(false);
+            //}
+
+            SetDimmed(options.character, options.dim); 
+            // dim portrait -------------------
 
             LeanTween.alpha(options.character.State.portraitImage.rectTransform, 1f, duration)
                 .setEase(stage.FadeEaseType)
@@ -467,8 +471,6 @@ namespace Fungus
             options.character.State.display = DisplayType.Show;
             options.character.State.facing = options.facing;
             options.character.State.position = options.toPosition;
-
-            SetDimmed(options.character, options.dim); // LEJ - dim portrait
         }
 
         protected virtual void HidePortrait(RectTransform rectTransform, float duration)
@@ -476,7 +478,7 @@ namespace Fungus
             LeanTween.alpha(rectTransform, 0f, duration)
                 .setEase(stage.FadeEaseType)
                 .setRecursive(false)
-                .setOnComplete(() => rectTransform.gameObject.SetActive(false));
+                .setOnComplete(() => { if (false == LeanTween.isTweening(rectTransform)) { rectTransform.gameObject.SetActive(false); } } );
         }
 
         /// <summary>
