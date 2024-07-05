@@ -31,9 +31,9 @@ public class PatternBlue : PatternManager
         bubblePF = Resources.Load<GameObject>("Prefabs/MiniGame/bubble");
     }
 
-    public override void OnCrushedGem(bool isMatchColor)
+    public override void OnCrushedGem(bool isMatchColor, List<List<int>> crushedGems)
     {
-        base.OnCrushedGem(isMatchColor);
+        base.OnCrushedGem(isMatchColor, crushedGems);
 
         // water fill
         if (gimmick[0])

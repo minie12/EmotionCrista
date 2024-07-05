@@ -5,6 +5,10 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class PatternPurple : PatternManager
 {
+    // around gems direction vector (odd/even standard: col)
+    private readonly int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
+    private readonly int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+
     // manage chain gimmick
     private int chainCnt = 1;
     private float interval = 30f;
@@ -32,14 +36,14 @@ public class PatternPurple : PatternManager
         eyePrefab = Resources.Load<GameObject>("Prefabs/MiniGame/eye");
     }
 
-    public override void OnCrushedGem(bool isMatchColor)
+    public override void OnCrushedGem(bool isMatchColor, List<List<int>> crushedGems)
     {
-        base.OnCrushedGem(isMatchColor);
+        base.OnCrushedGem(isMatchColor, crushedGems);
 
         // purple gimmick
         if (gimmick[0])
         {
-            CheckAfterCrush();
+            CheckAfterCrush(crushedGems);
         }
     }
 
@@ -139,12 +143,10 @@ public class PatternPurple : PatternManager
     }
 
     // check exit chain around gem
-    List<GemInfo> CheckExitChainAround()
+    List<GemInfo> CheckExitChainAround(List<List<int>> crushedGems)
     {
         List<GemInfo> result = new List<GemInfo>();
         bool[,] check = new bool[11, 6];
-
-        List<List<int>> crushedGems = GameObject.Find("Board").GetComponent<GoalInfo>().crushedGems;
 
         for (int i = 0; i < crushedGems.Count; i++)
         {
@@ -181,9 +183,9 @@ public class PatternPurple : PatternManager
         return false;
     }
 
-    public void CheckAfterCrush()
+    public void CheckAfterCrush(List<List<int>> crushedGems)
     {
-        List<GemInfo> aroundChainGems = CheckExitChainAround();
+        List<GemInfo> aroundChainGems = CheckExitChainAround(crushedGems);
 
         for (int i = 0; i < aroundChainGems.Count; i++)
         {
@@ -194,50 +196,75 @@ public class PatternPurple : PatternManager
             if (extraChain == 0)
             {
                 float fadeTime = 0.5f;
-                aroundChainGems[i].FadeOut(fadeTime, 5);
-                StartCoroutine(DeleteChain(fadeTime, aroundChainGems[i]));
-            }
+                aroundChainGems[i].FadeOut(fadeTime, 7);
+                aroundChainGems[i].bLocationFixed = false;
+                int column = aroundChainGems[i].GetColumn();
+                int row = aroundChainGems[i].GetRow();
+                Debug.Log("사슬 fix 없앰 " + column + ", " + row);
 
+                StartCoroutine(DeleteChain(fadeTime, aroundChainGems[i], column, row));
+            }
         }
     }
 
-    IEnumerator DeleteChain(float fadeTime, GemInfo gem)
+    IEnumerator DeleteChain(float fadeTime, GemInfo gem, int cur_col, int cur_row)
     {
         yield return new WaitForSeconds(fadeTime); // term fade out 
-
         gem.chainAnimObj.SetActive(false);
-        gem.bLocationFixed = false;
 
+        List<List<int>> aroundGems = new List<List<int>> { new List<int> { cur_col, cur_row } };
 
-        List<GemInfo> aroundGems = board.GetAroundGems(gem.GetColumn(), gem.GetRow());
-        aroundGems.Add(gem);
+        // choose direction vector about even or odd column
+        int[,] direction = new int[6, 2];
+        if (cur_col % 2 == 0) // even
+        {
+            direction = aroundGem_e;
+        }
+        else // odd
+        {
+            direction = aroundGem_o;
+        }
+
+        // 6 direction
+        for (int j = 0; j < 6; j++)
+        {
+            int new_col = cur_col + direction[j, 0];
+            int new_row = cur_row + direction[j, 1];
+
+            // outside range
+            if (new_col < 0 || new_row < 0 || new_col > 10 || (new_col % 2 == 0 && new_row > 4) || (new_col % 2 == 1 && new_row > 5))
+            {
+                continue;
+            }
+
+            aroundGems.Add(new List<int> { new_col, new_row });
+        }
 
         for (int i = 0; i < aroundGems.Count; i++)
         {
-            bool isChain = IsExitChainAround(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
-            Debug.Log("사슬 해제한 주변 광물 " + aroundGems[i].GetColumn() + ", " + aroundGems[i].GetRow() + ", 사슬 유무: " + isChain);
+            bool isChain = IsExitChainAround(aroundGems[i][0], aroundGems[i][1]);
+            Debug.Log("사슬 해제한 주변 광물 " + aroundGems[i][0] + ", " + aroundGems[i][1] + ", 사슬 유무: " + isChain);
             if (isChain)
             {
-                board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), true);
+                board.SetRotate(aroundGems[i][0], aroundGems[i][1], true);
             }
             else
             {
-                board.SetRotate(aroundGems[i].GetColumn(), aroundGems[i].GetRow(), false);
+                board.SetRotate(aroundGems[i][0], aroundGems[i][1], false);
             }
         }
-
     }
 
     void BlockAroundGem(GemInfo gem)
     {
         // get around gems
-        List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(gem.GetColumn(), gem.GetRow());
+        List<GemInfo> aroundGems = board.GetAroundGems(gem.GetColumn(), gem.GetRow());
 
         for (int i = 0; i < aroundGems.Count; i++)
         {
             aroundGems[i].bLocationFixed = true;
-            aroundGems[i].SetChainGem(chainCnt);
-            List<GemInfo> aroundGemsTemp = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
+            aroundGems[i].SetChainGem(chainCnt); // 사슬 초기화
+            List<GemInfo> aroundGemsTemp = board.GetAroundGems(aroundGems[i].GetColumn(), aroundGems[i].GetRow());
             for(int j = 0; j < aroundGemsTemp.Count; j++)
             {
                 board.SetRotate(aroundGemsTemp[j].GetColumn(), aroundGemsTemp[j].GetRow(), true);
@@ -248,7 +275,7 @@ public class PatternPurple : PatternManager
     void BlockInitGem(GemInfo gem)
     {
         // get around gems
-        List<GemInfo> aroundGems = GameObject.Find("Board").GetComponent<BoardManager>().GetAroundGems(gem.GetColumn(), gem.GetRow());
+        List<GemInfo> aroundGems = board.GetAroundGems(gem.GetColumn(), gem.GetRow());
 
         // block rotate gems
         board.SetRotate(gem.GetColumn(), gem.GetRow(), true);
@@ -274,6 +301,9 @@ public class PatternPurple : PatternManager
         }
         gem.ChangeGemColor(mini.patternIdx);
         gem.FadeIn();
+
+        // 사슬 눈 뜬 후 주변 광물 잠그기
+        gem.bLocationFixed = false;
         BlockAroundGem(gem);
     }
 

@@ -98,6 +98,15 @@ public class GemInfo : MonoBehaviour
         }
     }
 
+    // null 확인한 후 gem 없애는 코드
+    private void DestoryGemSafety()
+    {
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public int GetColor()
     {
         return (int)color;
@@ -206,6 +215,11 @@ public class GemInfo : MonoBehaviour
         float target = 1f - start;
         while ((target == 0f && spriteRenderer.color.a >= target) || (target == 1f && target >= spriteRenderer.color.a))
         {
+            if(spriteRenderer == null)
+            {
+                yield break;
+            }
+
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a + Time.deltaTime / time);
             yield return null;
         }
@@ -219,7 +233,8 @@ public class GemInfo : MonoBehaviour
     IEnumerator OnlyDestroyGemC(float prevTime)
     {
         yield return new WaitForSeconds(prevTime);
-        Destroy(gameObject);
+
+        DestoryGemSafety();
     }
 
     public void DestroyGem()
@@ -239,7 +254,8 @@ public class GemInfo : MonoBehaviour
 
         sparkleANIM.Play("gem_sparkle", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
-        Destroy(gameObject);
+
+        DestoryGemSafety();
     }
 
     // just change row, column. Actually move action in BoardManager's RotateGem func.
@@ -259,6 +275,11 @@ public class GemInfo : MonoBehaviour
 
         for (float t = 0; t <= 1 * time; t += Time.deltaTime)
         {
+            if (gameObject == null)
+            {
+                yield break;
+            }
+
             transform.position = Vector3.Lerp(startPos, endPos, t / time);
             yield return null;
         }
@@ -291,6 +312,11 @@ public class GemInfo : MonoBehaviour
 
         for (int i = 0; i < scaleList.Length; i++)
         {
+            if(gameObject == null)
+            {
+                yield break;
+            }
+
             transform.GetChild(0).DOScale(new Vector3(scaleList[i], scaleList[i]), timeList[i]);
             yield return new WaitForSeconds(intervalList[i]);
         }
@@ -309,6 +335,11 @@ public class GemInfo : MonoBehaviour
         Vector3 originPosition = transform.position;
         for (float t = time; t >= 0; t -= Time.deltaTime)
         {
+            if (gameObject == null)
+            {
+                yield break;
+            }
+
             Vector3 rand = new Vector3(0, Random.insideUnitCircle.y, 0) * (keepAmount ? amount : Mathf.Lerp(amount, 0, 1 - t / time));
             transform.position = originPosition + rand;
             yield return null;
@@ -341,6 +372,11 @@ public class GemInfo : MonoBehaviour
     // gem explode (red gimmick 0)
     public void ExplosionGem()
     {
+        if (gameObject == null)
+        {
+            return;
+        }
+
         gameObject.GetComponent<Collider2D>().enabled = false;
 
         if (isFired > 0 && gemOutline.sprite != null)
@@ -358,7 +394,8 @@ public class GemInfo : MonoBehaviour
 
         explosionANIM.Play("gem_explosion_red", 0, 0.0f);
         yield return new WaitForSeconds(0.3f);
-        Destroy(gameObject);
+
+        DestoryGemSafety();
     }
 
     // gem fire (red gimmick 1)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -441,9 +442,9 @@ public class MiniManager : MonoBehaviour
         GameManager.Get().SetHaveReport(bInHaveReport);
     }
 
-    public void OnCrushedGemTrigger(int color)
+    public void OnCrushedGemTrigger(int color, List<List<int>> crushedGems)
     {
-        this.pattern.OnCrushedGem(color == this.patternIdx);
+        this.pattern.OnCrushedGem(color == this.patternIdx, crushedGems);
     }
 
     public void SkipMinigame()

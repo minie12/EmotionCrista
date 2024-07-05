@@ -46,9 +46,9 @@ public class PatternRed : PatternManager
         shakeObjectManager = GameObject.Find("ShakeObjectManager").GetComponent<ShakeObjectManager>();
     }
 
-    public override void OnCrushedGem(bool isMatchColor)
+    public override void OnCrushedGem(bool isMatchColor, List<List<int>> crushedGems)
     {
-        base.OnCrushedGem(isMatchColor);
+        base.OnCrushedGem(isMatchColor, crushedGems);
 
         // red gimmick 0
         if (isMatchColor && gimmick[0])
@@ -336,6 +336,11 @@ public class PatternRed : PatternManager
     {
         // get random gem
         startGem = board.GetPatternGemRandom();
+        if(startGem == null)
+        {
+            return;
+        }
+
         startGem.FireGem(true);
         startGem.bPatternApplied = true;
 
@@ -350,7 +355,7 @@ public class PatternRed : PatternManager
         {
             gem.ExplosionGem();
             yield return new WaitForSeconds(0.1f); // wait for gem crush
-            GameObject.Find("Board").GetComponent<BoardManager>().RefillBoardOut();
+            board.RefillBoardOut();
         }
     }
 
@@ -382,52 +387,25 @@ public class PatternRed : PatternManager
         }
     }
 
-    private List<int> FindStartFire()
-    {
-        List<int> startFire = new List<int>();
-        for(int i = 0; i <= 10; i++)
-        {
-            for(int j = 0; j <= 5; j++)
-            {
-                // outside board
-                if (j == 5 && i % 2 == 0)
-                {
-                    continue;
-                }
-                GemInfo gem = board.GetGem(i, j);
-                if(gem == null)
-                {
-                    continue;
-                }
-                gem.isChecked = false;
-                // find start fire
-                if (gem.isFired == 1)
-                {
-                    int col = gem.GetColumn();
-                    int row = gem.GetRow();
-                    startFire.Add(col);
-                    startFire.Add(row);
-                }
-            }
-        }
-        return startFire;
-    }
-
     private IEnumerator SpreadFire(float interval)
     {
         while (gimmick[1])
         {
             yield return new WaitForSeconds(interval);
 
-            // 0. get fire gem list
+            // 0. get fire gem list (BFS 탐색으로 가장 가장자리 Gem 얻어오기)
             List<GemInfo> gemList = new List<GemInfo>();
             List<List<int>> queueList = new List<List<int>>();
-            List<int> startFire = FindStartFire();
-           
-            if (startFire.Count == 2)
+
+            // 현재 불길 광물이 없다면
+            if (startGem == null)
             {
-                queueList.Add(FindStartFire());
+                InitFire();
+                yield break;
             }
+           
+            // 불길 광물 큐에 넣기
+            queueList.Add(new List<int> { startGem.GetColumn(), startGem.GetRow() });
             while (queueList.Count > 0)
             {
                 List<int> cur = queueList[0]; // 0:column, 1:row
@@ -451,10 +429,7 @@ public class PatternRed : PatternManager
                     {
                         chk = true;
                         tempGem.isChecked = true;
-                        List<int> temp = new List<int>();
-                        temp.Add(newCol);
-                        temp.Add(newRow);
-                        queueList.Add(temp);
+                        queueList.Add(new List<int> { newCol, newRow });
                     } 
                 }
                 if (!chk)
@@ -464,7 +439,8 @@ public class PatternRed : PatternManager
             }
             if(gemList.Count == 0)
             {
-                break;
+                InitFire();
+                yield break;
             }
 
             // 1. get around gems
@@ -516,12 +492,20 @@ public class PatternRed : PatternManager
                     {
                         break;
                     }
-                    if (aroundCheck[i, j] && GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j) != null)
+
+                    GemInfo tempGem = board.GetGem(i, j);
+                    if (aroundCheck[i, j] && tempGem != null)
                     {
-                        aroundGems.Add(GameObject.Find("Board").GetComponent<BoardManager>().GetGem(i, j));
+                        aroundGems.Add(tempGem);
                     }
                 }
             }
+            if (aroundGems.Count == 0)
+            {
+                InitFire();
+                yield break;
+            }
+
 
             // 2. choose fire gems
             int randCnt = Mathf.Min(Random.Range(1, 4), aroundGems.Count);
@@ -542,7 +526,7 @@ public class PatternRed : PatternManager
         yield return null;
     }
 
-    // Red gimmick 2
+    // Red gimmick 2 (책상 치기)
     void AllGemVibration(List<GemInfo> gems)
     {
         for (int i = 0; i < gems.Count; i++)
