@@ -28,9 +28,9 @@ public class PatternGreen : PatternManager
         bugPF = Resources.Load<GameObject>("Prefabs/MiniGame/bug");
     }
 
-    public override void OnCrushedGem(bool isMatchColor)
+    public override void OnCrushedGem(bool isMatchColor, List<List<int>> crushedGems)
     {
-        base.OnCrushedGem(isMatchColor);
+        base.OnCrushedGem(isMatchColor, crushedGems);
 
         // area
         if (gimmick[1])

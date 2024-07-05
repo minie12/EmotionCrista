@@ -228,8 +228,9 @@ public class BoardManager : MonoBehaviour
             goalInfo.EraseGems(column, row, true);
 
             // related gimmick
+            List<List<int>> crushedGems = this.gameObject.GetComponent<GoalInfo>().crushedGems;
             mini.SetTotalCrushedGem(mini.GetGoalUnit());
-            mini.OnCrushedGemTrigger(currentGemColor);
+            mini.OnCrushedGemTrigger(currentGemColor, crushedGems);
 
             StartCoroutine(nameof(RefillBoard));
         }

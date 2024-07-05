@@ -46,9 +46,9 @@ public class PatternRed : PatternManager
         shakeObjectManager = GameObject.Find("ShakeObjectManager").GetComponent<ShakeObjectManager>();
     }
 
-    public override void OnCrushedGem(bool isMatchColor)
+    public override void OnCrushedGem(bool isMatchColor, List<List<int>> crushedGems)
     {
-        base.OnCrushedGem(isMatchColor);
+        base.OnCrushedGem(isMatchColor, crushedGems);
 
         // red gimmick 0
         if (isMatchColor && gimmick[0])
