@@ -109,73 +109,65 @@ public class GoalInfo : MonoBehaviour
         }
     }
 
+    // 광물 한 개에 대해 클릭한 광물과 목표 광물인지 비교하는 함수
+    private void CheckGoalOneGem(ref List<bool> results, int column, int row, int goalColor)
+    {
+        if (board.GetGem(column, row) == null)
+        {
+            Debug.Log("goal failed: gem is null");
+            results[0] = results[1] = false;
+            return;
+        }
+        if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1) && !mini.GetComponent<PatternGreen>().IsInArea(column, row))
+        {
+            Debug.Log("goal failed: not in area (green gimmick)");
+            results[1] = false;
+        }
+        if (board.GetGem(column, row).GetComponent<GemInfo>().bLocationFixed)
+        {
+            Debug.Log("goal failed: gem is fixed");
+            results[1] = false;
+        }
+        if (goalColor != board.GetGemColor(column, row))
+        {
+            Debug.Log("goal failed: mismatch color");
+            results[0] = results[1] = false;
+        }
+    }
+
     public bool CheckGoal(int column, int row){
         // init
-        crushedGems = new List<List<int>>();
-        crushedGems.Add(new List<int> { column, row });
-        bool result = false;
+        crushedGems = new List<List<int>> { new List<int> { column, row } }; // 크러쉬된 광물 위치
+        List<bool> results = new List<bool> { true, true }; // 0: isMatched (목표에는 해당하는지), 1: result (실제 결과)
+        int goalColor = board.GetGemColor(column, row); // 클릭한 광물 색깔
+        CheckGoalOneGem(ref results, column, row, goalColor);
+
+        if (!results[1])
+        {
+            crushedGems = null;
+            return false;
+        }
 
         if (goalGemCnt == 2) {
+            int otherColumn, otherRow;
             if (column % 2 == 0) {
-                int row2 = row + goal2_e[goalIdx, 1];
-                int column2 = column + goal2_e[goalIdx, 0];
-                if (board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
-                {
-                    if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
-                    {
-                        SoundEffectManager.Instance.Play((int)SoundEffectName.DefaultBeep);
-                        if (mini.GetComponent<PatternGreen>().IsInArea(column, row) && mini.GetComponent<PatternGreen>().IsInArea(column2, row2))
-                        {
-                            result = true;
-                        }
-                    }
-                    else
-                    {
-                        result = true;
-                    }
-                    if (result)
-                    {
-                        crushedGems.Add(new List<int> { column2, row2 });
-                    }
-                }
+                otherColumn = column + goal2_e[goalIdx, 0];
+                otherRow = row + goal2_e[goalIdx, 1];
             }
             else {
-                int row2 = row + goal2_o[goalIdx, 1];
-                int column2 = column + goal2_o[goalIdx, 0];
-                if (board.GetGemColor(column, row) == board.GetGemColor(column2, row2))
-                {
-                    if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1))
-                    {
-                        SoundEffectManager.Instance.Play((int)SoundEffectName.DefaultBeep);
-                        if (mini.GetComponent<PatternGreen>().IsInArea(column, row) && mini.GetComponent<PatternGreen>().IsInArea(column2, row2))
-                        {
-                            result = true;
-                        }
-                    }
-                    else
-                    {
-                        result = true;
-                    }
-                    if (result)
-                    {
-                        crushedGems.Add(new List<int> { column2, row2 });
-                    }
-                }
+                otherColumn = column + goal2_o[goalIdx, 0];
+                otherRow = row + goal2_o[goalIdx, 1];
             }
+            CheckGoalOneGem(ref results, otherColumn, otherRow, goalColor);
+            crushedGems.Add(new List<int> { otherColumn, otherRow });
         }
         else if (goalGemCnt == 3) {
-            bool isCrushed = true;
-            result = true;
             if (column % 2 == 0) {
                 for (int i = 0; i < goal3_e.GetLength(1); i++) {
                     int row2 = row + goal3_e[goalIdx, i, 1];
                     int column2 = column + goal3_e[goalIdx, i, 0];
-                    if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1) && !mini.GetComponent<PatternGreen>().IsInArea(column2, row2)) result = false;
-                    if (board.GetGemColor(column, row) != board.GetGemColor(column2, row2))
-                    {
-                        result = false;
-                        isCrushed = false;
-                    }
+
+                    CheckGoalOneGem(ref results, column2, row2, goalColor);
                     crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
@@ -183,33 +175,31 @@ public class GoalInfo : MonoBehaviour
                 for (int i = 0; i < goal3_o.GetLength(1); i++) {
                     int row2 = row + goal3_o[goalIdx, i, 1];
                     int column2 = column + goal3_o[goalIdx, i, 0];
-                    if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1) && !mini.GetComponent<PatternGreen>().IsInArea(column2, row2)) result = false;
-                    if (board.GetGemColor(column, row) != board.GetGemColor(column2, row2))
-                    {
-                        result = false;
-                        isCrushed = false;
-                    }
+
+                    CheckGoalOneGem(ref results, column2, row2, goalColor);
                     crushedGems.Add(new List<int> { column2, row2 });
                 }
             }
-            if (mini.patternIdx == (int)PatternType.GREEN && mini.GetComponent<PatternGreen>().IsRunningGimmick(1) && !mini.GetComponent<PatternGreen>().IsInArea(column, row))
-            {
-                result = false;
-            }
-            if (isCrushed && !result)
-            {
-                SoundEffectManager.Instance.Play((int)SoundEffectName.DefaultBeep);
-            }
         }
 
-        if (result)
+        if (!results[1])
+        {
+            crushedGems = null;
+        }
+
+        if (results[0] && !results[1])
+        {
+            SoundEffectManager.Instance.Play((int)SoundEffectName.DefaultBeep);
+        }
+
+        if (results[1])
         {
             for(int i = 0; i < crushedGems.Count; i++)
             {
                 board.GetGem(crushedGems[i][0], crushedGems[i][1]).isCrushed = true;
             }
         }
-        return result;
+        return results[1];
     } 
 
     public void EraseGems(int column, int row, bool isCrush){

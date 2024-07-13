@@ -31,7 +31,7 @@ public class PatternManager : MonoBehaviour
         board = GameObject.Find("Board").GetComponent<BoardManager>();
     }
 
-    virtual public void OnCrushedGem(bool isMatchColor) { }
+    virtual public void OnCrushedGem(bool isMatchColor, List<List<int>> crushedGems) { }
 
     virtual public void StartPattern(int level_) 
     {
