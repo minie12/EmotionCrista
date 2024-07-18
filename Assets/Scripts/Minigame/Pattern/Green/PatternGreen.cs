@@ -7,9 +7,10 @@ public class PatternGreen : PatternManager
     private GameObject gemPF, bugPF;
     private bool[,] check = new bool[11, 6];
 
-    private float bugSpeed = 7f;
-    private float rotateSpeed = 0.15f;
-    private float bugInterval = 60f;
+    private const float bugSpeed = 7f;
+    private const float rotateEndTime = 0.15f;
+    private const float rotateSpeed = 1f;
+    private const float bugInterval = 60f;
 
     private int[,] aroundGem_o = new int[6, 2] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 } };
     private int[,] aroundGem_e = new int[6, 2] { { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
@@ -17,8 +18,9 @@ public class PatternGreen : PatternManager
     private bool[,] area = new bool[11, 6];
 
     private Dictionary<GemInfo, List<GameObject>> bugs = new Dictionary<GemInfo, List<GameObject>>();
+    private Dictionary<GameObject, List<int>> productionBugs = new Dictionary<GameObject, List<int>>(); // GameObject(Gem)의 위치 저장
 
-    private int crushedBiasCnt = 10;
+    private const int crushedBiasCnt = 10;
     private int crushedGemLast = 0;
 
     protected override void Awake()
@@ -104,6 +106,7 @@ public class PatternGreen : PatternManager
         switch (gimmick_)
         {
             case 0:
+                //Invoke(nameof(ProductionClean), 1f);
                 InvokeRepeating("GreenGimmick0", 1f, bugInterval);
                 break;
             case 1:
@@ -256,7 +259,7 @@ public class PatternGreen : PatternManager
         if (start != null) start.transform.position = target.transform.position;
     }
 
-    IEnumerator ChangeDirectionTowards(GameObject start, GameObject target)
+    IEnumerator ChangeDirectionTowards(GameObject start, GameObject target, float endTime = rotateEndTime)
     {
         // set angle
         Vector2 direction = new Vector2(target.transform.position.x - start.transform.position.x, target.transform.position.y - start.transform.position.y);
@@ -265,10 +268,10 @@ public class PatternGreen : PatternManager
 
         float currentTime = 0.0f;
         Quaternion current = start.transform.rotation;
-        while (currentTime < rotateSpeed)
+        while (currentTime < endTime)
         {
-            currentTime += (Time.deltaTime);
-            start.transform.rotation = Quaternion.Slerp(current, angleAxis, currentTime / rotateSpeed);
+            currentTime += (Time.deltaTime * rotateSpeed);
+            start.transform.rotation = Quaternion.Slerp(current, angleAxis, currentTime / endTime);
             yield return null;
         }
         start.transform.rotation = angleAxis;
@@ -285,7 +288,7 @@ public class PatternGreen : PatternManager
             // bug head towards target
             StartCoroutine(ChangeDirectionTowards(start, target));
             // hold time
-            yield return new WaitForSeconds(rotateSpeed);
+            yield return new WaitForSeconds(rotateEndTime / rotateSpeed);
 
             // get direction start to target
             float endTime = Mathf.Sqrt(Mathf.Pow(start.transform.position.x - target.transform.position.x, 2) + Mathf.Pow(start.transform.position.y - target.transform.position.y, 2));
@@ -512,5 +515,125 @@ public class PatternGreen : PatternManager
         //}
         SetAreas(gem.GetColumn(), gem.GetRow(), level_);
         SetColor();
+    }
+
+    // 연출 ==========================================
+
+    private void CreateBugsEdge()
+    {
+        // create bugs in edge
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0)
+                {
+                    continue;
+                }
+
+                // edge
+                if (i == 0 || i == 10 || j == 0 || (j == 4 && i % 2 == 0) || (j == 5 && i % 2 == 1))
+                {
+                    Vector3 gemPos = board.GetGemPosition(i, j);
+
+                    GameObject bug = Instantiate(bugPF, gemPos, Quaternion.identity, UICanvas.transform);
+                    Vector3 originPos = bug.transform.position;
+                    float interval = 0.2f;
+                    Vector3 newPos = new Vector3(originPos.x + Random.Range(-interval, interval), originPos.y + Random.Range(-interval, interval), originPos.z);
+                    bug.transform.localEulerAngles = new Vector3(0f, 0f, Random.Range(0f, 360f));
+                    bug.transform.position = newPos;
+                    bug.GetComponent<PatternAreaBug>().SizeDown();
+                    productionBugs[bug] = new List<int> { i, j }; 
+                }
+            }
+        }
+    }
+
+    float GetDistance(List<int> pos1, List<int> pos2)
+    {
+        float value1 = Mathf.Abs(pos1[0] - pos2[0]);
+        float value2 = Mathf.Abs(pos1[1] - pos2[1]);
+        return value1 * value1 + value2 * value2;
+    }
+
+    GemInfo FindDirectionToOrigin(GameObject startBug, List<int> bugPos)
+    {
+        List<int> originPos = new List<int> { 5, 2 };
+
+        // 0: up, 1: up&right, 2: down&right, 3:down, 4: down&left, 5: up&left
+        List<List<GemInfo>> aroundGems = board.GetAroundGemList(bugPos[0], bugPos[1]);
+
+        float minDistance = 10000000;
+        int direcIdx = 0;
+        if (bugPos[0] != 5)
+        {
+            aroundGems = new List<List<GemInfo>> { aroundGems[1], aroundGems[2], aroundGems[4], aroundGems[5] };
+        }
+
+        for (int i = 0; i < aroundGems.Count; i++)
+        {
+            if (aroundGems[i].Count > 0)
+            {
+                float dist = GetDistance(new List<int> { aroundGems[i][0].GetColumn(), aroundGems[i][0].GetRow() }, originPos);
+                if (minDistance > dist)
+                {
+                    direcIdx = i;
+                    minDistance = dist;
+                } 
+            }
+        }
+
+        GemInfo targetGem = null;
+        for(int i = 0; i < aroundGems[direcIdx].Count; i++)
+        {
+            if(aroundGems[direcIdx][i].GetColumn() == 5)
+            {
+                targetGem = aroundGems[direcIdx][i];
+                break;
+            }
+        }
+        Debug.Log(targetGem);
+
+        return targetGem;
+    }
+
+    IEnumerator MoveOneBugToOrigin(GameObject bug, GameObject target)
+    {
+        // random time for rotate head
+        float randEndTime = Random.Range(0.5f, 1.0f);
+        // bug head towards target
+        StartCoroutine(ChangeDirectionTowards(bug, target, randEndTime)); 
+        
+        // hold time
+        yield return new WaitForSeconds(randEndTime / rotateSpeed);
+
+        // 벌레 이동시키기
+        StartCoroutine(MoveStartToTarget(bug, target, 30f));
+    }
+
+    // 가장자리에 있는 벌레 가운데로 움직이게 하기
+    IEnumerator MoveBugsEdgeToOrigin()
+    {
+        yield return new WaitForSeconds(1f); // 벌레 무리 생성 기다리기
+
+        // target gem 구한 후, 이동
+        foreach (GameObject bug in productionBugs.Keys)
+        {
+            GemInfo targetGem = FindDirectionToOrigin(bug, productionBugs[bug]);
+
+            // bug head towards target
+            StartCoroutine(MoveOneBugToOrigin(bug, targetGem.gameObject));
+        }
+    }
+
+
+    public void ProductionClean()
+    {
+        // 가장자리에 벌레 무리 생성
+        CreateBugsEdge();
+
+        // 가장자리에 있는 벌레 움직이게 하기
+        StartCoroutine(MoveBugsEdgeToOrigin());
+
     }
 }
