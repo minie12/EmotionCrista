@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Fungus;
 
 public class UICanvasManager : MonoBehaviour
 {
@@ -13,9 +14,6 @@ public class UICanvasManager : MonoBehaviour
 
     public GameObject GO_reportButton;
     public GameObject GO_mapButton;
-
-    public Toggle fullScreenToggle;
-    public Toggle windowToggle;
 
     static public string GetLocationName(string inSceneName)
     {
@@ -82,18 +80,6 @@ public class UICanvasManager : MonoBehaviour
     public void AlterActive(GameObject inObject)
     {
         inObject.SetActive(!inObject.activeSelf);
-    }
-
-    public void ChangeScreenSetting(bool bFullscreen)
-    {
-        if (true == bFullscreen)
-        {
-            Debug.Log("Fullscreen");
-        }
-        else
-        {
-            Debug.Log("Window");
-        }
     }
 
     public void TransferScene(string inSceneName)

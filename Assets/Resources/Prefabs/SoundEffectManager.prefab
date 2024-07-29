@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3920079187317523432}
-  - component: {fileID: 3920079187317523431}
   - component: {fileID: 3920079187317523433}
+  - component: {fileID: 6794643372880905205}
   m_Layer: 0
   m_Name: SoundEffectManager
   m_TagString: Untagged
@@ -32,34 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3920079187317523431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3920079187317523434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa766a34b66ffe4aae17efd21a54113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundEffectOn: 1
-  soundEffectClips:
-  - name: DefaultClickPositive
-    audioClip: {fileID: 8300000, guid: 784592f017417ee4d8a9ac136775dd5e, type: 3}
-  - name: DefaultClickNegative
-    audioClip: {fileID: 8300000, guid: 11bfb962632d3a340b63d7e207eaf376, type: 3}
-  - name: DefaultBeep
-    audioClip: {fileID: 8300000, guid: bc0d9c9d0a703474a8cbddb55fd32d0b, type: 3}
-  - name: MiniRotateLeft
-    audioClip: {fileID: 8300000, guid: a76fee9a9f1e80247a1ec9ba7ec4b6c1, type: 3}
-  - name: MiniRotateRight
-    audioClip: {fileID: 8300000, guid: 7463bf527f797f14b94cddf19827cff6, type: 3}
-  - name: MiniGemCrush
-    audioClip: {fileID: 8300000, guid: bbebd16b308033f4492c5dc8ab8b8d5a, type: 3}
-  - name: MiniGemClick
-    audioClip: {fileID: 8300000, guid: d461988e190a657448e5b4725094ee7b, type: 3}
 --- !u!82 &3920079187317523433
 AudioSource:
   m_ObjectHideFlags: 0
@@ -156,3 +128,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6794643372880905205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3920079187317523434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa766a34b66ffe4aae17efd21a54113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffectOn: 1
+  soundEffectClips:
+  - name: DefaultClickPositive
+    audioClip: {fileID: 8300000, guid: 8d27e5e8ad77f3744886fbab815284f5, type: 3}
+  - name: DefaultClickNegative
+    audioClip: {fileID: 8300000, guid: 11bfb962632d3a340b63d7e207eaf376, type: 3}
+  - name: DefaultBeep
+    audioClip: {fileID: 8300000, guid: bc0d9c9d0a703474a8cbddb55fd32d0b, type: 3}
+  - name: MiniRotateLeft
+    audioClip: {fileID: 8300000, guid: a0eb8132eaaaf2a488476fd21cee4356, type: 3}
+  - name: MiniRotateRight
+    audioClip: {fileID: 8300000, guid: 8f5e042a13685574889490f2eb93383a, type: 3}
+  - name: MiniGemCrush
+    audioClip: {fileID: 8300000, guid: 58f2df901b5f8644784b2416d35a83b6, type: 3}
+  - name: MiniGemCrushFever
+    audioClip: {fileID: 8300000, guid: 5cb17531ea249e74baabe3d615935487, type: 3}
+  - name: MiniGemClick
+    audioClip: {fileID: 8300000, guid: 1d5d3cef3c6963641a33b44308a7c060, type: 3}
