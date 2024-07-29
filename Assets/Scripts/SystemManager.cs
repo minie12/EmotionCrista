@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -11,10 +12,20 @@ struct GameSettingData
 
     public bool bMultiRound;
 
+    public bool bMuteSFX;
+    public bool bMuteBGM;
+
+    public float SFXVolume;
+    public float BGMVolume;
+
     public void Initialize()
     {
         bFullScreen = true; 
         bMultiRound = false;
+        bMuteSFX    = false;
+        bMuteBGM    = false;
+        SFXVolume   = 1.0f;
+        BGMVolume   = 1.0f;
     }
 }
 
@@ -53,6 +64,36 @@ public class SystemManager  : MonoBehaviour
 
     public void SetMultiRound(bool bInRound) { gameSetting.bMultiRound = bInRound; }
     public bool IsMultiRound() { return gameSetting.bMultiRound; }
+
+    public void SetFullScreenMode(bool bInFullScreenMode) 
+    {
+        gameSetting.bFullScreen = bInFullScreenMode;
+        Screen.fullScreen = gameSetting.bFullScreen;
+    }
+    public bool IsFullScreenMode() { return gameSetting.bFullScreen; }
+
+    public void ToggleMuteSFX() 
+    { 
+        gameSetting.bMuteSFX = !gameSetting.bMuteSFX;
+
+        float audioVolume = gameSetting.bMuteSFX ? 0.0f : gameSetting.SFXVolume;
+
+        SoundEffectManager.Instance.SetSFXVolume(audioVolume);
+    }
+    public bool IsSFXMuted() { return gameSetting.bMuteSFX; }
+    public float GetSFXVolume() { return gameSetting.SFXVolume; }
+    public void SetSFXVolume(float inVolume) { gameSetting.SFXVolume = inVolume; }
+    public void ToggleMuteBGM() 
+    { 
+        gameSetting.bMuteBGM = !gameSetting.bMuteBGM;
+
+        float audioVolume = gameSetting.bMuteBGM ? 0.0f : gameSetting.BGMVolume;
+
+        SoundEffectManager.Instance.SetBGMVolume(audioVolume);
+    }
+    public bool IsBGMMuted() { return gameSetting.bMuteBGM; }
+    public float GetBGMVolume() { return gameSetting.BGMVolume; }
+    public void SetBGMVolume(float inVolume) { gameSetting.BGMVolume = inVolume; }
 
     public void SaveGameSetting()
     {

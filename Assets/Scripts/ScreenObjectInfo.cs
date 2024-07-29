@@ -61,7 +61,11 @@ public class ScreenObjectInfo : MonoBehaviour
             SetClickableObject(locatedObjects[locationIndex], locationIndex);
         }
 
-        ShowAllObjects();
+        GameObject sayDialog = GameObject.Find("SayDialog");
+        if (null!= sayDialog && false == sayDialog.activeSelf)
+        {
+            ShowAllObjects();
+        }
     }
 
     // Objects will be visible all at once (ShowAllObjects)

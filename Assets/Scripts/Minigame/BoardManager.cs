@@ -581,7 +581,7 @@ public class BoardManager : MonoBehaviour
 
     public void FeverClick(int column_, int row_)
     {
-        SoundEffectManager.Instance.Play((int)SoundEffectName.MiniGemCrush);
+        SoundEffectManager.Instance.Play((int)SoundEffectName.MiniGemCrushFever);
         if (GetGemColor(column_, row_) == mini.patternIdx) mini.AddScore(1);
         else mini.AddScore(0.5f);
         DelGem(column_, row_);

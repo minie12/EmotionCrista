@@ -1,5 +1,7 @@
-// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System.Collections;
 
 using UnityEngine;
 
@@ -12,14 +14,17 @@ namespace Fungus
     //[RequireComponent(typeof(AudioSource))]
     public class MusicManager : MonoBehaviour
     {
-        protected AudioSource audioSourceMusic;
+        protected AudioSource[] audioSourcesMusic = new AudioSource[2];
         protected AudioSource audioSourceAmbiance;
         protected AudioSource audioSourceSoundEffect;
+
+        int currentMusicIndex = 0;
+        int musicGUID = 0;
 
         void Reset()
         {
             int audioSourceCount = this.GetComponents<AudioSource>().Length;
-            for (int i = 0; i < 3 - audioSourceCount; i++)
+            for (int i = 0; i < 4 - audioSourceCount; i++)
                 gameObject.AddComponent<AudioSource>();
 
         }
@@ -28,18 +33,27 @@ namespace Fungus
         {
             Reset();
             AudioSource[] audioSources = GetComponents<AudioSource>();
-            audioSourceMusic = audioSources[0];
-            audioSourceAmbiance = audioSources[1];
-            audioSourceSoundEffect = audioSources[2];
+            audioSourcesMusic[0] = audioSources[0];
+            audioSourcesMusic[1] = audioSources[1];
+            audioSourceAmbiance = audioSources[2];
+            audioSourceSoundEffect = audioSources[3];
         }
 
         protected virtual void Start()
         {
-            audioSourceMusic.playOnAwake = false;
-            audioSourceMusic.loop = true;
+            foreach (AudioSource audioSource in audioSourcesMusic)
+            {
+                audioSource.playOnAwake = false;
+                audioSource.loop = true;
+            }
         }
 
         #region Public members
+
+        void IncreaseMusicGuid()
+        {
+            musicGUID = (musicGUID + 1) % 10000;
+        }
 
         /// <summary>
         /// Plays game music using an audio clip.
@@ -47,34 +61,152 @@ namespace Fungus
         /// </summary>
         public void PlayMusic(AudioClip musicClip, bool loop, float fadeDuration, float atTime)
         {
-            if (audioSourceMusic == null || audioSourceMusic.clip == musicClip)
+            if (audioSourcesMusic[currentMusicIndex] == null || audioSourcesMusic[currentMusicIndex].clip == musicClip)
             {
                 return;
             }
 
+            int cachedMusicGUID = musicGUID;
+
             if (Mathf.Approximately(fadeDuration, 0f))
             {
-                audioSourceMusic.clip = musicClip;
-                audioSourceMusic.loop = loop;
-                audioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
-                audioSourceMusic.Play();
+                audioSourcesMusic[currentMusicIndex].clip = musicClip;
+                audioSourcesMusic[currentMusicIndex].loop = loop;
+                audioSourcesMusic[currentMusicIndex].time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+                audioSourcesMusic[currentMusicIndex].Play();
+
+                IncreaseMusicGuid();
             }
             else
             {
-                float startVolume = audioSourceMusic.volume;
+                float startVolume = audioSourcesMusic[currentMusicIndex].volume;
 
                 LeanTween.value(gameObject, startVolume, 0f, fadeDuration)
                     .setOnUpdate((v) => {
                         // Fade out current music
-                        audioSourceMusic.volume = v;
+                        audioSourcesMusic[currentMusicIndex].volume = v;
                     }).setOnComplete(() => {
-                        // Play new music
-                        audioSourceMusic.volume = startVolume;
-                        audioSourceMusic.clip = musicClip;
-                        audioSourceMusic.loop = loop;
-                        audioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
-                        audioSourceMusic.Play();
+                        if (cachedMusicGUID == musicGUID)
+                        {
+                            // Play new music
+                            audioSourcesMusic[currentMusicIndex].volume = startVolume;
+                            audioSourcesMusic[currentMusicIndex].clip = musicClip;
+                            audioSourcesMusic[currentMusicIndex].loop = loop;
+                            audioSourcesMusic[currentMusicIndex].time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+                            audioSourcesMusic[currentMusicIndex].Play();
+
+                            IncreaseMusicGuid();
+                        }
                     });
+            }
+        }
+
+
+        /// <summary>
+        /// Plays Intro, then Loop music using an audio clip.
+        /// </summary>
+        public void PlayMusicEmo(AudioClip introClip, AudioClip loopClip, bool bLoop, float fadeDuration, float atTime, bool bFadeIn)
+        {
+            if (audioSourcesMusic[currentMusicIndex] == null || audioSourcesMusic[currentMusicIndex].clip == introClip || audioSourcesMusic[currentMusicIndex].clip == loopClip )
+            {
+                return;
+            }
+
+            int cachedMusicIndex = currentMusicIndex;
+            int cachedMusicGUID = musicGUID;
+
+            if (Mathf.Approximately(fadeDuration, 0f))
+            {
+                audioSourcesMusic[currentMusicIndex].clip = introClip;
+                audioSourcesMusic[currentMusicIndex].loop = bLoop;
+                audioSourcesMusic[currentMusicIndex].time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+                audioSourcesMusic[currentMusicIndex].Play();
+
+                IncreaseMusicGuid();
+            }
+            else
+            {
+                if (false == bFadeIn)
+                {
+                    float startVolume = audioSourcesMusic[currentMusicIndex].volume;
+
+                    LeanTween.value(gameObject, startVolume, 0f, fadeDuration)
+                        .setOnUpdate((v) =>
+                        {
+                            // Fade out current music
+                            audioSourcesMusic[currentMusicIndex].volume = v;
+                        }).setOnComplete(() =>
+                        {
+                            if ((cachedMusicGUID == musicGUID) && (cachedMusicIndex == currentMusicIndex))
+                            {
+                                // Play new music
+                                audioSourcesMusic[currentMusicIndex].volume = startVolume;
+                                audioSourcesMusic[currentMusicIndex].clip = introClip;
+                                audioSourcesMusic[currentMusicIndex].loop = bLoop;
+                                audioSourcesMusic[currentMusicIndex].time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+                                audioSourcesMusic[currentMusicIndex].Play();
+
+                                IncreaseMusicGuid();
+
+                                StartCoroutine(PlayConsective(loopClip));
+                            }
+                        });
+                }
+                else
+                {
+                    int previousMusicIndex = currentMusicIndex;
+                    currentMusicIndex = (currentMusicIndex + 1) % audioSourcesMusic.Length;
+
+                    float startVolume = audioSourcesMusic[previousMusicIndex].volume;
+
+                    LeanTween.value(gameObject, startVolume, 0f, fadeDuration)
+                        .setOnUpdate((v) =>
+                        {
+                            // Fade out current music
+                            audioSourcesMusic[previousMusicIndex].volume = v;
+                        }).setOnComplete(() =>
+                        {
+                            if (currentMusicIndex != previousMusicIndex)
+                            {
+                                audioSourcesMusic[previousMusicIndex].Stop();
+                                audioSourcesMusic[previousMusicIndex].clip = null;
+                            }
+                        });
+
+                    // Play new music
+                    audioSourcesMusic[currentMusicIndex].volume = 0f;
+                    audioSourcesMusic[currentMusicIndex].clip = introClip;
+                    audioSourcesMusic[currentMusicIndex].loop = bLoop;
+                    audioSourcesMusic[currentMusicIndex].time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+                    audioSourcesMusic[currentMusicIndex].Play();
+
+                    IncreaseMusicGuid();
+
+                    LeanTween.value(gameObject, 0f, startVolume, fadeDuration)
+                        .setOnUpdate((v) =>
+                        {
+                            // Fade out current music
+                            audioSourcesMusic[currentMusicIndex].volume = v;
+                        });
+
+                    StartCoroutine(PlayConsective(loopClip));
+                }
+            }
+        }
+
+        public IEnumerator PlayConsective(AudioClip loopClip) {
+            int cachedMusicIndex = currentMusicIndex;
+            int cachedMusicGUID = musicGUID;
+
+            float clipLength = audioSourcesMusic[cachedMusicIndex].clip.length;
+
+            Debug.Log("Audio length : " + clipLength);
+            yield return new WaitForSeconds(clipLength);
+
+            if ((currentMusicIndex == cachedMusicIndex) && (cachedMusicGUID == musicGUID))
+            {
+                audioSourcesMusic[currentMusicIndex].clip = loopClip;
+                audioSourcesMusic[currentMusicIndex].Play();
             }
         }
 
@@ -112,7 +244,7 @@ namespace Fungus
         {
             if (Mathf.Approximately(duration, 0f))
             {
-                audioSourceMusic.pitch = pitch;
+                audioSourcesMusic[currentMusicIndex].pitch = pitch;
                 audioSourceAmbiance.pitch = pitch;
                 if (onComplete != null)
                 {
@@ -122,11 +254,11 @@ namespace Fungus
             }
 
             LeanTween.value(gameObject,
-                audioSourceMusic.pitch,
+                audioSourcesMusic[currentMusicIndex].pitch,
                 pitch,
                 duration).setOnUpdate((p) =>
                 {
-                    audioSourceMusic.pitch = p;
+                    audioSourcesMusic[currentMusicIndex].pitch = p;
                     audioSourceAmbiance.pitch = p;
                 }).setOnComplete(() =>
                 {
@@ -151,16 +283,16 @@ namespace Fungus
                 {
                     onComplete();
                 }
-                audioSourceMusic.volume = volume;
+                audioSourcesMusic[currentMusicIndex].volume = volume;
                 audioSourceAmbiance.volume = volume;
                 return;
             }
 
             LeanTween.value(gameObject,
-                audioSourceMusic.volume,
+                audioSourcesMusic[currentMusicIndex].volume,
                 volume,
                 duration).setOnUpdate((v) => {
-                    audioSourceMusic.volume = v;
+                    audioSourcesMusic[currentMusicIndex].volume = v;
                     audioSourceAmbiance.volume = v;
                 }).setOnComplete(() => {
                     if (onComplete != null)
@@ -175,8 +307,8 @@ namespace Fungus
         /// </summary>
         public virtual void StopMusic()
         {
-            audioSourceMusic.Stop();
-            audioSourceMusic.clip = null;
+            audioSourcesMusic[currentMusicIndex].Stop();
+            audioSourcesMusic[currentMusicIndex].clip = null;
         }
 
         /// <summary>
