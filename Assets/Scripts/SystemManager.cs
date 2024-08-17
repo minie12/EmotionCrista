@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Net;
 
 [System.Serializable]
 struct GameSettingData
@@ -76,7 +77,17 @@ public class SystemManager  : MonoBehaviour
     { 
         gameSetting.bMuteSFX = !gameSetting.bMuteSFX;
 
-        float audioVolume = gameSetting.bMuteSFX ? 0.0f : gameSetting.SFXVolume;
+        float audioVolume = 0f;
+
+        if (false == gameSetting.bMuteSFX)
+        {
+            if (Mathf.Approximately(gameSetting.SFXVolume, 0f))
+            {
+                gameSetting.SFXVolume = 0.1f;
+            }
+
+            audioVolume = gameSetting.SFXVolume;
+        }
 
         SoundEffectManager.Instance.SetSFXVolume(audioVolume);
     }
@@ -87,7 +98,17 @@ public class SystemManager  : MonoBehaviour
     { 
         gameSetting.bMuteBGM = !gameSetting.bMuteBGM;
 
-        float audioVolume = gameSetting.bMuteBGM ? 0.0f : gameSetting.BGMVolume;
+        float audioVolume = 0f;
+
+        if (false == gameSetting.bMuteBGM)
+        {
+            if (Mathf.Approximately(gameSetting.BGMVolume, 0f))
+            {
+                gameSetting.BGMVolume = 0.1f;
+            }
+
+            audioVolume = gameSetting.BGMVolume;
+        }
 
         SoundEffectManager.Instance.SetBGMVolume(audioVolume);
     }

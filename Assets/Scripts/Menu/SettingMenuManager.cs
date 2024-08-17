@@ -92,9 +92,18 @@ public class SettingMenuManager : MonoBehaviour
     public void SetSFXVolume(float inVolume)
     {
         SystemManager systemManager = SystemManager.Get();
-        if (null != systemManager)
+        if ((null != systemManager) && (false == systemManager.IsSFXMuted()))
         {
             systemManager.SetSFXVolume(inVolume);
+        }
+
+        if (Mathf.Approximately(inVolume, 0f))
+        {
+            SFXIcon.sprite = MuteSFXSprite;
+        }
+        else
+        {
+            SFXIcon.sprite = PlaySFXSprite;
         }
     }
 
@@ -120,9 +129,18 @@ public class SettingMenuManager : MonoBehaviour
     public void SetBGMVolume(float inVolume)
     {
         SystemManager systemManager = SystemManager.Get();
-        if (null != systemManager)
+        if ((null != systemManager) && (false == systemManager.IsBGMMuted()))
         {
             systemManager.SetBGMVolume(inVolume);
+        }
+
+        if (Mathf.Approximately(inVolume, 0f))
+        {
+            BGMIcon.sprite = MuteBGMSprite;
+        }
+        else
+        {
+            BGMIcon.sprite = PlayBGMSprite;
         }
     }
 }
