@@ -250,9 +250,17 @@ public class PatternGreen : PatternManager
 
         WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
 
+        float newBugSpeed = bugSpeed; // 고정된 벌레 속도
+        
+        // area 패턴에 생기는 bug일 경우 해당 bug가 가지는 속도로 지정
+        if (start.GetComponent<PatternAreaBug>())
+        {
+            newBugSpeed = start.GetComponent<PatternAreaBug>().bugSpeed;
+        }
+
         while (currentTime < endTime)
         {
-            currentTime += Time.deltaTime * bugSpeed;
+            currentTime += Time.deltaTime * newBugSpeed;
             if(start != null) start.transform.position = Vector3.Lerp(current, target.transform.position, currentTime / endTime);
             yield return waitForEndOfFrame;
         }
