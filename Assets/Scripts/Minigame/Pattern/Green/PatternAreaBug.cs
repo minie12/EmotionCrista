@@ -19,6 +19,9 @@ public class PatternAreaBug : MonoBehaviour, IPointerEnterHandler
 
     private float beformDropMaxTime = 0.5f;
 
+    [HideInInspector]
+    public float bugSpeed;
+
     void Awake()
     {
         bugScale = bugScaleOrigin;
@@ -30,6 +33,9 @@ public class PatternAreaBug : MonoBehaviour, IPointerEnterHandler
         animator = GetComponent<Animator>();
         typeNum = Random.Range(0, bugTotalCnt);
         animator.Play($"bug_{typeNum}_anim", 0, 0.0f);
+
+        // 벌레 속도 랜덤으로 정하기
+        bugSpeed = Random.Range(5f, 15f);
     }
 
     private void Update()
