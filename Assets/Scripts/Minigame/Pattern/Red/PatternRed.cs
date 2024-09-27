@@ -146,7 +146,7 @@ public class PatternRed : PatternManager
         base.RestartPattern();
 
         gimmick[0] = true;
-        mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+        mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.TWO);
 
         // [TODO] 기획
         switch (mini.patternLevel)

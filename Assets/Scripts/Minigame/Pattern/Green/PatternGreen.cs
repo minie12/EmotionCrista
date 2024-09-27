@@ -67,29 +67,29 @@ public class PatternGreen : PatternManager
         {
             case 0:
                 StartGimmick(0);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
                 break;
             case 1:
                 StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
                 break;
             case 2:
                 StartGimmick(0);
                 StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
                 break;
             case 3:
                 StartGimmick(0);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
                 break;
             case 4:
                 StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
                 break;
             case 5:
                 StartGimmick(0);
                 StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, 3);
+                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
                 break;
         }
     }
