@@ -382,6 +382,7 @@ public class MiniManager : MonoBehaviour
         }
     }
 
+    // feverBTN 에 onClick 으로 연결되어 있음!!
     public void StartFever()
     {
         // reset
