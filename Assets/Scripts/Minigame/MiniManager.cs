@@ -24,6 +24,14 @@ public enum LevelType
     HARD2
 }
 
+public enum GoalUnit
+{
+    TWO,
+    THREE,
+    FOUR,
+    NONE
+}
+
 public class MiniManager : MonoBehaviour
 {
     // UI
@@ -53,7 +61,7 @@ public class MiniManager : MonoBehaviour
     public SpriteRenderer boardImg;
     public Sprite[] puzzleBoardSP;
     public GoalInfo goalInfo;
-    private int goalUnit = 3; // goal gem count
+    private int goalUnit = (int)GoalUnit.FOUR; // goal gem count
 
     // score
     private float fullScore = 100f;
@@ -72,7 +80,7 @@ public class MiniManager : MonoBehaviour
     public Animator animator;
 
     // pattern
-    public PatternManager pattern;
+    private PatternManager pattern;
     [HideInInspector] public int patternIdx;
     [HideInInspector] public int patternLevel;
     private int totalCrushedGem = 0;
@@ -82,6 +90,10 @@ public class MiniManager : MonoBehaviour
 
     // game mode
     private bool bPuzzleMode = true;
+
+    // debugging
+    public InputField inputField;
+    private int goalNum;
 
     // Get & Set -----------------------------------------------------
     public string GetFungusMessage()
@@ -101,7 +113,7 @@ public class MiniManager : MonoBehaviour
 
     public int GetGoalUnit()
     {
-        return this.goalUnit;
+        return this.goalUnit + 2;
     }
 
     public int GetClearGauge()
@@ -118,6 +130,38 @@ public class MiniManager : MonoBehaviour
         this.fullScore = fullScore;
         this.scoreSpeed = scoreSpeed;
         this.goalUnit = goalUnit;
+        this.goalNum = 1;
+
+        // set goal
+        inputField.text = "1";
+    }
+
+    // DEBUGGING !!!!  목표광물 unit 재설정
+    public void ResetGoalUnit(Dropdown change)
+    {
+        this.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, change.value);
+        InitBoardOption();
+    }
+
+    // DEBUGGING !!!!  목표광물 번호 재설정
+    public void ResetGoalNumber(InputField inputField)
+    {
+        InitBoardOption();
+
+        // set goal
+        goalNum = int.Parse(inputField.text);
+        goalInfo.SetGoal(goalUnit, goalNum);
+    }
+
+    // DEBUGGING !!!!  목표광물 번호 증감
+    public void IncreaseGoalNumber(int interval)
+    {
+        InitBoardOption();
+
+        // set goal
+        goalNum = goalInfo.GetGoalNumber() + interval;
+        inputField.text = goalNum.ToString();
+        goalInfo.SetGoal(goalUnit, goalNum);
     }
 
     public void SetPlayTime(float offset)
@@ -178,7 +222,7 @@ public class MiniManager : MonoBehaviour
         feverFillIMG.fillAmount = 0;
 
         // set goal
-        goalInfo.SetGoal(goalUnit);
+        goalInfo.SetGoal(goalUnit, goalNum);
     }
 
     private void UpdatePatternLevel()
@@ -229,6 +273,16 @@ public class MiniManager : MonoBehaviour
     {
         if (bPuzzleMode)
         {
+            // Debugging !!!
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            {
+                IncreaseGoalNumber(1);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Q))
+            {
+                IncreaseGoalNumber(-1);
+            }
+
             if (playTime >= fullPlayTime)
             {
                 GameOver();
