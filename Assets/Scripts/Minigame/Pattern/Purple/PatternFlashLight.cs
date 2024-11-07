@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ public class PatternFlashLight : MonoBehaviour
         PatternPurple scripts = GameObject.Find("MiniManager").GetComponent<PatternPurple>();
         if (collision.tag == "Gimmick" && scripts.IsMatchGimmick(index, collision.gameObject))
         {
-            Debug.Log("�浹!" + index);
+            Debug.Log("eye!" + index);
 
             // collision destroy
             scripts.DeleteEye(index);

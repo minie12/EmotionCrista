@@ -18,7 +18,7 @@ public class PatternPurple : PatternManager
     private GameObject lightPrefab;
     private GameObject eyePrefab;
     private GameObject flashLight;
-    private readonly List<GameObject> eyeObjs = new List<GameObject>();
+    private readonly List<GameObject> eyeObjs = new List<GameObject>(); // key: eye id, value: eye obj
     private readonly List<List<int>> eyeObjsErea = new List<List<int>>();
 
     private readonly float eyeFirstTime = 0.5f;
@@ -64,6 +64,7 @@ public class PatternPurple : PatternManager
         {
             case 0:
                 StartGimmick(0);
+                //StartGimmick(1);
                 break;
             case 1:
                 StartGimmick(1);
@@ -126,12 +127,14 @@ public class PatternPurple : PatternManager
         switch (gimmick_)
         {
             case 0:
+                ResetAllChainGem();
                 CancelInvoke(nameof(PurpleGimmick0));
                 break;
             case 1:
                 Destroy(flashLight);
                 globalLightObj.GetComponent<Light2D>().intensity = 1f;
 
+                // all eye obj delete
                 int cnt = eyeObjs.Count;
                 while (cnt-- > 0)
                 {
@@ -139,6 +142,38 @@ public class PatternPurple : PatternManager
                     DeleteEye(0);
                 }
                 break;
+        }
+    }
+
+    // 존재하는 모든 사슬 초기화
+    void ResetAllChainGem()
+    {
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0)
+                {
+                    continue;
+                }
+
+                GemInfo gem = board.GetGem(i, j);
+                if (gem == null)
+                {
+                    continue;
+                }
+
+                gem.bLocationFixed = false;
+                gem.SetChainZero();
+
+                // 외곽선 넘어가기 
+                if (i == 0 || i == 10 || j == 0 || j == 5 || (j == 4 && i % 2 == 0))
+                {
+                    continue;
+                }
+
+                 board.SetRotate(i, j, false);
+            }
         }
     }
 
@@ -355,6 +390,9 @@ public class PatternPurple : PatternManager
 
     GameObject CreateEye()
     {
+        // eye id
+        string eyeId = System.Guid.NewGuid().ToString();
+
         GameObject eyeParent = GameObject.Find("EyeParent");
         GameObject eyeObj = Instantiate(eyePrefab, eyeParent.transform);
         eyeObj.GetComponent<Transform>().localScale = new Vector2(eyeScale, eyeScale);

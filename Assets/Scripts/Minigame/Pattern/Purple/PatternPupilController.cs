@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,15 +18,16 @@ public class PatternPupilController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // 눈동자 위치
         Vector3 EyeballPosition = this.transform.position;
 
         Vector2 MouseLocation = Input.mousePosition;
         MouseLocation = Camera.main.ScreenToWorldPoint(MouseLocation);
 
         Vector2 MidLocation2D = new Vector2(MidLocation.position.x, MidLocation.position.y);
-        Vector2 MidToMouse = MouseLocation - MidLocation2D;
+        Vector2 MidToMouse = MouseLocation - MidLocation2D; // 눈동자가 마우스를 향하는 방향
         float MouseDistance = MidToMouse.magnitude;
-        MidToMouse.Normalize();
+        MidToMouse.Normalize(); // 마우스 향하는 벡터 노멀라이즈
 
         //Debug.Log("Mouse Pos: (" + MouseLocation.x + ", " + MouseLocation.y + ")");
         RaycastHit2D hit = Physics2D.Raycast(MidLocation2D, MidToMouse, Mathf.Infinity, targetLayerMask);

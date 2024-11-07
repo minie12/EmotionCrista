@@ -426,6 +426,12 @@ public class GemInfo : MonoBehaviour
         return chainCnt;
     }
 
+    public void SetChainZero()
+    {
+        chainCnt = 0;
+        chainAnimObj.SetActive(false);
+    }
+
     public void SetChainGem(int cnt)
     {
         chainCnt = cnt;
