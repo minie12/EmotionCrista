@@ -9,6 +9,10 @@ public class PatternEye : MonoBehaviour
     private bool check = false;
     private int flip = 0;
 
+    // eye uuid
+    private string eyeId;
+
+
     private void Start()
     {
         animator = this.GetComponent<Animator>();
@@ -35,6 +39,46 @@ public class PatternEye : MonoBehaviour
             SetObjectActive(true);
             AllChildrenFadeIn();
         }
+    }
+
+    public string GetEyeId()
+    {
+        return eyeId;
+    }
+
+    public void SetEyeId(string id) 
+    {
+        this.eyeId = id;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        PatternPurple scripts = GameObject.Find("MiniManager").GetComponent<PatternPurple>();
+        if (collision.tag == "FlashLight" && scripts.ExistEyeId(this.eyeId))
+        {
+            Debug.Log("eye delete " + this.eyeId);
+
+            // collision destroy
+            scripts.DeleteEye(this.eyeId);
+
+            // collision recreate
+            StartCoroutine(scripts.AddEyeAfterTime(5f));
+
+            // 실제로 삭제
+            StartCoroutine(this.CollisionDestroy());
+        }
+    }
+
+    private IEnumerator CollisionDestroy()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        // collision fade out
+        this.AllChildrenFadeOut();
+
+        yield return new WaitForSeconds(10f);
+
+        Destroy(this.gameObject);
     }
 
     void SetObjectActive(bool state)

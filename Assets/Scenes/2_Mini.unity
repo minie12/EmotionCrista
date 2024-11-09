@@ -899,7 +899,7 @@ MonoBehaviour:
   scrollPos: {x: 43.726784, y: 223.12619}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 452
+  blockViewHeight: 368.8
   zoom: 0.48999998
   scrollViewRect:
     serializedVersion: 2
@@ -909,7 +909,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 79947777}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 79947816}
   variables:
   - {fileID: 79947785}
   - {fileID: 79947923}
