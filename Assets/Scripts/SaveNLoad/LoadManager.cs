@@ -99,9 +99,10 @@ public class LoadManager : MonoBehaviour
             }
         }
 
-        // Fungus Variable
+        // GameManager
         {
             GameManager.Get().SetPlayInfo(loadEmoSaveData.playInfo);
+            GameManager.Get().SetAreaMap(loadEmoSaveData.areaMap);
         }
 
         // Fungus Command

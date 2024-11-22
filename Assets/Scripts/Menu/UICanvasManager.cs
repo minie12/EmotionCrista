@@ -14,6 +14,7 @@ public class UICanvasManager : MonoBehaviour
 
     public GameObject GO_reportButton;
     public GameObject GO_mapButton;
+    public GameObject GO_mapContainer;
 
     static public string GetLocationName(string inSceneName)
     {
@@ -27,11 +28,18 @@ public class UICanvasManager : MonoBehaviour
             case "LabCorridor":
                 locationName = "상담실 복도";
                 break;
+            case "DormCorridor":
+                locationName = "관사 복도";
+                break;
             case "CounselRoom":
                 locationName = "상담실";
                 break;
+            case "FirstDayDorm":
             case "Dormitory":
                 locationName = "기숙사";
+                break;
+            case "Storage":
+                locationName = "창고";
                 break;
             case "PatrickLab":
                 locationName = "패트릭 연구실";
@@ -75,6 +83,12 @@ public class UICanvasManager : MonoBehaviour
         {
             GO_mapButton.SetActive(bNeedMapMenu);
         }
+
+        MapManager mapManager = GO_mapContainer.GetComponent<MapManager>();
+        if (mapManager != null) 
+        {
+            // mapManager.OnSceneLoaded(inSceneName);  
+        }
     }
 
     public void AlterActive(GameObject inObject)
@@ -82,8 +96,15 @@ public class UICanvasManager : MonoBehaviour
         inObject.SetActive(!inObject.activeSelf);
     }
 
+    public void ToggleMapActive()
+    {
+        AlterActive(GO_mapButton);
+    }
+
     public void TransferScene(string inSceneName)
     {
+        GO_mapContainer.SetActive(false);
+
         GameObject GO_flowchart = GameObject.Find("Flowchart");
         if (null != GO_flowchart)
         {
@@ -106,14 +127,9 @@ public class UICanvasManager : MonoBehaviour
                 break;
 
             case "CounselRoom":
-                return false;
-
             case "PatrickLab":
-                return false;
-
             case "AndroidLab":
-                return false;
-
+            case "FirstDayDorm":
             case "DayEnd":
                 return false;
         }

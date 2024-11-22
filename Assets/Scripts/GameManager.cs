@@ -6,7 +6,6 @@ using System.Threading;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static ScreenObjectInfo;
 
 public enum CharacterName
 {
@@ -16,69 +15,6 @@ public enum CharacterName
     Nish,
     Ilrak,
     Max
-}
-
-[System.Serializable]
-public struct ScreenInfoData
-{
-    public ClickableID[] locatedObjects;
-    public byte objectClickedFlag;
-
-    public ScreenInfoData(ClickableID[] inLocatedObjects, byte inObjectClickedFlag)
-    {
-        locatedObjects = inLocatedObjects;
-        objectClickedFlag = inObjectClickedFlag;
-    }
-}
-
-[System.Serializable]
-public struct PlayInfo
-{
-    public string playerName;
-    public int dayCount;
-    public int characterIndex;
-
-    public bool bHaveReport;
-    public bool bRedButtonPressed;
-
-    public int miniGameLevel;
-
-    public int endingMode;
-
-    public Dictionary<string, bool> sceneStartBlockCompletedMap;
-    public Dictionary<string, ScreenInfoData> sceneScreenInfoMap;
-
-    public void Reset()
-    {
-        playerName = "NoName";
-        dayCount = 1;
-        characterIndex = (int)CharacterName.Naria;
-
-        bHaveReport = false;
-        bRedButtonPressed = false;
-
-        miniGameLevel = (int)LevelType.EASY1;
-
-        endingMode = (int)EndingMode.None;
-
-        if (null == sceneStartBlockCompletedMap)
-        {
-            sceneStartBlockCompletedMap = new Dictionary<string, bool>();
-        }
-        else
-        {
-            sceneStartBlockCompletedMap.Clear();
-        }
-
-        if (null == sceneScreenInfoMap)
-        {
-            sceneScreenInfoMap = new Dictionary<string, ScreenInfoData>();
-        }
-        else
-        {
-            sceneScreenInfoMap.Clear();
-        }
-    }
 }
 
 public class GameManager : MonoBehaviour
@@ -99,7 +35,11 @@ public class GameManager : MonoBehaviour
     private CursorMode cursorMode = CursorMode.Auto;
     #endregion
 
+    private Dictionary<string, Area> areaMap = new Dictionary<string, Area>();
+
     private PlayInfo currentPlayInfo;
+
+    private Area currentArea;
 
 #if UNITY_EDITOR
     bool bFirstLoad = true;
@@ -146,12 +86,9 @@ public class GameManager : MonoBehaviour
         return instance;
     }
 
-    public void SetSceneScreenInfo(ClickableID[] locatedObjects, byte objectClickedFlag)
+    public Area GetArea()
     {
-        Scene scene = SceneManager.GetActiveScene();
-        string sceneName = scene.name;
-
-        currentPlayInfo.sceneScreenInfoMap[sceneName] = new ScreenInfoData(locatedObjects, objectClickedFlag);
+        return currentArea;
     }
 
     protected void OnSceneLoaded(Scene Scene, LoadSceneMode mode)
@@ -159,6 +96,21 @@ public class GameManager : MonoBehaviour
         if (null != loadManager)
         {
             loadManager.LoadGameData(); // load game data from saved file
+        }
+
+        if (false == areaMap.ContainsKey(Scene.name))
+        {
+            Area newArea = new Area();
+            newArea.sceneName = Scene.name;
+
+            areaMap.Add(Scene.name, newArea);
+        }
+
+        currentArea = areaMap[Scene.name];
+
+        if (null != currentArea)
+        {
+            currentArea.OnSceneLoaded();
         }
 
         // Set Fungus variables to PlayInfo
@@ -213,14 +165,6 @@ public class GameManager : MonoBehaviour
                     // RedButton
 
                     flowchart.SetIntegerVariable("EndingMode", currentPlayInfo.endingMode);
-
-                    if (null != currentPlayInfo.sceneStartBlockCompletedMap)
-                    {
-                        if (currentPlayInfo.sceneStartBlockCompletedMap.ContainsKey(Scene.name))
-                        {
-                            flowchart.SetBooleanVariable("CompletedStart", currentPlayInfo.sceneStartBlockCompletedMap[Scene.name]);
-                        }
-                    }
                 }
             }
 
@@ -245,38 +189,51 @@ public class GameManager : MonoBehaviour
                     UICanvasManager.OnSceneLoaded(Scene.name, currentPlayInfo.dayCount, currentPlayInfo.bHaveReport);
                 }
             }
+
+            if (null != currentArea)
+            {
+                flowchart.SetBooleanVariable("CompletedStart", currentArea.bSceneStartBlockCompleted);
+            }
         }
 
         // Reset Log 
         LogCache.ClearAllLog();
-
-        // Set ScreenInfo
-        if (null != currentPlayInfo.sceneScreenInfoMap)
-        {
-            GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
-            if (null != GO_ClickableLocation)
-            {
-                ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>();
-                if (null != screenObjectInfo)
-                {
-                    if (currentPlayInfo.sceneScreenInfoMap.ContainsKey(Scene.name))
-                    {
-                        screenObjectInfo.SetLoadData(currentPlayInfo.sceneScreenInfoMap[Scene.name].locatedObjects, currentPlayInfo.sceneScreenInfoMap[Scene.name].objectClickedFlag);
-                    }
-                }
-            }
-        }
-        
 
 #if UNITY_EDITOR
         bFirstLoad = false;
 #endif
     }
 
+    public bool IsObjectClicked(ClickableID inObjectFlag)
+    {
+        bool bClickedObject = false;
+
+        if (null != currentArea)
+        {
+            bClickedObject = currentArea.IsObjectClicked(inObjectFlag);
+        }
+
+        return bClickedObject;
+    }
+
+    public void GetAreaMap(ref Dictionary<string, Area> refAreaMap)
+    {
+        refAreaMap = areaMap;
+    }
+
+    public void SetAreaMap(Dictionary<string, Area> inAreaMap)
+    {
+        areaMap = inAreaMap;
+    }
+
     #region PlayInfoFunctions
     public string GetPlayerName()
     {
         return currentPlayInfo.playerName;
+    }
+    public void SetPlayerName(string inPlayerName)
+    {
+        currentPlayInfo.playerName = inPlayerName;
     }
 
     public void GetPlayInfo(ref PlayInfo refPlayInfo)
@@ -287,12 +244,9 @@ public class GameManager : MonoBehaviour
 
         refPlayInfo.bHaveReport = currentPlayInfo.bHaveReport;
         refPlayInfo.bRedButtonPressed = currentPlayInfo.bRedButtonPressed;
-        refPlayInfo.miniGameLevel = currentPlayInfo.miniGameLevel;
+        refPlayInfo.minigameLevel = currentPlayInfo.minigameLevel;
 
         refPlayInfo.endingMode = currentPlayInfo.endingMode;
-
-        refPlayInfo.sceneStartBlockCompletedMap = currentPlayInfo.sceneStartBlockCompletedMap;
-        refPlayInfo.sceneScreenInfoMap = currentPlayInfo.sceneScreenInfoMap;
     }
     public void SetPlayInfo(PlayInfo inPlayInfo)
     {
@@ -302,12 +256,9 @@ public class GameManager : MonoBehaviour
 
         currentPlayInfo.bHaveReport = inPlayInfo.bHaveReport;
         currentPlayInfo.bRedButtonPressed = inPlayInfo.bRedButtonPressed;
-        currentPlayInfo.miniGameLevel = inPlayInfo.miniGameLevel;
+        currentPlayInfo.minigameLevel = inPlayInfo.minigameLevel;
 
         currentPlayInfo.endingMode = inPlayInfo.endingMode;
-
-        currentPlayInfo.sceneStartBlockCompletedMap = inPlayInfo.sceneStartBlockCompletedMap;
-        currentPlayInfo.sceneScreenInfoMap = inPlayInfo.sceneScreenInfoMap;
     }
     public void ProceedNextDay()
     {
@@ -317,15 +268,7 @@ public class GameManager : MonoBehaviour
         currentPlayInfo.bHaveReport = false;
         currentPlayInfo.bRedButtonPressed = false;
 
-        if (null != currentPlayInfo.sceneStartBlockCompletedMap)
-        {
-            currentPlayInfo.sceneStartBlockCompletedMap.Clear();
-        }
-
-        if (null != currentPlayInfo.sceneScreenInfoMap)
-        {
-            currentPlayInfo.sceneScreenInfoMap.Clear();
-        }
+        // refresh Area info
     }
 
     public void ResetPlayInfo()
@@ -334,17 +277,12 @@ public class GameManager : MonoBehaviour
     }
     public void ResetAfterMinigame()
     {
-        if (null != currentPlayInfo.sceneStartBlockCompletedMap)
+        if (null != currentArea)
         {
-            currentPlayInfo.sceneStartBlockCompletedMap.Clear();
+            currentArea.bSceneStartBlockCompleted = true;
         }
 
-        if (null != currentPlayInfo.sceneScreenInfoMap)
-        {
-            currentPlayInfo.sceneScreenInfoMap.Clear();
-        }
-
-        currentPlayInfo.miniGameLevel = 0;
+        currentPlayInfo.ResetAfterMinigame();
     }
 
     public void SetEndingMode(EndingMode inMode) { currentPlayInfo.endingMode = (int)inMode; }
@@ -372,9 +310,15 @@ public class GameManager : MonoBehaviour
     public bool IsRedButtonPressed() { return currentPlayInfo.bRedButtonPressed; }
     public int GetDayCount() { return currentPlayInfo.dayCount; }
     public int GetCharacterIndex() { return currentPlayInfo.characterIndex; }
-    public int GetMiniGameLevel() { return currentPlayInfo.miniGameLevel; }
+    public int GetMinigameLevel() { return currentPlayInfo.minigameLevel; }
+    public int GetMinigameHistory() { return currentPlayInfo.minigameHistory; }
+    public void SetRedButtonPressed(bool bPressed) { currentPlayInfo.bRedButtonPressed = bPressed; }
     public void SetHaveReport(bool bInHaveReport) { currentPlayInfo.bHaveReport = bInHaveReport; }
-    public void SetGameLevel(int inGameLevel) { currentPlayInfo.miniGameLevel = inGameLevel; }
+    public void SetGameLevel(int inGameLevel) 
+    { 
+        currentPlayInfo.minigameLevel = inGameLevel;
+        currentPlayInfo.minigameHistory = currentPlayInfo.minigameHistory * 10 + inGameLevel;
+    }
     public void SetLoadData(EmoSaveData inLoadData) 
     {
         if (null != loadManager)
@@ -384,10 +328,10 @@ public class GameManager : MonoBehaviour
     }
     public void SetStartBlockCompletion(bool bCompletion)
     {
-        Scene scene = SceneManager.GetActiveScene();
-        string sceneName = scene.name;
-
-        currentPlayInfo.sceneStartBlockCompletedMap[sceneName] = bCompletion;
+        if (null != currentArea)
+        {
+            currentArea.bSceneStartBlockCompleted = bCompletion;
+        }
     }
 
     #endregion

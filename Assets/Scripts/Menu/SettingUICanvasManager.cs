@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class SettingUICanvasManager : MonoBehaviour
 {
+    public GameObject systemMenu;
+    public GameObject saveLoadMenu;
+
     public void AlterActive(GameObject inObject)
     {
         inObject.SetActive(!inObject.activeSelf);
+        systemMenu.SetActive(false);
+        saveLoadMenu.SetActive(false);
     }
     public void TransferScene(string inSceneName)
     {

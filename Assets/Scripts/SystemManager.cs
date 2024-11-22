@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Net;
 
 [System.Serializable]
 struct GameSettingData
@@ -42,7 +43,7 @@ public class SystemManager  : MonoBehaviour
 
         if (instance == null) // If there is no instance already
         {
-            DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
+            DontDestroyOnLoad(this.gameObject); // Keep the GameObject, this component is attached to, across different scenes
             instance = this;
 
             gameSetting.Initialize();
@@ -76,9 +77,17 @@ public class SystemManager  : MonoBehaviour
     { 
         gameSetting.bMuteSFX = !gameSetting.bMuteSFX;
 
-        float audioVolume = gameSetting.bMuteSFX ? 0.0f : gameSetting.SFXVolume;
+        float audioVolume = 0f;
 
-        SoundEffectManager.Instance.SetSFXVolume(audioVolume);
+        if (false == gameSetting.bMuteSFX)
+        {
+            if (Mathf.Approximately(gameSetting.SFXVolume, 0f))
+            {
+                gameSetting.SFXVolume = 0.1f;
+            }
+
+            audioVolume = gameSetting.SFXVolume;
+        }
     }
     public bool IsSFXMuted() { return gameSetting.bMuteSFX; }
     public float GetSFXVolume() { return gameSetting.SFXVolume; }
@@ -87,9 +96,17 @@ public class SystemManager  : MonoBehaviour
     { 
         gameSetting.bMuteBGM = !gameSetting.bMuteBGM;
 
-        float audioVolume = gameSetting.bMuteBGM ? 0.0f : gameSetting.BGMVolume;
+        float audioVolume = 0f;
 
-        SoundEffectManager.Instance.SetBGMVolume(audioVolume);
+        if (false == gameSetting.bMuteBGM)
+        {
+            if (Mathf.Approximately(gameSetting.BGMVolume, 0f))
+            {
+                gameSetting.BGMVolume = 0.1f;
+            }
+
+            audioVolume = gameSetting.BGMVolume;
+        }
     }
     public bool IsBGMMuted() { return gameSetting.bMuteBGM; }
     public float GetBGMVolume() { return gameSetting.BGMVolume; }

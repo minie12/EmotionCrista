@@ -56,4 +56,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map/Dormitory.unity
     guid: 5534d7186c0b9194c8a8c59af8830b10
+  - enabled: 1
+    path: Assets/Scenes/Map/FirstDayDorm.unity
+    guid: 9dece3f25706ff243998ec4cbfffa9ee
+  - enabled: 1
+    path: Assets/Scenes/Map/DormCorridor.unity
+    guid: c395e1ba81a886c47810dfeffb7c2b69
+  - enabled: 1
+    path: Assets/Scenes/Map/Lobby.unity
+    guid: 7485645e37c41654aa0464054df2e2c0
   m_configObjects: {}

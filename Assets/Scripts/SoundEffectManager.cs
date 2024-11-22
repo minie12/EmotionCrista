@@ -38,8 +38,6 @@ public class SoundEffectManager : MonoBehaviour
                                .Select(name => new SoundEffectInfo { name = name.ToString(), audioClip = null })
                                .ToList();
 
-    private float SFXVolume = 1.0f;
-
     private void Awake()
     {
         if (_instance == null)
@@ -53,12 +51,6 @@ public class SoundEffectManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-
-    private void Start()
-    {
-        SetSFXVolume(SystemManager.Get().GetSFXVolume());
-        SetBGMVolume(SystemManager.Get().GetBGMVolume());
     }
 
     public static SoundEffectManager Instance
@@ -80,12 +72,6 @@ public class SoundEffectManager : MonoBehaviour
             return;
         }
         
-        _instance.audioSource.PlayOneShot(soundEffectClips[audioClipNum].audioClip, _instance.SFXVolume);
-    }
-
-    public void SetSFXVolume(float inVolume) { _instance.SFXVolume = inVolume; }
-    public void SetBGMVolume(float inVolume) 
-    {
-        FungusManager.Instance.MusicManager.SetAudioVolume(inVolume, 0.0f, () => { });
+        _instance.audioSource.PlayOneShot(soundEffectClips[audioClipNum].audioClip, SystemManager.Get().GetSFXVolume());
     }
 }

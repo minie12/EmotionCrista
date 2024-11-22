@@ -24,7 +24,7 @@ public class StartManager : MonoBehaviour
         if (null != gameManager)
         {
             gameManager.ResetPlayInfo();
-            SceneManager.LoadScene("LabCorridor");
+            SceneManager.LoadScene("FirstDayDorm");
         }
         else
         {

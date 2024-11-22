@@ -2774,7 +2774,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 286}
-  m_SizeDelta: {x: 523, y: 99}
+  m_SizeDelta: {x: 506, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5852505586822039671
 CanvasRenderer:
@@ -2867,7 +2867,7 @@ MonoBehaviour:
   - {fileID: 6719090406719956267}
   EmptySlotImage: {fileID: 21300000, guid: ab9231bfcbc1add488ceadda4c2252d7, type: 3}
   ActiveSlotImage: {fileID: 21300000, guid: e4a65841e9caf784faf7920f1b59f42d, type: 3}
-  LoadTitleImage: {fileID: 2073062145653716952, guid: 961e1c8093146a84e98af3997e47003d, type: 3}
+  LoadTitleImage: {fileID: 21300000, guid: f081a468a5c507e48acdafb889e8e429, type: 3}
   SaveTitleImage: {fileID: 21300000, guid: 30f35ca06f2f74e4e81a311a6c37863a, type: 3}
   GemIcons:
   - {fileID: -4064897058169603573, guid: 8f99205590ca4de4c997f68776e75e78, type: 3}

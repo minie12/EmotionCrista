@@ -5,16 +5,98 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static ScreenObjectInfo;
 using System;
+using Fungus;
 
 public class DialogExtra : MonoBehaviour
 {
     private int razPoint;
 
-    static byte OnScreenCharacterFlag = 0b_0000_0000;
-    //public void GoToScene(string sceneName)
-    //{
-    //    SceneManager.LoadScene(sceneName);
-    //}    
+    #region StoryCondition
+    public void IsObjectClicked(ClickableID inObjectFlag)
+    {
+        bool bCondition = GameManager.Get().IsObjectClicked(inObjectFlag);
+
+        SetBoolCondition(bCondition);
+    }
+
+    public void IsMinigameHistoryEqual(int inHistory)
+    {
+        bool bCondition = (inHistory == GameManager.Get().GetMinigameHistory());
+
+        SetBoolCondition(bCondition);
+    }
+
+    public void HasSprayedPesticides()
+    {
+
+    }
+
+    private void SetBoolCondition(bool bInCondition)
+    {
+        // Set Fungus variables to PlayInfo
+        GameObject GO_flowchart = GameObject.Find("Flowchart");
+        if (null != GO_flowchart)
+        {
+            Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
+            if (null != flowchart)
+            {
+                flowchart.SetBooleanVariable("BoolCondition", bInCondition);
+            }
+        }
+    }
+    #endregion
+
+    #region Area
+    public void ShowAllClickables()
+    {
+        Area currentArea = GameManager.Get().GetArea();
+
+        if (null != currentArea)
+        {
+            currentArea.ChangeAllClickablesVisibility(true);
+        }
+    }
+
+    public void HideAllClickables()
+    {
+        Area currentArea = GameManager.Get().GetArea();
+
+        if (null != currentArea)
+        {
+            currentArea.ChangeAllClickablesVisibility(false);
+        }
+    }
+
+    public void SetClickableObject(ClickableID inObjectID, int inLocationIndex)
+    {
+        Area currentArea = GameManager.Get().GetArea();
+
+        if (null != currentArea)
+        {
+            currentArea.SetClickableObject(inObjectID, inLocationIndex);
+        }
+    }
+
+    public void CleanClickableObject(ClickableID inObjectID)
+    {
+        Area currentArea = GameManager.Get().GetArea();
+
+        if (null != currentArea)
+        {
+            currentArea.CleanClickableObject(inObjectID);
+        }
+    }
+
+    public void OnObjectClicked(ClickableID inClickableID)
+    {
+        Area currentArea = GameManager.Get().GetArea();
+
+        if (null != currentArea)
+        {
+            currentArea.OnObjectClicked(inClickableID);
+        }
+    }
+    #endregion
 
     private Fungus.Flowchart GetFlowchartOnScene()
     {
@@ -40,8 +122,23 @@ public class DialogExtra : MonoBehaviour
         }
     }
 
-    public void SetCharacterName(string nameText_, Fungus.Character player) {
-        player.SetStandardText(nameText_);
+    public void SetCharacterName(Text nameText, Fungus.Character player) 
+    {
+        GameManager.Get().SetPlayerName(nameText.text);
+        player.SetStandardText(nameText.text);
+    }
+
+    public void ToggleMapButton()
+    {
+        GameObject GO_UICanvas = GameObject.Find("GameUICanvas");
+        if (null != GO_UICanvas)
+        {
+            UICanvasManager UICanvasManager = GO_UICanvas.GetComponent<UICanvasManager>();
+            if (null != UICanvasManager)
+            {
+                UICanvasManager.ToggleMapActive();
+            }
+        }
     }
 
     public void ExitGame() {
@@ -65,6 +162,11 @@ public class DialogExtra : MonoBehaviour
     public void ResetAfterMinigame()
     {
         GameManager.Get().ResetAfterMinigame();
+    }
+
+    public void SetRedButtonPressed(bool bPressed)
+    {
+        GameManager.Get().SetRedButtonPressed(bPressed);
     }
 
     //public void EraseClickable(GameObject location)
@@ -152,7 +254,7 @@ public class DialogExtra : MonoBehaviour
         int varStoryRound = flowchart.GetVariable<Fungus.IntegerVariable>("StoryRound").Value;
         int varCharacterIndex = flowchart.GetVariable<Fungus.IntegerVariable>("CharacterIndex").Value;
 
-        int storyIndex = OldGameManager.instance.CreateStoryIndex(varStoryRound, varCharacterIndex);
+        //int storyIndex = GameManager.instance.CreateStoryIndex(varStoryRound, varCharacterIndex);
         //diaryText.text = DiaryDialogReader.GetDialogData(storyIndex);
     }
     #endregion

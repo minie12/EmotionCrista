@@ -227,7 +227,7 @@ public class MiniManager : MonoBehaviour
 
     private void UpdatePatternLevel()
     {
-        miniGameLevel = GameManager.Get().GetMiniGameLevel();
+        miniGameLevel = GameManager.Get().GetMinigameLevel();
         patternLevel = (storyRound) * 3 + miniGameLevel;
     }
 

@@ -1333,18 +1333,16 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1579532881}
-  selectedCommands:
-  - {fileID: 1579532898}
+  selectedBlocks: []
+  selectedCommands: []
   variables:
   - {fileID: 1579532884}
   - {fileID: 1579532889}
   - {fileID: 1579532886}
   - {fileID: 1579532888}
   - {fileID: 1579532887}
-  - {fileID: 1579532885}
   - {fileID: 1579532892}
+  - {fileID: 1579532885}
   - {fileID: 1579532905}
   description: 
   stepPause: 0
@@ -1462,7 +1460,7 @@ MonoBehaviour:
   value: 0
 --- !u!114 &1579532890
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1542,7 +1540,7 @@ MonoBehaviour:
   suppressAllAutoSelections: 0
 --- !u!114 &1579532892
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1553,7 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: HaveLoadData
+  key: CompletedStart
   value: 0
 --- !u!114 &1579532893
 MonoBehaviour:
@@ -1588,7 +1586,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &1579532894
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1880,7 +1878,7 @@ MonoBehaviour:
   indentLevel: 1
 --- !u!114 &1579532898
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
