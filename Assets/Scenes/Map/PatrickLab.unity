@@ -9315,17 +9315,16 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 2144647095}
-  selectedCommands:
-  - {fileID: 2144647167}
+  - {fileID: 2144647153}
+  selectedCommands: []
   variables:
   - {fileID: 2144647101}
   - {fileID: 2144647100}
   - {fileID: 2144647107}
   - {fileID: 2144647098}
   - {fileID: 2144647106}
-  - {fileID: 2144647379}
   - {fileID: 2144647388}
+  - {fileID: 2144647379}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -21484,7 +21483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: HaveLoadData
+  key: CompletedStart
   value: 0
 --- !u!114 &2144647389
 MonoBehaviour:

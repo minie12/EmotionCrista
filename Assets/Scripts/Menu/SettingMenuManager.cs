@@ -38,19 +38,23 @@ public class SettingMenuManager : MonoBehaviour
             if (systemManager.IsSFXMuted())
             {
                 SFXIcon.sprite = MuteSFXSprite;
+                SFXSlider.value = 0;
             }
             else
             {
                 SFXIcon.sprite = PlaySFXSprite;
+                SFXSlider.value = systemManager.GetSFXVolume();
             }
 
             if (systemManager.IsBGMMuted())
             {
                 BGMIcon.sprite = MuteBGMSprite;
+                BGMSlider.value = 0;
             }
             else
             {
                 BGMIcon.sprite = PlayBGMSprite;
+                BGMSlider.value = systemManager.GetBGMVolume();
             }
         }
     }

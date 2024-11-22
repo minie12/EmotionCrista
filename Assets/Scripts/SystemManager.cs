@@ -43,7 +43,7 @@ public class SystemManager  : MonoBehaviour
 
         if (instance == null) // If there is no instance already
         {
-            DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
+            DontDestroyOnLoad(this.gameObject); // Keep the GameObject, this component is attached to, across different scenes
             instance = this;
 
             gameSetting.Initialize();
@@ -88,8 +88,6 @@ public class SystemManager  : MonoBehaviour
 
             audioVolume = gameSetting.SFXVolume;
         }
-
-        SoundEffectManager.Instance.SetSFXVolume(audioVolume);
     }
     public bool IsSFXMuted() { return gameSetting.bMuteSFX; }
     public float GetSFXVolume() { return gameSetting.SFXVolume; }
@@ -109,8 +107,6 @@ public class SystemManager  : MonoBehaviour
 
             audioVolume = gameSetting.BGMVolume;
         }
-
-        SoundEffectManager.Instance.SetBGMVolume(audioVolume);
     }
     public bool IsBGMMuted() { return gameSetting.bMuteBGM; }
     public float GetBGMVolume() { return gameSetting.BGMVolume; }

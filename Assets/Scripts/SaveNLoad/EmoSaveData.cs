@@ -1,9 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using static ScreenObjectInfo;
+
+[System.Serializable]
+public struct PlayInfo
+{
+    public string playerName;
+    public int dayCount;
+    public int characterIndex;
+
+    public bool bHaveReport;
+    public bool bRedButtonPressed;
+
+    public int minigameLevel;
+    public int minigameHistory;
+
+    public int endingMode;
+
+    public void Reset()
+    {
+        playerName = "NoName";
+        dayCount = 1;
+        characterIndex = (int)CharacterName.Naria;
+
+        bHaveReport = false;
+        bRedButtonPressed = false;
+
+        minigameLevel = (int)LevelType.EASY1;
+        minigameHistory = 0;
+
+        endingMode = (int)EndingMode.None;
+    }
+
+    public void ResetAfterMinigame()
+    {
+        minigameLevel = 0;
+    }
+}
 
 [System.Serializable]
 public class SerializablePortraitState
@@ -34,9 +68,7 @@ public class EmoSaveData
     // Characters on Diaglogue Screen
     public Dictionary<string, SerializablePortraitState> portraitStates = new Dictionary<string, SerializablePortraitState>();
 
-    // Point&Click Objects 
-    //public ClickableID[] locatedClickableObjects;
-    //public byte objectClickedFlag;
+    public Dictionary<string, Area> areaMap = new Dictionary<string, Area>();
     #endregion
 
     public bool ValidateData()
@@ -153,22 +185,11 @@ public class EmoSaveData
             }
         }
 
-        // Set Current SceneInfo to PlayInfo before saving
-        {
-            // Clickable Object Info
-            GameObject GO_ClickableLocation = GameObject.Find("ClickableLocation");
-            if (null != GO_ClickableLocation)
-            {
-                ScreenObjectInfo screenObjectInfo = GO_ClickableLocation.GetComponent<ScreenObjectInfo>();
-                if (null != screenObjectInfo)
-                {
-                    screenObjectInfo.SaveSceneScreenInfo();
-                }
-            }
-        }
-
         // PlayInfo
         GameManager.Get().GetPlayInfo(ref gameData.playInfo);
+
+        // areaMap
+        GameManager.Get().GetAreaMap(ref gameData.areaMap);
 
         if (true == gameData.ValidateData())
         {
