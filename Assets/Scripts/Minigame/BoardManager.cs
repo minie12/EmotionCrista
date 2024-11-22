@@ -248,6 +248,34 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    // used start fever
+    private void EraseCurrentGemOutline()
+    {
+        if (bGemClicked)
+        {
+            int eo = (column % 2 == 0) ? 1 : 0;
+
+            gems[column, row].SetOutline("undo");
+            gems[column - 1, row + eo].SetOutline("undo");
+            gems[column - 1, row - 1 + eo].SetOutline("undo");
+            gems[column, row - 1].SetOutline("undo");
+            gems[column + 1, row - 1 + eo].SetOutline("undo");
+            gems[column + 1, row + eo].SetOutline("undo");
+            gems[column, row + 1].SetOutline("undo");
+
+            isClickedGem[column, row] = 0;
+            isClickedGem[column - 1, row + eo] = 0;
+            isClickedGem[column - 1, row - 1 + eo] = 0;
+            isClickedGem[column, row - 1] = 0;
+            isClickedGem[column + 1, row - 1 + eo] = 0;
+            isClickedGem[column + 1, row + eo] = 0;
+            isClickedGem[column, row + 1] = 0;
+
+            clickEffect.SetActive(false);
+        }
+    }
+
+
     // used in ChangeGemOutline()
     // erase outline of gem if other gem is clicked
     private void EraseGemOutline()
@@ -512,7 +540,7 @@ public class BoardManager : MonoBehaviour
     public void StartFever()
     {
         feverCnt = 0;
-        EraseGemOutline();
+        EraseCurrentGemOutline();
         clickEffect.SetActive(false);
         bGemClicked = false;
     }

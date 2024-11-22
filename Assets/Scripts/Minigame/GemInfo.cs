@@ -38,7 +38,7 @@ public class GemInfo : MonoBehaviour
     private int chainCnt; // purple gimmick
     [HideInInspector] public bool bLocationFixed = false; // manage location fixed
     [HideInInspector] public int isFired = 0; // 0: no fire, 1: init fire, 2: spreaded fire
-    [HideInInspector] public bool isChecked = false; // check (using BFS)
+    [HideInInspector] public int isChecked = 0; // check (using BFS)
     [HideInInspector] public bool isCryGem = false; // using blue gimmick
     [HideInInspector] public bool isCrushed = false; // check crush
 
@@ -424,6 +424,12 @@ public class GemInfo : MonoBehaviour
     public int GetChainCnt()
     {
         return chainCnt;
+    }
+
+    public void SetChainZero()
+    {
+        chainCnt = 0;
+        chainAnimObj.SetActive(false);
     }
 
     public void SetChainGem(int cnt)

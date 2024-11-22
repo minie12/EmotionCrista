@@ -18,13 +18,13 @@ public class PatternPurple : PatternManager
     private GameObject lightPrefab;
     private GameObject eyePrefab;
     private GameObject flashLight;
-    private readonly List<GameObject> eyeObjs = new List<GameObject>();
-    private readonly List<List<int>> eyeObjsErea = new List<List<int>>();
+    private readonly Dictionary<string, GameObject> eyeObjs = new Dictionary<string, GameObject>(); // key: eye id, value: eye obj
+    private readonly Dictionary<string, List<int>> eyeObjsArea = new Dictionary<string, List<int>>(); // key: eye id, value: eye area idx list
 
     private readonly float eyeFirstTime = 0.5f;
-    private readonly float[] eyeEreaX = { 0f, 2f, 4f, 6f };
-    private readonly float[] eyeEreaY = { -3f, -1f, 1f, 3f };
-    private int[,] eyeEreaCheck = new int[3, 3];
+    private readonly float[] eyeAreaX = { 0f, 2f, 4f, 6f };
+    private readonly float[] eyeAreaY = { -3f, -1f, 1f, 3f };
+    private bool[,] eyeAreaCheck = new bool[3, 3];
     private readonly float eyeScale = 0.2f;
 
 
@@ -63,7 +63,8 @@ public class PatternPurple : PatternManager
         switch (mini.patternLevel)
         {
             case 0:
-                StartGimmick(0);
+                //StartGimmick(0);
+                StartGimmick(1);
                 break;
             case 1:
                 StartGimmick(1);
@@ -126,19 +127,54 @@ public class PatternPurple : PatternManager
         switch (gimmick_)
         {
             case 0:
+                ResetAllChainGem();
                 CancelInvoke(nameof(PurpleGimmick0));
                 break;
             case 1:
                 Destroy(flashLight);
                 globalLightObj.GetComponent<Light2D>().intensity = 1f;
 
-                int cnt = eyeObjs.Count;
-                while (cnt-- > 0)
+                // all eye obj delete
+                foreach (KeyValuePair<string, GameObject> entry in eyeObjs)
                 {
-                    Destroy(eyeObjs[0]);
-                    DeleteEye(0);
+                    Destroy(entry.Value);
                 }
+                eyeObjs.Clear();
+                eyeObjsArea.Clear();
+                eyeAreaCheck = new bool[3, 3];
                 break;
+        }
+    }
+
+    // 존재하는 모든 사슬 초기화
+    void ResetAllChainGem()
+    {
+        for (int i = 0; i < 11; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 5 && i % 2 == 0)
+                {
+                    continue;
+                }
+
+                GemInfo gem = board.GetGem(i, j);
+                if (gem == null)
+                {
+                    continue;
+                }
+
+                gem.bLocationFixed = false;
+                gem.SetChainZero();
+
+                // 외곽선 넘어가기 
+                if (i == 0 || i == 10 || j == 0 || j == 5 || (j == 4 && i % 2 == 0))
+                {
+                    continue;
+                }
+
+                 board.SetRotate(i, j, false);
+            }
         }
     }
 
@@ -321,63 +357,70 @@ public class PatternPurple : PatternManager
     }
 
     // =============== gimmick 1 (flash light) ================== //
-    public void DeleteEye(int index)
+    public void DeleteEye(string eyeId)
     {
-        List<int> erea = eyeObjsErea[index];
+        List<int> area = eyeObjsArea[eyeId];
 
-        eyeObjs.RemoveAt(index);
-        eyeObjsErea.RemoveAt(index);
+        eyeObjs.Remove(eyeId);
+        eyeObjsArea.Remove(eyeId);
 
-        eyeEreaCheck[erea[0], erea[1]] = 0;
+        Debug.Log("eye area " + area[0] + " , " + area[1] + " delete!");
+
+        eyeAreaCheck[area[0], area[1]] = false;
     }
 
-    public void AddEye()
+    private void AddEye()
     {
-        GameObject eye = CreateEye();
-        eyeObjs.Add(eye);
+        // eye id
+        string eyeId = System.Guid.NewGuid().ToString();
+
+        GameObject eyeObj = CreateEye(eyeId); // eye object 생성
+        eyeObj.GetComponent<PatternEye>().SetEyeId(eyeId); // eyeId 실제 눈 오브젝트에 세팅
+
+        eyeObjs.Add(eyeId, eyeObj);
     }
 
-    public void UpdateEye(int index)
+    public IEnumerator AddEyeAfterTime(float interval)
     {
-        GameObject eye = CreateEye();
-        eyeObjs[index] = eye;
+        yield return new WaitForSeconds(interval);
+        Debug.Log(interval + " 초 후 눈 생성 ");
+
+        AddEye();
     }
 
-    public bool IsMatchGimmick(int index, GameObject obj)
+    public bool ExistEyeId(string eyeId)
     {
-        if(index >= eyeObjs.Count)
-        {
-            return false;
-        }
-        return eyeObjs[index] == obj;
+        return eyeObjs.ContainsKey(eyeId);
+
     }
 
-
-    GameObject CreateEye()
+    GameObject CreateEye(string eyeId)
     {
+        Debug.Log(eyeId + " 눈 생성 !!");
+
         GameObject eyeParent = GameObject.Find("EyeParent");
         GameObject eyeObj = Instantiate(eyePrefab, eyeParent.transform);
         eyeObj.GetComponent<Transform>().localScale = new Vector2(eyeScale, eyeScale);
 
         int randXIdx = Random.Range(0, 3);
         int randYIdx = Random.Range(0, 3);
-        while (eyeEreaCheck[randXIdx, randYIdx] != 0)
+        while (eyeAreaCheck[randXIdx, randYIdx] == true)
         {
             randXIdx = Random.Range(0, 3);
             randYIdx = Random.Range(0, 3);
         }
 
-        eyeEreaCheck[randXIdx, randYIdx] = eyeObjs.Count + 1;
+        eyeAreaCheck[randXIdx, randYIdx] = true;
 
-        List<int> erea = new List<int>
+        List<int> area = new List<int>
         {
             randXIdx,
             randYIdx
         };
-        eyeObjsErea.Add(erea);
+        eyeObjsArea.Add(eyeId, area);
 
-        float randX = Random.Range(eyeEreaX[randXIdx], eyeEreaX[randXIdx + 1]);
-        float randY = Random.Range(eyeEreaY[randYIdx], eyeEreaY[randYIdx + 1]);
+        float randX = Random.Range(eyeAreaX[randXIdx], eyeAreaX[randXIdx + 1]);
+        float randY = Random.Range(eyeAreaY[randYIdx], eyeAreaY[randYIdx + 1]);
         eyeObj.GetComponent<Transform>().localPosition = new Vector2(randX, randY);
 
         return eyeObj;
@@ -388,7 +431,7 @@ public class PatternPurple : PatternManager
         int eyeCnt = 3;
         for (int i = 0; i < eyeCnt; i++)
         {
-            AddEye();
+            this.AddEye();
         }
     }
 

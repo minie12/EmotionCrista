@@ -336,6 +336,7 @@ public class PatternRed : PatternManager
     {
         // get random gem
         startGem = board.GetPatternGemRandom();
+
         if(startGem == null)
         {
             return;
@@ -387,15 +388,56 @@ public class PatternRed : PatternManager
         }
     }
 
+    // BFS 탐색으로 현재 불길의 가장 가장자리 Gem List 얻기
+    List<GemInfo> GetBoundaryFireGem(int checkIdx)
+    {
+        List<GemInfo> gemList = new List<GemInfo>();
+        List<List<int>> queueList = new List<List<int>>();
+
+        // 불길 광물 큐에 넣기
+        queueList.Add(new List<int> { startGem.GetColumn(), startGem.GetRow() });
+        while (queueList.Count > 0)
+        {
+            List<int> cur = queueList[0]; // 0:column, 1:row
+            queueList.RemoveAt(0);
+
+            int col = cur[0];
+            int row = cur[1];
+            GemInfo gem = board.GetGem(col, row);
+            if (gem != null)
+            {
+                gem.isChecked = checkIdx;
+            }
+            int[,] dir = col % 2 == 0 ? aroundGem_e : aroundGem_o;
+            bool chk = false;
+            for (int i = 0; i < 6; i++)
+            {
+                int newCol = col + dir[i, 0];
+                int newRow = row + dir[i, 1];
+                GemInfo tempGem = board.GetGem(newCol, newRow);
+                if (tempGem != null && tempGem.isChecked != checkIdx && tempGem.isFired > 0)
+                {
+                    chk = true;
+                    tempGem.isChecked = checkIdx;
+                    queueList.Add(new List<int> { newCol, newRow });
+                }
+            }
+            if (!chk)
+            {
+                gemList.Add(gem);
+            }
+        }
+
+        return gemList;
+    }
+
     private IEnumerator SpreadFire(float interval)
     {
+        int checkIdx = 1; // 불길 번짐 index (check 구분하기 위해 사용)
+
         while (gimmick[1])
         {
             yield return new WaitForSeconds(interval);
-
-            // 0. get fire gem list (BFS 탐색으로 가장 가장자리 Gem 얻어오기)
-            List<GemInfo> gemList = new List<GemInfo>();
-            List<List<int>> queueList = new List<List<int>>();
 
             // 현재 불길 광물이 없다면
             if (startGem == null)
@@ -403,104 +445,41 @@ public class PatternRed : PatternManager
                 InitFire();
                 yield break;
             }
-           
-            // 불길 광물 큐에 넣기
-            queueList.Add(new List<int> { startGem.GetColumn(), startGem.GetRow() });
-            while (queueList.Count > 0)
-            {
-                List<int> cur = queueList[0]; // 0:column, 1:row
-                queueList.RemoveAt(0);
 
-                int col = cur[0];
-                int row = cur[1];
-                GemInfo gem = board.GetGem(col, row);
-                if (gem != null)
-                {
-                    gem.isChecked = true;
-                }
-                int[,] dir = col % 2 == 0 ? aroundGem_e : aroundGem_o;
-                bool chk = false;
-                for(int i = 0; i < 6; i++)
-                {
-                    int newCol = col + dir[i, 0];
-                    int newRow = row + dir[i, 1];
-                    GemInfo tempGem = board.GetGem(newCol, newRow);
-                    if(tempGem != null && tempGem.isChecked == false && tempGem.isFired > 0)
-                    {
-                        chk = true;
-                        tempGem.isChecked = true;
-                        queueList.Add(new List<int> { newCol, newRow });
-                    } 
-                }
-                if (!chk)
-                {
-                    gemList.Add(gem);
-                }
-            }
-            if(gemList.Count == 0)
+            // 0. get fire gem list (BFS 탐색으로 가장 가장자리 Gem 얻어오기)
+            List<GemInfo> gemList = GetBoundaryFireGem(checkIdx);
+
+            if (gemList.Count == 0)
             {
                 InitFire();
                 yield break;
             }
 
             // 1. get around gems
-            bool[,] aroundCheck = new bool[11, 6];
+            List<GemInfo> allAroundGems = new List<GemInfo>(); // 가장자리에 있는 불길의 주변 광물 전부
             for (int i = 0; i < gemList.Count; i++)
             {
-                int cur_col = gemList[i].GetColumn();
-                int cur_row = gemList[i].GetRow();
+                int curCol = gemList[i].GetColumn();
+                int curRow = gemList[i].GetRow();
 
-                // choose direction vector about even or odd column
-                int[,] direction = new int[6, 2];
-                if (cur_col % 2 == 0) // even
-                {
-                    direction = aroundGem_e;
-                }
-                else // odd
-                {
-                    direction = aroundGem_o;
-                }
+                List<GemInfo> eachAroundGems = board.GetAroundGems(curCol, curRow);
 
-                // 6 direction
-                for (int j = 0; j < 6; j++)
+                // aroundGems
+                foreach (GemInfo gemInfo in eachAroundGems)
                 {
-                    int new_col = cur_col + direction[j, 0];
-                    int new_row = cur_row + direction[j, 1];
-
-                    // outside range
-                    if (new_col < 0 || new_row < 0 || new_col > 10 || (new_col % 2 == 0 && new_row > 4) || (new_col % 2 == 1 && new_row > 5))
-                    {
-                        continue;
-                    }
                     // if around already fired then continue
-                    GemInfo gem = board.GetGem(new_col, new_row);
+                    int newCol = gemInfo.GetColumn();
+                    int newRow = gemInfo.GetRow();
+                    GemInfo gem = board.GetGem(newCol, newRow);
                     if (gem != null && gem.isFired > 0)
                     {
                         continue;
                     }
 
-                    aroundCheck[new_col, new_row] = true;
+                    allAroundGems.Add(gemInfo);
                 }
             }
-            List<GemInfo> aroundGems = new List<GemInfo>();
-            for (int i = 0; i <= 10; i++)
-            {
-                for (int j = 0; j <= 5; j++)
-                {
-                    // outside board
-                    if (j == 5 && i % 2 == 0)
-                    {
-                        break;
-                    }
-
-                    GemInfo tempGem = board.GetGem(i, j);
-                    if (aroundCheck[i, j] && tempGem != null)
-                    {
-                        aroundGems.Add(tempGem);
-                    }
-                }
-            }
-            if (aroundGems.Count == 0)
+            if (allAroundGems.Count == 0)
             {
                 InitFire();
                 yield break;
@@ -508,20 +487,28 @@ public class PatternRed : PatternManager
 
 
             // 2. choose fire gems
-            int randCnt = Mathf.Min(Random.Range(1, 4), aroundGems.Count);
-            for (int i = 0; i < randCnt;)
+            int randCnt = Mathf.Min(Random.Range(1, 4), allAroundGems.Count);
+            for (int i = 0; i < randCnt; i++)
             {
-                int rand = Random.Range(0, aroundGems.Count);
-                GemInfo temp = aroundGems[rand];
-                if (temp.isFired > 0)
+                if(allAroundGems.Count == 0)
                 {
+                    break;
+                }
+
+                int rand = Random.Range(0, allAroundGems.Count);
+                GemInfo temp = allAroundGems[rand];
+                if (board.GetGem(temp.GetColumn(), temp.GetRow()) == null || temp.isFired > 0)
+                {
+                    allAroundGems.RemoveAt(rand);
                     continue;
                 }
                 temp.FireGem();
                 temp.bPatternApplied = true;
                 StartCoroutine(AfterExplode(6f, temp));
-                i++;
+                allAroundGems.RemoveAt(rand);
             }
+
+            checkIdx++;
         }
         yield return null;
     }
