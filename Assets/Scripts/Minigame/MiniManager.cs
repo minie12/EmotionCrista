@@ -16,7 +16,7 @@ public enum PatternType
 
 public enum LevelType
 {
-    EASY1,
+    EASY1 = 1,
     NORMAL1,
     HARD1,
     EASY2,
@@ -227,7 +227,8 @@ public class MiniManager : MonoBehaviour
 
     private void UpdatePatternLevel()
     {
-        miniGameLevel = GameManager.Get().GetMinigameLevel();
+        // GameManager에서 1: Easy, 2: Normal, 3: Hard 이므로 1을 빼서 사용
+        miniGameLevel = GameManager.Get().GetMinigameLevel() - 1;
         patternLevel = (storyRound) * 3 + miniGameLevel;
     }
 
