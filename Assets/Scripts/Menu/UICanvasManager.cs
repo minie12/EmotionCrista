@@ -26,6 +26,7 @@ public class UICanvasManager : MonoBehaviour
                 locationName = "로비";
                 break;
             case "LabCorridor":
+            case "LabCorridor_AC":
                 locationName = "상담실 복도";
                 break;
             case "DormCorridor":
@@ -103,6 +104,18 @@ public class UICanvasManager : MonoBehaviour
 
     public void TransferScene(string inSceneName)
     {
+        if (true == GameManager.Get().IsAfterCounsel())
+        {
+            string sceneName_AC = inSceneName + "_AC";
+
+            Scene scene = SceneManager.GetSceneByName(sceneName_AC);
+            if (scene != null)
+            {
+                if (-1 != scene.buildIndex)
+                    inSceneName = sceneName_AC;
+            }
+        }
+
         GO_mapContainer.SetActive(false);
 
         GameObject GO_flowchart = GameObject.Find("Flowchart");
@@ -122,10 +135,7 @@ public class UICanvasManager : MonoBehaviour
     {
         switch (inSceneName)
         {
-            case "LabCorridor":
-                if (bInHaveReport) return false;
-                break;
-
+            case "LabCorridor_AC":
             case "CounselRoom":
             case "PatrickLab":
             case "AndroidLab":

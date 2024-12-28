@@ -65,4 +65,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map/Lobby.unity
     guid: 7485645e37c41654aa0464054df2e2c0
+  - enabled: 1
+    path: Assets/Scenes/Map/LabCorridor_AC.unity
+    guid: ba2a9dd3a86068842976bedaa0bd2eef
+  - enabled: 1
+    path: Assets/Scenes/Map/Storage.unity
+    guid: 59b7572998c8ae04592c1dfefd066ae9
   m_configObjects: {}

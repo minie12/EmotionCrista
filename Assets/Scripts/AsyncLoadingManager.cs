@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -61,7 +61,7 @@ public class AsyncLoadingManager : MonoBehaviour
         }
 
         // Start Async Load
-        AsyncOperation oper = SceneManager.LoadSceneAsync("LabCorridor");
+        AsyncOperation oper = SceneManager.LoadSceneAsync("Dormitory");
         oper.allowSceneActivation = false;
 
         // Load Animation

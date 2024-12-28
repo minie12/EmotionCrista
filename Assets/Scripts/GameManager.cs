@@ -140,10 +140,8 @@ public class GameManager : MonoBehaviour
                     DebugPlayInfo.dayCount = DebugPlayInfo.characterIndex + 1;
 
                     DebugPlayInfo.bHaveReport = flowchart.GetBooleanVariable("HaveReport");
-                    // RedButton
 
                     DebugPlayInfo.endingMode = flowchart.GetIntegerVariable("EndingMode");
-
 
                     bool bCompletedStart = flowchart.GetBooleanVariable("CompletedStart");
                     if (true == bCompletedStart)
@@ -162,7 +160,6 @@ public class GameManager : MonoBehaviour
                     flowchart.SetIntegerVariable("CharacterIndex", currentPlayInfo.characterIndex);
 
                     flowchart.SetBooleanVariable("HaveReport", currentPlayInfo.bHaveReport);
-                    // RedButton
 
                     flowchart.SetIntegerVariable("EndingMode", currentPlayInfo.endingMode);
                 }
@@ -216,6 +213,21 @@ public class GameManager : MonoBehaviour
         return bClickedObject;
     }
 
+    public bool IsObjectClicked(string inSceneName, ClickableID inObjectFlag)
+    {
+        bool bClickedObject = false;
+
+        if (true == areaMap.ContainsKey(inSceneName))
+        {
+            if (null != areaMap[inSceneName])
+            {
+                bClickedObject = areaMap[inSceneName].IsObjectClicked(inObjectFlag);
+            }
+        }
+
+        return bClickedObject;
+    }
+
     public void GetAreaMap(ref Dictionary<string, Area> refAreaMap)
     {
         refAreaMap = areaMap;
@@ -243,8 +255,9 @@ public class GameManager : MonoBehaviour
         refPlayInfo.characterIndex = currentPlayInfo.characterIndex;
 
         refPlayInfo.bHaveReport = currentPlayInfo.bHaveReport;
-        refPlayInfo.bRedButtonPressed = currentPlayInfo.bRedButtonPressed;
         refPlayInfo.minigameLevel = currentPlayInfo.minigameLevel;
+
+        refPlayInfo.storyConditionState = currentPlayInfo.storyConditionState;
 
         refPlayInfo.endingMode = currentPlayInfo.endingMode;
     }
@@ -255,8 +268,9 @@ public class GameManager : MonoBehaviour
         currentPlayInfo.characterIndex = inPlayInfo.characterIndex;
 
         currentPlayInfo.bHaveReport = inPlayInfo.bHaveReport;
-        currentPlayInfo.bRedButtonPressed = inPlayInfo.bRedButtonPressed;
         currentPlayInfo.minigameLevel = inPlayInfo.minigameLevel;
+
+        currentPlayInfo.storyConditionState = inPlayInfo.storyConditionState;
 
         currentPlayInfo.endingMode = inPlayInfo.endingMode;
     }
@@ -266,9 +280,10 @@ public class GameManager : MonoBehaviour
         currentPlayInfo.characterIndex = GetPatientIndex(currentPlayInfo.dayCount);
 
         currentPlayInfo.bHaveReport = false;
-        currentPlayInfo.bRedButtonPressed = false;
+        currentPlayInfo.storyConditionState = StoryConditionState.None;
 
-        // refresh Area info
+        currentArea = null;
+        areaMap.Clear();
     }
 
     public void ResetPlayInfo()
@@ -307,17 +322,21 @@ public class GameManager : MonoBehaviour
     }
 
     #region GetterSetter
-    public bool IsRedButtonPressed() { return currentPlayInfo.bRedButtonPressed; }
+    public bool IsAfterCounsel() { return currentPlayInfo.bHaveReport; }
     public int GetDayCount() { return currentPlayInfo.dayCount; }
     public int GetCharacterIndex() { return currentPlayInfo.characterIndex; }
     public int GetMinigameLevel() { return currentPlayInfo.minigameLevel; }
     public int GetMinigameHistory() { return currentPlayInfo.minigameHistory; }
-    public void SetRedButtonPressed(bool bPressed) { currentPlayInfo.bRedButtonPressed = bPressed; }
+    public bool HasStoryConditionState(StoryConditionState inState) { return currentPlayInfo.storyConditionState.HasFlag(inState); }
     public void SetHaveReport(bool bInHaveReport) { currentPlayInfo.bHaveReport = bInHaveReport; }
     public void SetGameLevel(int inGameLevel) 
     { 
         currentPlayInfo.minigameLevel = inGameLevel;
         currentPlayInfo.minigameHistory = currentPlayInfo.minigameHistory * 10 + inGameLevel;
+    }
+    public void SetStoryConditionState(StoryConditionState inState)
+    {
+        currentPlayInfo.storyConditionState |= inState;
     }
     public void SetLoadData(EmoSaveData inLoadData) 
     {
