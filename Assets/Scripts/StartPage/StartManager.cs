@@ -23,6 +23,9 @@ public class StartManager : MonoBehaviour
         GameManager gameManager = GameManager.Get();
         if (null != gameManager)
         {
+            // DEBUG PURPOSE
+            SystemManager.Get().SetMultiRound(true);
+
             gameManager.ResetPlayInfo();
             SceneManager.LoadScene("FirstDayDorm");
         }

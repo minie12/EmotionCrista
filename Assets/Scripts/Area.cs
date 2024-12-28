@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor.XR;
 using UnityEngine;
 
 public enum ClickableID
@@ -16,6 +15,12 @@ public enum ClickableID
     CID_AndroidA,
 
     CID_Mascot,
+    CID_EmptyMascot,
+    CID_WaterBottles,
+    CID_StorageBox,
+
+    CID_BlueFluffy, // Lulian
+    CID_Pesticides, // Nish
 
     CID_Max
 }
@@ -136,22 +141,21 @@ public class Area
 
     public void OnObjectClicked(ClickableID inObjectID)
     {
-        if (true == clickableInfoMap.ContainsKey(inObjectID))
+        if (false == clickableInfoMap.ContainsKey(inObjectID))
         {
-            ClickableInfo clickableInfo = clickableInfoMap[inObjectID];
-
-            ++clickableInfo.clickCount;
+            clickableInfoMap[inObjectID] = new ClickableInfo();
+            clickableInfoMap[inObjectID].Reset();
         }
+
+        ClickableInfo clickableInfo = clickableInfoMap[inObjectID];
+        ++clickableInfo.clickCount;
     }
 
     public bool IsObjectClicked(ClickableID inObjectID)
     {
-        if (null != sceneScreenInfo)
+        if (true == clickableInfoMap.ContainsKey(inObjectID))
         {
-            if (true == clickableInfoMap.ContainsKey(inObjectID))
-            {
-                return (0 < clickableInfoMap[inObjectID].clickCount);
-            }
+            return (0 < clickableInfoMap[inObjectID].clickCount);
         }
 
         return false;

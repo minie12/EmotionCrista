@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+public enum StoryConditionState
+{
+    None = 0,
+    GaveBlueFluffy = 1,
+    PressedRedButton = 2,
+    SprayedPesticides = 4,
+
+    GetBlueFluffyBeforeCounsel = 8,
+}
+
 [System.Serializable]
 public struct PlayInfo
 {
@@ -11,26 +22,28 @@ public struct PlayInfo
     public int characterIndex;
 
     public bool bHaveReport;
-    public bool bRedButtonPressed;
 
     public int minigameLevel;
     public int minigameHistory;
 
     public int endingMode;
 
+    public StoryConditionState storyConditionState;
+
     public void Reset()
     {
-        playerName = "NoName";
+        playerName = " ";
         dayCount = 1;
         characterIndex = (int)CharacterName.Naria;
 
         bHaveReport = false;
-        bRedButtonPressed = false;
 
         minigameLevel = (int)LevelType.EASY1;
         minigameHistory = 0;
 
         endingMode = (int)EndingMode.None;
+
+        storyConditionState = StoryConditionState.None;
     }
 
     public void ResetAfterMinigame()
