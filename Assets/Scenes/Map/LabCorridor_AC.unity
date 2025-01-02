@@ -785,6 +785,30 @@ GameObject:
   - component: {fileID: 423907707}
   - component: {fileID: 423907706}
   - component: {fileID: 423907646}
+  - component: {fileID: 423907746}
+  - component: {fileID: 423907745}
+  - component: {fileID: 423907744}
+  - component: {fileID: 423907743}
+  - component: {fileID: 423907736}
+  - component: {fileID: 423907735}
+  - component: {fileID: 423907734}
+  - component: {fileID: 423907733}
+  - component: {fileID: 423907732}
+  - component: {fileID: 423907731}
+  - component: {fileID: 423907724}
+  - component: {fileID: 423907723}
+  - component: {fileID: 423907722}
+  - component: {fileID: 423907721}
+  - component: {fileID: 423907720}
+  - component: {fileID: 423907719}
+  - component: {fileID: 423907718}
+  - component: {fileID: 423907717}
+  - component: {fileID: 423907716}
+  - component: {fileID: 423907715}
+  - component: {fileID: 423907714}
+  - component: {fileID: 423907712}
+  - component: {fileID: 423907711}
+  - component: {fileID: 423907708}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -5646,6 +5670,51 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &423907708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1596
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!114 &423907709
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5770,6 +5839,96 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
+--- !u!114 &423907711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1595
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1594
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!114 &423907713
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5793,6 +5952,501 @@ MonoBehaviour:
   targetMethod: ShowAllClickables
   targetMethodText: 'ShowAllClickables (): Void'
   methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1593
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1592
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 5
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1591
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 5
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1590
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1589
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1588
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1587
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1586
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 4
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1585
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 4
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1584
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1583
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
   saveReturnValue: 0
   returnValueVariableKey: 
   returnValueType: System.Void
@@ -5966,6 +6620,276 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
+--- !u!114 &423907731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1582
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1581
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1580
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 3
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1579
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 3
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907735
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1578
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907736
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1577
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!114 &423907737
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -6129,6 +7053,186 @@ MonoBehaviour:
   targetMethod: HideAllClickables
   targetMethodText: 'HideAllClickables (): Void'
   methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907743
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1576
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907744
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1575
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907745
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1574
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 2
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &423907746
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423907623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1573
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: CleanClickableObject
+  targetMethodText: 'CleanClickableObject (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 2
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
   saveReturnValue: 0
   returnValueVariableKey: 
   returnValueType: System.Void
@@ -7818,7 +8922,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 655.38806
     y: 613.73785
-    width: 147.46838
+    width: 149.9999
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7964,7 +9068,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 653.5145
     y: 567.1229
-    width: 156.32915
+    width: 155.4053
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8184,7 +9288,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 667.096
     y: 1211.7379
-    width: 124.68357
+    width: 128.3783
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8326,7 +9430,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 667.61865
     y: 1253.8776
-    width: 143.67093
+    width: 144.5945
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8423,7 +9527,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 665.83655
     y: 1169.7637
-    width: 127.21522
+    width: 128.3783
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8515,7 +9619,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1034.086
     y: 1002.6391
-    width: 157.59497
+    width: 158.108
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8722,7 +9826,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 819.7829
     y: 1023.9942
-    width: 182.91144
+    width: 182.4323
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -8752,7 +9856,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 815.9595
     y: 979.2888
-    width: 191.7722
+    width: 193.24309
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -9303,7 +10407,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 655.68146
     y: 1086.23
-    width: 144.93674
+    width: 144.5945
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -9407,7 +10511,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 653.89935
     y: 1002.11633
-    width: 129.74686
+    width: 128.3783
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -9907,7 +11011,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 655.24817
     y: 1044.0905
-    width: 125.949394
+    width: 128.3783
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -10007,7 +11111,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1697.1401
     y: 548.8788
-    width: 136.07599
+    width: 136.48639
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -10143,7 +11247,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 653.3925
     y: 794.2427
-    width: 155.06332
+    width: 158.108
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -10197,7 +11301,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 649.54047
     y: 697.66235
-    width: 150.00003
+    width: 155.4053
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -10361,7 +11465,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 657.0396
     y: 748.4238
-    width: 136.07599
+    width: 141.89178
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -10439,7 +11543,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1118.9282
     y: 574.9542
-    width: 77.848114
+    width: 77.027
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -10510,7 +11614,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1105.4952
     y: 525.7005
-    width: 91.77217
+    width: 90.5405
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -10581,7 +11685,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1106.5249
     y: 474.02774
-    width: 86.70888
+    width: 85.1351
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -11457,9 +12561,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 610.5324
-    y: 399.79034
-    width: 139.87344
+    x: 615.59564
+    y: 447.89108
+    width: 141.89178
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -11469,6 +12573,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908068}
   commandList:
   - {fileID: 423907726}
+  - {fileID: 423907711}
   - {fileID: 423908071}
   - {fileID: 423908070}
   - {fileID: 423908057}
@@ -11477,6 +12582,7 @@ MonoBehaviour:
   - {fileID: 423908054}
   - {fileID: 423908053}
   - {fileID: 423908069}
+  - {fileID: 423907708}
   - {fileID: 423907725}
   suppressAllAutoSelections: 0
 --- !u!114 &423908073
@@ -11590,9 +12696,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 606.35504
-    y: 351.8233
-    width: 158.8608
+    x: 611.4183
+    y: 405.45566
+    width: 158.108
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -11602,12 +12708,14 @@ MonoBehaviour:
   eventHandler: {fileID: 423908073}
   commandList:
   - {fileID: 423907728}
+  - {fileID: 423907714}
   - {fileID: 423908076}
   - {fileID: 423908075}
   - {fileID: 423908060}
   - {fileID: 423908059}
   - {fileID: 423908058}
   - {fileID: 423908074}
+  - {fileID: 423907712}
   - {fileID: 423907727}
   suppressAllAutoSelections: 0
 --- !u!114 &423908078
@@ -11721,9 +12829,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 609.14215
-    y: 314.29706
-    width: 142.40509
+    x: 614.2054
+    y: 364.9294
+    width: 141.89178
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -11733,6 +12841,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908078}
   commandList:
   - {fileID: 423907730}
+  - {fileID: 423907716}
   - {fileID: 423908081}
   - {fileID: 423908080}
   - {fileID: 423908067}
@@ -11743,6 +12852,7 @@ MonoBehaviour:
   - {fileID: 423908062}
   - {fileID: 423908061}
   - {fileID: 423908079}
+  - {fileID: 423907715}
   - {fileID: 423907729}
   suppressAllAutoSelections: 0
 --- !u!114 &423908098
@@ -11856,9 +12966,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 635.15704
-    y: 261.07724
-    width: 141.13928
+    x: 640.2203
+    y: 311.7096
+    width: 141.89178
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -11868,9 +12978,11 @@ MonoBehaviour:
   eventHandler: {fileID: 423908098}
   commandList:
   - {fileID: 423907738}
+  - {fileID: 423907718}
   - {fileID: 423908101}
   - {fileID: 423908100}
   - {fileID: 423908099}
+  - {fileID: 423907717}
   - {fileID: 423907737}
   suppressAllAutoSelections: 0
 --- !u!114 &423908103
@@ -11984,9 +13096,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 624.38666
-    y: 220.05878
-    width: 160.12662
+    x: 627.8874
+    y: 270.69153
+    width: 158.108
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -11996,9 +13108,11 @@ MonoBehaviour:
   eventHandler: {fileID: 423908103}
   commandList:
   - {fileID: 423907740}
+  - {fileID: 423907720}
   - {fileID: 423908106}
   - {fileID: 423908105}
   - {fileID: 423908104}
+  - {fileID: 423907719}
   - {fileID: 423907739}
   suppressAllAutoSelections: 0
 --- !u!114 &423908108
@@ -12112,9 +13226,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 628.88666
-    y: 181.35597
-    width: 144.93674
+    x: 633.9499
+    y: 231.9889
+    width: 141.89178
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -12124,9 +13238,11 @@ MonoBehaviour:
   eventHandler: {fileID: 423908108}
   commandList:
   - {fileID: 423907742}
+  - {fileID: 423907722}
   - {fileID: 423908111}
   - {fileID: 423908110}
   - {fileID: 423908109}
+  - {fileID: 423907721}
   - {fileID: 423907741}
   suppressAllAutoSelections: 0
 --- !u!114 &423908128
@@ -12528,9 +13644,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 614.26263
-    y: 84.7699
-    width: 172.78485
+    x: 619.32587
+    y: 135.40283
+    width: 171.62149
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -12540,6 +13656,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908146}
   commandList:
   - {fileID: 423907752}
+  - {fileID: 423907732}
   - {fileID: 423908149}
   - {fileID: 423908148}
   - {fileID: 423908140}
@@ -12549,6 +13666,7 @@ MonoBehaviour:
   - {fileID: 423908136}
   - {fileID: 423908135}
   - {fileID: 423908147}
+  - {fileID: 423907731}
   - {fileID: 423907751}
   suppressAllAutoSelections: 0
 --- !u!114 &423908151
@@ -12662,9 +13780,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 625.033
-    y: 122.5715
-    width: 153.79752
+    x: 630.09625
+    y: 173.20444
+    width: 155.4053
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -12674,6 +13792,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908151}
   commandList:
   - {fileID: 423907750}
+  - {fileID: 423907724}
   - {fileID: 423908154}
   - {fileID: 423908153}
   - {fileID: 423908134}
@@ -12684,6 +13803,7 @@ MonoBehaviour:
   - {fileID: 423908129}
   - {fileID: 423908128}
   - {fileID: 423908152}
+  - {fileID: 423907723}
   - {fileID: 423907749}
   suppressAllAutoSelections: 0
 --- !u!114 &423908156
@@ -12797,9 +13917,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 618.76263
-    y: 46.066612
-    width: 170.2532
+    x: 623.82587
+    y: 96.69955
+    width: 168.9188
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -12809,6 +13929,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908156}
   commandList:
   - {fileID: 423907760}
+  - {fileID: 423907734}
   - {fileID: 423908159}
   - {fileID: 423908158}
   - {fileID: 423908145}
@@ -12817,6 +13938,7 @@ MonoBehaviour:
   - {fileID: 423908142}
   - {fileID: 423908141}
   - {fileID: 423908157}
+  - {fileID: 423907733}
   - {fileID: 423907759}
   suppressAllAutoSelections: 0
 --- !u!114 &423908197
@@ -13439,8 +14561,8 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 621.8514
-    y: -52.765076
-    width: 170.2532
+    y: -16.056198
+    width: 171.62149
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13450,6 +14572,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908231}
   commandList:
   - {fileID: 423907764}
+  - {fileID: 423907744}
   - {fileID: 423908198}
   - {fileID: 423908232}
   - {fileID: 423908211}
@@ -13458,6 +14581,7 @@ MonoBehaviour:
   - {fileID: 423908208}
   - {fileID: 423908207}
   - {fileID: 423908197}
+  - {fileID: 423907743}
   - {fileID: 423907763}
   suppressAllAutoSelections: 0
 --- !u!114 &423908234
@@ -13510,8 +14634,8 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 623.4394
-    y: -90.52553
-    width: 165.18991
+    y: -53.81665
+    width: 168.9188
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13521,6 +14645,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908234}
   commandList:
   - {fileID: 423907766}
+  - {fileID: 423907746}
   - {fileID: 423908200}
   - {fileID: 423908235}
   - {fileID: 423908227}
@@ -13528,6 +14653,7 @@ MonoBehaviour:
   - {fileID: 423908229}
   - {fileID: 423908230}
   - {fileID: 423908199}
+  - {fileID: 423907745}
   - {fileID: 423907765}
   suppressAllAutoSelections: 0
 --- !u!114 &423908237
@@ -13580,8 +14706,8 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 630.9156
-    y: -14.4813595
-    width: 151.26587
+    y: 22.227516
+    width: 155.4053
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13591,6 +14717,7 @@ MonoBehaviour:
   eventHandler: {fileID: 423908237}
   commandList:
   - {fileID: 423907762}
+  - {fileID: 423907736}
   - {fileID: 423908202}
   - {fileID: 423908238}
   - {fileID: 423908218}
@@ -13609,6 +14736,7 @@ MonoBehaviour:
   - {fileID: 423908213}
   - {fileID: 423908212}
   - {fileID: 423908201}
+  - {fileID: 423907735}
   - {fileID: 423907761}
   suppressAllAutoSelections: 0
 --- !u!114 &423908241
@@ -14155,7 +15283,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 496.30856
     y: 1223.6663
-    width: 114.556984
+    width: 114.8648
     height: 40
   tint: {r: 0.6666667, g: 0.5568628, b: 0.94509804, a: 1}
   useCustomTint: 1
@@ -14181,7 +15309,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 500.33728
     y: 1066.9406
-    width: 115.82281
+    width: 114.8648
     height: 40
   tint: {r: 0.5764706, g: 0.9647059, b: 0.53333336, a: 1}
   useCustomTint: 1
@@ -14207,7 +15335,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 486.4757
     y: 905.4305
-    width: 128.48105
+    width: 128.3783
     height: 40
   tint: {r: 0.90588236, g: 0.44313726, b: 0.44313726, a: 1}
   useCustomTint: 1
@@ -14235,7 +15363,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 484.57422
     y: 756.9391
-    width: 125.949394
+    width: 128.3783
     height: 40
   tint: {r: 0.5518868, g: 0.8659134, b: 1, a: 1}
   useCustomTint: 1
@@ -14272,7 +15400,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 477.2801
     y: 618.575
-    width: 120.8861
+    width: 120.270195
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14844,7 +15972,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 455.05646
     y: 399.80606
-    width: 113.29116
+    width: 112.162094
     height: 40
   tint: {r: 0.6666667, g: 0.5568628, b: 0.94509804, a: 1}
   useCustomTint: 1
@@ -14875,7 +16003,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 453.9249
     y: 275.43338
-    width: 114.556984
+    width: 112.162094
     height: 40
   tint: {r: 0.5764706, g: 0.9647059, b: 0.53333336, a: 1}
   useCustomTint: 1
@@ -16504,7 +17632,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 52.5944
     y: 771.14667
-    width: 115.82281
+    width: 117.5675
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -16611,7 +17739,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 37.70546
     y: 97.57236
-    width: 112.02534
+    width: 112.162094
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -16646,9 +17774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 452.60126
-    y: 147.81502
-    width: 127.21522
+    x: 453.86707
+    y: 136.4226
+    width: 125.6756
     height: 40
   tint: {r: 0.90588236, g: 0.44313726, b: 0.44313726, a: 1}
   useCustomTint: 1
@@ -17061,9 +18189,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 452.24686
-    y: 17.165743
-    width: 124.68357
+    x: 459.8417
+    y: -17.011486
+    width: 125.6756
     height: 40
   tint: {r: 0.5518868, g: 0.8659134, b: 1, a: 1}
   useCustomTint: 1
@@ -17123,9 +18251,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 453.2236
-    y: -96.13251
-    width: 119.62028
+    x: 467.14755
+    y: -160.6895
+    width: 117.5675
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -17250,7 +18378,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1478.5901
     y: 550.5381
-    width: 174.05067
+    width: 174.32419
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -17277,7 +18405,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -54.58372
     y: 336.91187
-    width: 76.58229
+    width: 74.324295
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -17310,11 +18438,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 519.33923, y: -506.6954}
+  scrollPos: {x: 1826.8228, y: 139.9292}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 643
-  zoom: 0.7899997
+  zoom: 0.3700004
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -17322,8 +18450,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 423908004}
-  selectedCommands: []
+  - {fileID: 423908072}
+  selectedCommands:
+  - {fileID: 423907711}
   variables:
   - {fileID: 423908390}
   - {fileID: 423908389}
