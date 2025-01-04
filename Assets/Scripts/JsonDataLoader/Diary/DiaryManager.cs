@@ -42,7 +42,7 @@ public class DiaryManager : MonoBehaviour
     {
         bool bMultiRound = SystemManager.Get().IsMultiRound();
         int characterIndex = GameManager.Get().GetCharacterIndex();
-        bool bRedButtonPressed = GameManager.Get().IsRedButtonPressed();
+        bool bRedButtonPressed = GameManager.Get().HasStoryConditionState(StoryConditionState.PressedRedButton);
 
         string DiaryTextData = DiaryDialogReader.GetDialogData(bMultiRound, characterIndex, bRedButtonPressed);
         string[] DiaryTexts = DiaryTextData.Split('/');

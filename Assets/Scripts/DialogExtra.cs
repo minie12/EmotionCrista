@@ -12,9 +12,29 @@ public class DialogExtra : MonoBehaviour
     private int razPoint;
 
     #region StoryCondition
+    public void IsMenuDialogActive()
+    {
+        bool bCondition = false;
+
+        GameObject menuDialogObj = GameObject.Find("MenuDialog");
+        if (null != menuDialogObj)
+        {
+            bCondition = menuDialogObj.activeSelf;
+        }
+
+        SetBoolCondition(bCondition);
+    }
+
     public void IsObjectClicked(ClickableID inObjectFlag)
     {
         bool bCondition = GameManager.Get().IsObjectClicked(inObjectFlag);
+
+        SetBoolCondition(bCondition);
+    }
+
+    public void IsObjectClicked(string inSceneName, ClickableID inObjectFlag)
+    {
+        bool bCondition = GameManager.Get().IsObjectClicked(inSceneName, inObjectFlag);
 
         SetBoolCondition(bCondition);
     }
@@ -26,9 +46,11 @@ public class DialogExtra : MonoBehaviour
         SetBoolCondition(bCondition);
     }
 
-    public void HasSprayedPesticides()
+    public void HasStoryConditionState(StoryConditionState inState)
     {
+        bool bCondition = (GameManager.Get().HasStoryConditionState(inState));
 
+        SetBoolCondition(bCondition);
     }
 
     private void SetBoolCondition(bool bInCondition)
@@ -164,31 +186,10 @@ public class DialogExtra : MonoBehaviour
         GameManager.Get().ResetAfterMinigame();
     }
 
-    public void SetRedButtonPressed(bool bPressed)
+    public void SetStoryConditionState(StoryConditionState inState)
     {
-        GameManager.Get().SetRedButtonPressed(bPressed);
+        GameManager.Get().SetStoryConditionState(inState);
     }
-
-    //public void EraseClickable(GameObject location)
-    //{
-    //    foreach (Transform children in location.transform)
-    //    {
-    //        GameObject.Destroy(children.gameObject);
-    //    }
-    //}
-
-    //public void LoadPlayerPrefs()
-    //{
-    //    if (!PlayerPrefs.HasKey("LoadData") || PlayerPrefs.GetInt("LoadData") == 0)
-    //        return;
-
-    //    PlayerPrefs.SetInt("LoadData", 0);
-
-    //    Fungus.Flowchart flowchart = GameObject.Find("Flowchart").GetComponent<Fungus.Flowchart>();
-
-    //    flowchart.SetStringVariable("PlayerName", PlayerPrefs.GetString("PlayerName"));
-    //    flowchart.SetStringVariable("StoryNumb", PlayerPrefs.GetString("StoryNumb"));
-    //}
 
     #region Minigame
     public void RestartPuzzle()

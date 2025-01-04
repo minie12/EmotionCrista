@@ -930,6 +930,7 @@ GameObject:
   - component: {fileID: 1106063437}
   - component: {fileID: 1106063433}
   - component: {fileID: 1106063505}
+  - component: {fileID: 1106063506}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1134,6 +1135,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 1106063426}
   commandList:
+  - {fileID: 1106063506}
   - {fileID: 1106063430}
   - {fileID: 1106063436}
   - {fileID: 1106063438}
@@ -1155,7 +1157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 519.6218, y: 326.28433}
+  scrollPos: {x: 1055.5593, y: 270.03433}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -1167,8 +1169,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1106063437}
-  selectedCommands: []
+  - {fileID: 1106063427}
+  selectedCommands:
+  - {fileID: 1106063506}
   variables:
   - {fileID: 1106063425}
   - {fileID: 1106063424}
@@ -7388,6 +7391,26 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
+--- !u!114 &1106063506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106063416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7800847d47e4f7d4ba719ad21678797c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 833
+  indentLevel: 0
+  IntroClip: {fileID: 8300000, guid: adde3076327303e49ad00cb6b6c20c02, type: 3}
+  LoopClip: {fileID: 8300000, guid: 380d899846991b0469c32dec5dae8c6b, type: 3}
+  atTime: 0
+  loop: 1
+  fadeDuration: 0
+  bFadeIn: 0
 --- !u!1 &1423757301
 GameObject:
   m_ObjectHideFlags: 0
