@@ -41,30 +41,30 @@ public class PatternYellow : PatternManager
         // [TODO] ��ȹ
         switch (level_)
         {
-            case 0:
+            case (int)LevelType.EASY1:
                 StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, (int)GoalUnit.THREE);
                 break;
-            case 1:
+            case (int)LevelType.NORMAL1:
                 StartGimmick(1);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, (int)GoalUnit.THREE);
                 break;
-            case 2:
+            case (int)LevelType.HARD1:
                 StartGimmick(0);
                 StartGimmick(1);
                 StartGimmick(2);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, (int)GoalUnit.THREE);
                 break;
-            case 3:
+            case (int)LevelType.EASY2:
                 StartGimmick(0);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, (int)GoalUnit.THREE);
                 break;
-            case 4:
+            case (int)LevelType.NORMAL2:
                 StartGimmick(0);
                 StartGimmick(1);
                 mini.SetGameTimeInit(200f, 2f, 1f, 100f, 3.6f, (int)GoalUnit.THREE);
                 break;
-            case 5:
+            case (int)LevelType.HARD2:
                 StartGimmick(0);
                 StartGimmick(1);
                 StartGimmick(2);

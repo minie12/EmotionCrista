@@ -100,7 +100,7 @@ public class MiniManager : MonoBehaviour
     {
         // D0회차_내담자이름난이도
         string characterName = Enum.GetName(typeof(CharacterName), patternIdx);
-        string[] levelName = { "Easy", "Normal", "Hard" };
+        string[] levelName = { "", "Easy", "Normal", "Hard" };
         string message = "D" + string.Format("{0:D2}", storyRound + 1) + "_" + characterName + levelName[miniGameLevel];
 
         return message;
@@ -227,8 +227,8 @@ public class MiniManager : MonoBehaviour
 
     private void UpdatePatternLevel()
     {
-        // GameManager에서 1: Easy, 2: Normal, 3: Hard 이므로 1을 빼서 사용
-        miniGameLevel = GameManager.Get().GetMinigameLevel() - 1;
+        // GameManager에서 1: Easy, 2: Normal, 3: Hard
+        miniGameLevel = GameManager.Get().GetMinigameLevel();
         patternLevel = (storyRound) * 3 + miniGameLevel;
     }
 

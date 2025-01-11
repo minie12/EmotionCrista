@@ -151,24 +151,24 @@ public class PatternRed : PatternManager
         // [TODO] 기획
         switch (mini.patternLevel)
         {
-            case 0:
+            case (int)LevelType.EASY1:
                 StartGimmick(2);
                 break;
-            case 1:
+            case (int)LevelType.NORMAL1:
                 StartGimmick(2);
                 break;
-            case 2:
+            case (int)LevelType.HARD1:
                 StartGimmick(1);
                 StartGimmick(2);
                 break;
-            case 3:
+            case (int)LevelType.EASY2:
                 StartGimmick(2);
                 break;
-            case 4:
+            case (int)LevelType.NORMAL2:
                 StartGimmick(1);
                 StartGimmick(2);
                 break;
-            case 5:
+            case (int)LevelType.HARD2:
                 StartGimmick(1);
                 StartGimmick(2);
                 break;
