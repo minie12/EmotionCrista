@@ -1,0 +1,82 @@
+[
+  {
+    "name": "yellow",
+    "boardSettings": {
+      "fullPlayTime": [200, 200, 200, 200, 200, 200],
+      "playTimeSpeed": [2, 2, 2, 2, 2, 2],
+      "crushedGaugeTime": [1, 1, 1, 1, 1, 1],
+      "fullScore": [100, 100, 100, 100, 100, 100],
+      "scoreSpeed": [3.6, 3.6, 3.6, 3.6, 3.6, 3.6],
+      "goalUnit": [1, 1, 1, 1, 1, 1]
+    },
+    "gimmick": {
+      "cnt": 3,
+      "type": [[0], [1], [0, 1, 2], [0], [0, 1], [0, 1, 2]],
+      "failGaugeMount": [0, 0, 0]
+    }
+  },
+  {
+    "name": "blue",
+    "boardSettings": {
+      "fullPlayTime": [200, 200, 200, 200, 200, 200],
+      "playTimeSpeed": [2, 2, 2, 2, 2, 2],
+      "crushedGaugeTime": [1, 1, 1, 1, 1, 1],
+      "fullScore": [100, 100, 100, 100, 100, 100],
+      "scoreSpeed": [3.6, 3.6, 3.6, 3.6, 3.6, 3.6],
+      "goalUnit": [1, 1, 1, 1, 1, 1]
+    },
+    "gimmick": {
+      "cnt": 3,
+      "type": [[0], [1], [0, 2], [0], [1, 2], [0, 1, 2]],
+      "failGaugeMount": [0, 3, 10]
+    }
+  },
+  {
+    "name": "red",
+    "boardSettings": {
+      "fullPlayTime": [200, 200, 200, 200, 200, 200],
+      "playTimeSpeed": [2, 2, 2, 2, 2, 2],
+      "crushedGaugeTime": [1, 1, 1, 1, 1, 1],
+      "fullScore": [100, 100, 100, 100, 100, 100],
+      "scoreSpeed": [3.6, 3.6, 3.6, 3.6, 3.6, 3.6],
+      "goalUnit": [1, 1, 1, 1, 1, 1]
+    },
+    "gimmick": {
+      "cnt": 3,
+      "type": [[2], [2], [1, 2], [2], [1, 2], [1, 2]],
+      "failGaugeMount": [0, 0, 0]
+    }
+  },
+  {
+    "name": "green",
+    "boardSettings": {
+      "fullPlayTime": [200, 200, 200, 200, 200, 200],
+      "playTimeSpeed": [2, 2, 2, 2, 2, 2],
+      "crushedGaugeTime": [1, 1, 1, 1, 1, 1],
+      "fullScore": [100, 100, 100, 100, 100, 100],
+      "scoreSpeed": [3.6, 3.6, 3.6, 3.6, 3.6, 3.6],
+      "goalUnit": [1, 1, 1, 1, 1, 1]
+    },
+    "gimmick": {
+      "cnt": 2,
+      "type": [[0], [1], [0, 1], [0], [0, 1], [0, 1]],
+      "failGaugeMount": [0, 0]
+    }
+  },
+  {
+    "name": "purple",
+    "boardSettings": {
+      "fullPlayTime": [200, 200, 200, 200, 200, 200],
+      "playTimeSpeed": [2, 2, 2, 2, 2, 2],
+      "crushedGaugeTime": [1, 1, 1, 1, 1, 1],
+      "fullScore": [100, 100, 100, 100, 100, 100],
+      "scoreSpeed": [3.6, 3.6, 3.6, 3.6, 3.6, 3.6],
+      "goalUnit": [1, 1, 1, 1, 1, 1]
+    },
+    "gimmick": {
+      "cnt": 2,
+      "type": [[0], [1], [0, 1], [0], [0, 1], [0, 1]],
+      "failGaugeMount": [0, 0]
+    }
+  }
+]

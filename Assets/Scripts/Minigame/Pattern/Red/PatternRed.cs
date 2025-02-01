@@ -146,33 +146,6 @@ public class PatternRed : PatternManager
         base.RestartPattern();
 
         gimmick[0] = true;
-        mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.TWO);
-
-        // [TODO] 기획
-        switch (mini.patternLevel)
-        {
-            case (int)LevelType.EASY1:
-                StartGimmick(2);
-                break;
-            case (int)LevelType.NORMAL1:
-                StartGimmick(2);
-                break;
-            case (int)LevelType.HARD1:
-                StartGimmick(1);
-                StartGimmick(2);
-                break;
-            case (int)LevelType.EASY2:
-                StartGimmick(2);
-                break;
-            case (int)LevelType.NORMAL2:
-                StartGimmick(1);
-                StartGimmick(2);
-                break;
-            case (int)LevelType.HARD2:
-                StartGimmick(1);
-                StartGimmick(2);
-                break;
-        }
     }
 
     // get explosion gem cnt on percentage

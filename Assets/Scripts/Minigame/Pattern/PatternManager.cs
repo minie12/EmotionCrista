@@ -11,18 +11,14 @@ public class PatternManager : MonoBehaviour
     protected MiniManager mini;
     protected BoardManager board;
     protected bool[] gimmick; // manage current running gimmick
+    protected PatternConfig patternConfig; // 패턴 관련 설정들
 
     // chat UI 
     protected string[] chatTextInfo;
     protected int chatTextIdx = 0;
 
-    // yellow, blue, red, green, purple
-    private readonly int[] gimmickCnt = new int[5] { 3, 3, 3, 2, 2 };
-    private readonly List<List<int>> failGaugeMount = new List<List<int>> { new List<int> { 0, 0, 0 },
-                                                                            new List<int> { 0, 3, 10 },
-                                                                            new List<int> { 0, 0, 0 },
-                                                                            new List<int> { 0, 0 },
-                                                                            new List<int> { 0, 0 }};
+    // 기믹 실패했을 때, 떨어지는 게이지량
+    private List<int> failGaugeMount;
 
     protected virtual void Awake(){
         UICanvas = GameObject.Find("PatternCanvas");
@@ -36,7 +32,9 @@ public class PatternManager : MonoBehaviour
     virtual public void StartPattern(int level_) 
     {
         mini.patternLevel = level_;
-        gimmick = new bool[gimmickCnt[mini.patternIdx]];
+        patternConfig = PatternConfigReader.GetPatternConfig(mini.patternIdx);
+        failGaugeMount = patternConfig.gimmick.failGaugeMount;
+        gimmick = new bool[patternConfig.gimmick.cnt];
         OrganizeCharacterChat();
     }
 
@@ -49,7 +47,7 @@ public class PatternManager : MonoBehaviour
         }
 
         // stop all gimmick
-        for (int i = 0; i < gimmickCnt[mini.patternIdx]; i++)
+        for (int i = 0; i < patternConfig.gimmick.cnt; i++)
         {
             StopGimmick(i);
         }
@@ -64,7 +62,16 @@ public class PatternManager : MonoBehaviour
     }
     
     // 이어하기에 가까운 함수 !!
-    virtual public void RestartPattern() { }
+    virtual public void RestartPattern() 
+    {
+        BoardSettings set = patternConfig.boardSettings;
+        int level = mini.patternLevel - 1; // 0 ~ 5
+        mini.SetGameTimeInit(set.fullPlayTime[level], set.playTimeSpeed[level], set.crushedGaugeTime[level], set.fullScore[level], set.scoreSpeed[level], set.goalUnit[level]);
+        foreach (int gimmick_num in patternConfig.gimmick.type[level])
+        {
+            this.StartGimmick(gimmick_num);
+        }
+    }
 
     private void OrganizeCharacterChat(){
         chatTextIdx = 0;
@@ -97,6 +104,6 @@ public class PatternManager : MonoBehaviour
 
     public void SetFailGaugeMount(int gimmick_)
     {
-        mini.SetPlayTime((float)failGaugeMount[mini.patternIdx][gimmick_]);
+        mini.SetPlayTime((float)failGaugeMount[gimmick_]);
     }
 }

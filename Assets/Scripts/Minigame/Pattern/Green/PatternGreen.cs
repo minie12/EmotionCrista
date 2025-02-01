@@ -61,37 +61,6 @@ public class PatternGreen : PatternManager
     public override void RestartPattern()
     {
         base.RestartPattern();
-
-        // [TODO] 기획
-        switch (mini.patternLevel)
-        {
-            case (int)LevelType.EASY1:
-                StartGimmick(0);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
-                break;
-            case (int)LevelType.NORMAL1:
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
-                break;
-            case (int)LevelType.HARD1:
-                StartGimmick(0);
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
-                break;
-            case (int)LevelType.EASY2:
-                StartGimmick(0);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
-                break;
-            case (int)LevelType.NORMAL2:
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
-                break;
-            case (int)LevelType.HARD2:
-                StartGimmick(0);
-                StartGimmick(1);
-                mini.SetGameTimeInit(200f, 2f, 1f, 100f, 2.8f, (int)GoalUnit.THREE);
-                break;
-        }
     }
 
     public override void StopPattern()
