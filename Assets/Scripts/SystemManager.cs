@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Net;
+using Fungus;
+using UnityEngine.Rendering;
 
 [System.Serializable]
 struct GameSettingData
@@ -77,40 +79,70 @@ public class SystemManager  : MonoBehaviour
     { 
         gameSetting.bMuteSFX = !gameSetting.bMuteSFX;
 
-        float audioVolume = 0f;
-
-        if (false == gameSetting.bMuteSFX)
+        if ((false == gameSetting.bMuteSFX) && (Mathf.Approximately(gameSetting.SFXVolume, 0f)))
         {
-            if (Mathf.Approximately(gameSetting.SFXVolume, 0f))
-            {
-                gameSetting.SFXVolume = 0.1f;
-            }
-
-            audioVolume = gameSetting.SFXVolume;
+            gameSetting.SFXVolume = 0.1f;
         }
     }
     public bool IsSFXMuted() { return gameSetting.bMuteSFX; }
-    public float GetSFXVolume() { return gameSetting.SFXVolume; }
-    public void SetSFXVolume(float inVolume) { gameSetting.SFXVolume = inVolume; }
+    public float GetSFXVolume() 
+    {
+        if (gameSetting.bMuteSFX)
+        {
+            return 0.0f;
+        }
+        else 
+        { 
+            return gameSetting.SFXVolume;
+        }
+    }
+    public void SetSFXVolume(float inVolume) 
+    { 
+        gameSetting.SFXVolume = inVolume;
+
+        gameSetting.bMuteSFX = (Mathf.Approximately(gameSetting.SFXVolume, 0f));
+    }
+
     public void ToggleMuteBGM() 
     { 
         gameSetting.bMuteBGM = !gameSetting.bMuteBGM;
 
-        float audioVolume = 0f;
-
-        if (false == gameSetting.bMuteBGM)
+        if ((false == gameSetting.bMuteBGM) && (Mathf.Approximately(gameSetting.BGMVolume, 0f)))
         {
-            if (Mathf.Approximately(gameSetting.BGMVolume, 0f))
-            {
-                gameSetting.BGMVolume = 0.1f;
-            }
-
-            audioVolume = gameSetting.BGMVolume;
+            gameSetting.BGMVolume = 0.1f;
         }
+
+        OnBGMVolumeChanged();
     }
     public bool IsBGMMuted() { return gameSetting.bMuteBGM; }
-    public float GetBGMVolume() { return gameSetting.BGMVolume; }
-    public void SetBGMVolume(float inVolume) { gameSetting.BGMVolume = inVolume; }
+    public float GetBGMVolume() 
+    {
+        if (gameSetting.bMuteBGM)
+        {
+            return 0.0f;
+        }
+        else
+        {
+            return gameSetting.BGMVolume;
+        }
+    }
+    public void SetBGMVolume(float inVolume) 
+    { 
+        gameSetting.BGMVolume = inVolume;
+
+        gameSetting.bMuteBGM = (Mathf.Approximately(gameSetting.BGMVolume, 0f));
+
+        OnBGMVolumeChanged();
+    }
+
+    private void OnBGMVolumeChanged()
+    {
+        float audioVolume = (gameSetting.bMuteBGM) ? 0f : gameSetting.BGMVolume;
+
+        var musicManager = FungusManager.Instance.MusicManager;
+
+        musicManager.SetAudioVolume(audioVolume, 0.0f, null);
+    }
 
     public void SaveGameSetting()
     {

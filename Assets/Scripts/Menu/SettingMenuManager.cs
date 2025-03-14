@@ -96,18 +96,23 @@ public class SettingMenuManager : MonoBehaviour
     public void SetSFXVolume(float inVolume)
     {
         SystemManager systemManager = SystemManager.Get();
-        if ((null != systemManager) && (false == systemManager.IsSFXMuted()))
+        if (null != systemManager)
         {
-            systemManager.SetSFXVolume(inVolume);
-        }
+            if ((true == systemManager.IsSFXMuted()) && (Mathf.Approximately(inVolume, 0f)))
+            {
+                return;
+            }
 
-        if (Mathf.Approximately(inVolume, 0f))
-        {
-            SFXIcon.sprite = MuteSFXSprite;
-        }
-        else
-        {
-            SFXIcon.sprite = PlaySFXSprite;
+            systemManager.SetSFXVolume(inVolume);
+
+            if (Mathf.Approximately(inVolume, 0f))
+            {
+                SFXIcon.sprite = MuteSFXSprite;
+            }
+            else
+            {
+                SFXIcon.sprite = PlaySFXSprite;
+            }
         }
     }
 
@@ -133,18 +138,23 @@ public class SettingMenuManager : MonoBehaviour
     public void SetBGMVolume(float inVolume)
     {
         SystemManager systemManager = SystemManager.Get();
-        if ((null != systemManager) && (false == systemManager.IsBGMMuted()))
+        if (null != systemManager)
         {
-            systemManager.SetBGMVolume(inVolume);
-        }
+            if ((true == systemManager.IsBGMMuted()) && (Mathf.Approximately(inVolume, 0f)))
+            {
+                return;
+            }
 
-        if (Mathf.Approximately(inVolume, 0f))
-        {
-            BGMIcon.sprite = MuteBGMSprite;
-        }
-        else
-        {
-            BGMIcon.sprite = PlayBGMSprite;
+            systemManager.SetBGMVolume(inVolume);
+
+            if (Mathf.Approximately(inVolume, 0f))
+            {
+                BGMIcon.sprite = MuteBGMSprite;
+            }
+            else
+            {
+                BGMIcon.sprite = PlayBGMSprite;
+            }
         }
     }
 }
