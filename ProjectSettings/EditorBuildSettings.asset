@@ -42,33 +42,33 @@ EditorBuildSettings:
     path: Assets/Scenes/DayEnd.unity
     guid: e4f5e8eba2100f5409a0963ce9b5a278
   - enabled: 1
-    path: Assets/Scenes/Map/LabCorridor.unity
+    path: Assets/Scenes/OldMap/LabCorridor.unity
     guid: 5aeb40f376f8be2418510f5761602689
   - enabled: 1
-    path: Assets/Scenes/Map/PatrickLab.unity
+    path: Assets/Scenes/OldMap/PatrickLab.unity
     guid: 3d8c698f154f8c84fad181ec49266bc3
   - enabled: 1
-    path: Assets/Scenes/Map/CounselRoom.unity
+    path: Assets/Scenes/OldMap/CounselRoom.unity
     guid: d6721677b411fd7448bff05a5e7ac304
   - enabled: 1
-    path: Assets/Scenes/Map/AndroidLab.unity
+    path: Assets/Scenes/OldMap/AndroidLab.unity
     guid: e3535f6c799c14a4287f8d4366ac74b6
   - enabled: 1
-    path: Assets/Scenes/Map/Dormitory.unity
+    path: Assets/Scenes/OldMap/Dormitory.unity
     guid: 5534d7186c0b9194c8a8c59af8830b10
   - enabled: 1
-    path: Assets/Scenes/Map/FirstDayDorm.unity
+    path: Assets/Scenes/OldMap/FirstDayDorm.unity
     guid: 9dece3f25706ff243998ec4cbfffa9ee
   - enabled: 1
-    path: Assets/Scenes/Map/DormCorridor.unity
+    path: Assets/Scenes/OldMap/DormCorridor.unity
     guid: c395e1ba81a886c47810dfeffb7c2b69
   - enabled: 1
-    path: Assets/Scenes/Map/Lobby.unity
+    path: Assets/Scenes/OldMap/Lobby.unity
     guid: 7485645e37c41654aa0464054df2e2c0
   - enabled: 1
-    path: Assets/Scenes/Map/LabCorridor_AC.unity
+    path: Assets/Scenes/OldMap/LabCorridor_AC.unity
     guid: ba2a9dd3a86068842976bedaa0bd2eef
   - enabled: 1
-    path: Assets/Scenes/Map/Storage.unity
+    path: Assets/Scenes/OldMap/Storage.unity
     guid: 59b7572998c8ae04592c1dfefd066ae9
   m_configObjects: {}
