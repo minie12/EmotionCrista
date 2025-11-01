@@ -38,7 +38,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: Windows
+          targetPlatform: StandaloneWindows64
       
       # Step4 - Upload Build File
       - name: Upload Build File
