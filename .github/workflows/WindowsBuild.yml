@@ -27,8 +27,7 @@ jobs:
         with: 
           path: Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
+          restore-keys: Library-
 
       # Step3 - Unity Build
       - name: Unity Build
