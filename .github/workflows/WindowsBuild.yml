@@ -3,6 +3,9 @@ name: UnityWindowsBuild
 on:
   workflow_dispatch:
 
+env:
+  UNITY_VERSION: 2020.3.18f1
+
 permissions: write-all
   
 jobs:
