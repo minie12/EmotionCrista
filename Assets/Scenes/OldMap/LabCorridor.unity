@@ -1238,16 +1238,12 @@ GameObject:
   - component: {fileID: 605049619}
   - component: {fileID: 605049641}
   - component: {fileID: 605049769}
-  - component: {fileID: 605049768}
-  - component: {fileID: 605049767}
   - component: {fileID: 605049529}
-  - component: {fileID: 605049737}
   - component: {fileID: 605049545}
   - component: {fileID: 605049608}
   - component: {fileID: 605049604}
   - component: {fileID: 605049549}
   - component: {fileID: 605049538}
-  - component: {fileID: 605049726}
   - component: {fileID: 605049597}
   - component: {fileID: 605049531}
   - component: {fileID: 605049642}
@@ -1433,6 +1429,10 @@ GameObject:
   - component: {fileID: 605048983}
   - component: {fileID: 605048982}
   - component: {fileID: 605048976}
+  - component: {fileID: 605049038}
+  - component: {fileID: 605049041}
+  - component: {fileID: 605049040}
+  - component: {fileID: 605049039}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 1
   key: CharacterIndex
-  value: 1
+  value: 2
 --- !u!114 &605048967
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 1278.826, y: 160.50815}
+  scrollPos: {x: 1074.9801, y: -195.26076}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 643
@@ -1531,9 +1531,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 605049315}
-  selectedCommands:
-  - {fileID: 605049033}
+  - {fileID: 605049178}
+  selectedCommands: []
   variables:
   - {fileID: 605048978}
   - {fileID: 605048977}
@@ -1730,7 +1729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 1
   key: MultiRound
-  value: 0
+  value: 1
 --- !u!114 &605048978
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1780,7 +1779,6 @@ MonoBehaviour:
   - {fileID: 605049384}
   - {fileID: 605049660}
   - {fileID: 605049659}
-  - {fileID: 605049658}
   - {fileID: 605049551}
   - {fileID: 605049608}
   - {fileID: 605049604}
@@ -1799,6 +1797,7 @@ MonoBehaviour:
   - {fileID: 605049655}
   - {fileID: 605049654}
   - {fileID: 605049653}
+  - {fileID: 605049658}
   - {fileID: 605049548}
   - {fileID: 605049552}
   - {fileID: 605049554}
@@ -5200,6 +5199,186 @@ MonoBehaviour:
         PublicKeyToken=null
       typeFullname: ClickableID
       intValue: 5
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &605049038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605048965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1593
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: OnObjectClicked
+  targetMethodText: 'OnObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 3
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &605049039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605048965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1596
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: IsObjectClicked
+  targetMethodText: 'IsObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 6
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &605049040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605048965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1595
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: IsObjectClicked
+  targetMethodText: 'IsObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 7
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &605049041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605048965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1594
+  indentLevel: 0
+  description: 
+  targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
+  targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogExtra
+  targetMethod: IsObjectClicked
+  targetMethodText: 'IsObjectClicked (ClickableID): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      typeFullname: ClickableID
+      intValue: 3
       boolValue: 0
       floatValue: 0
       stringValue: 
@@ -15244,7 +15423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 840
-  indentLevel: 1
+  indentLevel: 2
 --- !u!114 &605049457
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -16111,7 +16290,7 @@ MonoBehaviour:
       typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       typeFullname: ClickableID
-      intValue: 3
+      intValue: 7
       boolValue: 0
       floatValue: 0
       stringValue: 
@@ -17277,7 +17456,7 @@ MonoBehaviour:
   eventHandler: {fileID: 605049502}
   commandList:
   - {fileID: 605049369}
-  - {fileID: 605049737}
+  - {fileID: 605049039}
   - {fileID: 605049545}
   - {fileID: 605049506}
   - {fileID: 605049505}
@@ -17526,7 +17705,7 @@ MonoBehaviour:
   eventHandler: {fileID: 605049510}
   commandList:
   - {fileID: 605049486}
-  - {fileID: 605049767}
+  - {fileID: 605049041}
   - {fileID: 605049537}
   - {fileID: 605049514}
   - {fileID: 605049513}
@@ -17537,7 +17716,7 @@ MonoBehaviour:
   - {fileID: 605049533}
   - {fileID: 605049532}
   - {fileID: 605049535}
-  - {fileID: 605049768}
+  - {fileID: 605049038}
   - {fileID: 605049482}
   suppressAllAutoSelections: 0
 --- !u!114 &605049518
@@ -17775,7 +17954,7 @@ MonoBehaviour:
   eventHandler: {fileID: 605049518}
   commandList:
   - {fileID: 605049478}
-  - {fileID: 605049726}
+  - {fileID: 605049040}
   - {fileID: 605049529}
   - {fileID: 605049522}
   - {fileID: 605049521}
@@ -18537,7 +18716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1291
-  indentLevel: 1
+  indentLevel: 2
   anyOrAllConditions: 0
   conditions:
   - compareOperator: 0
@@ -18780,7 +18959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1501
-  indentLevel: 1
+  indentLevel: 2
   description: 
   targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
   targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -19185,7 +19364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 949
-  indentLevel: 2
+  indentLevel: 3
   storyText: "\uAE34\uC7A5\uB41C\uB2E4. \uC0C1\uB2F4 \uC2DC\uC791 \uC804 \uD328\uD2B8\uB9AD
     \uAD00\uB9AC\uC790\uB2D8\uAED8 \uC0C1\uD669\uC744 \uC5EC\uCB64\uBCF4\uC790."
   description: 
@@ -19213,7 +19392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 948
-  indentLevel: 2
+  indentLevel: 3
 --- !u!114 &605049548
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -19241,7 +19420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1289
-  indentLevel: 1
+  indentLevel: 2
   anyOrAllConditions: 0
   conditions:
   - compareOperator: 0
@@ -19484,7 +19663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1500
-  indentLevel: 1
+  indentLevel: 2
   description: 
   targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
   targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -19529,7 +19708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 944
-  indentLevel: 0
+  indentLevel: 1
   anyOrAllConditions: 0
   conditions:
   - compareOperator: 0
@@ -21779,7 +21958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1287
-  indentLevel: 1
+  indentLevel: 2
   anyOrAllConditions: 0
   conditions:
   - compareOperator: 0
@@ -22022,7 +22201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1018
-  indentLevel: 1
+  indentLevel: 2
 --- !u!114 &605049606
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -22036,7 +22215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1017
-  indentLevel: 2
+  indentLevel: 3
 --- !u!114 &605049607
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -22050,7 +22229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1016
-  indentLevel: 2
+  indentLevel: 3
   storyText: "\uD328\uD2B8\uB9AD \uAD00\uB9AC\uC790\uB2D8\uC774 \uD558\uC2E4 \uB9D0\uC500\uC774
     \uC788\uC5B4\uBCF4\uC778\uB2E4."
   description: 
@@ -22078,7 +22257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1286
-  indentLevel: 1
+  indentLevel: 2
   description: 
   targetObject: {fileID: 5197354369245054770, guid: fcd892495a99d3148b357fe97764f5fa, type: 3}
   targetComponentAssemblyName: DialogExtra, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -22123,7 +22302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1014
-  indentLevel: 0
+  indentLevel: 1
   anyOrAllConditions: 0
   conditions:
   - compareOperator: 0
@@ -23443,7 +23622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1078
-  indentLevel: 1
+  indentLevel: 2
 --- !u!114 &605049654
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -23457,7 +23636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1077
-  indentLevel: 2
+  indentLevel: 3
 --- !u!114 &605049655
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -23471,7 +23650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1076
-  indentLevel: 2
+  indentLevel: 3
   storyText: "\uD328\uD2B8\uB9AD \uAD00\uB9AC\uC790\uB2D8\uC758 \uBD84\uC704\uAE30\uAC00
     \uC2E0\uACBD\uC4F0\uC778\uB2E4. \uB9D0\uC744 \uAC78\uC5B4\uBCFC\uAE4C?"
   description: 
@@ -23499,7 +23678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1074
-  indentLevel: 0
+  indentLevel: 1
   anyOrAllConditions: 0
   conditions:
   - compareOperator: 0
@@ -25644,51 +25823,6 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
---- !u!114 &605049726
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605048965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 1296
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 1647704569}
-  targetComponentAssemblyName: GameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: GameManager
-  targetMethod: IsObjectClicked
-  targetMethodText: 'IsObjectClicked (ClickableID): Boolean'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      typeFullname: ClickableID
-      intValue: 7
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Boolean
-  showInherited: 0
-  callMode: 0
 --- !u!114 &605049727
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -25793,51 +25927,6 @@ MonoBehaviour:
   move: 0
   shiftIntoPlace: 0
   waitUntilFinished: 0
---- !u!114 &605049737
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605048965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 1218
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 1647704569}
-  targetComponentAssemblyName: GameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: GameManager
-  targetMethod: IsObjectClicked
-  targetMethodText: 'IsObjectClicked (ClickableID): Boolean'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      typeFullname: ClickableID
-      intValue: 6
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Boolean
-  showInherited: 0
-  callMode: 0
 --- !u!114 &605049741
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -26441,113 +26530,6 @@ MonoBehaviour:
   hideThisOption:
     booleanRef: {fileID: 0}
     booleanVal: 0
---- !u!114 &605049767
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605048965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 1211
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 1647704569}
-  targetComponentAssemblyName: GameManager, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: GameManager
-  targetMethod: IsObjectClicked
-  targetMethodText: 'IsObjectClicked (ClickableID): Boolean'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      typeFullname: ClickableID
-      intValue: 3
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Boolean
-  showInherited: 0
-  callMode: 0
---- !u!114 &605049768
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605048965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 1210
-  indentLevel: 0
-  description: 
-  targetObject: {fileID: 1699676316}
-  targetComponentAssemblyName: ScreenObjectInfo, Assembly-CSharp, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  targetComponentFullname: UnityEngine.Component[]
-  targetComponentText: ScreenObjectInfo
-  targetMethod: OnObjectClicked
-  targetMethodText: 'OnObjectClicked (ClickableID, Boolean): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      typeFullname: ClickableID
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  - objValue:
-      typeAssemblyname: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      typeFullname: System.Boolean
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
-  saveReturnValue: 0
-  returnValueVariableKey: 
-  returnValueType: System.Void
-  showInherited: 0
-  callMode: 0
 --- !u!114 &605049769
 MonoBehaviour:
   m_ObjectHideFlags: 2

@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 8887ec580da6d4e46a114e53d3a2e35c
+guid: 63d6c8a3ed6f69740ad00cc140cce31b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3658304987898789291
-    second: SelectedText_Night_0
+      213: -6003308226722750560
+    second: Menu_Text_0
   - first:
-      213: 1041880468114716732
-    second: SelectedText_Night_1
+      213: -8254878128516429141
+    second: Menu_Text_1
   - first:
-      213: 495498266698750525
-    second: SelectedText_Night_2
+      213: 6991372482069905613
+    second: Menu_Text_2
   - first:
-      213: -228814574100722262
-    second: SelectedText_Night_3
+      213: -3195010355871821921
+    second: Menu_Text_3
   - first:
-      213: 2752416382778908003
-    second: SelectedText_Night_4
+      213: 890683949342306216
+    second: Menu_Text_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SelectedText_Night_0
+      name: Menu_Text_0
       rect:
         serializedVersion: 2
         x: 0
         y: 259
-        width: 332
-        height: 45
+        width: 333
+        height: 47
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,19 +120,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bad3fb30109e4c230800000000000000
-      internalID: 3658304987898789291
+      spriteID: 0af920589f6ffaca0800000000000000
+      internalID: -6003308226722750560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SelectedText_Night_1
+      name: Menu_Text_1
       rect:
         serializedVersion: 2
         x: 0
         y: 192
-        width: 332
+        width: 333
         height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -141,19 +141,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c38356004c0857e00800000000000000
-      internalID: 1041880468114716732
+      spriteID: baa03ad0418c07d80800000000000000
+      internalID: -8254878128516429141
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SelectedText_Night_2
+      name: Menu_Text_2
       rect:
         serializedVersion: 2
         x: 0
         y: 126
-        width: 332
+        width: 333
         height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -162,19 +162,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3a966d5c0d50e600800000000000000
-      internalID: 495498266698750525
+      spriteID: dc0c7360b38560160800000000000000
+      internalID: 6991372482069905613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SelectedText_Night_3
+      name: Menu_Text_3
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 332
+        width: 333
         height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -183,19 +183,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aad4b4f6b5613dcf0800000000000000
-      internalID: -228814574100722262
+      spriteID: f9fc09c520b09a3d0800000000000000
+      internalID: -3195010355871821921
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SelectedText_Night_4
+      name: Menu_Text_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 332
+        width: 333
         height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -204,8 +204,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36d90810e1c823620800000000000000
-      internalID: 2752416382778908003
+      spriteID: 8afa0b735585c5c00800000000000000
+      internalID: 890683949342306216
       vertices: []
       indices: 
       edges: []

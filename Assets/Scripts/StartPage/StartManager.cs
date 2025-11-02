@@ -10,8 +10,13 @@ using UnityEngine.Playables;
 public class StartManager : MonoBehaviour
 {
     public SpriteRenderer background;
+    public SpriteRenderer logo;
 
-    public Sprite firstRoundBG;
+    // Default is set to Night ver.
+    public Sprite dayBG;
+    public Sprite dayLogo;
+    public Sprite dayButton;
+    public Sprite dayButtonHover;
 
     void Start()
     {
@@ -27,7 +32,7 @@ public class StartManager : MonoBehaviour
             SystemManager.Get().SetMultiRound(true);
 
             gameManager.ResetPlayInfo();
-            SceneManager.LoadScene("FirstDayDorm");
+            SceneManager.LoadScene("FirstDayDormitory");
         }
         else
         {
@@ -55,7 +60,39 @@ public class StartManager : MonoBehaviour
     {
         if (false == SystemManager.Get().IsMultiRound())
         {
-            background.sprite = firstRoundBG;
+            background.sprite = dayBG;
+            logo.sprite = dayLogo;
+        }
+    }
+
+    // Debug
+    public void OnStartDebug(int CharacterIndex) // Naria : 0
+    {
+        if (null != GameManager.Get() && null != SystemManager.Get())
+        {
+            GameManager.Get().ResetPlayInfo();
+            SystemManager.Get().SetMultiRound(true);
+
+            PlayInfo DebugPlayInfo = new PlayInfo();
+            DebugPlayInfo.Reset();
+
+            DebugPlayInfo.playerName = (CharacterIndex == 0)? " ": "Debugging";
+            DebugPlayInfo.characterIndex = CharacterIndex;
+            DebugPlayInfo.dayCount = DebugPlayInfo.characterIndex + 1;
+
+            DebugPlayInfo.bHaveReport = false;
+            DebugPlayInfo.endingMode = 0;
+
+            GameManager.Get().SetPlayInfo(DebugPlayInfo);
+        }
+        
+        if (CharacterIndex == 0)
+        {
+            SceneManager.LoadScene("FirstDayDormitory");
+        }
+        else
+        {
+            SceneManager.LoadScene("Dormitory");
         }
     }
 }
