@@ -93,6 +93,11 @@ public class GameManager : MonoBehaviour
 
     protected void OnSceneLoaded(Scene Scene, LoadSceneMode mode)
     {
+        if (Scene.name == "Start")
+        {
+            return;
+        }
+
         if (null != loadManager)
         {
             loadManager.LoadGameData(); // load game data from saved file
@@ -289,6 +294,7 @@ public class GameManager : MonoBehaviour
     public void ResetPlayInfo()
     {
         currentPlayInfo.Reset();
+        areaMap.Clear();
     }
     public void ResetAfterMinigame()
     {

@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ELocationName
 {
-    ELN_FirstDayDorm,
+    ELN_FirstDayDormitory,
     ELN_Dormitory,
     ELN_DormCorridor,
     ELN_Lobby,
-    ELN_LabCorridor,
+    ELN_LabCorridor, 
     ELN_Storage,
     ELN_CounselRoom,
     ELN_Garden,
@@ -18,9 +19,11 @@ public enum ELocationName
 
 public class MapManager : MonoBehaviour
 {
-    public Dictionary<string, List<ELocationName>> availableLocationMap;
+    public GameObject MapButtonContainer;
 
-    public List<GameObject> GO_locations;
+    private Dictionary<string, List<ELocationName>> availableLocationMap;
+
+    private Dictionary<ELocationName, GameObject> GO_locations;
 
     private void Awake()
     {
@@ -30,7 +33,7 @@ public class MapManager : MonoBehaviour
         fromDormitoryList.Add(ELocationName.ELN_DormCorridor);
 
         List<ELocationName> fromDormCorridorList = new List<ELocationName>();
-        fromDormCorridorList.Add(ELocationName.ELN_FirstDayDorm);
+        fromDormCorridorList.Add(ELocationName.ELN_FirstDayDormitory);
         fromDormCorridorList.Add(ELocationName.ELN_Dormitory);
         fromDormCorridorList.Add(ELocationName.ELN_Lobby);
 
@@ -46,18 +49,19 @@ public class MapManager : MonoBehaviour
         List<ELocationName> fromStorageList = new List<ELocationName>();
         fromLobbyList.Add(ELocationName.ELN_LabCorridor);
 
-        availableLocationMap.Add("MyFirstDorm", fromDormitoryList);
+        availableLocationMap.Add("FirstDayDormitory", fromDormitoryList);
         availableLocationMap.Add("Dormitory", fromDormitoryList);
         availableLocationMap.Add("DormCorridor", fromDormCorridorList);
         availableLocationMap.Add("Lobby", fromLobbyList);
         availableLocationMap.Add("LabCorridor", fromLabCorridorList);
+        availableLocationMap.Add("Storage", fromStorageList);
     }
 
     public void OnSceneLoaded(string inSceneName)
     {
         List<ELocationName> availableLocations;
 
-        foreach (GameObject GO_location in GO_locations)
+        foreach (KeyValuePair<ELocationName, GameObject> GO_location in GO_locations)
         {
             // GO_location lock all locations
         }

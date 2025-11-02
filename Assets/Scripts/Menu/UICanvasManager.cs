@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Fungus;
+using UnityEngine.Rendering;
 
 public class UICanvasManager : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class UICanvasManager : MonoBehaviour
             case "CounselRoom":
                 locationName = "상담실";
                 break;
-            case "FirstDayDorm":
+            case "FirstDayDormitory":
             case "Dormitory":
                 locationName = "기숙사";
                 break;
@@ -102,17 +103,28 @@ public class UICanvasManager : MonoBehaviour
         AlterActive(GO_mapButton);
     }
 
-    public void TransferScene(string inSceneName)
+    public void TransferScene(string SceneName)
     {
         if (true == GameManager.Get().IsAfterCounsel())
         {
-            string sceneName_AC = inSceneName + "_AC";
+            string sceneName_AC = SceneName + "_AC";
 
             Scene scene = SceneManager.GetSceneByName(sceneName_AC);
             if (scene != null)
             {
                 if (-1 != scene.buildIndex)
-                    inSceneName = sceneName_AC;
+                    SceneName = sceneName_AC;
+            }
+        }
+
+        // NEED EDIT! need to incorporate with MapManager.
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (null != currentScene)
+        {
+            if ((currentScene.name == SceneName) ||
+                (SceneName.Contains("Dormitory") && currentScene.name.Contains("Dormitory")) )
+            {
+                return;
             }
         }
 
@@ -124,7 +136,7 @@ public class UICanvasManager : MonoBehaviour
             Fungus.Flowchart flowchart = GO_flowchart.GetComponent<Fungus.Flowchart>();
             if (null != flowchart)
             {
-                flowchart.SetStringVariable("NextScene", inSceneName);
+                flowchart.SetStringVariable("NextScene", SceneName);
 
                 flowchart.SendFungusMessage("ToNextScene");
             }
@@ -139,7 +151,7 @@ public class UICanvasManager : MonoBehaviour
             case "CounselRoom":
             case "PatrickLab":
             case "AndroidLab":
-            case "FirstDayDorm":
+            case "FirstDayDormitory":
             case "DayEnd":
                 return false;
         }

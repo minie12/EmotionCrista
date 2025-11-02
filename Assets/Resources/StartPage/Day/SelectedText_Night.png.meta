@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8887ec580da6d4e46a114e53d3a2e35c
+guid: 5c9dc0db847627a4797e17cf5d7e66d3
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -111,8 +111,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 259
-        width: 332
-        height: 45
+        width: 333
+        height: 47
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,10 +132,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 192
-        width: 332
+        width: 333
         height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -153,10 +153,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 126
-        width: 332
+        width: 333
         height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -174,10 +174,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 332
+        width: 333
         height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -195,10 +195,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 332
+        width: 333
         height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

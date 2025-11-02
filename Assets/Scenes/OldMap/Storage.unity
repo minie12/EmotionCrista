@@ -4000,7 +4000,7 @@ MonoBehaviour:
       typeAssemblyname: ClickableID, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       typeFullname: ClickableID
-      intValue: 14
+      intValue: 13
       boolValue: 0
       floatValue: 0
       stringValue: 
@@ -11541,8 +11541,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1135260811}
-  selectedCommands: []
+  - {fileID: 1135260831}
+  selectedCommands:
+  - {fileID: 1135260830}
   variables:
   - {fileID: 1135261218}
   - {fileID: 1135261217}
