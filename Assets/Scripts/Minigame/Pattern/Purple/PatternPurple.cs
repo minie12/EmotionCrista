@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class PatternPurple : PatternManager
 {
@@ -132,7 +132,7 @@ public class PatternPurple : PatternManager
                 break;
             case 1:
                 Destroy(flashLight);
-                globalLightObj.GetComponent<Light2D>().intensity = 1f;
+                globalLightObj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().intensity = 1f;
 
                 // all eye obj delete
                 foreach (KeyValuePair<string, GameObject> entry in eyeObjs)
@@ -438,7 +438,7 @@ public class PatternPurple : PatternManager
     void PurpleGimmick1()
     {
         // set light
-        globalLightObj.GetComponent<Light2D>().intensity = 0.2f;
+        globalLightObj.GetComponent<UnityEngine.Rendering.Universal.Light2D>().intensity = 0.2f;
         flashLight = Instantiate(lightPrefab, UICanvas.transform);
 
         // create init eyes
