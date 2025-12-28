@@ -39,7 +39,15 @@ public class StoryDialogReader : MonoBehaviour
 
     static void JsonLoad(string loadID)
     {
-        string path = Path.Combine(Application.streamingAssetsPath, "JSON/FullDialog.json");
+        string path;
+        if (SystemManager.Get().IsMultiRound())
+        {
+            path = Path.Combine(Application.streamingAssetsPath, "JSON/FullDialog_R2.json"); 
+        }
+        else
+        {
+            path = Path.Combine(Application.streamingAssetsPath, "JSON/FullDialog.json");
+        }
 
         if (!File.Exists(path))
         {
